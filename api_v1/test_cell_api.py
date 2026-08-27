@@ -72,6 +72,13 @@ class CaptureCopyTests(unittest.TestCase):
             )
 
 
+class ReadRailDefaultTests(unittest.TestCase):
+    def test_all_read_paths_share_half_volt_default(self) -> None:
+        config = ScanDebugConfig()
+
+        self.assertEqual(config.read_rails, RailVoltages(0.5, 2.5))
+
+
 class SaleaeScriptUploadTests(unittest.TestCase):
     def test_large_script_is_uploaded_in_windows_safe_chunks(self) -> None:
         with TemporaryDirectory() as temp_dir:

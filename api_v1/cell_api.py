@@ -111,7 +111,7 @@ class SweepConfig:
 @dataclass
 class ScanDebugConfig:
     run_dir: Path = ROOT / "api_v1/runs/default"
-    read_rails: RailVoltages = field(default_factory=lambda: RailVoltages(0.9, 2.5))
+    read_rails: RailVoltages = field(default_factory=lambda: RailVoltages(0.5, 2.5))
     set_sweep: SweepConfig = field(
         default_factory=lambda: SweepConfig.from_ranges(
             vcc_set_v=(1.6, 2.0, 2.3, 2.4, 2.5, 2.8, 3.0),
