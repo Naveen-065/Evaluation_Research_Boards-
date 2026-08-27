@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import csv
+import hashlib
 import json
 import math
 import os
@@ -1064,42 +1065,56 @@ exit
             target_path.write_text(text)
 
     def _write_remote_saleae_text(self, filename: str, text: str) -> None:
-        encoded = base64.b64encode(text.encode()).decode()
-        # Keep each ssh invocation comfortably below Windows' CreateProcess
-        # command-line limit.  The burst script is large enough that embedding
-        # the complete base64 payload in one ssh command raises WinError 206.
-        chunk_chars = 8_000
-        upload_id = uuid.uuid4().hex
-        b64_name = f".{filename}.{upload_id}.b64tmp"
-        upload_name = f".{filename}.{upload_id}.upload"
-        b64_q = self._sh_quote(b64_name)
-        upload_q = self._sh_quote(upload_name)
+        if not self.config.saleae_host:
+            raise RuntimeError("remote Saleae upload requires saleae_host")
+        data = text.encode()
+        digest = hashlib.sha256(data).hexdigest()
         filename_q = self._sh_quote(filename)
-        last_output = ""
-        for attempt in range(1, 4):
-            proc = self._run_saleae(f": > {b64_q}", timeout_s=60)
-            if proc.returncode == 0:
-                for offset in range(0, len(encoded), chunk_chars):
-                    chunk = encoded[offset:offset + chunk_chars]
-                    proc = self._run_saleae(
-                        f"printf %s {self._sh_quote(chunk)} >> {b64_q}",
-                        timeout_s=60,
-                    )
-                    if proc.returncode != 0:
-                        break
-            if proc.returncode == 0:
-                proc = self._run_saleae(
-                    f"base64 -d {b64_q} > {upload_q} && "
-                    f"mv {upload_q} {filename_q} && rm -f {b64_q}",
-                    timeout_s=60,
-                )
-            if proc.returncode == 0:
-                return
-            last_output = proc.stdout or f"remote upload failed with exit code {proc.returncode}"
-            self._run_saleae(f"rm -f {b64_q} {upload_q}", timeout_s=60)
-            if attempt < 3:
-                time.sleep(2.0)
-        raise RuntimeError(last_output)
+        digest_q = self._sh_quote(digest)
+        check = self._run_saleae(
+            f"test -f {filename_q} && "
+            f"test \"$(sha256sum {filename_q} | cut -d ' ' -f 1)\" = {digest_q}",
+            timeout_s=30,
+        )
+        if check.returncode == 0:
+            return
+
+        # Transfer the script as a file rather than embedding it in an SSH
+        # command. Large command payloads are unreliable on Windows and can
+        # leave an otherwise healthy SSH session waiting until its timeout.
+        upload_id = uuid.uuid4().hex
+        upload_name = f".{filename}.{upload_id}.upload"
+        upload_q = self._sh_quote(upload_name)
+        local_upload = self.config.run_dir / upload_name
+        local_upload.write_bytes(data)
+        remote_path = f"{self.config.saleae_dir.rstrip('/')}/{upload_name}"
+        errors: list[str] = []
+        transferred = False
+        try:
+            for tool_name, tool_args in (("scp", []), ("rsync", ["-a"])):
+                tool = shutil.which(tool_name)
+                if not tool:
+                    continue
+                target = f"{self.config.saleae_host}:{remote_path}"
+                proc = self.runner.run([tool, *tool_args, str(local_upload), target], timeout_s=180)
+                if proc.returncode == 0:
+                    transferred = True
+                    break
+                errors.append(f"{tool_name}: {proc.stdout.strip()}")
+            if not transferred:
+                detail = "; ".join(errors) or "scp and rsync were not found on PATH"
+                raise RuntimeError(f"Saleae script upload failed: {detail}")
+            proc = self._run_saleae(
+                f"chmod 755 {upload_q} && mv -f {upload_q} {filename_q}",
+                timeout_s=60,
+            )
+            if proc.returncode != 0:
+                raise RuntimeError(proc.stdout or f"remote install failed with exit code {proc.returncode}")
+        except Exception:
+            self._run_saleae(f"rm -f {upload_q}", timeout_s=30)
+            raise
+        finally:
+            local_upload.unlink(missing_ok=True)
 
     def _run_saleae(self, command: str, timeout_s: int | None = None) -> subprocess.CompletedProcess[str]:
         full_command = f"cd {self.config.saleae_dir} && {command}"

@@ -1,4 +1,3 @@
-import base64
 import subprocess
 import unittest
 from pathlib import Path
@@ -80,27 +79,41 @@ class ReadRailDefaultTests(unittest.TestCase):
 
 
 class SaleaeScriptUploadTests(unittest.TestCase):
-    def test_large_script_is_uploaded_in_windows_safe_chunks(self) -> None:
+    def test_matching_remote_script_skips_transfer(self) -> None:
         with TemporaryDirectory() as temp_dir:
-            api = ScanDebugCellAPI(ScanDebugConfig(run_dir=Path(temp_dir), dry_run=True))
-            commands: list[str] = []
+            api = ScanDebugCellAPI(ScanDebugConfig(run_dir=Path(temp_dir), dry_run=False))
+            api.runner = Mock()
+            api._run_saleae = Mock(return_value=subprocess.CompletedProcess([], 0, "", ""))  # type: ignore[method-assign]
 
-            def run_saleae(command: str, timeout_s: int | None = None) -> subprocess.CompletedProcess[str]:
-                commands.append(command)
-                return subprocess.CompletedProcess(command, 0, "", "")
+            api._write_remote_saleae_text("run_full_array_burst_capture.py", "script\n")
 
-            api._run_saleae = run_saleae  # type: ignore[method-assign]
-            text = "large burst script\n" * 5_000
+            api.runner.run.assert_not_called()
+            self.assertIn("sha256sum", api._run_saleae.call_args.args[0])
 
-            api._write_remote_saleae_text("run_full_array_burst_capture.py", text)
+    def test_changed_script_uses_scp_then_atomic_remote_install(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            api = ScanDebugCellAPI(ScanDebugConfig(run_dir=Path(temp_dir), dry_run=False))
+            api._run_saleae = Mock(  # type: ignore[method-assign]
+                side_effect=[
+                    subprocess.CompletedProcess([], 1, "", ""),
+                    subprocess.CompletedProcess([], 0, "", ""),
+                ]
+            )
+            api.runner = Mock()
 
-            append_commands = [command for command in commands if command.startswith("printf %s ")]
-            chunks = [command.split("printf %s ", 1)[1].split(" >> ", 1)[0].strip("'") for command in append_commands]
-            self.assertEqual("".join(chunks), base64.b64encode(text.encode()).decode())
-            self.assertLess(max(map(len, commands)), 8_500)
-            self.assertTrue(commands[0].startswith(": > "))
-            self.assertIn("base64 -d", commands[-1])
-            self.assertIn("&& mv ", commands[-1])
+            def transfer(cmd: list[str], *, timeout_s: int | None = None) -> subprocess.CompletedProcess[str]:
+                self.assertEqual(Path(cmd[-2]).read_bytes(), b"large script\n")
+                return subprocess.CompletedProcess(cmd, 0, "", "")
+
+            api.runner.run.side_effect = transfer
+            with patch("cell_api.shutil.which", side_effect=lambda name: "scp.exe" if name == "scp" else None):
+                api._write_remote_saleae_text("run_full_array_burst_capture.py", "large script\n")
+
+            transfer_cmd = api.runner.run.call_args.args[0]
+            self.assertEqual(transfer_cmd[0], "scp.exe")
+            self.assertTrue(transfer_cmd[-1].startswith("ubuntu-24-04@100.98.132.51:/home/ubuntu-24-04/saleae-api/"))
+            self.assertIn("chmod 755", api._run_saleae.call_args.args[0])
+            self.assertIn("mv -f", api._run_saleae.call_args.args[0])
 
 
 class HardwareQueueTests(unittest.TestCase):
