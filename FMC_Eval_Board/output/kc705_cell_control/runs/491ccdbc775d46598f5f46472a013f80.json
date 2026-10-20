@@ -1,0 +1,20 @@
+{
+  "id": "491ccdbc775d46598f5f46472a013f80",
+  "parameters": {
+    "mode": "check",
+    "row": 0,
+    "col": 0,
+    "set_v": 2.3,
+    "set_wl": 1.3,
+    "reset_v": 2.7,
+    "reset_wl": 1.5,
+    "hold": 2400,
+    "cycles": 1,
+    "dry_run": false
+  },
+  "state": "failed",
+  "started": "2026-10-20T07:14:03.810644+00:00",
+  "results": [],
+  "error": "Hardware process exited 1",
+  "finished": "2026-10-20T07:15:08.917664+00:00"
+}

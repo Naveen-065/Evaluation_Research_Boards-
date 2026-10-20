@@ -1,0 +1,12 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: normalized dac81416 refcmp rc sensitivity model
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout src                                          0
+stdout refcmp                                       0
+stdout vdrive#branch                                0
+stdout No. of Data Rows : 4041

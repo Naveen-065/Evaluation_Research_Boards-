@@ -1,0 +1,139 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 11:57:17 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source C:/Users/fpga.DESKTOP-CVDV1JP/kc705_scan_read/program_bringup.tcl
+# set here [file dirname [file normalize [info script]]]
+# set bit [file join $here build kc705_adc_capture.bit]
+# set ltx [file join $here build kc705_adc_capture.ltx]
+# if {![file exists $bit] || ![file exists $ltx]} {
+#     error "Missing build/kc705_adc_capture.bit or .ltx; run build_adc_test.tcl first"
+# }
+# open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 614.426 ; gain = 270.492
+# connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 620.633 ; gain = 6.207
+# set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+# if {[llength $target] != 1} { error "Known KC705 JTAG cable 00001f14c98801 not found" }
+# current_hw_target $target
+# open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+# if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+# current_hw_device $dev
+# if {$argv eq {STOP_OLD_ADC}} {
+#     set old_ltx {C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_clockdiag/build/kc705_adc_clockdiag.ltx}
+#     set_property PROBES.FILE $old_ltx $dev
+#     refresh_hw_device $dev
+#     set old_vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_run_vio"}]
+#     if {[llength $old_vio] != 1} { error "Existing run-control VIO missing" }
+#     set old_run [get_hw_probes -quiet run_enable -of_objects $old_vio -filter {TYPE == vio_output}]
+#     if {[llength $old_run] != 1} { error "Existing ADC-enable probe missing" }
+#     set_property OUTPUT_VALUE 0 $old_run
+#     commit_hw_vio $old_run
+#     after 10
+#     refresh_hw_vio $old_vio
+#     foreach name {run_enable_2 adc_clock_running adc_reset_n config_done} {
+#         set p [get_hw_probes -quiet $name -of_objects $old_vio -filter {TYPE == vio_input}]
+#         if {[llength $p] != 1 || [get_property INPUT_VALUE $p] != 0} { error "ADC did not stop before reprogramming: $name" }
+#     }
+#     puts "PREVIOUS_ADC_STOPPED_BEFORE_REPROGRAMMING"
+# } elseif {$argv ne {}} {
+#     error "Unexpected programming option"
+# }
+# set_property PROGRAM.FILE $bit $dev
+# set_property PROBES.FILE $ltx $dev
+# set_property FULL_PROBES.FILE $ltx $dev
+# program_hw_devices $dev
+INFO: [Labtools 27-3164] End of startup status: HIGH
+program_hw_devices: Time (s): cpu = 00:00:32 ; elapsed = 00:00:32 . Memory (MB): peak = 621.852 ; gain = 0.000
+# refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+# if {[get_property REGISTER.CONFIG_STATUS.BIT13_DONE_INTERNAL_SIGNAL_STATUS $dev] != 1} { error "Internal DONE is low" }
+# if {[get_property REGISTER.CONFIG_STATUS.BIT14_DONE_PIN $dev] != 1} { error "DONE pin is low" }
+# if {[get_property REGISTER.CONFIG_STATUS.BIT04_END_OF_STARTUP_(EOS)_STATUS $dev] != 1} { error "EOS is low" }
+# set vios [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_run_vio"}]
+# if {[llength $vios] != 1} { error "Expected exactly one run-control VIO" }
+# set vio [lindex $vios 0]
+# set vio_probes [get_hw_probes -quiet -of_objects $vio]
+# proc require_named_probe {probes name type} {
+#     set matches {}
+#     foreach probe $probes {
+#         if {$probe eq $name && [get_property TYPE $probe] eq $type} {
+#             lappend matches $probe
+#         }
+#     }
+#     if {[llength $matches] != 1} { error "Expected one $type probe named $name" }
+#     return [lindex $matches 0]
+# }
+# proc vio_input_value {probes name} {
+#     set probe [require_named_probe $probes $name vio_input]
+#     return [expr 0x[get_property INPUT_VALUE $probe]]
+# }
+# set run_probe [require_named_probe $vio_probes run_enable vio_output]
+# set dac_probe [require_named_probe $vio_probes dac_enable vio_output]
+# set_property OUTPUT_VALUE 0 $run_probe
+# set_property OUTPUT_VALUE 0 $dac_probe
+# commit_hw_vio [list $run_probe $dac_probe]
+# after 10
+# refresh_hw_vio $vio
+# foreach {name expected} {
+#     run_enable_2 0 adc_clock_running 0 adc_reset_n 0 config_done 0
+#     sequence_index 0 control_state 0 spi_ncs 1 spi_sclk 0
+#     dac_enable_2 0 dac_reset_n 0 dac_ready 0 dac_frame_index 0
+#     dac_ncs 1 dac_sclk 0
+# } {
+#     set actual [vio_input_value $vio_probes $name]
+#     if {$actual != $expected} {
+#         error "ADC controller did not enter safe state: $name=$actual, expected $expected"
+#     }
+# }
+# puts "KC705_CARAVEL_BRINGUP_PROGRAMMED_ADC_DAC_SAFE"
+KC705_CARAVEL_BRINGUP_PROGRAMMED_ADC_DAC_SAFE
+# puts "SAFE_STATUS: ADC and DAC enables=0; clocks low; resets low; chip selects high"
+SAFE_STATUS: ADC and DAC enables=0; clocks low; resets low; chip selects high
+# puts "ADC and DAC remain in reset. No daughtercard rail is commanded."
+ADC and DAC remain in reset. No daughtercard rail is commanded.
+# puts "Do not enable the DAC until the U1 REF/REFCMP network has been corrected and checked."
+Do not enable the DAC until the U1 REF/REFCMP network has been corrected and checked.
+# puts "This bench profile configures ADC internal 94-ohm termination before starting conversions."
+This bench profile configures ADC internal 94-ohm termination before starting conversions.
+# close_hw_target
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# disconnect_hw_server
+# close_hw_manager
+# exit
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 11:58:13 2026...
+

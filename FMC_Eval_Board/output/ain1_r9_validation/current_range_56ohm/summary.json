@@ -1,0 +1,234 @@
+{
+  "shunt_ohms": 56.0,
+  "source_V_assumed": 0.529,
+  "U10_supplies_V": [
+    12,
+    -3
+  ],
+  "U10_output_common_mode_V": 1.5,
+  "U10_clamp_rails_V": [
+    0,
+    3.3
+  ],
+  "ADC_model": "Ideal static 12-bit, 2 Vpp differential, offset-binary; no ADC transistor/noise/kickback model",
+  "current_sweep_A": [
+    0,
+    0.0032,
+    1e-06
+  ],
+  "results": [
+    {
+      "case": "nominal_gain7",
+      "nominal_gain": 7.0,
+      "R31_ohms_assumed": 1000.0,
+      "ngspice_fitted_gain": 7.000321816897402,
+      "ngspice_zero_current_output_offset_V": 0.0003704992819291153,
+      "nominal_ADC_positive_full_scale_mA": 2.5510204081632653,
+      "ngspice_ADC_plus1V_crossing_mA": 2.550079966224244,
+      "current_per_ADC_count_uA": 1.2456154336734695,
+      "shunt_drop_at_nominal_full_scale_mV": 142.85714285714286,
+      "load_voltage_at_nominal_full_scale_V": 0.3861428571428572,
+      "shunt_power_at_nominal_full_scale_mW": 0.3644314868804664,
+      "capture_IS_NOT_hardware_full_scale_test": true
+    },
+    {
+      "case": "illustrative_gain6p25",
+      "nominal_gain": 6.25,
+      "R31_ohms_assumed": 1142.857142857143,
+      "ngspice_fitted_gain": 6.250284689645544,
+      "ngspice_zero_current_output_offset_V": 0.0003630189267689321,
+      "nominal_ADC_positive_full_scale_mA": 2.857142857142857,
+      "ngspice_ADC_plus1V_crossing_mA": 2.8561122082585118,
+      "current_per_ADC_count_uA": 1.3950892857142858,
+      "shunt_drop_at_nominal_full_scale_mV": 160.0,
+      "load_voltage_at_nominal_full_scale_V": 0.369,
+      "shunt_power_at_nominal_full_scale_mW": 0.45714285714285713,
+      "capture_IS_NOT_hardware_full_scale_test": true
+    }
+  ],
+  "examples": [
+    {
+      "current_uA": 0,
+      "shunt_drop_mV": 0.0,
+      "ideal_U10_signal_mV": 0.0,
+      "ngspice_ADC_differential_mV": 0.3704992819291153,
+      "ideal_offset_free_ADC_code_unclipped": 2048.0,
+      "ideal_offset_free_ADC_code_clipped": 2048,
+      "VCC_READ_V": 0.529,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 1,
+      "shunt_drop_mV": 0.056,
+      "ideal_U10_signal_mV": 0.392,
+      "ngspice_ADC_differential_mV": 0.714717446641977,
+      "ideal_offset_free_ADC_code_unclipped": 2048.802816,
+      "ideal_offset_free_ADC_code_clipped": 2049,
+      "VCC_READ_V": 0.5289440000000001,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 5,
+      "shunt_drop_mV": 0.27999999999999997,
+      "ideal_U10_signal_mV": 1.96,
+      "ngspice_ADC_differential_mV": 2.2827786503394343,
+      "ideal_offset_free_ADC_code_unclipped": 2052.01408,
+      "ideal_offset_free_ADC_code_clipped": 2052,
+      "VCC_READ_V": 0.5287200000000001,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 10,
+      "shunt_drop_mV": 0.5599999999999999,
+      "ideal_U10_signal_mV": 3.92,
+      "ngspice_ADC_differential_mV": 4.24287341548335,
+      "ideal_offset_free_ADC_code_unclipped": 2056.02816,
+      "ideal_offset_free_ADC_code_clipped": 2056,
+      "VCC_READ_V": 0.52844,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 50,
+      "shunt_drop_mV": 2.7999999999999994,
+      "ideal_U10_signal_mV": 19.599999999999994,
+      "ngspice_ADC_differential_mV": 19.92360438269225,
+      "ideal_offset_free_ADC_code_unclipped": 2088.1408,
+      "ideal_offset_free_ADC_code_clipped": 2088,
+      "VCC_READ_V": 0.5262,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 100,
+      "shunt_drop_mV": 5.599999999999999,
+      "ideal_U10_signal_mV": 39.19999999999999,
+      "ngspice_ADC_differential_mV": 39.52448199214275,
+      "ideal_offset_free_ADC_code_unclipped": 2128.2816,
+      "ideal_offset_free_ADC_code_clipped": 2128,
+      "VCC_READ_V": 0.5234,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 143,
+      "shunt_drop_mV": 8.008000000000001,
+      "ideal_U10_signal_mV": 56.05600000000001,
+      "ngspice_ADC_differential_mV": 56.38125517799697,
+      "ideal_offset_free_ADC_code_unclipped": 2162.802688,
+      "ideal_offset_free_ADC_code_clipped": 2163,
+      "VCC_READ_V": 0.520992,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 500,
+      "shunt_drop_mV": 28.0,
+      "ideal_U10_signal_mV": 196.0,
+      "ngspice_ADC_differential_mV": 196.33169260388183,
+      "ideal_offset_free_ADC_code_unclipped": 2449.408,
+      "ideal_offset_free_ADC_code_clipped": 2449,
+      "VCC_READ_V": 0.501,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 1000,
+      "shunt_drop_mV": 56.0,
+      "ideal_U10_signal_mV": 392.0,
+      "ngspice_ADC_differential_mV": 392.34071776315636,
+      "ideal_offset_free_ADC_code_unclipped": 2850.816,
+      "ideal_offset_free_ADC_code_clipped": 2851,
+      "VCC_READ_V": 0.47300000000000003,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 2000,
+      "shunt_drop_mV": 112.0,
+      "ideal_U10_signal_mV": 784.0,
+      "ngspice_ADC_differential_mV": 784.3587219989314,
+      "ideal_offset_free_ADC_code_unclipped": 3653.632,
+      "ideal_offset_free_ADC_code_clipped": 3654,
+      "VCC_READ_V": 0.41700000000000004,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 2300,
+      "shunt_drop_mV": 128.8,
+      "ideal_U10_signal_mV": 901.5999999999999,
+      "ngspice_ADC_differential_mV": 901.964133751731,
+      "ideal_offset_free_ADC_code_unclipped": 3894.4768,
+      "ideal_offset_free_ADC_code_clipped": 3894,
+      "VCC_READ_V": 0.4002,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 2500,
+      "shunt_drop_mV": 140.0,
+      "ideal_U10_signal_mV": 980.0000000000001,
+      "ngspice_ADC_differential_mV": 980.3677460291207,
+      "ideal_offset_free_ADC_code_unclipped": 4055.04,
+      "ideal_offset_free_ADC_code_clipped": 4055,
+      "VCC_READ_V": 0.389,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 2551,
+      "shunt_drop_mV": 142.856,
+      "ideal_U10_signal_mV": 999.9919999999998,
+      "ngspice_ADC_differential_mV": 1000.3606567132737,
+      "ideal_offset_free_ADC_code_unclipped": 4095.9836159999995,
+      "ideal_offset_free_ADC_code_clipped": 4095,
+      "VCC_READ_V": 0.38614400000000004,
+      "outside_nominal_ADC_span": false
+    },
+    {
+      "current_uA": 3000,
+      "shunt_drop_mV": 168.0,
+      "ideal_U10_signal_mV": 1176.0000000000002,
+      "ngspice_ADC_differential_mV": 1176.3767706984725,
+      "ideal_offset_free_ADC_code_unclipped": 4456.448,
+      "ideal_offset_free_ADC_code_clipped": 4095,
+      "VCC_READ_V": 0.361,
+      "outside_nominal_ADC_span": true
+    }
+  ],
+  "nominal_gain7_headroom_target_mA": 2.3,
+  "existing_capture_noise": {
+    "file": "ads5282_analog_20261019_212705.csv",
+    "samples": 205,
+    "sample_rate_hz": 10000000.0,
+    "stddev_counts": 1.6524997738810672,
+    "equivalent_RMS_current_noise_uA_assuming_gain7": 2.058379222488176,
+    "three_sigma_current_scale_uA": 6.175137667464527,
+    "is_guaranteed_minimum_measurable_current": false,
+    "note": "Short hardware capture noise estimate, not an ngspice noise result or a zero-offset calibration."
+  },
+  "ADC_datasheet_offset_equivalent_current_uA": {
+    "typical_0p2_percent_FS": 10.204081632653061,
+    "max_abs_1p25_percent_FS": 63.77551020408164,
+    "note": "ADC-only offset before calibration; not total system accuracy."
+  },
+  "shunt_voltage_budget_examples": [
+    {
+      "allowed_drop_mV": 10,
+      "maximum_current_uA": 178.57142857142858
+    },
+    {
+      "allowed_drop_mV": 50,
+      "maximum_current_uA": 892.8571428571429
+    },
+    {
+      "allowed_drop_mV": 100,
+      "maximum_current_uA": 1785.7142857142858
+    }
+  ],
+  "limitations": [
+    "R31 fitted value and exact gain have not been independently calibrated; gain6.25 is sensitivity analysis only.",
+    "This is a DC sweep. 10 MSPS sampling does not establish flat 5 MHz current bandwidth or dynamic settling.",
+    "DAC is an ideal source here; its load regulation, output-current limits and device-under-test supply requirements may impose lower usable currents.",
+    "ADC reaches its span boundary before the INA851 model clips in this sweep; no damage threshold is inferred.",
+    "Only forward DAC-to-load current is simulated; reverse-current operation of the physical DAC is not validated.",
+    "Component tolerances, reference errors, offset drift and noise require calibration and hardware validation."
+  ],
+  "sources": [
+    "https://www.ti.com/lit/ds/symlink/ina851.pdf",
+    "https://www.ti.com/product/ADS5282",
+    "https://www.ti.com/lit/ds/symlink/ads5282.pdf"
+  ]
+}

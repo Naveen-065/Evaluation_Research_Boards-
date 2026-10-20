@@ -1,0 +1,37 @@
+PASS actual manifest passes complete store script (None)
+PASS exactly one STORE_DEFAULT_ALL with PEC0x2a
+PASS controller sees2s quiet interval immediately after store
+PASS 104 exact settings verified before store
+PASS 104 exact settings verified after store
+PASS log distinguishes ACK/postcheck from power-cycle persistence
+PASS no restore, voltage, operation, faultclear, or reset command
+PASS no truncated identity read
+PASS missing completion marker rejected before connection
+PASS duplicate completion marker rejected before connection
+PASS duplicate verified entry rejected before connection
+PASS missing verified entry rejected before connection
+PASS changed other rail manifest rejected before connection
+PASS wrong target voltage rejected before connection
+PASS wrong verified register type rejected before connection
+PASS wrong baseline identity rejected before connection
+PASS wrong baseline phase rejected before connection
+PASS wrong baseline address rejected before connection
+PASS existing attempt log blocks blind rerun before connection
+PASS bad_pec blocks store
+PASS bad_phase blocks store
+PASS nonzero status0x79 on other rail blocks store
+PASS nonzero status0x7a on other rail blocks store
+PASS nonzero status0x7b on other rail blocks store
+PASS nonzero status0x7c on other rail blocks store
+PASS nonzero status0x7d on other rail blocks store
+PASS nonzero status0x7e on other rail blocks store
+PASS nonzero status0x80 on other rail blocks store
+PASS one-LSB setting mismatch on other rail blocks store
+PASS bad VADJ telemetry blocks store
+PASS store_nack fails without store retry
+PASS store_nack retained in attempt log without false success
+PASS post_mismatch fails without store retry
+PASS post_mismatch retained in attempt log without false success
+PASS post_fault fails without store retry
+PASS post_fault retained in attempt log without false success
+ALL 36 OFFLINE STORE TESTS PASSED

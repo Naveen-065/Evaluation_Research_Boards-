@@ -1,0 +1,289 @@
+{
+  "assumptions": {
+    "source_V": 0.539,
+    "load_ohms": 3300,
+    "caravel_installed": false,
+    "ADC_differential_full_scale_Vpp": 2,
+    "ADC_bits": 12,
+    "R31_actual_fitted_value_confirmed": false
+  },
+  "options": [
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "load_current_uA": 163.31007401976083,
+      "shunt_drop_mV": 0.0767557347892876,
+      "load_V": 0.5389232442652108,
+      "fractional_source_voltage_drop": 0.0001424039606480289,
+      "ADC_signal_mV_ideal": 0.5372901435250133,
+      "ADC_increment_counts_ideal": 1.100370213939227,
+      "ADC_increment_counts_ngspice": 1.003458853592747,
+      "current_uA_per_count_ideal": 148.41375379939208,
+      "ideal_ADC_1V_limit_current_mA": 303.951367781155,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "AMP1_P_V": 1.5028744690122513,
+          "AMP1_N_V": 1.5025039380876315,
+          "ADC_differential_V": 0.0003705309246198052,
+          "ideal_ADC_code_of_model_output": 2048.7588473336214
+        },
+        "load_3k3": {
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "AMP1_P_V": 1.5031194526399043,
+          "AMP1_N_V": 1.5022589515719287,
+          "ADC_differential_V": 0.0008605010679756386,
+          "ideal_ADC_code_of_model_output": 2049.762306187214
+        }
+      }
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 100,
+      "gain": 61.0,
+      "load_current_uA": 163.31007401976083,
+      "shunt_drop_mV": 0.0767557347892876,
+      "load_V": 0.5389232442652108,
+      "fractional_source_voltage_drop": 0.0001424039606480289,
+      "ADC_signal_mV_ideal": 4.682099822146543,
+      "ADC_increment_counts_ideal": 9.58894043575612,
+      "ADC_increment_counts_ngspice": 9.589396349298568,
+      "current_uA_per_count_ideal": 17.031086501569586,
+      "ideal_ADC_1V_limit_current_mA": 34.87966515521451,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "AMP1_P_V": 1.5031207976609096,
+          "AMP1_N_V": 1.5022576140740207,
+          "ADC_differential_V": 0.0008631835868888604,
+          "ideal_ADC_code_of_model_output": 2049.7677999859484
+        },
+        "load_3k3": {
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "AMP1_P_V": 1.505461955104969,
+          "AMP1_N_V": 1.4999164490818993,
+          "ADC_differential_V": 0.005545506023069802,
+          "ideal_ADC_code_of_model_output": 2059.357196335247
+        }
+      }
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 60.4,
+      "gain": 100.33774834437087,
+      "load_current_uA": 163.31007401976083,
+      "shunt_drop_mV": 0.0767557347892876,
+      "load_V": 0.5389232442652108,
+      "fractional_source_voltage_drop": 0.0001424039606480289,
+      "ADC_signal_mV_ideal": 7.701497601274811,
+      "ADC_increment_counts_ideal": 15.772667087410813,
+      "ADC_increment_counts_ngspice": 15.773388684946895,
+      "current_uA_per_count_ideal": 10.353992328292353,
+      "ideal_ADC_1V_limit_current_mA": 21.20497628834274,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "AMP1_P_V": 1.5033174839865282,
+          "AMP1_N_V": 1.5020609277568813,
+          "ADC_differential_V": 0.0012565562296469324,
+          "ideal_ADC_code_of_model_output": 2050.573427158317
+        },
+        "load_3k3": {
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "AMP1_P_V": 1.5071684051712642,
+          "AMP1_N_V": 1.4982099989977955,
+          "ADC_differential_V": 0.008958406173468658,
+          "ideal_ADC_code_of_model_output": 2066.346815843264
+        }
+      }
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 6.04,
+      "gain": 994.3774834437086,
+      "load_current_uA": 163.31007401976083,
+      "shunt_drop_mV": 0.0767557347892876,
+      "load_V": 0.5389232442652108,
+      "fractional_source_voltage_drop": 0.0001424039606480289,
+      "ADC_signal_mV_ideal": 76.3241743996445,
+      "ADC_increment_counts_ideal": 156.31190917047195,
+      "ADC_increment_counts_ngspice": 156.31855663792476,
+      "current_uA_per_count_ideal": 1.0447705161201555,
+      "ideal_ADC_1V_limit_current_mA": 2.1396900170140785,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "AMP1_P_V": 1.5077874962060158,
+          "AMP1_N_V": 1.4975909154839306,
+          "ADC_differential_V": 0.01019658072208518,
+          "ideal_ADC_code_of_model_output": 2068.8825973188304
+        },
+        "load_3k3": {
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "AMP1_P_V": 1.5459512023730377,
+          "AMP1_N_V": 1.4594272014175909,
+          "ADC_differential_V": 0.08652400095544688,
+          "ideal_ADC_code_of_model_output": 2225.201153956755
+        }
+      }
+    },
+    {
+      "R9_ohms": 10,
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "load_current_uA": 162.83987915407855,
+      "shunt_drop_mV": 1.6283987915407854,
+      "load_V": 0.5373716012084592,
+      "fractional_source_voltage_drop": 0.0030211480362537764,
+      "ADC_signal_mV_ideal": 11.398791540785497,
+      "ADC_increment_counts_ideal": 23.3447250755287,
+      "ADC_increment_counts_ngspice": 23.248866029980036,
+      "current_uA_per_count_ideal": 6.975446428571429,
+      "ideal_ADC_1V_limit_current_mA": 14.285714285714286,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000001158981,
+          "shunt_drop_V": -1.1589806891976195e-10,
+          "AMP1_P_V": 1.5028744689520082,
+          "AMP1_N_V": 1.5025039381386769,
+          "ADC_differential_V": 0.00037053081333127125,
+          "ideal_ADC_code_of_model_output": 2048.7588471057024
+        },
+        "load_3k3": {
+          "load_V": 0.5373716013295923,
+          "shunt_drop_V": 0.0016283986704077602,
+          "AMP1_P_V": 1.5085503841001058,
+          "AMP1_N_V": 1.4968278679205733,
+          "ADC_differential_V": 0.01172251617953246,
+          "ideal_ADC_code_of_model_output": 2072.0077131356825
+        }
+      }
+    },
+    {
+      "R9_ohms": 47,
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "load_current_uA": 161.0397370779803,
+      "shunt_drop_mV": 7.568867642665074,
+      "load_V": 0.531431132357335,
+      "fractional_source_voltage_drop": 0.014042426053181954,
+      "ADC_signal_mV_ideal": 52.98207349865552,
+      "ADC_increment_counts_ideal": 108.5072865252465,
+      "ADC_increment_counts_ngspice": 108.41531194612753,
+      "current_uA_per_count_ideal": 1.484137537993921,
+      "ideal_ADC_1V_limit_current_mA": 3.0395136778115504,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000005452976,
+          "shunt_drop_V": -5.452975848641017e-10,
+          "AMP1_P_V": 1.5028744684765176,
+          "AMP1_N_V": 1.5025039386197865,
+          "ADC_differential_V": 0.0003705298567311388,
+          "ideal_ADC_code_of_model_output": 2048.7588451465854
+        },
+        "load_3k3": {
+          "load_V": 0.5314311329229837,
+          "shunt_drop_V": 0.007568867077016317,
+          "AMP1_P_V": 1.5293426816243676,
+          "AMP1_N_V": 1.4760349877314414,
+          "ADC_differential_V": 0.05330769389292622,
+          "ideal_ADC_code_of_model_output": 2157.174157092713
+        }
+      }
+    },
+    {
+      "R9_ohms": 47,
+      "R31_ohms": 100,
+      "gain": 61.0,
+      "load_current_uA": 161.0397370779803,
+      "shunt_drop_mV": 7.568867642665074,
+      "load_V": 0.531431132357335,
+      "fractional_source_voltage_drop": 0.014042426053181954,
+      "ADC_signal_mV_ideal": 461.7009262025695,
+      "ADC_increment_counts_ideal": 945.5634968628624,
+      "ADC_increment_counts_ngspice": 945.6095270647511,
+      "current_uA_per_count_ideal": 0.17031086501569584,
+      "ideal_ADC_1V_limit_current_mA": 0.3487966515521451,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000005452976,
+          "shunt_drop_V": -5.452975848641017e-10,
+          "AMP1_P_V": 1.5031207894768257,
+          "AMP1_N_V": 1.5022576222754076,
+          "ADC_differential_V": 0.0008631672014181024,
+          "ideal_ADC_code_of_model_output": 2049.7677664285043
+        },
+        "load_3k3": {
+          "load_V": 0.5314311329229837,
+          "shunt_drop_V": 0.007568867077016317,
+          "AMP1_P_V": 1.7339821182220585,
+          "AMP1_N_V": 1.271395549133555,
+          "ADC_differential_V": 0.4625865690885036,
+          "ideal_ADC_code_of_model_output": 2995.3772934932554
+        }
+      }
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "load_current_uA": 142.9708222811671,
+      "shunt_drop_mV": 67.19628647214856,
+      "load_V": 0.4718037135278515,
+      "fractional_source_voltage_drop": 0.1246684350132626,
+      "ADC_signal_mV_ideal": 470.3740053050399,
+      "ADC_increment_counts_ideal": 963.3259628647216,
+      "ADC_increment_counts_ngspice": 963.2732226717608,
+      "current_uA_per_count_ideal": 0.1484137537993921,
+      "ideal_ADC_1V_limit_current_mA": 0.303951367781155,
+      "model_operating_points": {
+        "no_load": {
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "AMP1_P_V": 1.5028744684426978,
+          "AMP1_N_V": 1.50250393865623,
+          "ADC_differential_V": 0.0003705297864677881,
+          "ideal_ADC_code_of_model_output": 2048.758845002686
+        },
+        "load_3k3": {
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "AMP1_P_V": 1.7380453019667277,
+          "AMP1_N_V": 1.2673265189225642,
+          "ADC_differential_V": 0.4707187830441635,
+          "ideal_ADC_code_of_model_output": 3012.032067674447
+        }
+      }
+    }
+  ],
+  "temporary_bench_recommendation": {
+    "R9_ohms": 47,
+    "R31_ohms": 1000,
+    "reason": "Provides approximately 108 ADC counts with approximately 7.57 mV load-voltage reduction; avoids raising amplifier gain for initial path validation."
+  },
+  "final_design_pending": [
+    "Required minimum and maximum current",
+    "Allowed supply drop",
+    "Required analog bandwidth",
+    "Fitted R31 value"
+  ],
+  "limitations": [
+    "DC operating point only; this is not an AC bandwidth or settling simulation.",
+    "INA851 bandwidth decreases with increasing gain; TI specifies typical 11 MHz at gain 10, 5 MHz at gain 100 and 0.8 MHz at gain 1000.",
+    "ADC sample rate is independent of the useful analog measurement bandwidth.",
+    "ADC transfer is ideal; actual offsets, noise, tolerances and physical Kelvin connections require measurement.",
+    "No hardware changes have been made."
+  ],
+  "datasheet": "https://www.ti.com/lit/ds/symlink/ina851.pdf",
+  "recommendation_status": "Superseded by user range 1-300 mA: keep 0.470-ohm R9; use 47 ohms only as a temporary load.",
+  "superseded_by": "../range_1_to_300mA/result.json"
+}

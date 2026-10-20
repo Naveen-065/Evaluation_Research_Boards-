@@ -1,0 +1,1407 @@
+[
+  {
+    "ref": "R61",
+    "pad": "1",
+    "net": "/Caravel_M.2/vddio"
+  },
+  {
+    "ref": "R61",
+    "pad": "2",
+    "net": "+3V3"
+  },
+  {
+    "ref": "NT22",
+    "pad": "1",
+    "net": "AQ1_C14"
+  },
+  {
+    "ref": "NT22",
+    "pad": "2",
+    "net": "vdda1"
+  },
+  {
+    "ref": "NT16",
+    "pad": "1",
+    "net": "AQ1_C04"
+  },
+  {
+    "ref": "NT16",
+    "pad": "2",
+    "net": "VCC_WL_RESET"
+  },
+  {
+    "ref": "NT23",
+    "pad": "1",
+    "net": "AQ1_C15"
+  },
+  {
+    "ref": "NT23",
+    "pad": "2",
+    "net": "VCCD2"
+  },
+  {
+    "ref": "R10",
+    "pad": "1",
+    "net": "AQ1_C02"
+  },
+  {
+    "ref": "R10",
+    "pad": "2",
+    "net": "AIN2_P"
+  },
+  {
+    "ref": "R10",
+    "pad": "3",
+    "net": "AIN2_N"
+  },
+  {
+    "ref": "R10",
+    "pad": "4",
+    "net": "VCC_SET"
+  },
+  {
+    "ref": "NT15",
+    "pad": "1",
+    "net": "AQ1_C03"
+  },
+  {
+    "ref": "NT15",
+    "pad": "2",
+    "net": "VCC_WL_SET"
+  },
+  {
+    "ref": "NT19",
+    "pad": "1",
+    "net": "AQ1_C11"
+  },
+  {
+    "ref": "NT19",
+    "pad": "2",
+    "net": "BIAS_COMP2"
+  },
+  {
+    "ref": "NT25",
+    "pad": "1",
+    "net": "3V3FMC"
+  },
+  {
+    "ref": "NT25",
+    "pad": "2",
+    "net": "+3V3"
+  },
+  {
+    "ref": "NT18",
+    "pad": "1",
+    "net": "AQ1_C10"
+  },
+  {
+    "ref": "NT18",
+    "pad": "2",
+    "net": "VCOMP"
+  },
+  {
+    "ref": "NT17",
+    "pad": "1",
+    "net": "AQ1_C09"
+  },
+  {
+    "ref": "NT17",
+    "pad": "2",
+    "net": "IREF"
+  },
+  {
+    "ref": "NT21",
+    "pad": "1",
+    "net": "AQ1_C13"
+  },
+  {
+    "ref": "NT21",
+    "pad": "2",
+    "net": "DC_BIAS"
+  },
+  {
+    "ref": "NT14",
+    "pad": "1",
+    "net": "AQ1_C01"
+  },
+  {
+    "ref": "NT14",
+    "pad": "2",
+    "net": "VCC_WL_READ"
+  },
+  {
+    "ref": "R11",
+    "pad": "1",
+    "net": "AQ1_C05"
+  },
+  {
+    "ref": "R11",
+    "pad": "2",
+    "net": "AIN3_P"
+  },
+  {
+    "ref": "R11",
+    "pad": "3",
+    "net": "AIN3_N"
+  },
+  {
+    "ref": "R11",
+    "pad": "4",
+    "net": "VCC_RESET"
+  },
+  {
+    "ref": "R63",
+    "pad": "1",
+    "net": "~{FTEECS}"
+  },
+  {
+    "ref": "R63",
+    "pad": "2",
+    "net": "+3V3"
+  },
+  {
+    "ref": "U1",
+    "pad": "1",
+    "net": "AQ1_C00"
+  },
+  {
+    "ref": "U1",
+    "pad": "2",
+    "net": "AQ1_C01"
+  },
+  {
+    "ref": "U1",
+    "pad": "3",
+    "net": "AQ1_C02"
+  },
+  {
+    "ref": "U1",
+    "pad": "4",
+    "net": "AQ1_C03"
+  },
+  {
+    "ref": "U1",
+    "pad": "5",
+    "net": "AQ1_C04"
+  },
+  {
+    "ref": "U1",
+    "pad": "6",
+    "net": "AQ1_C05"
+  },
+  {
+    "ref": "U1",
+    "pad": "7",
+    "net": "AQ1_C06"
+  },
+  {
+    "ref": "U1",
+    "pad": "8",
+    "net": "AQ1_C07"
+  },
+  {
+    "ref": "U1",
+    "pad": "9",
+    "net": "+1V8A"
+  },
+  {
+    "ref": "U1",
+    "pad": "10",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "11",
+    "net": "unconnected-(U1-SDO-Pad11)"
+  },
+  {
+    "ref": "U1",
+    "pad": "12",
+    "net": "AQ1_SCK"
+  },
+  {
+    "ref": "U1",
+    "pad": "13",
+    "net": "AQ1_MOSI"
+  },
+  {
+    "ref": "U1",
+    "pad": "14",
+    "net": "AQ1_nCS"
+  },
+  {
+    "ref": "U1",
+    "pad": "15",
+    "net": "AQ1_TO0"
+  },
+  {
+    "ref": "U1",
+    "pad": "16",
+    "net": "AQ1_TO1"
+  },
+  {
+    "ref": "U1",
+    "pad": "17",
+    "net": "AQ1_TO2"
+  },
+  {
+    "ref": "U1",
+    "pad": "18",
+    "net": "AQ1_nLDAC"
+  },
+  {
+    "ref": "U1",
+    "pad": "19",
+    "net": "AQ1_nRST"
+  },
+  {
+    "ref": "U1",
+    "pad": "20",
+    "net": "AQ1_nCLR"
+  },
+  {
+    "ref": "U1",
+    "pad": "21",
+    "net": "AQ1_ALM"
+  },
+  {
+    "ref": "U1",
+    "pad": "22",
+    "net": "AQ1_TEMPOUT"
+  },
+  {
+    "ref": "U1",
+    "pad": "23",
+    "net": "AQ1_C08"
+  },
+  {
+    "ref": "U1",
+    "pad": "24",
+    "net": "AQ1_C09"
+  },
+  {
+    "ref": "U1",
+    "pad": "25",
+    "net": "AQ1_C10"
+  },
+  {
+    "ref": "U1",
+    "pad": "26",
+    "net": "AQ1_C11"
+  },
+  {
+    "ref": "U1",
+    "pad": "27",
+    "net": "AQ1_C12"
+  },
+  {
+    "ref": "U1",
+    "pad": "28",
+    "net": "AQ1_C13"
+  },
+  {
+    "ref": "U1",
+    "pad": "29",
+    "net": "AQ1_C14"
+  },
+  {
+    "ref": "U1",
+    "pad": "30",
+    "net": "AQ1_C15"
+  },
+  {
+    "ref": "U1",
+    "pad": "31",
+    "net": "+12V"
+  },
+  {
+    "ref": "U1",
+    "pad": "32",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "33",
+    "net": "unconnected-(U1-REF-Pad33)"
+  },
+  {
+    "ref": "U1",
+    "pad": "34",
+    "net": "Net-(U1-REFCMP)"
+  },
+  {
+    "ref": "U1",
+    "pad": "35",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "36",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "37",
+    "net": "+5V"
+  },
+  {
+    "ref": "U1",
+    "pad": "38",
+    "net": "+5V"
+  },
+  {
+    "ref": "U1",
+    "pad": "39",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "40",
+    "net": "+12V"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "U1",
+    "pad": "41",
+    "net": "GND"
+  },
+  {
+    "ref": "R9",
+    "pad": "1",
+    "net": "AQ1_C00"
+  },
+  {
+    "ref": "R9",
+    "pad": "2",
+    "net": "AIN1_P"
+  },
+  {
+    "ref": "R9",
+    "pad": "3",
+    "net": "AIN1_N"
+  },
+  {
+    "ref": "R9",
+    "pad": "4",
+    "net": "VCC_READ"
+  },
+  {
+    "ref": "NT20",
+    "pad": "1",
+    "net": "AQ1_C12"
+  },
+  {
+    "ref": "NT20",
+    "pad": "2",
+    "net": "VBIAS"
+  },
+  {
+    "ref": "NT11",
+    "pad": "1",
+    "net": "DC_BIAS"
+  },
+  {
+    "ref": "NT11",
+    "pad": "2",
+    "net": "mprj_io[25]"
+  },
+  {
+    "ref": "NT2",
+    "pad": "1",
+    "net": "VCC_WL_READ"
+  },
+  {
+    "ref": "NT2",
+    "pad": "2",
+    "net": "mprj_io[26]"
+  },
+  {
+    "ref": "NT8",
+    "pad": "1",
+    "net": "VCOMP"
+  },
+  {
+    "ref": "NT8",
+    "pad": "2",
+    "net": "mprj_io[32]"
+  },
+  {
+    "ref": "NT5",
+    "pad": "1",
+    "net": "VCC_WL_RESET"
+  },
+  {
+    "ref": "NT5",
+    "pad": "2",
+    "net": "mprj_io[28]"
+  },
+  {
+    "ref": "R14",
+    "pad": "1",
+    "net": "/DAC/12VPWR"
+  },
+  {
+    "ref": "R14",
+    "pad": "2",
+    "net": "+12V"
+  },
+  {
+    "ref": "NT13",
+    "pad": "1",
+    "net": "VCCD2"
+  },
+  {
+    "ref": "NT13",
+    "pad": "2",
+    "net": "vccd2"
+  },
+  {
+    "ref": "J9",
+    "pad": "C1",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C2",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C3",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C4",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C5",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C6",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C7",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C8",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C9",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "C10",
+    "net": "OUT4_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "C11",
+    "net": "OUT4_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "C12",
+    "net": "unconnected-(J9-PadC12)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C13",
+    "net": "unconnected-(J9-PadC13)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C14",
+    "net": "FPGA_RX"
+  },
+  {
+    "ref": "J9",
+    "pad": "C15",
+    "net": "FPGA_TX"
+  },
+  {
+    "ref": "J9",
+    "pad": "C16",
+    "net": "unconnected-(J9-PadC16)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C17",
+    "net": "unconnected-(J9-PadC17)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C18",
+    "net": "SCAN_SI"
+  },
+  {
+    "ref": "J9",
+    "pad": "C19",
+    "net": "SCAN_CC"
+  },
+  {
+    "ref": "J9",
+    "pad": "C20",
+    "net": "unconnected-(J9-PadC20)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C21",
+    "net": "unconnected-(J9-PadC21)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C22",
+    "net": "unconnected-(J9-PadC22)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C23",
+    "net": "unconnected-(J9-PadC23)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C24",
+    "net": "unconnected-(J9-PadC24)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C25",
+    "net": "unconnected-(J9-PadC25)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C26",
+    "net": "unconnected-(J9-PadC26)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C27",
+    "net": "unconnected-(J9-PadC27)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C28",
+    "net": "unconnected-(J9-PadC28)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C29",
+    "net": "unconnected-(J9-PadC29)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C30",
+    "net": "FPGA_SCL"
+  },
+  {
+    "ref": "J9",
+    "pad": "C31",
+    "net": "FPGA_SDA"
+  },
+  {
+    "ref": "J9",
+    "pad": "C32",
+    "net": "Net-(J9-PadC32)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C33",
+    "net": "unconnected-(J9-PadC33)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C34",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "C35",
+    "net": "unconnected-(J9-PadC35)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C36",
+    "net": "unconnected-(J9-PadC36)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C37",
+    "net": "unconnected-(J9-PadC37)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C38",
+    "net": "unconnected-(J9-PadC38)"
+  },
+  {
+    "ref": "J9",
+    "pad": "C39",
+    "net": "3V3FMC"
+  },
+  {
+    "ref": "J9",
+    "pad": "C40",
+    "net": "unconnected-(J9-PadC40)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D1",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D2",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D3",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D4",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D5",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D6",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D7",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D8",
+    "net": "FPGA_MCLKIN_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "D9",
+    "net": "FPGA_MCLKIN_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "D10",
+    "net": "unconnected-(J9-PadD10)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D11",
+    "net": "OUT5_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "D12",
+    "net": "OUT5_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "D13",
+    "net": "unconnected-(J9-PadD13)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D14",
+    "net": "READY_I"
+  },
+  {
+    "ref": "J9",
+    "pad": "D15",
+    "net": "RESET_B"
+  },
+  {
+    "ref": "J9",
+    "pad": "D16",
+    "net": "unconnected-(J9-PadD16)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D17",
+    "net": "SCAN_SE"
+  },
+  {
+    "ref": "J9",
+    "pad": "D18",
+    "net": "SCAN_TM"
+  },
+  {
+    "ref": "J9",
+    "pad": "D19",
+    "net": "unconnected-(J9-PadD19)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D20",
+    "net": "unconnected-(J9-PadD20)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D21",
+    "net": "unconnected-(J9-PadD21)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D22",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "D23",
+    "net": "unconnected-(J9-PadD23)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D24",
+    "net": "unconnected-(J9-PadD24)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D25",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "D26",
+    "net": "unconnected-(J9-PadD26)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D27",
+    "net": "unconnected-(J9-PadD27)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D28",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "D29",
+    "net": "unconnected-(J9-PadD29)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D30",
+    "net": "R62A"
+  },
+  {
+    "ref": "J9",
+    "pad": "D31",
+    "net": "R62B"
+  },
+  {
+    "ref": "J9",
+    "pad": "D32",
+    "net": "unconnected-(J9-PadD32)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D33",
+    "net": "unconnected-(J9-PadD33)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D34",
+    "net": "unconnected-(J9-PadD34)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D35",
+    "net": "unconnected-(J9-PadD35)"
+  },
+  {
+    "ref": "J9",
+    "pad": "D36",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D37",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "D38",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "D39",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "D40",
+    "net": "/FMC Slot/+3V3_VIO"
+  },
+  {
+    "ref": "J9",
+    "pad": "G1",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "G2",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "G3",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "G4",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "G5",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "G6",
+    "net": "LCLK_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "G7",
+    "net": "LCLK_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "G8",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "G9",
+    "net": "OUT2_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "G10",
+    "net": "OUT2_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "G11",
+    "net": "unconnected-(J9-PadG11)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G12",
+    "net": "AQ1_SCK"
+  },
+  {
+    "ref": "J9",
+    "pad": "G13",
+    "net": "AQ1_MOSI"
+  },
+  {
+    "ref": "J9",
+    "pad": "G14",
+    "net": "unconnected-(J9-PadG14)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G15",
+    "net": "FPGA_SCK"
+  },
+  {
+    "ref": "J9",
+    "pad": "G16",
+    "net": "FPGA_SDATA"
+  },
+  {
+    "ref": "J9",
+    "pad": "G17",
+    "net": "unconnected-(J9-PadG17)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G18",
+    "net": "ADC_PD"
+  },
+  {
+    "ref": "J9",
+    "pad": "G19",
+    "net": "FPGA_LOE"
+  },
+  {
+    "ref": "J9",
+    "pad": "G20",
+    "net": "unconnected-(J9-PadG20)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G21",
+    "net": "unconnected-(J9-PadG21)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G22",
+    "net": "unconnected-(J9-PadG22)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G23",
+    "net": "unconnected-(J9-PadG23)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G24",
+    "net": "unconnected-(J9-PadG24)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G25",
+    "net": "unconnected-(J9-PadG25)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G26",
+    "net": "unconnected-(J9-PadG26)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G27",
+    "net": "unconnected-(J9-PadG27)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G28",
+    "net": "unconnected-(J9-PadG28)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G29",
+    "net": "unconnected-(J9-PadG29)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G30",
+    "net": "unconnected-(J9-PadG30)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G31",
+    "net": "unconnected-(J9-PadG31)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G32",
+    "net": "unconnected-(J9-PadG32)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G33",
+    "net": "unconnected-(J9-PadG33)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G34",
+    "net": "unconnected-(J9-PadG34)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G35",
+    "net": "unconnected-(J9-PadG35)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G36",
+    "net": "unconnected-(J9-PadG36)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G37",
+    "net": "unconnected-(J9-PadG37)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G38",
+    "net": "unconnected-(J9-PadG38)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G39",
+    "net": "Net-(J9-PadG39)"
+  },
+  {
+    "ref": "J9",
+    "pad": "G40",
+    "net": "unconnected-(J9-PadG40)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H1",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "H2",
+    "net": "GND"
+  },
+  {
+    "ref": "J9",
+    "pad": "H3",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "H4",
+    "net": "ADCLK_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "H5",
+    "net": "ADCLK_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "H6",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "H7",
+    "net": "OUT1_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "H8",
+    "net": "OUT1_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "H9",
+    "net": ""
+  },
+  {
+    "ref": "J9",
+    "pad": "H10",
+    "net": "OUT3_P"
+  },
+  {
+    "ref": "J9",
+    "pad": "H11",
+    "net": "OUT3_N"
+  },
+  {
+    "ref": "J9",
+    "pad": "H12",
+    "net": "unconnected-(J9-PadH12)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H13",
+    "net": "AQ1_nCS"
+  },
+  {
+    "ref": "J9",
+    "pad": "H14",
+    "net": "AQ1_nLDAC"
+  },
+  {
+    "ref": "J9",
+    "pad": "H15",
+    "net": "unconnected-(J9-PadH15)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H16",
+    "net": "FPGA_nCS"
+  },
+  {
+    "ref": "J9",
+    "pad": "H17",
+    "net": "FPGA_nADCRST"
+  },
+  {
+    "ref": "J9",
+    "pad": "H18",
+    "net": "unconnected-(J9-PadH18)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H19",
+    "net": "SI5351_CLK1_1V8"
+  },
+  {
+    "ref": "J9",
+    "pad": "H20",
+    "net": "AQ1_nRST"
+  },
+  {
+    "ref": "J9",
+    "pad": "H21",
+    "net": "unconnected-(J9-PadH21)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H22",
+    "net": "unconnected-(J9-PadH22)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H23",
+    "net": "unconnected-(J9-PadH23)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H24",
+    "net": "unconnected-(J9-PadH24)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H25",
+    "net": "unconnected-(J9-PadH25)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H26",
+    "net": "unconnected-(J9-PadH26)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H27",
+    "net": "unconnected-(J9-PadH27)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H28",
+    "net": "unconnected-(J9-PadH28)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H29",
+    "net": "unconnected-(J9-PadH29)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H30",
+    "net": "unconnected-(J9-PadH30)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H31",
+    "net": "unconnected-(J9-PadH31)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H32",
+    "net": "unconnected-(J9-PadH32)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H33",
+    "net": "unconnected-(J9-PadH33)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H34",
+    "net": "unconnected-(J9-PadH34)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H35",
+    "net": "unconnected-(J9-PadH35)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H36",
+    "net": "unconnected-(J9-PadH36)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H37",
+    "net": "unconnected-(J9-PadH37)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H38",
+    "net": "unconnected-(J9-PadH38)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H39",
+    "net": "unconnected-(J9-PadH39)"
+  },
+  {
+    "ref": "J9",
+    "pad": "H40",
+    "net": "Net-(J9-PadH40)"
+  },
+  {
+    "ref": "NT12",
+    "pad": "1",
+    "net": "+3V3"
+  },
+  {
+    "ref": "NT12",
+    "pad": "2",
+    "net": "vdda1"
+  },
+  {
+    "ref": "NT10",
+    "pad": "1",
+    "net": "VBIAS"
+  },
+  {
+    "ref": "NT10",
+    "pad": "2",
+    "net": "mprj_io[29]"
+  },
+  {
+    "ref": "NT9",
+    "pad": "1",
+    "net": "BIAS_COMP2"
+  },
+  {
+    "ref": "NT9",
+    "pad": "2",
+    "net": "mprj_io[31]"
+  },
+  {
+    "ref": "NT6",
+    "pad": "1",
+    "net": "VCC_RESET"
+  },
+  {
+    "ref": "NT6",
+    "pad": "2",
+    "net": "vdda2"
+  },
+  {
+    "ref": "NT24",
+    "pad": "1",
+    "net": "/Caravel_M.2/SI5351_CLK0_RAW"
+  },
+  {
+    "ref": "NT24",
+    "pad": "2",
+    "net": "/Caravel_M.2/xclk"
+  },
+  {
+    "ref": "NT7",
+    "pad": "1",
+    "net": "IREF"
+  },
+  {
+    "ref": "NT7",
+    "pad": "2",
+    "net": "mprj_io[34]"
+  },
+  {
+    "ref": "NT1",
+    "pad": "1",
+    "net": "VCC_READ"
+  },
+  {
+    "ref": "NT1",
+    "pad": "2",
+    "net": "mprj_io[33]"
+  },
+  {
+    "ref": "NT4",
+    "pad": "1",
+    "net": "VCC_WL_SET"
+  },
+  {
+    "ref": "NT4",
+    "pad": "2",
+    "net": "mprj_io[30]"
+  },
+  {
+    "ref": "R63",
+    "pad": "1",
+    "net": "R62A"
+  },
+  {
+    "ref": "R63",
+    "pad": "2",
+    "net": "R62B"
+  },
+  {
+    "ref": "NT3",
+    "pad": "1",
+    "net": "VCC_SET"
+  },
+  {
+    "ref": "NT3",
+    "pad": "2",
+    "net": "mprj_io[27]"
+  }
+]

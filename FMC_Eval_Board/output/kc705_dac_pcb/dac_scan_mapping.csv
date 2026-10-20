@@ -1,0 +1,17 @@
+DAC,U1_pin,PCB_route,Signal,Target_V,Code_0_to_5V,Enabled
+0,1,R9 pad1 to pad4 and NT1,VCC_READ,0.5,199A,true
+1,2,NT14 then NT2,VCC_WL_READ,2.5,8000,true
+2,3,R10 pad1 to pad4 and NT3,VCC_SET,0.5,199A,true
+3,4,NT15 then NT4,VCC_WL_SET,2.5,8000,true
+4,5,NT16 then NT5,VCC_WL_RESET,,0000,false
+5,6,R11 pad1 to pad4 and NT6,VCC_RESET / vdda2,2.3,75C3,true
+6,7,No downstream pad,Unused,,0000,false
+7,8,No downstream pad,Unused (VDDIO supplied by +3V3 via R61),,0000,false
+8,23,No downstream pad,Unused,,0000,false
+9,24,NT17 then NT7,IREF,0.9,2E14,true
+10,25,NT18 then NT8,VCOMP,0.9,2E14,true
+11,26,NT19 then NT9,BIAS_COMP2,0.6,1EB8,true
+12,27,NT20 then NT10,VBIAS,1.6,51EB,true
+13,28,NT21 then NT11,DC_BIAS,1.0,3333,true
+14,29,NT22 absent,VDDA1 supplied by +3V3 via NT12,,0000,false
+15,30,NT23 then NT13,VCCD2 / vccd2,1.8,5C29,true

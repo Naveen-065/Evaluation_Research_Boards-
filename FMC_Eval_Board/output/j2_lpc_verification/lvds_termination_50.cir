@@ -1,0 +1,13 @@
+ADS5282 LVDS simplified differential source, load=50 ohm
+* 1.2V common-mode and 3.5mA differential current from datasheet typical values.
+* 1000ohm case only illustrates loss of termination; real output compliance is NOT modeled.
+Vcm cm 0 1.2
+Iout p n PULSE(-3.5m 3.5m 5n 0.2n 0.2n 5n 10n)
+Rterm p n 50
+Rcmp p cm 1meg
+Rcmn n cm 1meg
+Cpinp p 0 3p
+Cpinn n 0 3p
+.tran 0.02n 40n 0 0.02n
+.save time v(p) v(n)
+.end

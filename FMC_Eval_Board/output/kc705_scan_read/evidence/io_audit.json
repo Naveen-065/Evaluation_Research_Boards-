@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "ports": 41,
+  "package_pins_preserved": true,
+  "io_standards_preserved": true,
+  "vadj_writes": false,
+  "approved_functional_changes": [
+    {
+      "port": "reset_b",
+      "property": "DIRECTION",
+      "before": "IN",
+      "after": "INOUT"
+    },
+    {
+      "port": "reset_b",
+      "property": "DRIVE",
+      "before": "",
+      "after": "4"
+    },
+    {
+      "port": "reset_b",
+      "property": "SLEW",
+      "before": "",
+      "after": "SLOW"
+    },
+    {
+      "port": "scan_si",
+      "property": "DIRECTION",
+      "before": "IN",
+      "after": "INOUT"
+    },
+    {
+      "port": "scan_si",
+      "property": "DRIVE",
+      "before": "",
+      "after": "4"
+    },
+    {
+      "port": "scan_si",
+      "property": "SLEW",
+      "before": "",
+      "after": "SLOW"
+    }
+  ]
+}

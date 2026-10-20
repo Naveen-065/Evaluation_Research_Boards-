@@ -1,0 +1,10 @@
+Normalized DAC81416 REFCMP RC sensitivity model
+* Rint=100000 ohm is swept because TI does not publish the internal value.
+* This is not a reference-loop stability model.
+.options reltol=1e-8 abstol=1e-13 vntol=1e-10 plotwinsize=0
+Vdrive src 0 PULSE(0 1 1u 1n 1n 0.000528 0.001056)
+Rint src refcmp 100000
+Ccomp refcmp 0 3.3e-10
+.tran 6.6e-08 0.000264
+.save time v(refcmp)
+.end

@@ -1,0 +1,91 @@
+{
+  "notes": [
+    "Scan SET/RESET/cycle now use the reference nested voltage sweep, pre-read target check, post-pulse read and 10 consecutive confirmation reads. VCC/WL fields set ceilings. Both rails are limited to 3.0 V; RESET reference values above that are clipped/deduplicated. Each fresh job starts a fresh sweep; there is no automatic continuation of an interrupted job.",
+    "GUI scan cycle 80047979cb4b4d0b9c400f1271ba7b55 on r0/c0 completed with 300 captures. Initial read 37.725 uA. SET was already above 35 uA; all 10 confirmations passed (35.670 to 37.875 uA), so zero SET pulses. RESET delivered 96 pulses of 1.2 ms and ended at 16.725 uA, above the <=5 uA target. Maximum requested VCC 3.0 V and WL 2.88 V. No clipping. Read rails restored and CPU held. Current remains nominal/un-calibrated.",
+    "Scan cycle r0/c0 (job 03445201791b415ab509de0be846712d): 17.111 uA before SET, 47.844 uA after SET, 17.541 uA after RESET. SET 2.3 V/WL 1.3 V, RESET 3.0 V/WL 2.88 V, 1.2 ms. This is a reversible response, not a certified HRS/LRS target.",
+    "Corrected FPGA holds SE/TM low in WB and uses power mask 0x01CC (physical VCC_SET DAC2 off). With these corrections, read/SET/RESET/cycle all returned nonzero, column-31 TDC data through the GUI/API.",
+    "The deployed WB SET/RESET dispatch selects the permanent firmware issue_program_setup path: three setup words followed by two identical program packets without chip reset between them, then 15 tagged readbacks. The generic read-transport helper returned zero banks and was removed.",
+    "Final r0/c31 independent scan crosscheck: 42.245 uA before WB SET, 43.293 uA after WB SET, 43.070 uA after WB RESET. This test does not demonstrate a clear RESET resistance-state change. Earlier WB SET raised the same cell from 33.826 to 41.737 uA; neither run certifies HRS/LRS thresholds.",
+    "Final WB read/SET/RESET returned matching column-31 TDC words 0x0007D816, 0x0007D738, 0x0007D712 respectively. GUI WB cycle b10a8ce2fc334141952e77755f9b6798 completed read/SET/read/RESET/read, returning 0x0007D60E, 0x0007D743, 0x0007D72C, 0x0007D82D, 0x0007D81B. All five passed UART framing, command echo, full 15-word bank and matching-column checks.",
+    "Bias measurements from user: IREF 0.933 V, VCOMP 0.937 V, BIAS_COMP2 0.637 V, VBIAS 1.630 V, DC_BIAS 0.998 V in scan-idle profile. These are measurements, not live telemetry.",
+    "No FMC electrical properties or VADJ settings changed. Targets remain VDDA1 3.0 V and VCCD2 1.8 V.",
+    "Final read-only r0/c0 check returned 37.178 uA (job 8543a9799a37406180ed5c0757517ea7), compared with 18.067 uA earlier on this image (5b8cc7216e4547809f9de93806c86d71). Cause of this difference is not established. These tests do not establish physical programming isolation to the requested WB cell; no further programming was issued after the observation."
+  ],
+  "crosscheck_jobs": {
+    "before_wb_set": "3900c14576294247afa8b50bef2e1109",
+    "wb_set": "1498c092807b446ea0fc11a8953eea09",
+    "after_wb_set": "a9b922f1f89343d8bac4629eb2b7a847",
+    "wb_reset": "cb7a2cb9a4f04ecbbe39491e6e6d0525",
+    "after_wb_reset": "81c281d785c84634b9581644298f3a68"
+  },
+  "reference_sequence_source": "C:/Users/elesamj/Desktop/Evaluation_Research_Boards-/api_v1/prerequisites/HARDWARE_RUNTIME_BACKUP.md; gui_wb_mode.c issue_program_setup",
+  "latest_blocker": null,
+  "previous_crosscheck_jobs": {
+    "before_wb_set": "27c90f82dc2647e29a35598fe73b32d6",
+    "wb_set": "9685cb7ed68b409eab787c36e599aa7c",
+    "after_wb_set": "b3ae77ade9684523889a3c73b640e68e",
+    "wb_reset": "0f4af37c45c14ad0b6801b4f7261a6d7",
+    "after_wb_reset": "070541fb58c1454c908629ed11ccb5d7"
+  },
+  "generic_helper_diagnostic": {
+    "wb_set": "43784b603163483f8f3e1344346d355a",
+    "wb_reset": "4c20f3864b9941698bf2a43e2f527dae",
+    "result": "Both returned 15 zero words despite valid transport. Generic read-transport helper is not deployed."
+  },
+  "gui_cycle_job": "b10a8ce2fc334141952e77755f9b6798",
+  "physical_state_verification": {
+    "scan_r0c0": "Capped ramp executed. SET target confirmed without programming; RESET reduced current to 16.725 uA but did not reach <=5 uA.",
+    "wb_r0c31": "Command/TDC operation verified. Final SET/RESET ADC readings differ only slightly; physical RESET to high resistance is not verified."
+  },
+  "ramp_logic_implemented": true,
+  "ramp_cycle": {
+    "job_id": "80047979cb4b4d0b9c400f1271ba7b55",
+    "state": "completed",
+    "started": "2026-10-20T09:43:26.157522+00:00",
+    "finished": "2026-10-20T09:44:37.521144+00:00",
+    "parameters": {
+      "mode": "cycle",
+      "row": 0,
+      "col": 0,
+      "set_v": 2.5,
+      "set_wl": 2.37,
+      "reset_v": 3,
+      "reset_wl": 2.88,
+      "hold": 2400,
+      "cycles": 1,
+      "dry_run": false
+    },
+    "captures": 300,
+    "initial_read_uA_nominal": 37.724581684849696,
+    "set_confirmation_range_uA_nominal": [
+      35.670075582594436,
+      37.87533794680616
+    ],
+    "outcomes": {
+      "set": {
+        "pulses": 0,
+        "target_met": true,
+        "last_read_uA_nominal": 35.752262
+      },
+      "reset": {
+        "pulses": 96,
+        "target_met": false,
+        "last_read_uA_nominal": 16.725285
+      }
+    },
+    "max_requested_vcc_v": 3.0,
+    "max_requested_wl_v": 2.88,
+    "dac_max_code": 39321,
+    "ideal_dac_max_v": 2.9999542236328125,
+    "read_profile_restored": true,
+    "cpu_held_on_completion": true,
+    "calibration": "56 ohm shunt, nominal gain 7, active-minus-idle ADC3 current; not calibrated",
+    "limitation": "Command limits are verified; actual analog voltages were not measured during the ramp.",
+    "source_hashes": {
+      "control.tcl": "3556e7d913e1f2b10c4e65624205189700318ca8102d2ffa81a0cd7dceb12804",
+      "scan_ramp.tcl": "30ec43e90994a68f142baa36ec327f175bc8cec564d56367175181df0ee30f47",
+      "gui/app.js": "89b1133cc92676f68a10c6afcd88b3ad1b7cf15cf7d27257fab14bfe2d1a1bfd",
+      "gui/index.html": "c2f64c14435f14cf3a20c8478860ad0471b4e9c6bd2b75c5a794ded861a91116"
+    }
+  }
+}

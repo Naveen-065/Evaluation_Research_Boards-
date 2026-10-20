@@ -1,0 +1,19 @@
+Both boards powered; corrected U18 functional equivalent
+.options reltol=1e-7 abstol=1e-12 vntol=1e-9
+VKC kc3 0 3.3
+V18 rail18 0 1.8
+V33 card3 0 3.3
+Rkc_scl kc3 scl 4.7k
+Rkc_sda kc3 sda 4.7k
+* R54 and R53 removed: KC705 R316/R317 provide the side-1 pull-ups
+R58 card3 scl2 10k
+R57 card3 sda2 10k
+R56 card3 bias 200k
+Mref bias bias rail18 0 PASS W=1u L=1u
+Mscl scl2 bias scl 0 PASS W=1u L=1u
+Msda sda2 bias sda 0 PASS W=1u L=1u
+.model PASS NMOS (LEVEL=1 VTO=0.6 KP=0.02 LAMBDA=0 GAMMA=0)
+Rhost_low scl 0 10
+.op
+.save v(scl) v(sda) v(scl2) v(sda2) v(bias)
+.end

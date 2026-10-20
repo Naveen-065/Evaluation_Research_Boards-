@@ -1,0 +1,93 @@
+SenseEval / KC705 GUI bench validation
+Generated: 2026-10-20T09:48:58.358360+00:00
+GUI: http://127.0.0.1:8771/
+
+Hardware jobs were executed through the GUI HTTP API. The browser also
+exercised all ten preview modes, live read, RESET/readback, and Stop.
+Scan programming cell: r0/c0. Wishbone programming cell: r0/c31.
+Column and full-array tests performed reads only.
+
+Mode                 Captures   ADC clipping   Valid WB column/TDC   Current image
+read                        1   False          None                  True
+  Evidence: runs/8543a9799a37406180ed5c0757517ea7.json
+  read: SET/R10 delta 37.178 uA nominal
+set                         3   False          None                  False
+  Evidence: runs/dd4c6d52f00e4e09b1c38cfbf616ad46.json
+  before_set: SET/R10 delta 14.303 uA nominal
+  set_pulse: SET/R10 delta 57.016 uA nominal
+  after_set: SET/R10 delta 49.280 uA nominal
+reset                       3   False          None                  False
+  Evidence: runs/d66f25357c54475ab3585b99f90408eb.json
+  before_reset: SET/R10 delta 48.680 uA nominal
+  reset_pulse: SET/R10 delta 16.846 uA nominal
+  after_reset: SET/R10 delta 17.086 uA nominal
+cycle                     300   False          None                  True
+  Evidence: runs/80047979cb4b4d0b9c400f1271ba7b55.json
+column                     32   False          None                  False
+  Evidence: runs/0854d63ae8204503b1923e2373ec3475.json
+array                    1024   False          None                  False
+  Evidence: runs/3c48d19f06b3446bbc8a58b409cd6e7c.json
+wb_read                     1   False          True                  True
+  Evidence: runs/fc9f9cca612245b9b1a314e18a055020.json
+  Current reference WB transaction sequence: True
+wb_set                      1   False          True                  True
+  Evidence: runs/1498c092807b446ea0fc11a8953eea09.json
+  Current reference WB transaction sequence: True
+wb_reset                    1   False          True                  True
+  Evidence: runs/cb7a2cb9a4f04ecbbe39491e6e6d0525.json
+  Current reference WB transaction sequence: True
+wb_cycle                    5   False          True                  True
+  Evidence: runs/b10a8ce2fc334141952e77755f9b6798.json
+  Current reference WB transaction sequence: True
+
+Waveform
+Real ADC samples, baseline/selected/return-to-idle. Default 134 points
+at 10 us intervals, decimated from 10 MSPS. Export trace includes all
+three shunt paths. This is not a full-rate oscilloscope capture.
+
+Measured behavior and remaining limits
+Scan SET/RESET/cycle now use the reference nested voltage sweep, pre-read target check, post-pulse read and 10 consecutive confirmation reads. VCC/WL fields set ceilings. Both rails are limited to 3.0 V; RESET reference values above that are clipped/deduplicated. Each fresh job starts a fresh sweep; there is no automatic continuation of an interrupted job.
+GUI scan cycle 80047979cb4b4d0b9c400f1271ba7b55 on r0/c0 completed with 300 captures. Initial read 37.725 uA. SET was already above 35 uA; all 10 confirmations passed (35.670 to 37.875 uA), so zero SET pulses. RESET delivered 96 pulses of 1.2 ms and ended at 16.725 uA, above the <=5 uA target. Maximum requested VCC 3.0 V and WL 2.88 V. No clipping. Read rails restored and CPU held. Current remains nominal/un-calibrated.
+Scan cycle r0/c0 (job 03445201791b415ab509de0be846712d): 17.111 uA before SET, 47.844 uA after SET, 17.541 uA after RESET. SET 2.3 V/WL 1.3 V, RESET 3.0 V/WL 2.88 V, 1.2 ms. This is a reversible response, not a certified HRS/LRS target.
+Corrected FPGA holds SE/TM low in WB and uses power mask 0x01CC (physical VCC_SET DAC2 off). With these corrections, read/SET/RESET/cycle all returned nonzero, column-31 TDC data through the GUI/API.
+The deployed WB SET/RESET dispatch selects the permanent firmware issue_program_setup path: three setup words followed by two identical program packets without chip reset between them, then 15 tagged readbacks. The generic read-transport helper returned zero banks and was removed.
+Final r0/c31 independent scan crosscheck: 42.245 uA before WB SET, 43.293 uA after WB SET, 43.070 uA after WB RESET. This test does not demonstrate a clear RESET resistance-state change. Earlier WB SET raised the same cell from 33.826 to 41.737 uA; neither run certifies HRS/LRS thresholds.
+Final WB read/SET/RESET returned matching column-31 TDC words 0x0007D816, 0x0007D738, 0x0007D712 respectively. GUI WB cycle b10a8ce2fc334141952e77755f9b6798 completed read/SET/read/RESET/read, returning 0x0007D60E, 0x0007D743, 0x0007D72C, 0x0007D82D, 0x0007D81B. All five passed UART framing, command echo, full 15-word bank and matching-column checks.
+Bias measurements from user: IREF 0.933 V, VCOMP 0.937 V, BIAS_COMP2 0.637 V, VBIAS 1.630 V, DC_BIAS 0.998 V in scan-idle profile. These are measurements, not live telemetry.
+No FMC electrical properties or VADJ settings changed. Targets remain VDDA1 3.0 V and VCCD2 1.8 V.
+Final read-only r0/c0 check returned 37.178 uA (job 8543a9799a37406180ed5c0757517ea7), compared with 18.067 uA earlier on this image (5b8cc7216e4547809f9de93806c86d71). Cause of this difference is not established. These tests do not establish physical programming isolation to the requested WB cell; no further programming was issued after the observation.
+
+Final image
+FMC properties unchanged: True.
+Setup slack 0.36 ns; hold slack 0.059 ns.
+Timing applies to user-specified constraints; external asynchronous IO is not fully timed.
+See current-image column above; earlier jobs remain evidence for their original images.
+Bitstream: fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c
+A VIO cache issue during reload was corrected by explicitly reasserting
+ADC/DAC enable=0 immediately after programming; the retry initialized
+successfully before GUI operations were reenabled.
+
+Software/FPGA checks
+Seven model tests; DOM contract for all ten modes; actual browser previews.
+RTL simulation covers protected DAC channels, SPI edge, scan packet order,
+ADC sums/trace, WB SE/TM ownership, DAC power mask, WB command/UART bank,
+abort and ADC fault containment.
+See io_audit*.json and build/timing_summary.rpt for image validation.
+
+Deployment and limits
+Fixed supply targets: VDDA1 3.0 V, VCCD2 1.8 V; FMC electrical constraints
+unchanged. No VADJ writes. DAC14/DAC15 protected from runtime operations.
+Jobs restore the scan read profile and hold CPU reset when communication
+allows cleanup. Cancel was tested, followed by an explicit FPGA check.
+Bias/supply targets are commanded values, not live DMM telemetry.
+56 ohm shunts and nominal gain 7; reported current is active-minus-idle supply current.
+A completed SET/RESET or valid TDC word alone does not certify a resistance state.
+
+Running GUI versus saved source
+Automatic approval review blocked a server restart ('blocked by policy').
+The running server has the real trace and all modes. Later server error
+reporting/quarantine changes and Python minimum-hold validation await a
+restart. The deployed Tcl runner independently enforces hold >=20 clocks;
+the browser minimum is also 0.01 ms. No blocked restart was retried.
+
+Raw job JSON, JSONL, logs and trace JSON remain under runs/.

@@ -1,0 +1,241 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 13:16:51 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/initialize.tcl
+# set here [file dirname [file normalize [info script]]]
+# source [file join $here i2c_host.tcl]
+## set here [file dirname [file normalize [info script]]]
+## open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 615.035 ; gain = 271.582
+## connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 621.266 ; gain = 6.230
+## set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+## if {[llength $target] != 1} { error "Known KC705 JTAG cable not found" }
+## current_hw_target $target
+## open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+## set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+## if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+## current_hw_device $dev
+## set_property PROBES.FILE [file join $here build kc705_adc_capture.ltx] $dev
+## refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+## set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+## if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+## set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+## set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+## if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+## proc read_status {} {
+##     global vio statprobe
+##     refresh_hw_vio $vio
+##     set hex [get_property INPUT_VALUE $statprobe]
+##     return [expr 0x$hex]
+## }
+## proc to_hex128 {value} {
+##     set result ""
+##     for {set n 0} {$n < 32} {incr n} {
+##         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+##         set value [expr {$value >> 4}]
+##     }
+##     if {$value != 0} { error "Command overflow" }
+##     return $result
+## }
+## set token [expr {[read_status] & 255}]
+## proc i2c_transfer {addr bytes nr} {
+##     global token cmdprobe
+##     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+##     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+##         error "Bad transaction length"
+##     }
+##     set s [read_status]
+##     if {$s & 256} { error "I2C bridge is already busy" }
+##     set token [expr {($token % 255) + 1}]
+##     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+##     set shift 23
+##     foreach b $bytes {
+##         if {$b < 0 || $b > 255} { error "Bad byte" }
+##         set cmd [expr {$cmd | ($b << $shift)}]
+##         incr shift 8
+##     }
+##     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+##     commit_hw_vio $cmdprobe
+##     set deadline [expr {[clock milliseconds] + 10000}]
+##     while {1} {
+##         set s [read_status]
+##         if {($s & 255) == $token && !($s & 256)} { break }
+##         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+##         after 10
+##     }
+##     if {$s & 512} {
+##         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+##     }
+##     set acked [expr {($s >> 80) & 255}]
+##     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+##     set result {}
+##     for {set i 0} {$i < $nr} {incr i} {
+##         lappend result [expr {($s >> (16+8*$i)) & 255}]
+##     }
+##     return $result
+## }
+## proc mux_select_fmc {} { i2c_transfer 0x74 [list 0x04] 0 }
+## proc mux_read {} { return [lindex [i2c_transfer 0x74 [list] 1] 0] }
+## proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+## proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+## proc close_i2c_bridge {} {
+##     close_hw_target
+##     disconnect_hw_server
+##     close_hw_manager
+## }
+# set_property PROGRAM.FILE [file join $here build kc705_adc_capture.bit] $dev
+# set_property PROBES.FILE [file join $here build kc705_adc_capture.ltx] $dev
+# set_property FULL_PROBES.FILE [file join $here build kc705_adc_capture.ltx] $dev
+# program_hw_devices $dev
+INFO: [Labtools 27-3164] End of startup status: HIGH
+program_hw_devices: Time (s): cpu = 00:00:32 ; elapsed = 00:00:32 . Memory (MB): peak = 682.988 ; gain = 0.496
+# refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+WARNING: [Labtools 27-1952] VIO hw_probe OUTPUT_VALUE properties for hw_vio(s) [hw_vio_1 hw_vio_2 hw_vio_3] differ from output values in the VIO core(s).
+Resolution: 
+To synchronize the hw_probes properties and the VIO core outputs choose one of the following alternatives:
+  1) Execute the command 'Commit Output Values to VIO Core', to write down the hw_probe values to the core.
+  2) Execute the command 'Refresh Input and Output Values from VIO Core', to update the hw_probe properties with the core values.
+  3) First restore initial values in the core with the command 'Reset VIO Core Outputs', and then execute the command 'Refresh Input and Output Values from VIO Core'.
+# if {[get_property REGISTER.CONFIG_STATUS.BIT13_DONE_INTERNAL_SIGNAL_STATUS $dev]!=1} { error "FPGA DONE failed" }
+# set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+# set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+# set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+# set token [expr {[read_status] & 255}]
+# source [file join $here assert_clock.tcl]
+## proc assert_caravel_clock {} {
+##     if {[mux_read] != 4} { error "FMC I2C mux channel is not selected" }
+##     foreach {reg wanted} {
+##         3 0xFC 16 0x4F 17 0x4F 18 0x80
+##         26 0 27 1 28 0 29 0x10 30 0 31 0 32 0 33 0
+##         42 0 43 1 44 0 45 0xDF 46 0 47 0 48 0 49 0
+##         50 0 51 1 52 0 53 0xDF 54 0 55 0 56 0 57 0
+##     } {
+##         set actual [si5351_read $reg]
+##         if {$actual != $wanted} { error "Unexpected Si5351 register $reg=$actual" }
+##     }
+##     set status0 [si5351_read 0]
+##     if {$status0 & 0xA8} { error "Si5351 initialization, PLLA lock or crystal fault" }
+##     puts [format "SI5351_2MHZ_CONFIGURATION_AND_PLLA_LOCK_PASS status=0x%02X" $status0]
+## }
+# mux_select_fmc
+# if {[mux_read] != 0x04} { error "U49 FMC channel selection failed" }
+# puts "KC705_MUX_CHANNEL_2_VERIFIED"
+KC705_MUX_CHANNEL_2_VERIFIED
+# set status0 [si5351_read 0]
+# puts [format "SI5351_INITIAL_STATUS=0x%02X" $status0]
+SI5351_INITIAL_STATUS=0x11
+# set deadline [expr {[clock milliseconds] + 1000}]
+# while {$status0 & 0x80} {
+#     if {[clock milliseconds] > $deadline} { error "Si5351 SYS_INIT stuck" }
+#     after 10
+#     set status0 [si5351_read 0]
+# }
+# if {$status0 & 0x08} { error "Si5351 reports loss of crystal" }
+# file mkdir [file join $here evidence]
+# set backup [open [file join $here evidence si5351_before_2mhz.txt] w]
+# foreach reg {0 1 2 3 9 15 16 17 18 24 26 27 28 29 30 31 32 33 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 149 165 166 177 183} {
+#     puts $backup [format "%d 0x%02X" $reg [si5351_read $reg]]
+# }
+# close $backup
+# proc write_verify {reg value} {
+#     si5351_write $reg $value
+#     set actual [si5351_read $reg]
+#     if {$actual != $value} { error [format "Verify reg %d: wanted %02X actual %02X" $reg $value $actual] }
+# }
+# write_verify 3 0xFF
+# foreach reg {16 17 18} { write_verify $reg 0x80 }
+# write_verify 15 [expr {[si5351_read 15] & 0xF3}]
+# write_verify 149 [expr {[si5351_read 149] & 0x7F}]
+# set xtal [si5351_read 183]
+# if {($xtal & 0xC0) == 0} { error "Reserved crystal load setting; inspect before proceeding" }
+# set pll_bytes {0x00 0x01 0x00 0x10 0x00 0x00 0x00 0x00}
+# set ms_bytes  {0x00 0x01 0x00 0xDF 0x00 0x00 0x00 0x00}
+# for {set i 0} {$i < 8} {incr i} {
+#     write_verify [expr {26+$i}] [lindex $pll_bytes $i]
+#     write_verify [expr {42+$i}] [lindex $ms_bytes $i]
+#     write_verify [expr {50+$i}] [lindex $ms_bytes $i]
+# }
+# write_verify 165 0
+# write_verify 166 0
+# write_verify 16 0x4F
+# write_verify 17 0x4F
+# write_verify 24 [expr {[si5351_read 24] & 0xF0}]
+# si5351_write 177 0x20
+# after 20
+# set deadline [expr {[clock milliseconds] + 1000}]
+# while {1} {
+#     set status0 [si5351_read 0]
+#     if {($status0 & 0xA8) == 0} { break }
+#     if {[clock milliseconds] > $deadline} { error [format "PLLA/crystal not ready: %02X" $status0] }
+#     after 10
+# }
+# write_verify 3 0xFC
+# puts [format "SI5351_2MHZ_REGISTER_READBACK_PASS status=0x%02X crystal_load=0x%02X CLK0=2000000 CLK1=2000000 CLK2=disabled" $status0 $xtal]
+SI5351_2MHZ_REGISTER_READBACK_PASS status=0x11 crystal_load=0xD2 CLK0=2000000 CLK1=2000000 CLK2=disabled
+# puts "Frequency is nominal from the 25 MHz crystal; physical waveform not measured by this script."
+Frequency is nominal from the 25 MHz crystal; physical waveform not measured by this script.
+# set control_vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_run_vio"}]
+# if {[llength $control_vio] != 1} { error "ADC/DAC VIO missing" }
+# proc control_probe {name type} {
+#     global control_vio
+#     set p [get_hw_probes -quiet $name -of_objects $control_vio -filter "TYPE == $type"]
+#     if {[llength $p] != 1} { error "Expected exactly one $type probe $name" }
+#     return $p
+# }
+# proc control_input {name} {
+#     return [expr 0x[get_property INPUT_VALUE [control_probe $name vio_input]]]
+# }
+# refresh_hw_vio $control_vio
+# set run_probe [control_probe run_enable vio_output]
+# set dac_probe [control_probe dac_enable vio_output]
+# if {[get_property OUTPUT_VALUE $run_probe] != 0 || [control_input run_enable_2] != 0} {
+#     error "ADC must remain disabled for DAC startup"
+# }
+ADC must remain disabled for DAC startup
+    while executing
+"error "ADC must remain disabled for DAC startup""
+    invoked from within
+"if {[get_property OUTPUT_VALUE $run_probe] != 0 || [control_input run_enable_2] != 0} {
+    error "ADC must remain disabled for DAC startup"
+}"
+    (file "C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/initialize.tcl" line 86)
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 13:17:49 2026...
+

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SenseEval · Cell Monitor</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<header><div class="brand"><span class="mark">▦</span><div><h1>SenseEval <span>Cell Monitor</span></h1><p>KC705 · Caravel ReRAM · v1.2F</p></div></div>
+<div class="header-actions"><span id="connection" class="badge">Connecting</span><button id="check">Check bench</button><a class="button" href="/api/export.csv">Export CSV ↗</a></div></header>
+<main>
+<section class="rails"><span><i></i> FMC VADJ <b>1.8 V</b></span><span>VDDA1 target <b>3.0 V</b></span><span>VCCD2 target <b>1.8 V</b></span><span>ADC <b>10 MSPS</b></span><span>Shunts <b>56 Ω</b> · gain <b>7× nominal</b></span></section>
+<p id="validationNote" class="validation-note" hidden></p>
+<section class="panel waveform"><div class="panel-heading"><div><span class="eyebrow">LIVE READ CAPTURE</span><h2>ADC read trace <span id="waveCell" class="muted">· waiting for a measured read</span></h2></div><a class="button" href="/api/trace.csv">Export trace ↗</a></div>
+<div class="wave-legend"><label><input id="traceRead" type="checkbox" checked><i style="background:#54cfaa"></i> READ / R9</label><label><input id="traceReset" type="checkbox" checked><i style="background:#e8b86e"></i> RESET / R11</label><label><input id="traceSet" type="checkbox" checked><i style="background:#77aaff"></i> SET / R10</label><span>Δ current · µA nominal</span></div>
+<canvas id="waveform" height="220" aria-label="Measured ADC currents before during and after the cell read"></canvas>
+<p id="waveNote">No waveform has been captured yet. Run a hardware Read cell to capture the baseline, selection window and return to idle.</p></section>
+<div class="workspace">
+<section class="panel array-panel"><div class="panel-heading"><div><span class="eyebrow">32 × 32 ARRAY</span><h2>Cell activity</h2></div><label class="compact">Map source<select id="mapSource"><option value="scan">Scan · SET/R10 ΔµA</option><option value="wb">Wishbone · fine count</option></select></label></div>
+<div class="map-intro"><span id="mapSummary">No measurements yet</span><span>Click a cell to select</span></div>
+<div class="map-wrap"><div class="axis-name">ROW</div><div><div id="colLabels" class="col-labels"></div><div class="grid-body"><div id="rowLabels" class="row-labels"></div><div id="heatmap" role="grid" aria-label="Caravel 32 by 32 cell map"></div></div></div></div>
+<div class="legend"><span><i class="empty-key"></i> Unmeasured</span><span id="legendMin">—</span><div class="gradient"></div><span id="legendMax">—</span></div>
+<div class="map-footer"><span>Active minus preceding idle · nominal current</span><span id="selectedCell">Selected r0 / c0</span></div></section>
+<aside class="panel controls"><div class="panel-heading"><div><span class="eyebrow">EXPERIMENT</span><h2>Run control</h2></div><span class="badge subtle" id="modeClock">2 MHz scan</span></div>
+<form id="runForm">
+<label>Operation<select id="mode">
+<optgroup label="Scan debug"><option value="read">Read cell</option><option value="set">SET + readback</option><option value="reset">RESET + readback</option><option value="cycle">SET / RESET cycle</option><option value="column">Read column</option><option value="array">Read array</option></optgroup>
+<optgroup label="Wishbone / memory controller"><option value="wb_read">WB read</option><option value="wb_set">WB write · SET</option><option value="wb_reset">WB write · RESET</option><option value="wb_cycle">WB SET / RESET cycle</option></optgroup>
+</select></label>
+<div class="two"><label>Row<input id="row" type="number" min="0" max="31" value="0" required></label><label>Column<input id="col" type="number" min="0" max="31" value="0" required></label></div>
+<div id="scanPulse"><div class="form-section">SCAN PULSE SETTINGS</div><div class="two"><label>SET VCC · V<input id="set_v" type="number" min="0" max="3" step=".01" value="2.3"></label><label>SET WL · V<input id="set_wl" type="number" min="0" max="3" step=".01" value="1.3"></label></div>
+<div class="two"><label>RESET VCC · V<input id="reset_v" type="number" min="0" max="3" step=".01" value="2.7"></label><label>RESET WL · V<input id="reset_wl" type="number" min="0" max="3" step=".01" value="1.5"></label></div>
+<label>Pulse duration · ms<input id="pulse_ms" type="number" min=".01" max="6" step=".0005" value="1.2"></label></div>
+<p id="wbNote" hidden>10 MHz command clock. Fifteen UART readbacks per transaction. WB profile: RESET 2.5 V, WL_RESET 0.5 V, WL_SET off; Iref 1.0 V, dc_bias 1.5 V.</p>
+<label id="cycleField" hidden>Cycles<input id="cycles" type="number" min="1" max="10" value="1"></label>
+<label class="checkbox"><input id="dry_run" type="checkbox" checked> Preview only <span>no hardware commands</span></label>
+<div class="two actions"><button class="primary" id="run" type="submit">Preview operation</button><button id="cancel" type="button" disabled>Stop safely</button></div>
+</form><div class="job-status"><div><span id="jobLabel">READY</span><span id="resultCount"></span></div><progress id="progress" max="1" value="0"></progress><p id="message" aria-live="polite">Loading bench status…</p></div>
+<details><summary>Measurement notes</summary><p>Rail values above are targets, not live voltage telemetry. ADC1 = READ/R9, ADC2 = RESET/R11, ADC3 = SET/R10. Current uses 56 Ω and nominal gain 7; offset and gain calibration are pending. Supply-current changes can include circuit overhead.</p><p>SET/RESET are bounded pulses, with no automatic threshold sweep. A completed command does not certify a changed resistance. After each job the read profile is restored and Caravel is held in reset.</p></details>
+</aside></div>
+<section class="metrics"><article><span>READ · R9 / ADC1</span><strong id="readCurrent">—</strong><small>Δ current · µA nominal</small></article><article><span>RESET · R11 / ADC2</span><strong id="resetCurrent">—</strong><small>Δ current · µA nominal</small></article><article><span>SET · R10 / ADC3</span><strong id="setCurrent">—</strong><small>Δ current · µA nominal</small></article><article><span>WISHBONE RETURN</span><strong id="wbReturn">—</strong><small id="wbCounts">Coarse / fine TDC counts</small></article></section>
+<div class="lower"><section class="panel"><div class="panel-heading"><div><span class="eyebrow">READBACK HISTORY</span><h2>SET-path current</h2></div><span class="muted">ΔµA · nominal</span></div><canvas id="trace" height="170" aria-label="Measured SET path current over captured scan reads"></canvas><p id="traceNote">Real captures appear here after a hardware read.</p></section><section class="panel"><div class="panel-heading"><div><span class="eyebrow">RUN JOURNAL</span><h2>Recent operations</h2></div><span id="runTotal" class="muted">0 runs</span></div><div id="journal" class="journal"></div></section></div>
+<section id="preview" class="panel preview" hidden><div class="panel-heading"><h2>Operation preview</h2><button id="closePreview">Close</button></div><pre id="previewText"></pre></section>
+<footer>SenseEval control · Raw ADC and UART results are saved for every capture. <span>Local bench connection</span></footer>
+</main><script src="/app.js"></script></body></html>

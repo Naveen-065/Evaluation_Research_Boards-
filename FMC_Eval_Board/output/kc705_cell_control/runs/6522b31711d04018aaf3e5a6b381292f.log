@@ -1,0 +1,933 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 15:30:38 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/control.tcl
+# set here [file dirname [file normalize [info script]]]
+# if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
+# lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
+# if {$action ni {check hold read set reset cycle column array wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+# foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
+# foreach v [list $setv $setwl $resetv $resetwl] {
+#  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
+# }
+# if {![string is integer -strict $hold] || $hold<20 || $hold>12000 ||
+#     ![string is integer -strict $cycles] || $cycles<1 || $cycles>10 ||
+#     ![regexp {^[a-f0-9]{32}$} $jobid]} { error "Invalid pulse, cycle count or job ID" }
+# set stopfile [file join $here runs "$jobid.stop"]
+# source [file join $here i2c_host.tcl]
+## set here [file dirname [file normalize [info script]]]
+## open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:16 ; elapsed = 00:00:09 . Memory (MB): peak = 614.625 ; gain = 269.535
+## connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 620.633 ; gain = 6.008
+## set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+## if {[llength $target] != 1} { error "Known KC705 JTAG cable not found" }
+## current_hw_target $target
+## open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+## set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+## if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+## current_hw_device $dev
+## set_property PROBES.FILE [file join $here build kc705_adc_capture.ltx] $dev
+## refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+## set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+## if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+## set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+## set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+## if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+## proc read_status {} {
+##     global vio statprobe
+##     refresh_hw_vio $vio
+##     set hex [get_property INPUT_VALUE $statprobe]
+##     return [expr 0x$hex]
+## }
+## proc to_hex128 {value} {
+##     set result ""
+##     for {set n 0} {$n < 32} {incr n} {
+##         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+##         set value [expr {$value >> 4}]
+##     }
+##     if {$value != 0} { error "Command overflow" }
+##     return $result
+## }
+## set token [expr {[read_status] & 255}]
+## proc i2c_transfer {addr bytes nr} {
+##     global token cmdprobe
+##     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+##     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+##         error "Bad transaction length"
+##     }
+##     set s [read_status]
+##     if {$s & 256} { error "I2C bridge is already busy" }
+##     set token [expr {($token % 255) + 1}]
+##     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+##     set shift 23
+##     foreach b $bytes {
+##         if {$b < 0 || $b > 255} { error "Bad byte" }
+##         set cmd [expr {$cmd | ($b << $shift)}]
+##         incr shift 8
+##     }
+##     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+##     commit_hw_vio $cmdprobe
+##     set deadline [expr {[clock milliseconds] + 10000}]
+##     while {1} {
+##         set s [read_status]
+##         if {($s & 255) == $token && !($s & 256)} { break }
+##         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+##         after 10
+##     }
+##     if {$s & 512} {
+##         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+##     }
+##     set acked [expr {($s >> 80) & 255}]
+##     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+##     set result {}
+##     for {set i 0} {$i < $nr} {incr i} {
+##         lappend result [expr {($s >> (16+8*$i)) & 255}]
+##     }
+##     return $result
+## }
+## proc mux_select_fmc {} { i2c_transfer 0x74 [list 0x04] 0 }
+## proc mux_read {} { return [lindex [i2c_transfer 0x74 [list] 1] 0] }
+## proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+## proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+## proc close_i2c_bridge {} {
+##     close_hw_target
+##     disconnect_hw_server
+##     close_hw_manager
+## }
+# set sv [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_scan_vio"}]
+# set cp [get_hw_probes -quiet scan_command -of_objects $sv -filter {TYPE == vio_output}]
+# set rp0 [get_hw_probes -quiet scan_result0 -of_objects $sv -filter {TYPE == vio_input}]
+# set rp1 [get_hw_probes -quiet scan_result1 -of_objects $sv -filter {TYPE == vio_input}]
+# if {[llength $sv]!=1 || [llength $cp]!=1 || [llength $rp0]!=1 || [llength $rp1]!=1} { error "Control image/VIO missing" }
+# proc status_read {} {
+#  global sv rp0 rp1
+#  refresh_hw_vio $sv
+#  return [list [get_property INPUT_VALUE $rp0] [get_property INPUT_VALUE $rp1]]
+# }
+# proc cancel_check {} {
+#  global stopfile restoring
+#  if {!$restoring && [file exists $stopfile]} { error "CANCELLED" }
+# }
+# set restoring 0
+# proc command {op payload {timeout 6000}} {
+#  global cp
+#  set old [expr 0x[get_property OUTPUT_VALUE $cp]]
+#  set toggle [expr {1-(($old>>63)&1)}]
+#  set value [expr {($toggle<<63)|(1<<62)|($op<<58)|$payload}]
+#  set_property OUTPUT_VALUE [format %016llX $value] $cp
+#  commit_hw_vio $cp
+#  set deadline [expr {[clock milliseconds]+$timeout}]
+#  while {1} {
+#   if {$op!=4} { cancel_check }
+#   lassign [status_read] h0 h1
+#   set s [expr 0x$h0]
+#   if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
+#   if {[clock milliseconds]>$deadline} { error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1" }
+#   after 10
+#  }
+#  if {$s&1024} { error "Controller fault [expr {($s>>11)&15}]: $h0 / $h1" }
+#  return [list $h0 $h1]
+# }
+# proc hold_cpu {{wb 0}} { command 4 [expr {$wb<<57}] }
+# proc dac {ch voltage} {
+#  if {$ch ni {2 3 4 5 9 10 11 12 13} || $voltage<0 || $voltage>3} { error "Protected DAC channel/value" }
+#  # Floor the maximum code so even rounding cannot command above 3.0 V.
+#  command 2 [expr {(0x10+$ch)<<16 | min(39321,round($voltage*65536.0/5.0))}]
+# }
+# proc power_mask {wb} {
+#  # The reference disables DAC6, its physical VCC_SET output. This PCB uses
+#  # DAC2 for VCC_SET, so disable bit2 as well as WL_SET/unused outputs in WB.
+#  command 2 [expr {$wb ? 0x0901CC : 0x0901D0}]
+# }
+# proc scan_profile {} {
+#  hold_cpu
+#  dac 2 0.5; dac 3 2.5; dac 4 0; dac 5 2.3
+#  dac 9 0.9; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.0
+#  power_mask 0
+# }
+# proc wb_profile {} {
+#  hold_cpu 1
+#  dac 2 0.5; dac 3 0; dac 4 0.5; dac 5 2.5
+#  # Evaluation-board WB bias profile, encoded for this PCB's 0..5 V ranges.
+#  dac 9 1.0; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.5
+#  power_mask 1
+# }
+# proc write_verify {reg value} {
+#  si5351_write $reg $value
+#  if {[si5351_read $reg]!=$value} { error "Si5351 readback mismatch register $reg" }
+# }
+# proc clock_profile {mhz} {
+#  # CPU must already be held. PLLA stays 900 MHz; CLK0/1 match.
+#  mux_select_fmc
+#  if {[mux_read]!=4} { error "FMC I2C mux mismatch" }
+#  set old [si5351_read 3]
+#  set bytes [expr {$mhz==2 ? {0 1 0 223 0 0 0 0} : {0 1 0 43 0 0 0 0}}]
+#  write_verify 3 255
+#  for {set i 0} {$i<8} {incr i} {
+#   write_verify [expr {42+$i}] [lindex $bytes $i]
+#   write_verify [expr {50+$i}] [lindex $bytes $i]
+#  }
+#  write_verify 165 0; write_verify 166 0
+#  write_verify 16 79; write_verify 17 79
+#  si5351_write 177 32
+#  after 20
+#  if {[si5351_read 0]&0xA8} { error "Si5351 PLL/crystal fault" }
+#  write_verify 3 252
+#  puts "EVENT clock_mhz=$mhz"; flush stdout
+# }
+# proc emit_scan {r c label clocks pair} {
+#  lassign $pair h0 h1
+#  puts "CELL_RESULT $r $c $label $clocks $h0 $h1"; flush stdout
+# }
+# proc scan_capture {r c op clocks label {emit 1}} {
+#  cancel_check
+#  lassign [command 1 [expr {($op<<57)|($clocks<<10)|($c<<5)|$r}]] h0 h1
+#  set pair [list $h0 $h1]
+#  if {$emit} { emit_scan $r $c $label $clocks $pair }
+#  # The scan frame is returned before flagging clipping, so evidence is retained.
+#  if {([expr 0x$h0]>>37)&1} {
+#   if {!$emit} { emit_scan $r $c $label $clocks $pair }
+#   error "ADC clipping on a current-sense channel; stopped before another pulse"
+#  }
+#  return $pair
+# }
+# source [file join $here scan_ramp.tcl]
+## proc ramp_grid {op maxv maxwl} {
+##  if {$op ni {set reset}} { error "Unknown ramp operation" }
+##  foreach v [list $maxv $maxwl] {
+##   if {![string is double -strict $v] || $v<=0 || $v>3.0} { error "Ramp limit must be >0 and <=3.0 V" }
+##  }
+##  if {$op eq "set"} {
+##   set vs {2300 2400 2500}
+##   set ws {440 500 560 630 690 750 810 870 940 1000 1060 1120 1190 1250 1310 1370 1430 1500 1560 1620 1680 1750 1810 1870 1930 1990 2060 2120 2180 2240 2310 2370}
+##  } else {
+##   # Reference 2.3/2.7/3.1/3.5 V, clipped and deduplicated at the PCB limit.
+##   set vs {2300 2700 3000}
+##   set ws {940 1010 1070 1130 1190 1260 1320 1380 1440 1510 1570 1630 1690 1760 1820 1880 1940 2010 2070 2130 2190 2260 2320 2380 2440 2500 2570 2630 2690 2750 2820 2880}
+##  }
+##  set grid {}
+##  foreach v $vs {
+##   if {$v>round($maxv*1000)} continue
+##   foreach w $ws {
+##    if {$w<=round($maxwl*1000)} { lappend grid [list $v $w] }
+##   }
+##  }
+##  if {![llength $grid]} { error "Ramp limits exclude every reference step" }
+##  return $grid
+## }
+## proc ramp_current {pair r c} {
+##  lassign $pair h0 h1
+##  set a [expr 0x$h0]; set b [expr 0x$h1]
+##  set packet [expr {($r<<10)|($c<<5)|$r}]
+##  if {($b>>224)!=0x53435232 || !($a&512) || ($a&1280) ||
+##      (($a>>16)&65535)!=$packet || (($a>>37)&1)} { error "Invalid ramp ADC feedback" }
+##  set nb [expr {($a>>64)&65535}]; set na [expr {($a>>80)&65535}]
+##  if {$nb<500 || $nb>800 || $na<11960 || $na>12040} { error "Invalid ramp ADC sample count" }
+##  set base [expr {double(($a>>160)&0xffffffff)/$nb}]
+##  set active [expr {double(($b>>64)&0xffffffff)/$na}]
+##  if {$base<0 || $base>4095 || $active<0 || $active>4095} { error "Ramp ADC sum outside range" }
+##  return [expr {($active-$base)/2048.0/(7*56)*1e6}]
+## }
+## proc ramp_passes {op current} {
+##  return [expr {$op eq "set" ? $current>=35.0 : $current<=5.0}]
+## }
+## proc ramp_read {r c label} {
+##  set pair [scan_capture $r $c 0 2400 $label 0]
+##  set current [ramp_current $pair $r $c]
+##  return [list $pair $current]
+## }
+## proc ramp_confirm {r c op suffix last_step} {
+##  set readings {}
+##  for {set k 1} {$k<=10} {incr k} {
+##   lassign [ramp_read $r $c "confirm_${op}_${k}$suffix"] pair current
+##   set pass [ramp_passes $op $current]
+##   set outcome [expr {!$pass && $last_step ? "_limit" : ($pass && $k==10 ? "_met" : "")}]
+##   emit_scan $r $c "confirm_${op}_${k}${outcome}$suffix" 2400 $pair
+##   lappend readings $current
+##   if {!$pass} { return [dict create target_met 0 readings $readings last_current $current] }
+##  }
+##  return [dict create target_met 1 readings $readings last_current $current]
+## }
+## proc ramp_finish {op pulses met current} {
+##  set verdict [expr {$met ? "target confirmed by 10 reads" : "limit reached; target NOT met"}]
+##  puts "EVENT RAMP [string toupper $op]: $verdict; pulses=$pulses; last=[format %.3f $current] uA nominal"
+##  puts "RAMP_COMPLETE $op $pulses $met [format %.6f $current]"; flush stdout
+##  return [dict create operation $op pulses $pulses target_met $met last_current $current]
+## }
+## proc scan_program {r c op} {
+##  global setv setwl resetv resetwl hold
+##  set maxv [expr {$op eq "set" ? $setv : $resetv}]
+##  set maxwl [expr {$op eq "set" ? $setwl : $resetwl}]
+##  set grid [ramp_grid $op $maxv $maxwl]
+##  set step 0; set pulses 0
+##  foreach rails $grid {
+##   cancel_check
+##   incr step
+##   lassign $rails mv mw
+##   set suffix "__s${step}_v${mv}_wl${mw}"
+##   set last_step [expr {$step==[llength $grid]}]
+##   lassign [ramp_read $r $c "before_$op$suffix"] pair current
+##   emit_scan $r $c "before_$op$suffix" 2400 $pair
+##   if {[ramp_passes $op $current]} {
+##    set result [ramp_confirm $r $c $op $suffix 0]
+##    if {[dict get $result target_met]} {
+##     return [ramp_finish $op $pulses 1 [dict get $result last_current]]
+##    }
+##   }
+##   cancel_check
+##   puts "EVENT RAMP [string toupper $op] step $step/[llength $grid]: VCC=[expr {$mv/1000.0}] V, WL=[expr {$mw/1000.0}] V"; flush stdout
+##   hold_cpu
+##   dac 2 [expr {$mv/1000.0}]; dac 3 [expr {$mw/1000.0}]
+##   scan_capture $r $c [expr {$op eq "set"}] $hold "${op}_pulse"
+##   incr pulses
+##   hold_cpu; dac 2 0.5; dac 3 2.5
+##   lassign [ramp_read $r $c "after_$op$suffix"] pair current
+##   set pass [ramp_passes $op $current]
+##   set outcome [expr {!$pass && $last_step ? "_limit" : ""}]
+##   emit_scan $r $c "after_${op}${outcome}$suffix" 2400 $pair
+##   if {$pass} {
+##    set result [ramp_confirm $r $c $op $suffix $last_step]
+##    set current [dict get $result last_current]
+##    if {[dict get $result target_met]} { return [ramp_finish $op $pulses 1 $current] }
+##   }
+##  }
+##  return [ramp_finish $op $pulses 0 $current]
+## }
+# proc wb_capture {r c op} {
+#  cancel_check
+#  # Use the reference project's permanent runtime firmware programming path
+#  # documented in api_v1/prerequisites/HARDWARE_RUNTIME_BACKUP.md.
+#  set mode [expr {$op eq "read" ? 1 : ($op eq "set" ? 3 : 0)}]
+#  # Match evaluation-board memory_controller_packet(), including READ PWM.
+#  set pwm 0xFF
+#  set value [expr {($mode<<30)|($r<<25)|($c<<20)|(2<<16)|(0xAA<<8)|$pwm}]
+#  # gui_wb_mode.c's write branch calls issue_program_setup for SET/RESET.
+#  # It sends the program packet twice without an intervening chip reset.
+#  # Repeating the read-transport command instead resets between packets and
+#  # returned zero banks on this PCB. READ uses issue_read_setup_once.
+#  set programming [expr {$op ne "read"}]
+#  set payload [expr {($programming<<57)|(0x80<<32)|$value}]
+#  cancel_check
+#  lassign [command 3 $payload 65000] h0 h1
+#  set b [expr 0x$h1]
+#  if {(($b>>40)&0x7FFF)!=0x7FFF || !(($b>>55)&1) || (($b>>64)&0xFFFFFFFF)!=$value} {
+#   error "Wishbone command echo or readback mask mismatch"
+#  }
+#  puts "EVENT WB $op r$r/c$c firmware transaction completed"; flush stdout
+#  for {set i 0} {$i<15} {incr i} {
+#   lassign [command 5 $i] h0 h1
+#   puts "WB_WORD $r $c $op $i [format %08X $value] $h0 $h1"; flush stdout
+#  }
+#  puts "WB_COMPLETE $r $c $op"; flush stdout
+# }
+# proc collect_trace {} {
+#  # The last scan operation remains in FPGA trace RAM. Three measured samples
+#  # per VIO read; their time stamps count 10-MSPS snapshots from baseline start.
+#  for {set i 0} {$i<256} {incr i 3} {
+#   cancel_check
+#   lassign [command 6 $i] h0 h1
+#   set b [expr 0x$h1]
+#   if {($b>>224)!=0x54524332 || (($b>>201)&255)!=$i} { error "ADC trace signature/index mismatch" }
+#   set n [expr {($b>>192)&511}]
+#   if {$n<3 || $n>256} { error "ADC trace length invalid: $n" }
+#   puts "TRACE_CHUNK $i $h1"; flush stdout
+#   if {$i+3>=$n} { break }
+#  }
+# }
+# lassign [status_read] h0 h1
+# if {([expr 0x$h1]>>224)!=0x53435232} { error "Full-control FPGA signature mismatch" }
+# puts "CONTROL_STATUS $h0 $h1"
+CONTROL_STATUS 0013aea70013f5ca0013d697001451080013e4802edb02800000001b00008209 53435232007e3fe37e2814fe0170e50d01761a7001767d4e017cc46f0174c0f2
+# flush stdout
+# if {$action eq "check"} { close_i2c_bridge; exit }
+# set iswb [string match wb_* $action]
+EVENT clock_mhz=2
+CELL_RESULT 0 0 read 2400 0013aed30013f5ec0013d54c001452d20013e1f12edb02800000001f00000200 534352320fbe3fef7e441cfe0170e47701761bf501766c05017cda8e0174b283
+CELL_RESULT 0 0 before_set__s1_v2300_wl440 2400 0013af210013f5fa0013d5c60014528e0013e32e2edb02800000001f00008200 534352320fbe3feb7ee414fe0170e49f01761b5601767370017cdece0174a973
+EVENT RAMP SET step 1/96: VCC=2.3 V, WL=0.44 V
+CELL_RESULT 0 0 set_pulse 2400 0013aec00013f5e40014049c00142aff0013dfb02edb02800000001f80008200 53435232007e3fe801301cfe0170e11801761b09017814aa017a317801748d4e
+CELL_RESULT 0 0 after_set__s1_v2300_wl440 2400 0013af180013f6060013d4d4001452740013e20e2edb02800000001f00008200 53435232007e3feb7ed81cfe0170e46501761c2101765f32017cdae401749f0c
+CELL_RESULT 0 0 before_set__s2_v2300_wl500 2400 0013af1a0013f5e00013d581001452af0013e2bd2edb02800000001f00000200 534352320fbe3fef7e8412fe0170e67501761aa50176689e017cde670174a306
+EVENT RAMP SET step 2/96: VCC=2.3 V, WL=0.5 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae2d0013f6040014051600142b760013df492edb02800000001f80000200 53435232007edfea01581afe0170e45601761c20017814aa017a38fc01748816
+CELL_RESULT 0 0 after_set__s2_v2300_wl500 2400 0013ae770013f5ed0013d5db001452970013e2c32edb02800000001f00000200 53435232007e3fecfe9416fe0170dfc201761b3a01765a3a017ce4090174a6b2
+CELL_RESULT 0 0 before_set__s3_v2300_wl560 2400 0013af0c0013f5e20013d527001452f00013e1232edb02800000001f00008200 534352320fbe3fe8fe581efe0170e59f01761b6201766327017ce2b90174a462
+EVENT RAMP SET step 3/96: VCC=2.3 V, WL=0.56 V
+CELL_RESULT 0 0 set_pulse 2400 0013b6e70013fde700140e34001433710013e9d82edb02810000001f80008200 534352320fbe3fec013012fe0170e21301761ae6017823b6017a39cf0174ab09
+CELL_RESULT 0 0 after_set__s3_v2300_wl560 2400 0013aeb70013f5cb0013d5f1001452770013e4832edb02800000001f00008200 53435232007e3fe4fea41efe0170ddd401761a5f017653b9017ce40d0174cdd6
+CELL_RESULT 0 0 before_set__s4_v2300_wl630 2400 0013ae5a0013f5fd0013d5a50014530d0013e1ca2edb02800000001f00000200 53435232007e3fe0feb812fe0170e31601761bae01765d88017ce3dc0174a1c5
+EVENT RAMP SET step 4/96: VCC=2.3 V, WL=0.63 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae5d0013f5ff0014060700142b330013e2012edb02800000001f80000200 53435232007e3fe4013016fe0170e30301761be1017826a4017a37c00174a72b
+CELL_RESULT 0 0 after_set__s4_v2300_wl630 2400 0013aed90013f5e70013d562001452bf0013e2032edb02800000001f00000200 53435232007e3fe0fe9816fe0170e50601761aa701764fef017ce3280174a0bc
+CELL_RESULT 0 0 before_set__s5_v2300_wl690 2400 0013aeea0013f5d50013d5de001452ea0013e4782edb02800000001f00008200 5343523207be3fe77eb412fe0170e0e501761baa01766ee1017ce5920174d042
+EVENT RAMP SET step 5/96: VCC=2.3 V, WL=0.69 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae9b0013f5fd0014051e00142bdf0013e03a2edc02800000001f80008200 53435232007e3fec011018fe0170edc3017624b201782e53017a488d01749cca
+CELL_RESULT 0 0 after_set__s5_v2300_wl690 2400 0013ae900013f5f70013d6580014531f0013e42d2edb02800000001f00008200 53435232007e3fef7ee816fe0170dfe501761c830176717c017ce7560174cef7
+CELL_RESULT 0 0 before_set__s6_v2300_wl750 2400 0013aec00013f5e00013d5b2001452a10013e32f2edc02800000001f00000200 53435232007e3fe2fe7811fe0170e98e017622c401767939017cea100174c9d8
+EVENT RAMP SET step 6/96: VCC=2.3 V, WL=0.75 V
+CELL_RESULT 0 0 set_pulse 2400 0013aebf0013f5dc001405c900142b7e0013e1ba2edb02800000001f80000200 534352320fbe3fe401b81b7e0170e73401761c6801784e2b017a46770174932d
+CELL_RESULT 0 0 after_set__s6_v2300_wl750 2400 0013ae980013f5e30013d5ef0014528b0013e3f12edb02800000001f00000200 53435232007e3fe77e981cfe0170e59401761b1801766ce8017ce1c00174c76d
+CELL_RESULT 0 0 before_set__s7_v2300_wl810 2400 0013ae600013f5f30013d63d001452870013e4922edb02800000001f00008200 53435232007e3fe0fe541efe0170de6201761abf01766bd0017cdcbf0174c56f
+EVENT RAMP SET step 7/96: VCC=2.3 V, WL=0.81 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae9a0013f5f20014055400142af00013e0132edc02800000001f80008200 534352320fbe3fea017812fe0170e76a017624290178ca56017a631f01749e5a
+CELL_RESULT 0 0 after_set__s7_v2300_wl810 2400 0013aef90013f5fc0013d562001452cb0013e1be2edb02800000001f00008200 53435232007e3fe0fe641cfe0170e6e501761c8501765d9c017cde990174a606
+CELL_RESULT 0 0 before_set__s8_v2300_wl870 2400 0013ae4e0013f5f90013d642001452bf0013e3a72edc02800000001f00000200 5343523207be3fef7e641cfe0170dfcd0176243301765fc9017ce47b0174d553
+EVENT RAMP SET step 8/96: VCC=2.3 V, WL=0.87 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae020013f5ea001405b600142abc0013e1c12edb02800000001f80000200 53435232007e3fe201981cfe0170dbb901761c1f0179ebc2017a938d0174a94d
+CELL_RESULT 0 0 after_set__s8_v2300_wl870 2400 0013ae750013f5f90013d51a001452c30013e1eb2edb02800000001f00000200 53435232007e3fe77e1814fe0170e03701761cb301764807017ce3c70174a692
+CELL_RESULT 0 0 before_set__s9_v2300_wl940 2400 0013aecc0013f5e60013d630001452c50013e3e32edc02800000001f00008200 5343523207be3fef7ed416fe0170e41c01761f5a01765da3017ce27f0174db16
+EVENT RAMP SET step 9/96: VCC=2.3 V, WL=0.94 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae800013f608001405c600142b740013e0a82edc02800000001f80008200 53435232007e3fea01781cfe0170dfe60176251a017b3f21017ad1450174b06b
+CELL_RESULT 0 0 after_set__s9_v2300_wl940 2400 0013add80013f5f50013d559001452e80013e2682edc02800000001f00008200 53435232007e3fe8fe8412fe0170e8d00176239e01765b03017cea720174c47d
+CELL_RESULT 0 0 before_set__s10_v2300_wl1000 2400 0013ae700013f5e10013d6840014527a0013e47c2edb02800000001f00000200 534352320fbe3fe77ef81cfe0170e32801761b6501764f38017cdefe0174c45f
+EVENT RAMP SET step 10/96: VCC=2.3 V, WL=1.0 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae5f0013f5ff0014061b00142af90013e1bc2edb02800000001f80000200 534352320fbe3fe8019019fe0170dad001761ba4017c1829017ae3e90174abc3
+CELL_RESULT 0 0 after_set__s10_v2300_wl1000 2400 0013af0c0013f5d60013d57c0014523d0013e2fa2edb02800000001f00000200 534352320fbe3fe0fed816fe0170e20601761a7f017655d2017ce0610174aa93
+CELL_RESULT 0 0 before_set__s11_v2300_wl1060 2400 0013adff0013f5f20013d55c0014528b0013e32f2edb02800000001f00008200 534352320fbe3fe0fe681cfe0170d33001761bd301762a10017cdf9c0174b236
+EVENT RAMP SET step 11/96: VCC=2.3 V, WL=1.06 V
+CELL_RESULT 0 0 set_pulse 2400 0013aeaf0013f5f4001404d100142b690013df722edb02800000001f80008200 53435232007e3fec01f01cfe0170e35c01761a19017c67bb017af415017484b9
+CELL_RESULT 0 0 after_set__s11_v2300_wl1060 2400 0013adfe0013f5f30013d548001452df0013e2882edc02800000001f00008200 53435232007e3fef7ee812fe0170e0e1017623720176941d017ce59e0174ca19
+CELL_RESULT 0 0 before_set__s12_v2300_wl1120 2400 0013ae6b0013f5da0013d5120014523f0013e1e72edb02800000001f00000200 53435232007e3fe77ee410fe0170dee201761c1b01764457017cdaef0174b09a
+EVENT RAMP SET step 12/96: VCC=2.3 V, WL=1.12 V
+CELL_RESULT 0 0 set_pulse 2400 0013ae990013f5bc0014054200142b220013e0632edb02800000001f80000200 53435232007e3fe001c012fe0170dffe01761927017cec68017afeb1017489a3
+CELL_RESULT 0 0 after_set__s12_v2300_wl1120 2400 0013ae440013f5f20013d51b0014527c0013e2ae2edc02800000001f00000200 534352320fbe3fe4fe2416fe0170e8d8017622e801779589017ce3750174cdb8
+CELL_RESULT 0 0 before_set__s13_v2300_wl1190 2400 0013adbc0013f5f30013d5460014524b0013e1fe2edb02800000001f00008200 534352320fbe3fe77e3411fe0170d8ae01761bf10176e790017ce1c10174a3cc
+EVENT RAMP SET step 13/96: VCC=2.3 V, WL=1.19 V
+CELL_RESULT 0 0 set_pulse 2400 0013aea60013f6010014062700142b0f0013e1f92edb02800000001f80008200 534352320fbe3fe101e81afe0170e2ff01761cc2017ddc4a017b135d0174ac31
+CELL_RESULT 0 0 after_set__s13_v2300_wl1190 2400 0013af3b0013f5de0013d5c8001452910013e4a62edb02800000001f00008200 53435232007e3fe77e641afe0170df8c01761b6501787c53017ce06e0174d196
+CELL_RESULT 0 0 before_set__s14_v2300_wl1250 2400 0013ae300013f5f70013d6450014529a0013e48d2edb02800000001f00000200 534352320fbe3fe0fe541cfe0170de8501761ca801788ecd017ce3540174cecf
+EVENT RAMP SET step 14/96: VCC=2.3 V, WL=1.25 V
+CELL_RESULT 0 0 set_pulse 2400 0013af1f0013f5ec0014057800142bb30013df582edb02800000001f80000200 534352320fbe3fe601b01efe0170e65601761ae3017ec25c017b29b5017484b1
+CELL_RESULT 0 0 after_set__s14_v2300_wl1250 2400 0013ae440013f60f0013d621001452c80013e4832edb02800000001f00000200 534352320fbe3fe37ee81cfe0170e10b01761d8701799675017ce7620174d091
+CELL_RESULT 0 0 confirm_set_1__s14_v2300_wl1250 2400 0013aee50013f5e30013d4d6001452c00013e1b42edb02800000001f00008200 534352320fbe3fef7e741afe0170e85401761b510179702b017ce6460174a24f
+CELL_RESULT 0 0 confirm_set_2__s14_v2300_wl1250 2400 0013aeec0013f6010013d5c1001452860013e2b92edc02800000001f00000200 534352320fbe3fe77e9414fe0170ed7f017625a5017982d0017ceb470174c52b
+CELL_RESULT 0 0 confirm_set_3__s14_v2300_wl1250 2400 0013aef00013f5f00013d486001453000013e1562edb02800000001f00008200 53435232007e3fe77eb418fe0170e23b01761b730179749c017ce5aa0174a297
+CELL_RESULT 0 0 confirm_set_4__s14_v2300_wl1250 2400 0013ae890013f5eb0013d49b001452f50013e1c12edb02800000001f00000200 53435232007e3fe8fe581efe0170e75701761a2a01798ce8017ce3510174a5b9
+CELL_RESULT 0 0 confirm_set_5__s14_v2300_wl1250 2400 0013aeb70013f5d00013d5a20014526b0013e3812edb02800000001f00008200 5343523207be3fe4fed41dfe0170e82701761b050179760e017ce6340174af34
+CELL_RESULT 0 0 confirm_set_6__s14_v2300_wl1250 2400 0013ae7b0013f6010013d5ab001452930013e2eb2edc02800000001f00000200 534352320fbe3fe57ee810fe0170eef7017624c001799448017cec4c0174c8f4
+CELL_RESULT 0 0 confirm_set_7__s14_v2300_wl1250 2400 0013af360013f5d00013d493001452460013e12c2edb02800000001f00008200 53435232007e3fef7e441afe0170e7ca01761a6701798269017ce3ab0174a50d
+CELL_RESULT 0 0 confirm_set_8__s14_v2300_wl1250 2400 0013aeb10013f5e50013d5600014529a0013e3132edb02800000001f00000200 534352320fbe3feb7ea81afe0170e3c601761b3f01796b56017ce8dd0174ab87
+CELL_RESULT 0 0 confirm_set_9__s14_v2300_wl1250 2400 0013aed40013f5d70013d4b5001452a40013e1d32edb02800000001f00008200 534352320fbedfeb7e6812fe0170dfdc01761a5901796420017ce3a801749f54
+CELL_RESULT 0 0 confirm_set_10_met__s14_v2300_wl1250 2400 0013adf10013f5e60013d49e001452670013e1412edb02800000001f00000200 534352320fbe3fe0fea416fe0170db5f01761a0601796ce0017ce31f0174a729
+EVENT RAMP SET: target confirmed by 10 reads; pulses=14; last=39.184 uA nominal
+RAMP_COMPLETE set 14 1 39.184157
+CELL_RESULT 0 0 before_reset__s1_v2300_wl940 2400 0013aedb0013f5de0013d4f2001452ca0013e1b22edb02800000001f00008200 53435232007e3fe17e3414fe0170e52801761b68017979d8017ce2880174a771
+EVENT RAMP RESET step 1/96: VCC=2.3 V, WL=0.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aded0013f5d50014051900142aee0013df772edb02800000001f00008200 53435232007e3feffe7018fe0170da1d01761a5601796eb8017a7ed7017488fe
+CELL_RESULT 0 0 after_reset__s1_v2300_wl940 2400 0013ae950013f5aa0013d5f8001452b60013e40e2edc02800000001f00008200 53435232007e3feb7e681efe0170e51d01761fe20179a590017ceb440174daab
+CELL_RESULT 0 0 before_reset__s2_v2300_wl1010 2400 0013adf50013f5f40013d4f3001453020013e1e12edb02800000001f00000200 53435232007e3fe8fe541afe0170dda601761b4301795dfd017ce77b01749ea9
+EVENT RAMP RESET step 2/96: VCC=2.3 V, WL=1.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae980013f6070014067000142b3f0013e17f2edb02800000001f00000200 53435232007e3fe8011014fe0170e42a01761c380179a451017a8b2001749ebd
+CELL_RESULT 0 0 after_reset__s2_v2300_wl1010 2400 0013af320013f5ea0013d4f10014529c0013e1cb2edb02800000001f00000200 534352320fbe3fe77e441cfe0170e75201761b9101796684017ce28c0174a8c9
+CELL_RESULT 0 0 before_reset__s3_v2300_wl1070 2400 0013aebe0013f6100013d5bb001452810013e3bd2edb02800000001f00008200 534352320fbe3fe0fe5411fe0170e31f01761bd401796f6a017ce4c10174bba6
+EVENT RAMP RESET step 3/96: VCC=2.3 V, WL=1.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeaf0013f5e3001404d400142b340013dee22edb02800000001f00008200 53435232007e3fe8012014fe0170e24b017619a90179bd44017a93ef01747e98
+CELL_RESULT 0 0 after_reset__s3_v2300_wl1070 2400 0013aef30013f5ce0013d610001452800013e3d62edb02800000001f00008200 53435232007e3fef7ea81efe0170eb140176196601796e06017ce6b40174b38a
+CELL_RESULT 0 0 before_reset__s4_v2300_wl1130 2400 0013ae1a0013f6290013d4de001452fd0013e1f02edb02800000001f00000200 534352320fbe3fed7e5812fe0170e17001761c14017966e6017ce88c0174aecb
+EVENT RAMP RESET step 4/96: VCC=2.3 V, WL=1.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae190013f5e9001405fe00142b9d0013e2192edb02800000001f00000200 53435232007e3fe4011016fe0170e00a01761a020179f1d0017a9cb20174a404
+CELL_RESULT 0 0 after_reset__s4_v2300_wl1130 2400 0013aee80013f5f90013d52a001452bd0013e2522edb02800000001f00000200 534352320fbe3fe77e9816fe0170e4d301761bb201796fd6017ce82601749c9c
+CELL_RESULT 0 0 before_reset__s5_v2300_wl1190 2400 0013aede0013f5d70013d556001452ad0013e2412edb02800000001f00008200 534352320fbe3fe37e341afe0170e28201761b1801796d41017ce65d0174a480
+EVENT RAMP RESET step 5/96: VCC=2.3 V, WL=1.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aecf0013f5e30014052a00142b620013dfa72edb02800000001f00008200 53435232007e3fea013812fe0170ec7101761b7d017a185a017aa1b501748d8d
+CELL_RESULT 0 0 after_reset__s5_v2300_wl1190 2400 0013aefd0013f5ed0013d594001452a40013e3792edb02800000001f00008200 534352320fbe3fef7e681afe0170e46301761b4e01798569017ce68c0174aef3
+CELL_RESULT 0 0 before_reset__s6_v2300_wl1260 2400 0013af160013f5f20013d5e9001452460013e4812edb02800000001f00000200 53435232007e3feb7e6812fe0170e69d01761b3401798910017ce67c0174cdbd
+EVENT RAMP RESET step 6/96: VCC=2.3 V, WL=1.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af0b0013f5ed0014057500142b720013e00c2edc02800000001f00000200 53435232007e3fe4019014fe0170f0000176235d017a6de4017ab7640174a971
+CELL_RESULT 0 0 after_reset__s6_v2300_wl1260 2400 0013ae570013f5fd0013d58f001452a20013e2ea2edc02800000001f00000200 53435232007e3fe8feb41cfe0170e6ea017623e101797e53017ceea30174cf3a
+CELL_RESULT 0 0 before_reset__s7_v2300_wl1320 2400 0013af2d0013f5ef0013d58d0014524f0013e4232edb02800000001f00008200 53435232007e3fef7e341afe0170edf501761c350179787d017ce3550174c102
+EVENT RAMP RESET step 7/96: VCC=2.3 V, WL=1.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af240013f601001404e900142b420013df4e2edb02800000001f00008200 534352320fbe3fe201581cfe0170e5ed01761b6a017a823b017ab85b017485ae
+CELL_RESULT 0 0 after_reset__s7_v2300_wl1320 2400 0013ae8e0013f5dc0013d587001452b30013e30d2edb02800000001f00008200 534352320fbe3fe77e8414fe0170df0f01761a74017960ae017ce7d40174a9cb
+CELL_RESULT 0 0 before_reset__s8_v2300_wl1380 2400 0013ae780013f5f50013d4db001452c50013e1702edb02800000001f00000200 534352320fbe3feb7ee818fe0170d73301761bfe017960e0017ce6f90174a4ad
+EVENT RAMP RESET step 8/96: VCC=2.3 V, WL=1.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aecc0013f5dc0014057a00142b1b0013e1122edc02800000001f00000200 534352320fbe3fe401901cfe0170e29501762214017adc2b017ac9a10174b33a
+CELL_RESULT 0 0 after_reset__s8_v2300_wl1380 2400 0013af5e0013f5e80013d46c001452510013e1672edb02800000001f00000200 534352320fbe3fe8feb41afe0170eae501761b9f01797531017ce3ad0174b3fc
+CELL_RESULT 0 0 before_reset__s9_v2300_wl1440 2400 0013af0e0013f5ec0013d66d0014532e0013e3c02edb02800000001f00008200 53435232007e3fe77e581afe0170e4aa01761bdd017977a2017ce6eb0174ccad
+EVENT RAMP RESET step 9/96: VCC=2.3 V, WL=1.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae9d0013f5d50014063e00142b2b0013e19d2edb02800000001f00008200 534352320fbe3fea01381afe0170e59f01761a25017b1280017ac38c01749d78
+CELL_RESULT 0 0 after_reset__s9_v2300_wl1440 2400 0013ae370013f5f80013d57a001452af0013e2402edb02800000001f00008200 53435232007e3fe0fee81cfe0170e16101761a3701797743017ce5870174b6ad
+CELL_RESULT 0 0 before_reset__s10_v2300_wl1510 2400 0013aec30013f5ae0013d5c5001452b00013e3e92edb02800000001f00000200 534352320fbe3fe77ee81afe0170e44d0176197b01796fe5017ce9df0174bc45
+EVENT RAMP RESET step 10/96: VCC=2.3 V, WL=1.51 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae320013f5ef001405be00142b400013e0a92edb02800000001f00000200 534352320fbe3fea015818fe0170e36201761c69017b5973017ad5570174902b
+CELL_RESULT 0 0 after_reset__s10_v2300_wl1510 2400 0013ae8b0013f6010013d51a001452650013e20d2edb02800000001f00000200 53435232007e3fef7e541efe0170e63a01761c3e01795b78017ce5c60174a0a1
+CELL_RESULT 0 0 before_reset__s11_v2300_wl1570 2400 0013aea40013f6140013d5ab0014529e0013e34f2edb02800000001f00008200 53435232007e3fe4fe5811fe0170df4a01761c040179664b017ce74c0174ac94
+EVENT RAMP RESET step 11/96: VCC=2.3 V, WL=1.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae260013f5fe001405f600142b350013e0a52edc02800000001f00008200 53435232007e3fe4015018fe0170e6300176247c017bad7e017ae0ad0174b338
+CELL_RESULT 0 0 after_reset__s11_v2300_wl1570 2400 0013aef30013f6060013d5d7001452730013e3fd2edc02800000001f00008200 534352320fbe3fe2fe2416fe0170ec8f017624fd017984b9017ced560174dd0d
+CELL_RESULT 0 0 before_reset__s12_v2300_wl1630 2400 0013af230013f6080013d62d0014522d0013e3d22edc02800000001f00000200 534352320fbe3feb7e0414fe0170edee017622c90179814c017ceef70174d6e3
+EVENT RAMP RESET step 12/96: VCC=2.3 V, WL=1.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae700013f60e001405de00142b800013e1cb2edb02800000001f00000200 534352320fbe3fe401b81cfe0170e14f01761c73017bf5d7017ae5e10174a588
+CELL_RESULT 0 0 after_reset__s12_v2300_wl1630 2400 0013ae7a0013f5d40013d62e001452990013e4922edb02800000001f00000200 53435232007ebfe8fea81afe0170e31701761bd601797e9c017ce8870174cb84
+CELL_RESULT 0 0 before_reset__s13_v2300_wl1690 2400 0013aeca0013f5fa0013d4970014533d0013e1d42edb02800000001f00008200 53435232007e3fe4fee41efe0170e21b01761ac3017960f5017ce8b30174a8e3
+EVENT RAMP RESET step 13/96: VCC=2.3 V, WL=1.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeca0013f5e40014058700142b6b0013e0b72edc02800000001f00008200 534352320fbe3fe4013812fe0170ecdf017623e9017c3526017af66e0174b218
+CELL_RESULT 0 0 after_reset__s13_v2300_wl1690 2400 0013af0e0013f5e30013d52d001452700013e2a32edb02800000001f00008200 534352320fbe3fe37e241afe0170e7530176198501794304017ce6fa0174a236
+CELL_RESULT 0 0 before_reset__s14_v2300_wl1760 2400 0013ae8d0013f5f50013d5e20014524f0013e3302edc02800000001f00000200 534352320fbe3fe8fe681afe0170e7c901762307017969fb017ced7d0174d7c8
+EVENT RAMP RESET step 14/96: VCC=2.3 V, WL=1.76 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae150013f5ec001404fb00142b1b0013df432edb02800000001f00000200 53435232007e3fea01e81afe0170d98c01761b67017c8f84017af5aa0174854f
+CELL_RESULT 0 0 after_reset__s14_v2300_wl1760 2400 0013ae720013f5eb0013d4d7001452ae0013e2882edb02800000001f00000200 53435232007e3fe8fee814fe0170dad501761bab01797ec7017ce2350174a2a8
+CELL_RESULT 0 0 before_reset__s15_v2300_wl1820 2400 0013ae9b0013f5fe0013d632001452670013e43c2edb02800000001f00008200 534352320fbe3fe4fe341afe0170df0f01761b5f0179912e017ce3c00174be16
+EVENT RAMP RESET step 15/96: VCC=2.3 V, WL=1.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af360013f6010014051e00142b670013dfc32edb02800000001f00008200 534352320fbe3fe401f01afe0170e35501761c48017d2006017b05580174851d
+CELL_RESULT 0 0 after_reset__s15_v2300_wl1820 2400 0013aede0013f60a0013d593001452980013e3412edb02800000001f00008200 53435232007e3fe77e7418fe0170e33a01761c5501799f1e017ce3e40174b35c
+CELL_RESULT 0 0 before_reset__s16_v2300_wl1880 2400 0013ae610013f5a80013d647001452370013e4782edb02800000001f00000200 53435232007e3fef7e941afe0170dec00176190401799e61017ce3400174c681
+EVENT RAMP RESET step 16/96: VCC=2.3 V, WL=1.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013adfe0013f5eb001405cd00142aff0013e2152edb02800000001f00000200 53435232007e3fec01d012fe0170dc6e01761991017d4fa6017b02cb0174b7c9
+CELL_RESULT 0 0 after_reset__s16_v2300_wl1880 2400 0013aea70013f5ce0013d58b001452470013e4b12edb02800000001f00000200 534352320fbe3fe4fe6411fe0170e111017619140178ade0017ce12d0174d5f5
+CELL_RESULT 0 0 before_reset__s17_v2300_wl1940 2400 0013aee20013f5ee0013d5b2001452b80013e3722edb02800000001f00008200 53435232007edfecfe8415fe0170e5a201761b1a0178995b017ce1de0174b63e
+EVENT RAMP RESET step 17/96: VCC=2.3 V, WL=1.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aea80013f5d40014053500142b4e0013df892edb02800000001f00008200 534352320fbe3fe801b812fe0170da7001761aac017c7b17017af26201748407
+CELL_RESULT 0 0 after_reset__s17_v2300_wl1940 2400 0013ae580013f6080013d5540014528d0013e3792edb02800000001f00008200 534352320fbe3fe77e981afe0170e0d001761c3a0176d8e1017cdef50174af5c
+CELL_RESULT 0 0 before_reset__s18_v2300_wl2010 2400 0013add20013f5e90013d534001452b60013e2422edb02800000001f00000200 534352320fbe3feafe2413fe0170e07201761b560176dd5f017ce09c0174b643
+EVENT RAMP RESET step 18/96: VCC=2.3 V, WL=2.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aedc0013f5ef001405ad00142b030013e1282edb02800000001f00000200 534352320fbe3fec013814fe0170e58401761b45017c64bc017af197017495ea
+CELL_RESULT 0 0 after_reset__s18_v2300_wl2010 2400 0013aebf0013f5f40013d52c001452bd0013e1eb2edb02800000001f00000200 53435232007e3feb7e3812fe0170e3e701761acb01775ed4017ce3270174b6f8
+CELL_RESULT 0 0 before_reset__s19_v2300_wl2070 2400 0013af370013f5e50013d5bc001452a70013e4012edb02800000001f00008200 534352320fbe3fe0fed41efe0170ea4a01761a80017772c6017ce4770174bd9a
+EVENT RAMP RESET step 19/96: VCC=2.3 V, WL=2.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aee60013f5ee0014053600142b000013df3b2edb02800000001f00008200 534352320fbe3fe401e81afe0170e85e01761bff017e5b9b017b1c0701749220
+CELL_RESULT 0 0 after_reset__s19_v2300_wl2070 2400 0013aeab0013f5df0013d5300014528f0013e2de2edb02800000001f00008200 53435232007e3feb7e681cfe0170e0eb01761b290176cf1b017ce0a00174a9a9
+CELL_RESULT 0 0 before_reset__s20_v2300_wl2130 2400 0013af430013f5f90013d510001452250013e2062edb02800000001f00000200 534352320fbe3feb7e0414fe0170e6f101761b620176d63c017cddb70174aafb
+EVENT RAMP RESET step 20/96: VCC=2.3 V, WL=2.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ad7a0013f5f50014054e00142b050013e0ce2edc02800000001f00000200 534352320fbe3fe7fec018fe0170de7c01762340017f7fd8017b347c0174baf8
+CELL_RESULT 0 0 after_reset__s20_v2300_wl2130 2400 0013aebe0013f5cd0013d67e001452fd0013e4a62edb02800000001f00000200 53435232007e3feb7e2412fe0170e37101761a0a0176e678017ce3f50174c5b7
+CELL_RESULT 0 0 before_reset__s21_v2300_wl2190 2400 0013af2b0013f5fc0013d647001452d70013e4552edb02800000001f00008200 53435232007e3feb7e3814fe0170ec9c01761cb00176f026017cdf8c0174d2ec
+EVENT RAMP RESET step 21/96: VCC=2.3 V, WL=2.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aec10013f5fd0014061f00142b220013e17f2edb02800000001f00008200 53435232007e3fea01a81afe0170e64301761bdc01800004017b37ad0174a28f
+CELL_RESULT 0 0 after_reset__s21_v2300_wl2190 2400 0013ae7d0013f6050013d585001452ba0013e27e2edb02800000001f00008200 534352320fbedfe77e181cfe0170e29a01761abe0176d800017ce1270174a56d
+CELL_RESULT 0 0 before_reset__s22_v2300_wl2260 2400 0013ae6d0013f5f50013d627001452ae0013e4242edb02800000001f00000200 5343523207be3feb7e4412fe0170e03601761b5c0176eef6017cddc30174d149
+EVENT RAMP RESET step 22/96: VCC=2.3 V, WL=2.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af6c0013f5e80014046400142b2b0013df762edb02800000001f00000200 53435232007e3fe401481cfe0170ec9a017619f301807611017b3f3801748b61
+CELL_RESULT 0 0 after_reset__s22_v2300_wl2260 2400 0013ae7f0013f5ee0013d5b5001452a50013e2742edb02800000001f00000200 534352320fbe3fe8fea816fe0170e10e01761bbc01767cf1017ce0510174a435
+CELL_RESULT 0 0 before_reset__s23_v2300_wl2320 2400 0013aeeb0013f5e80013d568001452390013e22d2edb02800000001f00008200 53435232007e3fe77e581efe0170e899017619d701767f4a017cdbf90174b92e
+EVENT RAMP RESET step 23/96: VCC=2.3 V, WL=2.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aee40013f5df0014055e00142b070013e0a92edc02800000001f00008200 534352320fbe3fea01a816fe0170ee570176233d018106da017b4b020174bb73
+CELL_RESULT 0 0 after_reset__s23_v2300_wl2320 2400 0013ae6d0013f5ca0013d533001452cf0013e2852edb02800000001f00008200 534352320fbe3fe0fe9419fe0170e2e00176199c017687b1017cdf430174bb7b
+CELL_RESULT 0 0 before_reset__s24_v2300_wl2380 2400 0013af2e0013f5cc0013d514001452640013e2152edb02800000001f00000200 534352320fbe3fef7e5812fe0170e6bb017618a601768719017cdee10174a786
+EVENT RAMP RESET step 24/96: VCC=2.3 V, WL=2.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae3a0013f5a7001404ce00142b820013dfa92edb02800000001f00000200 53435232007e3fe801101afe0170e0f70176184701813902017b485c01749652
+CELL_RESULT 0 0 after_reset__s24_v2300_wl2380 2400 0013aecc0013f5ef0013d630001452780013e44f2edb02800000001f00000200 53435232007e3feafec41dfe0170e26701761a570176b855017ce1f70174ceaf
+CELL_RESULT 0 0 before_reset__s25_v2300_wl2440 2400 0013ae580013f5ee0013d501001452bc0013e19e2edb02800000001f00008200 53435232007e3fef7e741afe0170e39501761b820176bf50017ce1730174addc
+EVENT RAMP RESET step 25/96: VCC=2.3 V, WL=2.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae980013f5d5001404b600142b1a0013dfa72edb02800000001f00008200 53435232007e3fea01a812fe0170e5a901761b20018179f3017b4ceb01748d3c
+CELL_RESULT 0 0 after_reset__s25_v2300_wl2440 2400 0013af210013f5e70013d4ce0014528a0013e1e12edb02800000001f00008200 53435232007e3fe77ed81cfe0170e68901761bd1017640e5017cdebb0174abf0
+CELL_RESULT 0 0 before_reset__s26_v2300_wl2500 2400 0013aeac0013f5ec0013d5430014527b0013e21b2edb02800000001f00000200 534352320fbe3feb7e341cfe0170db9f01761bfe01765ecc017cdcf90174abb8
+EVENT RAMP RESET step 26/96: VCC=2.3 V, WL=2.5 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aec10013f5db0014052e00142af70013df362edb02800000001f00000200 534352320fbe3fe201281efe0170e4a00176197e0180c770017b42e40174916e
+CELL_RESULT 0 0 after_reset__s26_v2300_wl2500 2400 0013ae080013f5d60013d577001452720013e2552edb02800000001f00000200 53435232007e3fef7e6816fe0170d9760176185501766813017cdf020174bb0a
+CELL_RESULT 0 0 before_reset__s27_v2300_wl2570 2400 0013aefb0013f5ea0013d63d001452760013e4542edb02800000001f00008200 53435232007e3fe2fe0419fe0170e28201761b5001766947017ce1dd0174d090
+EVENT RAMP RESET step 27/96: VCC=2.3 V, WL=2.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af4c0013f5d40014052c00142b000013dff42edb02800000001f00008200 534352320fbe3fe8017014fe0170ea21017619d401813c8c017b475a017493f2
+CELL_RESULT 0 0 after_reset__s27_v2300_wl2570 2400 0013af090013f5f00013d5e1001452630013e4182edb02800000001f00008200 534352320fbe3fe8fe1812fe0170ebf001761ae70176354c017cdf630174bbe7
+CELL_RESULT 0 0 before_reset__s28_v2300_wl2630 2400 0013ae470013f5e20013d523001453030013e1f32edb02800000001f00000200 534352320fbe3fe4feb816fe0170e43c01761b74017632a4017ce2d50174b324
+EVENT RAMP RESET step 28/96: VCC=2.3 V, WL=2.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aea70013f5fd0014049600142afa0013e01e2edb02800000001f00000200 53435232007e3fe8017810fe0170e52c01761b740181052d017b40270174a452
+CELL_RESULT 0 0 after_reset__s28_v2300_wl2630 2400 0013adf30013f5fd0013d52b0014529d0013e29f2edb02800000001f00000200 534352320fbe3fe0fe8812fe0170ddc601761b840176014c017cdaf30174bb0b
+CELL_RESULT 0 0 before_reset__s29_v2300_wl2690 2400 0013b6a20013fdd60013de4100145a910013ec202edb02810000001f00008200 534352320fbe3fe77e581afe0170e27e017619a30176199d017ce0f00174d79b
+EVENT RAMP RESET step 29/96: VCC=2.3 V, WL=2.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeb30013f5fa0014052e00142abb0013e0e72edc02800000001f00008200 534352320fbe3fe401a01cfe0170ed5e017624640180a267017b45640174bf89
+CELL_RESULT 0 0 after_reset__s29_v2300_wl2690 2400 0013aed10013f5dd0013d5ad0014527d0013e3582edb02800000001f00008200 534352320fbe3fe37e6816fe0170dff701761aae01760493017ce2810174ae59
+CELL_RESULT 0 0 before_reset__s30_v2300_wl2750 2400 0013aef70013f6050013d63e001452910013e4592edb02800000001f00000200 53435232007e3feb7ed41afe0170e0c701761c9001761726017cdc670174d502
+EVENT RAMP RESET step 30/96: VCC=2.3 V, WL=2.75 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae970013f5ea0014059700142b5f0013e16e2edb02800000001f00000200 53435232007e3fe601d012fe0170e20b01761ba50180a11b017b3fda017498d7
+CELL_RESULT 0 0 after_reset__s30_v2300_wl2750 2400 0013ae2e0013f5dd0013d5f70014523f0013e39c2edc02800000001f00000200 53435232007e3fe77ec414fe0170e7ca0176200301761a01017ce3a90174da87
+CELL_RESULT 0 0 before_reset__s31_v2300_wl2820 2400 0013b6ac0013fddc0013ddbe00145ae00013ec022edb02810000001f00008200 53435232007e3fe4fea419fe0170e1a801761ad701762604017ce2e80174d426
+EVENT RAMP RESET step 31/96: VCC=2.3 V, WL=2.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af0a0013f5ea0014067d00142b070013e2812edb02800000001f00008200 53435232007e3fec015814fe0170e5ec01761b360180e58d017b427d0174c273
+CELL_RESULT 0 0 after_reset__s31_v2300_wl2820 2400 0013af100013f5ed0013d5e1001452640013e4562edb02800000001f00008200 534352320fbe3feb7e7812fe0170e2d301761afe01761d13017cdecc0174c352
+CELL_RESULT 0 0 before_reset__s32_v2300_wl2880 2400 0013ae3e0013f5c60013d606001452d90013e49c2edb02800000001f00000200 534352320fbe3fe2fe141afe0170e09a01761b8901762671017ce3d90174d238
+EVENT RAMP RESET step 32/96: VCC=2.3 V, WL=2.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae9e0013f5f40014061400142b7a0013e1f82edb02800000001f00000200 534352320fbe3fe401681cfe0170e83701761b0e0180a66f017b3a5e0174aac6
+CELL_RESULT 0 0 after_reset__s32_v2300_wl2880 2400 0013ae760013f5d80013d60e001452880013e3ff2edb02800000001f00000200 53435232007e3fe0fe3416fe0170dea8017619cc0176146b017cdd510174bc29
+CELL_RESULT 0 0 before_reset__s33_v2700_wl940 2400 0013ae6b0013f5d90013d4bc0014527a0013e2492edb02800000001f00008200 534352320fbe3fef7ea812fe0170e06001761b5b01761ce5017cdd200174bf6e
+EVENT RAMP RESET step 33/96: VCC=2.7 V, WL=0.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae8d0013f5ea001630e70013375c0013d01c2edc02800000001f00008200 534352320fbe3fefb165eb7e0170ea400176233a01a15232016bc4450173aee0
+CELL_RESULT 0 0 after_reset__s33_v2700_wl940 2400 0013ae6d0013f5bb0013d50b0014527d0013e2122edb02800000001f00008200 53435232007e3fecfe7412fe0170e27c01761a1701761f40017cde910174a7a1
+CELL_RESULT 0 0 before_reset__s34_v2700_wl1010 2400 0013af110013f5ee0013d588001452650013e35b2edc02800000001f00000200 53435232007e3fe0fee811fe0170f0d20176239d01763b86017ce7f00174da45
+EVENT RAMP RESET step 34/96: VCC=2.7 V, WL=1.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aefe0013f60c00163116001337850013d0742edb02800000001f00000200 53435232007e3fefb11deb7e0170e4cc01761bca01a14b04016bce5c0173985b
+CELL_RESULT 0 0 after_reset__s34_v2700_wl1010 2400 0013af040013f5f10013d4f60014528e0013e2142edb02800000001f00000200 534352320fbe3fe77e481afe0170df4c01761bff01761d05017ce3b50174a7a3
+CELL_RESULT 0 0 before_reset__s35_v2700_wl1070 2400 0013ae740013f5ee0013d529001452b90013e2552edb02800000001f00008200 53435232007e3fef7eb81afe0170e17b01761bf701762728017cde430174b9c8
+EVENT RAMP RESET step 35/96: VCC=2.7 V, WL=1.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeac0013f5e1001631a6001337f20013d14a2edb02800000001f00008200 534352320fbe3fefb195e77e0170dd4201761b4401a14dd1016bceb60173a170
+CELL_RESULT 0 0 after_reset__s35_v2700_wl1070 2400 0013ae3e0013f60d0013d518001452d70013e2bf2edb02800000001f00008200 534352320fbe3fe77e641afe0170e1e201761c850176217f017ce6460174ba52
+CELL_RESULT 0 0 before_reset__s36_v2700_wl1130 2400 0013ae7c0013f6000013d6660014527f0013e4ff2edb02800000001f00000200 53435232007e3fe37e381cfe0170e36f01761c6d01762c84017ce0550174c4c1
+EVENT RAMP RESET step 36/96: VCC=2.7 V, WL=1.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aee60013f60a001631b2001337670013d0b12edb02800000001f00000200 534352320fbe3fe3b16de67e0170e09c01761c1e01a159dc016bd6280173a80d
+CELL_RESULT 0 0 after_reset__s36_v2700_wl1130 2400 0013ae1c0013f5fb0013d5fe0014527b0013e44c2edb02800000001f00000200 534352320fbe3fef7e9814fe0170df9401761c5f017623f0017ce16a0174c251
+CELL_RESULT 0 0 before_reset__s37_v2700_wl1190 2400 0013ae4d0013f5c60013d60b0014524f0013e3ef2edb02800000001f00008200 534352320fbe3fe4fed41afe0170e4f901761aea01761d48017cdf430174b63b
+EVENT RAMP RESET step 37/96: VCC=2.7 V, WL=1.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeee0013f5f2001630c1001337450013ce7b2edb02800000001f00008200 5343523207bedfe3b1a5ef7e0170e75401761b4a01a14099016bd1fd01737ca1
+CELL_RESULT 0 0 after_reset__s37_v2700_wl1190 2400 0013aedd0013f5f30013d5d30014529a0013e3372edc02800000001f00008200 53435232007e3fe77ef41afe0170f1290176233e01764d2a017ce9fd0174d3b6
+CELL_RESULT 0 0 before_reset__s38_v2700_wl1260 2400 0013af560013f5f70013d5aa001452cc0013e3512edb02800000001f00000200 534352320fbe3fe4feb411fe0170ebc401761b79017632ca017ce4d00174b1fc
+EVENT RAMP RESET step 38/96: VCC=2.7 V, WL=1.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aef50013f5ef0016300b001337b80013ce412edb02800000001f00000200 534352320fbe3fe3b175e97e0170e6f8017619b701a14f24016bdb130173941b
+CELL_RESULT 0 0 after_reset__s38_v2700_wl1260 2400 0013aef60013f5a90013d4d4001452810013e2762edb02800000001f00000200 53435232007e3fef7ed812fe0170e091017619dd017627a5017ce0ec0174a6b5
+CELL_RESULT 0 0 before_reset__s39_v2700_wl1320 2400 0013ae2a0013f5f80013d50a0014523c0013e2842edc02800000001f00008200 53435232007e3fe0fe9816fe0170ed700176234801762fb9017ce69d0174c851
+EVENT RAMP RESET step 39/96: VCC=2.7 V, WL=1.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af060013f5ef00163019001337510013cde02edb02800000001f00008200 53435232007e3fefb12deb7e0170e11501761b7801a14824016be4b901738212
+CELL_RESULT 0 0 after_reset__s39_v2700_wl1320 2400 0013aec30013f5ee0013d581001452ce0013e2f52edc02800000001f00008200 5343523207be3fe8fee41afe0170f097017622d00176533e017ce8380174cd7d
+CELL_RESULT 0 0 before_reset__s40_v2700_wl1380 2400 0013af090013f5cd0013d5fe0014528b0013e3072edc02800000001f00000200 53435232007e3fef7ed81cfe0170eece0176228b0176521a017ce7580174d3b1
+EVENT RAMP RESET step 40/96: VCC=2.7 V, WL=1.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aef80013f5f400163123001337580013d03c2edb02800000001f00000200 534352320fbe3fe2716def7e0170e55f01761ac801a15dab016be6b00173a6e8
+CELL_RESULT 0 0 after_reset__s40_v2700_wl1380 2400 0013aec30013f5e90013d634001452a80013e4402edb02800000001f00000200 534352320fbe3fe0fe941afe0170e5b601761a1501763ddf017ce2000174c1a1
+CELL_RESULT 0 0 before_reset__s41_v2700_wl1440 2400 0013ae680013f5dd0013d5cd0014521b0013e4462edb02800000001f00008200 53435232007e3feb7e841afe0170daf80176196d01763e38017cded00174cf6d
+EVENT RAMP RESET step 41/96: VCC=2.7 V, WL=1.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae120013f5f100163185001337e00013d0862edb02800000001f00008200 534352320fbe3fe7b1d5e77e0170e0f601761bd601a15db7016bf0c70173a1b6
+CELL_RESULT 0 0 after_reset__s41_v2700_wl1440 2400 0013ae7c0013f5e30013d5a30014529d0013e2c22edc02800000001f00008200 53435232007e3feb7ed81cfe0170e6a7017621f101763fe7017ceb610174d0fc
+CELL_RESULT 0 0 before_reset__s42_v2700_wl1510 2400 0013aea10013f6090013d59d0014526f0013e2ff2edb02800000001f00000200 534352320fbe3fe0fe1816fe0170e31701761bde01762c25017ce0060174acc9
+EVENT RAMP RESET step 42/96: VCC=2.7 V, WL=1.51 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae420013f5b8001630fb001337460013cff72edc02800000001f00000200 5343523207be3febb1f5e37e0170ec950176217801a16792016bf8940173b5ce
+CELL_RESULT 0 0 after_reset__s42_v2700_wl1510 2400 0013ae970013f5e70013d5030014529c0013e21b2edb02800000001f00000200 53435232007e3fef7ea81efe0170dfe701761aab017620c2017ce00f0174a7c6
+CELL_RESULT 0 0 before_reset__s43_v2700_wl1570 2400 0013b6ad0013fdc50013ddc900145ae10013ec0c2edb02810000001f00008200 534352320fbe3fe0fe7414fe0170defc01761b1d01763690017ce12e0174d39e
+EVENT RAMP RESET step 43/96: VCC=2.7 V, WL=1.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae450013f5f100163052001337b20013ce242edb02800000001f00008200 53435232007e3fea714de77e0170debc01761b8801a14ce4016bf7d001738084
+CELL_RESULT 0 0 after_reset__s43_v2700_wl1570 2400 0013af3c0013f5d60013d579001452680013e3602edb02800000001f00008200 534352320fbe3fef7ec412fe0170e31201761a3e01761930017cde730174ac89
+CELL_RESULT 0 0 before_reset__s44_v2700_wl1630 2400 0013aece0013f5f40013d5a40014525c0013e4802edb02800000001f00000200 534352320fbe3fe8fe7816fe0170d49801761b4c0176223d017cdd8b0174d66e
+EVENT RAMP RESET step 44/96: VCC=2.7 V, WL=1.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeac0013f5fe001630d5001337b50013cf792edc02800000001f00000200 534352320fbe3fe0718deb7e0170e623017622c001a16b54016c04f50173adcf
+CELL_RESULT 0 0 after_reset__s44_v2700_wl1630 2400 0013aee60013f5e10013d5d50014528f0013e4182edb02800000001f00000200 53435232007e3fe77e7816fe0170da230176198601761ca0017ce2fd0174d409
+CELL_RESULT 0 0 before_reset__s45_v2700_wl1690 2400 0013ae660013f5ec0013d561001452b70013e31f2edb02800000001f00008200 534352320fbe3fe0fee419fe0170df7901761c5001761149017ce5e40174a8e0
+EVENT RAMP RESET step 45/96: VCC=2.7 V, WL=1.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeb70013f59e001630e30013371e0013cf282edb02800000001f00008200 5343523207bedfe07155ef7e0170de8d0176182701a157b8016c0271017386d8
+CELL_RESULT 0 0 after_reset__s45_v2700_wl1690 2400 0013ae4a0013f5f80013d5db001452b10013e35b2edb02800000001f00008200 53435232007e3fe0feb416fe0170dfd401761b4901761095017ce64e0174aecf
+CELL_RESULT 0 0 before_reset__s46_v2700_wl1760 2400 0013aef50013f5ff0013d590001452880013e2c62edc02800000001f00000200 5343523207be3fe0fe441efe0170ef81017624090176258c017ce7df0174cd97
+EVENT RAMP RESET step 46/96: VCC=2.7 V, WL=1.76 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae400013f5d500163078001337280013cd3f2edb02800000001f00000200 53435232007e3fe071d5e97e0170da1d01761a6e01a157fc016c099e01737c0d
+CELL_RESULT 0 0 after_reset__s46_v2700_wl1760 2400 0013ae4f0013f5ff0013d4a1001453100013e1fd2edb02800000001f00000200 534352320fbe3feb7ed41afe0170e2aa01761b30017617e4017ce14e0174a20c
+CELL_RESULT 0 0 before_reset__s47_v2700_wl1820 2400 0013ae8f0013f5e10013d6520014525b0013e4832edb02800000001f00008200 53435232007e3fef7e281afe0170e0ce01761c0501762afb017cddb20174cc99
+EVENT RAMP RESET step 47/96: VCC=2.7 V, WL=1.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeaf0013f5ce0016313f0013379d0013d0332edb02800000001f00008200 53435232007e3fe471dde0fe0170ecce01761b1001a16965016c14b201739f6d
+CELL_RESULT 0 0 after_reset__s47_v2700_wl1820 2400 0013ae120013f5d80013d6c1001452ac0013e49f2edb02800000001f00008200 534352320fbe3fe77ed81afe0170d92f01761a1401762e5b017ce1040174d153
+CELL_RESULT 0 0 before_reset__s48_v2700_wl1880 2400 0013ae650013f5ce0013d5d0001452b70013e3d62edb02800000001f00000200 534352320fbe3fecfe781dfe0170e18d01761ac4017614f8017ce54e0174b58d
+EVENT RAMP RESET step 48/96: VCC=2.7 V, WL=1.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae070013f5e5001630590013371e0013ce8c2edc02800000001f00000200 53435232007e3febb115e97e0170e573017622e701a18600016c4e540173a7f6
+CELL_RESULT 0 0 after_reset__s48_v2700_wl1880 2400 0013af470013f5e80013d5c6001452800013e4092edb02800000001f00000200 534352320fbe3feb7e581afe0170e7ce01761af101761244017ce02a0174bc5e
+CELL_RESULT 0 0 before_reset__s49_v2700_wl1940 2400 0013ae680013f5fb0013d695001452c60013e4b32edb02800000001f00008200 53435232007e3fe97ec41afe0170e0a901761be101762709017ce01a0174c374
+EVENT RAMP RESET step 49/96: VCC=2.7 V, WL=1.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeb30013f5dc001630630013377b0013cdfd2edb02800000001f00008200 53435232007e3fe6711de37e0170e9c301761b5801a18c24016c86970173872e
+CELL_RESULT 0 0 after_reset__s49_v2700_wl1940 2400 0013ae8b0013f5f10013d649001452420013e42e2edb02800000001f00008200 53435232007e3fef7e5819fe0170e17c01761acd017631af017cdc9b0174beb5
+CELL_RESULT 0 0 before_reset__s50_v2700_wl2010 2400 0013b6440013fde20013de0600145aae0013ebea2edb02810000001f00000200 534352320fbe3fe37e7812fe0170dcb601761b48017637f0017ce22b0174d4d1
+EVENT RAMP RESET step 50/96: VCC=2.7 V, WL=2.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae640013f60a00163034001337930013ce2a2edb02800000001f00000200 534352320fbe3fe2715de37e0170e80201761c6b01a1aef2016cce3701739ab3
+CELL_RESULT 0 0 after_reset__s50_v2700_wl2010 2400 0013aebf0013f5e70013d5010014532a0013e2052edb02800000001f00000200 534352320fbe3fe57e6412fe0170e44701761b5c01761a5e017ce2860174ab73
+CELL_RESULT 0 0 before_reset__s51_v2700_wl2070 2400 0013af150013f5f30013d5cb001452740013e2902edb02800000001f00008200 534352320fbe3fe77e2812fe0170ef2301761b17017630ec017cdd980174b9ce
+EVENT RAMP RESET step 51/96: VCC=2.7 V, WL=2.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae060013f5f4001631bb001337680013d0fd2edb02800000001f00008200 534352320fbe3fe471ede37e0170ddc201761c5301a20a2e016d7c5f0173c31f
+CELL_RESULT 0 0 after_reset__s51_v2700_wl2070 2400 0013aebd0013f5f40013d593001452870013e3732edb02800000001f00008200 53435232007e3fed7e441cfe0170e4f201761a8501761c04017cdfd20174b2b3
+CELL_RESULT 0 0 before_reset__s52_v2700_wl2130 2400 0013ae340013f5ec0013d5cb001452dd0013e3722edc02800000001f00000200 534352320fbe3fef7e0412fe0170e8a0017623f201763702017cec3b0174d484
+EVENT RAMP RESET step 52/96: VCC=2.7 V, WL=2.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae2e0013f5ef0016306e001338070013ceea2edb02800000001f00000200 534352320fbe3fe7b12de67e0170db0a01761cc901a24955016e389b0173a93c
+CELL_RESULT 0 0 after_reset__s52_v2700_wl2130 2400 0013add20013f6030013d60c0014530d0013e5182edb02800000001f00000200 5343523207bebfe77ed416fe0170dbb0017619a10176326f017ce61f0174c9ca
+CELL_RESULT 0 0 before_reset__s53_v2700_wl2190 2400 0013add60013f5d90013d5c8001452ce0013e3442edb02800000001f00008200 534352320fbe3fe37ef814fe0170d532017619eb01762286017ce4300174ae1e
+EVENT RAMP RESET step 53/96: VCC=2.7 V, WL=2.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae1e0013f5d20016319d001337e30013d1262edb02800000001f00008200 53435232087e3fe8711ded7e0170daa401761a5201a29255016e8eb80173deb9
+CELL_RESULT 0 0 after_reset__s53_v2700_wl2190 2400 0013aee60013f5f40013d606001452810013e4562edb02800000001f00008200 53435232007e3fe8fe8c12fe0170e55201761c0101761a4c017ce00c0174d27b
+CELL_RESULT 0 0 before_reset__s54_v2700_wl2260 2400 0013ae370013f6020013d616001452ce0013e4012edb02800000001f00000200 53435232007e3fe8fee414fe0170daf801761c3b01761c86017ce1880174d28a
+EVENT RAMP RESET step 54/96: VCC=2.7 V, WL=2.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae520013f61000163082001337570013cdb72edb02800000001f00000200 534352320fbe3fe7b135e57e0170e25c01761c9201a2c801016f24290173c6b5
+CELL_RESULT 0 0 after_reset__s54_v2700_wl2260 2400 0013adfc0013f6040013d597001453310013e1e42edb02800000001f00000200 5343523207be3fe77ec416fe0170d5c201761adc01762d98017ce6890174a0ec
+CELL_RESULT 0 0 before_reset__s55_v2700_wl2320 2400 0013aee20013f5f40013d60d0014527d0013e3d72edb02800000001f00008200 534352320fbe3fe37e3818fe0170e38201761cdc0176394a017ce5a80174be6c
+EVENT RAMP RESET step 55/96: VCC=2.7 V, WL=2.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af170013f5ee00163157001337c70013cef52edc02800000001f00008200 534352320fbe3febb1a5e57e0170f2f30176233501a32555016fc0110173f22c
+CELL_RESULT 0 0 after_reset__s55_v2700_wl2320 2400 0013af240013f6080013d5e20014530e0013e4e52edb02800000001f00008200 53435232007e3feb7ed414fe0170e76801761ce501764351017ce6fb0174d448
+CELL_RESULT 0 0 before_reset__s56_v2700_wl2380 2400 0013ae300013f6000013d4fd001452e30013e2262edb02800000001f00000200 534352320fbe3fe4fe3412fe0170e2da01761b7f01763dac017ce5510174afb1
+EVENT RAMP RESET step 56/96: VCC=2.7 V, WL=2.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae460013f607001631330013374e0013d0b12edb02800000001f00000200 53435232007e3fe2719de77e0170d4fe01761c9401a366a2017040dd0173fba3
+CELL_RESULT 0 0 after_reset__s56_v2700_wl2380 2400 0013ae420013f5fa0013d5e3001452c70013e3802edb02800000001f00000200 534352320fbe3fe8fe781afe0170ddb501761cb701764dd7017cdfec0174b43f
+CELL_RESULT 0 0 before_reset__s57_v2700_wl2440 2400 0013ae080013f6030013d6a4001452a10013e4ce2edb02800000001f00008200 534352320fbe3fef7e7816fe0170dcf301761d8701765eac017ce2e40174c9bb
+EVENT RAMP RESET step 57/96: VCC=2.7 V, WL=2.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae4b0013f5f7001630530013376b0013cdeb2edb02800000001f00008200 534352320fbe3fe3b14de97e0170e08b01761c2301a37a6f017073550173e6a8
+CELL_RESULT 0 0 after_reset__s57_v2700_wl2440 2400 0013ae790013f6030013d519001452a10013e2472edb02800000001f00008200 534352320fbe3fe8fef81cfe0170e7c701761da60176476a017ce2b80174a571
+CELL_RESULT 0 0 before_reset__s58_v2700_wl2500 2400 0013ae270013f6010013d60f0014526d0013e4032edc02800000001f00000200 53435232007e3fe8fe3412fe0170ea350176249901766622017ce7680174d94c
+EVENT RAMP RESET step 58/96: VCC=2.7 V, WL=2.5 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aec80013f5ff0016306e001337760013ce7a2edc02800000001f00000200 53435232007e3fefb1ede17e0170e8ac0176224f01a395ea017095550173fac9
+CELL_RESULT 0 0 after_reset__s58_v2700_wl2500 2400 0013ae0d0013f6030013d5160014528e0013e1982edb02800000001f00000200 534352320fbe3fe57e38177e0170d73201761c3401764986017cdd760174a6db
+CELL_RESULT 0 0 before_reset__s59_v2700_wl2570 2400 0013ae820013f5f90013d566001452e60013e2012edb02800000001f00008200 53435232007edfe0fe3414fe0170deb7017619ae017643c9017ce27a0174a9ac
+EVENT RAMP RESET step 59/96: VCC=2.7 V, WL=2.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae890013f5d5001631670013376f0013d06b2edb02800000001f00008200 53435232007e3fe271dde77e0170e8540176183f01a3ae3e0170cb5a0173fe89
+CELL_RESULT 0 0 after_reset__s59_v2700_wl2570 2400 0013ae6e0013f5ef0013d512001453220013e24f2edb02800000001f00008200 534352320fbe3fe77ec414fe0170dfac01761b3e0176426e017ce2fd0174b868
+CELL_RESULT 0 0 before_reset__s60_v2700_wl2630 2400 0013b64b0013fdf20013ddb300145ab20013ec182edb02810000001f00000200 53435232007edfe0fe2412fe0170dc6601761c2001765919017ce3530174d26c
+EVENT RAMP RESET step 60/96: VCC=2.7 V, WL=2.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae590013f5fc001630ca001337a90013d0172edb02800000001f00000200 53435232007e3fe8718de77e0170e62b01761bde01a3c9020170ed7701740809
+CELL_RESULT 0 0 after_reset__s60_v2700_wl2630 2400 0013ae450013f5f20013d5bc001452a60013e3fa2edb02800000001f00000200 534352320fbe3feb7e7819fe0170e11001761bfb01764e4b017ce0020174bd6e
+CELL_RESULT 0 0 before_reset__s61_v2700_wl2690 2400 0013ae370013f5e70013d62d0014526c0013e3a32edc02800000001f00008200 534352320fbe3fe8fe181afe0170e4d20176236601766311017ce8060174da3b
+EVENT RAMP RESET step 61/96: VCC=2.7 V, WL=2.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af030013f5f100163160001337290013d0e52edb02800000001f00008200 534352320fbe3fefb12de97e0170d94401761bbe01a3e2d30171094c017408ef
+CELL_RESULT 0 0 after_reset__s61_v2700_wl2690 2400 0013ade10013f5f90013d4ef001452270013e1882edb02800000001f00008200 534352320fbe3fe0fe3416fe0170d98e01761c5c01763c4d017cdfc60174a973
+CELL_RESULT 0 0 before_reset__s62_v2700_wl2750 2400 0013ae940013f5e20013d6400014524d0013e4242edb02800000001f00000200 5343523207be3fe0fe0411fe0170e31001761bea017642a8017ce2780174bca1
+EVENT RAMP RESET step 62/96: VCC=2.7 V, WL=2.75 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae3b0013f6000016319f001337820013d07d2edb02800000001f00000200 53435232007e3febb135e77e0170d77301761bf901a356e00170186c0173fb4a
+CELL_RESULT 0 0 after_reset__s62_v2700_wl2750 2400 0013ae5b0013f5ea0013d661001452510013e44f2edb02800000001f00000200 534352320fbe3feb7e481cfe0170dd9e01761b4701762c17017ce1720174cae3
+CELL_RESULT 0 0 before_reset__s63_v2700_wl2820 2400 0013aef80013f5ff0013d4ff001452710013e2532edb02800000001f00008200 53435232007e3fe77e841afe0170e30b01761a9a0176201d017cdf8e0174a3a6
+EVENT RAMP RESET step 63/96: VCC=2.7 V, WL=2.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae550013f5c600163196001337260013d0e82edb02800000001f00008200 53435232007e3fe871b5e37e0170e204017619d201a37870017057a70173f548
+CELL_RESULT 0 0 after_reset__s63_v2700_wl2820 2400 0013ae630013f5e10013d50a001452cd0013e2232edb02800000001f00008200 53435232007e3fe8fe7419fe0170e59b01761bbe01762da6017ce26a0174a18f
+CELL_RESULT 0 0 before_reset__s64_v2700_wl2880 2400 0013ae360013f5fd0013d616001452620013e3c52edc02800000001f00000200 53435232007e3fed7e641cfe0170ddcf0176230401763c49017ce85f0174d897
+EVENT RAMP RESET step 64/96: VCC=2.7 V, WL=2.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae4a0013f5f70016313c001337590013cf7a2edb02800000001f00000200 53435232007e3fe07115e37e0170d92901761c3e01a32ea7016fe7f00173d070
+CELL_RESULT 0 0 after_reset__s64_v2700_wl2880 2400 0013ae8d0013f5f30013d5db001452ca0013e3012edb02800000001f00000200 534352320fbe3fecfef411fe0170df7201761c7701763739017ce0aa0174a7fa
+CELL_RESULT 0 0 before_reset__s65_v3000_wl940 2400 0013aea10013f5fc0013d5f70014529c0013e4612edb02800000001f00008200 53435232007e3fef7e641efe0170e01c01761b6b01763a5a017ce0e10174c41f
+EVENT RAMP RESET step 65/96: VCC=3.0 V, WL=0.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae560013f5cf001848780012b0450013c39c2edb02800000001f00008200 534352320fbe3fe6d94ee17e0170e42101761b7101c7f8950161eb3d0172b6aa
+CELL_RESULT 0 0 after_reset__s65_v3000_wl940 2400 0013ae2d0013f5bd0013d5a5001452a30013e2362edc02800000001f00008200 53435232007e3fef7e3812fe0170e44301761f32017650bc017ce52a0174c442
+CELL_RESULT 0 0 before_reset__s66_v3000_wl1010 2400 0013aeb10013f5db0013d50e001452830013e1fa2edb02800000001f00000200 53435232007e3fe77eb81cfe0170e9530176183d01763e43017ce2970174b518
+EVENT RAMP RESET step 66/96: VCC=3.0 V, WL=1.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae4d0013f601001847330012b0960013c1fb2edb02800000001f00000200 53435232007e3fe1d98ee17e0170dc4201761b4601c7eecb0161e1a70172ae5b
+CELL_RESULT 0 0 after_reset__s66_v3000_wl1010 2400 0013ae6e0013f5e00013d523001452ac0013e2562edb02800000001f00000200 534352320fbe3fef7ea812fe0170e34401761a96017638d1017ce3850174a4d9
+CELL_RESULT 0 0 before_reset__s67_v3000_wl1070 2400 0013aecb0013f5f60013d5960014527b0013e2762edb02800000001f00008200 53435232007e3fe4fea412fe0170df0001761b8f01763e99017cdf8f0174bb46
+EVENT RAMP RESET step 67/96: VCC=3.0 V, WL=1.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af270013f5c7001848520012b08f0013c4152edb02800000001f00008200 534352320fbe3fe1d9a1e97e0170e98601761a9901c7fb920161e9d90172c2e6
+CELL_RESULT 0 0 after_reset__s67_v3000_wl1070 2400 0013ae640013f5d90013d5030014529c0013e2022edb02800000001f00008200 53435232007e3fecfef811fe0170e22301761a3c01763792017ce1110174a8f8
+CELL_RESULT 0 0 before_reset__s68_v3000_wl1130 2400 0013aebe0013f5f60013d686001452910013e4a22edb02800000001f00000200 53435232007e3fe0fe641afe0170e4120176199a0176510f017ce1180174d62d
+EVENT RAMP RESET step 68/96: VCC=3.0 V, WL=1.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af1c0013f5fa001847a40012b0700013c2702edb02800000001f00000200 534352320fbe3fe2d9bee17e0170e75f01761a1c01c7e9660161ea200172a5c8
+CELL_RESULT 0 0 after_reset__s68_v3000_wl1130 2400 0013ae840013f5d60013d5e5001452d50013e32d2edc02800000001f00000200 53435232007e3fe8fe581afe0170ea200176226801765ab9017ce6830174d6e8
+CELL_RESULT 0 0 before_reset__s69_v3000_wl1190 2400 0013af330013f5ff0013d5ee001452b20013e3c72edc02800000001f00008200 5343523207be3feb7ee81afe0170ef550176225901765964017ce9d70174d8ff
+EVENT RAMP RESET step 69/96: VCC=3.0 V, WL=1.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aea80013f5e4001847050012b0920013c2982edb02800000001f00008200 534352320fbe3fe2d981ea7e0170e49501761a0601c7f4670161df680172bc71
+CELL_RESULT 0 0 after_reset__s69_v3000_wl1190 2400 0013af1b0013f5fc0013d5f60014527f0013e3322edb02800000001f00008200 534352320fbe3fe8fea812fe0170e66b01761b1a01763009017ce0aa0174aaae
+CELL_RESULT 0 0 before_reset__s70_v3000_wl1260 2400 0013aeb50013f5cd0013d657001452c60013e3d82edc02800000001f00000200 53435232007edfe77e7416fe0170e9ab017621d7017647f6017ce80b0174daad
+EVENT RAMP RESET step 70/96: VCC=3.0 V, WL=1.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae840013f5d90018476e0012b0320013c1d32edb02800000001f00000200 5343523207be3feed93ee57e0170e96e01761c4a01c7f06f0161e41d0172aed6
+CELL_RESULT 0 0 after_reset__s70_v3000_wl1260 2400 0013af1e0013f5e80013d693001452960013e47a2edb02800000001f00000200 53435232007e3fecfed416fe0170e7df01761bdb0176393b017ce0730174d42e
+CELL_RESULT 0 0 before_reset__s71_v3000_wl1320 2400 0013ae970013f5f80013d56d0014528e0013e1dd2edb02800000001f00008200 534352320fbe3fe37e281cfe0170e11701761b70017647c8017cdc770174b3bb
+EVENT RAMP RESET step 71/96: VCC=3.0 V, WL=1.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af5f0013f61d001848620012b0810013c4842edb02800000001f00008200 53435232007e3fecd91eea7e0170e46701761c0701c7fdd60161ed150172d357
+CELL_RESULT 0 0 after_reset__s71_v3000_wl1320 2400 0013af120013f5e10013d6510014521b0013e4cb2edb02800000001f00008200 534352320fbe3fecfe341afe0170ec6e01761b1301764c0b017cda6f0174d02b
+CELL_RESULT 0 0 before_reset__s72_v3000_wl1380 2400 0013aea20013f5f60013d59e001452a40013e2ff2edb02800000001f00000200 534352320fbe3fe77e2812fe0170e33501761b150176376a017cdeae0174a870
+EVENT RAMP RESET step 72/96: VCC=3.0 V, WL=1.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af4a0013f602001847710012b02a0013c2742edb02800000001f00000200 534352320fbe3fe2d9aee17e0170e69301761b5c01c7e8ad0161f0280172aaf2
+CELL_RESULT 0 0 after_reset__s72_v3000_wl1380 2400 0013af190013f5ea0013d54f001452a00013e20e2edb02800000001f00000200 534352320fbe3fe0fe181efe0170e75e01761c52017645c1017cde000174b472
+CELL_RESULT 0 0 before_reset__s73_v3000_wl1440 2400 0013aed80013f5f70013d6f00014521f0013e4492edb02800000001f00008200 53435232007e3fe8fe181afe0170e46501761a7401765599017ce1ed0174c533
+EVENT RAMP RESET step 73/96: VCC=3.0 V, WL=1.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae980013f6100018474e0012b0540013c27d2edb02800000001f00008200 534352320fbe3fecd9bee17e0170df0801761cbb01c7e8e00161f2e80172aa6c
+CELL_RESULT 0 0 after_reset__s73_v3000_wl1440 2400 0013af4f0013f5e60013d642001452820013e4562edb02800000001f00008200 534352320fbe3fe77e5814fe0170e5df01761a5601763f73017cdf600174d5f7
+CELL_RESULT 0 0 before_reset__s74_v3000_wl1510 2400 0013af1f0013f5fa0013d674001451ce0013e4982edb02800000001f00000200 53435232007e3fe77ee41afe0170e7da01761b5a017644aa017cde430174d23f
+EVENT RAMP RESET step 74/96: VCC=3.0 V, WL=1.51 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aed10013f5fa001847640012b0790013c2cb2edc02800000001f00000200 53435232007e3fecd98eee7e0170f2740176242901c801160161fda10172d130
+CELL_RESULT 0 0 after_reset__s74_v3000_wl1510 2400 0013ae950013f6020013d616001452ae0013e3682edc02800000001f00000200 53435232007e3fe0fee81cfe0170e6e30176241b017646fa017cec590174d7e2
+CELL_RESULT 0 0 before_reset__s75_v3000_wl1570 2400 0013ae710013f5ff0013d510001452c30013e1b22edb02800000001f00008200 534352320fbe3fef7ea812fe0170e8c601761c9d017626e2017ce23e0174a396
+EVENT RAMP RESET step 75/96: VCC=3.0 V, WL=1.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aebe0013f5ea001847ee0012b0360013c4bb2edb02800000001f00008200 53435232007e3fe9d981ee7e0170e0f901761a5501c7ff590161ee060172d202
+CELL_RESULT 0 0 after_reset__s75_v3000_wl1570 2400 0013aebd0013f5f20013d635001452810013e3cf2edb02800000001f00008200 534352320fbe3fe4fee416fe0170e54f0176183f017638e8017cde780174b487
+CELL_RESULT 0 0 before_reset__s76_v3000_wl1630 2400 0013ae590013f5de0013d5cc001452450013e3a22edc02800000001f00000200 534352320fbe3feb7e281afe0170e6aa017621b101764388017ce2c80174dd37
+EVENT RAMP RESET step 76/96: VCC=3.0 V, WL=1.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeaf0013f5ee001847740012b0220013c2e02edb02800000001f00000200 53435232007e3fead921ea7e0170e34d01761b7901c7eafb0161fd220172af34
+CELL_RESULT 0 0 after_reset__s76_v3000_wl1630 2400 0013aed60013f5e00013d591001452470013e1fd2edb02800000001f00000200 534352320fbe3fed7ef014fe0170ec0f01761908017638e3017cdd160174baf4
+CELL_RESULT 0 0 before_reset__s77_v3000_wl1690 2400 0013af2c0013f5ea0013d5660014523f0013e37a2edb02800000001f00008200 53435232007e3fe0fe9812fe0170e8ec01761b6201762ae4017cdc310174aaf4
+EVENT RAMP RESET step 77/96: VCC=3.0 V, WL=1.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af4d0013f5f40018480e0012b02f0013c3fc2edb02800000001f00008200 53435232007e3fe9d981e97e0170ec5601761b0a01c7f6fd0161ffb40172b8f1
+CELL_RESULT 0 0 after_reset__s77_v3000_wl1690 2400 0013ae9e0013f5fb0013d613001452380013e45c2edb02800000001f00008200 534352320fbe3feb7ed41afe0170e71901761b7401764636017cdb900174cc7e
+CELL_RESULT 0 0 before_reset__s78_v3000_wl1760 2400 0013ae970013f5e10013d5af001452a40013e2822edc02800000001f00000200 534352320fbe3fe0fe5812fe0170f0f40176242801764c20017ce3f60174cd64
+EVENT RAMP RESET step 78/96: VCC=3.0 V, WL=1.76 V
+CELL_RESULT 0 0 reset_pulse 2400 0013b6a30013fdec0018518f0012b7890013cc262edb02810000001f00000200 534352320fbe3fead981ea7e0170e87a01761b9001c80a42016214200172dc1d
+CELL_RESULT 0 0 after_reset__s78_v3000_wl1760 2400 0013aebf0013f5c40013d623001452560013e42c2edb02800000001f00000200 53435232007e3fef7ec41efe0170e88901761a7401764e1d017cdc5b0174d508
+CELL_RESULT 0 0 before_reset__s79_v3000_wl1820 2400 0013ae170013f5d80013d55c001452890013e1c42edb02800000001f00008200 534352320fbe3fe0fe3416fe0170db8601761a8f01763379017cdbdb0174adef
+EVENT RAMP RESET step 79/96: VCC=3.0 V, WL=1.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aef50013f5f5001846b10012affe0013c1db2edb02800000001f00008200 53435232007e3feed9f6e97e0170e7a201761b5101c7f567016218020172afc9
+CELL_RESULT 0 0 after_reset__s79_v3000_wl1820 2400 0013af340013f5bf0013d5490014529e0013e1d02edb02800000001f00008200 534352320fbe3fe0fe1812fe0170e782017617e4017632e1017cdc200174a695
+CELL_RESULT 0 0 before_reset__s80_v3000_wl1880 2400 0013ae310013f5c40013d5a90014522c0013e2cf2edb02800000001f00000200 53435232007e3fe37ea81cfe0170daf501761a6301763caf017cdbdc0174a5c9
+EVENT RAMP RESET step 80/96: VCC=3.0 V, WL=1.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aee50013f5db0018475d0012afd20013c3362edc02800000001f00000200 53435232007e3fead95ee27e0170f0670176228401c81d4f01625f3d0172dd4b
+CELL_RESULT 0 0 after_reset__s80_v3000_wl1880 2400 0013ae420013f5f60013d60d001452710013e3c42edb02800000001f00000200 534352320fbe3fe8fed816fe0170e1b101761b0c01763f2e017cdf580174c365
+CELL_RESULT 0 0 before_reset__s81_v3000_wl1940 2400 0013aef40013f5fb0013d5c1001452cf0013e3822edb02800000001f00008200 53435232007e3fe0fe1814fe0170e7a001761bc801762d51017ce1cb0174b0be
+EVENT RAMP RESET step 81/96: VCC=3.0 V, WL=1.94 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeae0013f5f8001847480012b01c0013c20c2edb02800000001f00008200 534352320fbe3fe9d97ee97e0170e06e01761c3b01c8134901629c220172b544
+CELL_RESULT 0 0 after_reset__s81_v3000_wl1940 2400 0013ae390013f5d80013d519001452630013e23e2edb02800000001f00008200 534352320fbe3fef7e6812fe0170de6e01761ad901762ceb017ce0e10174a351
+CELL_RESULT 0 0 before_reset__s82_v3000_wl2010 2400 0013af210013f5eb0013d5520014527e0013e2892edb02800000001f00000200 53435232007e3fed7e9814fe0170ea2401761b200176359d017cdb340174ba76
+EVENT RAMP RESET step 82/96: VCC=3.0 V, WL=2.01 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aea90013f5eb001847fd0012b00f0013c4382edb02800000001f00000200 53435232007e3fe4d91ee67e0170e3700176192301c835590162d7280172dca5
+CELL_RESULT 0 0 after_reset__s82_v3000_wl2010 2400 0013af830013f5e90013d5ac0014525c0013e3a12edc02800000001f00000200 534352320fbe3fef7ec81cfe0170f4a401762267017646d1017ce5ad0174d97b
+CELL_RESULT 0 0 before_reset__s83_v3000_wl2070 2400 0013af1b0013f5d90013d5790014523a0013e2722edb02800000001f00008200 53435232007e3fe4feb81efe0170e83b01761aa001762b28017cdf530174a54d
+EVENT RAMP RESET step 83/96: VCC=3.0 V, WL=2.07 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae510013f5f40018482d0012b0570013c4cd2edb02800000001f00008200 53435232007e3fe2d99ee57e0170e91b01761bf401c8505501632b380172eaf3
+CELL_RESULT 0 0 after_reset__s83_v3000_wl2070 2400 0013aed00013f5db0013d51d001452470013e2022edb02800000001f00008200 53435232007e3fe77e7811fe0170e45201761b6d0176377c017cdcb80174a9c5
+CELL_RESULT 0 0 before_reset__s84_v3000_wl2130 2400 0013aebc0013f5f60013d5c1001452aa0013e36a2edc02800000001f00000200 534352320fbe3fe37e541afe0170eea90176234701764bf4017ce4ca0174d538
+EVENT RAMP RESET step 84/96: VCC=3.0 V, WL=2.13 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae6c0013f5e60018475f0012b0480013c4082edb02800000001f00000200 53435232007e3fe0d976ea7e0170e2d701761aba01c8638401638c560172ecbb
+CELL_RESULT 0 0 after_reset__s84_v3000_wl2130 2400 0013af050013f5d90013d53e001452780013e2042edb02800000001f00000200 534352320fbe3fecfed412fe0170e3f101761a5201763347017cdee60174a367
+CELL_RESULT 0 0 before_reset__s85_v3000_wl2190 2400 0013ae8e0013f5eb0013d632001452aa0013e49e2edb02800000001f00008200 534352320fbe3fe77e8414fe0170e4a801761b2901764648017cdf730174cc55
+EVENT RAMP RESET step 85/96: VCC=3.0 V, WL=2.19 V
+CELL_RESULT 0 0 reset_pulse 2400 0013b6cd0013fdcb001851940012b7600013cbd42edb02810000001f00008200 534352320fbe3fe4d98ee17e0170e39801761abf01c87b010163cc9e0172fe0b
+CELL_RESULT 0 0 after_reset__s85_v3000_wl2190 2400 0013aec90013f6090013d56f001452890013e3362edc02800000001f00008200 53435232007e3fe77ea81efe0170f3ec0176235e01764aa4017ce9ba0174d303
+CELL_RESULT 0 0 before_reset__s86_v3000_wl2260 2400 0013ae920013f5f80013d55e001452ef0013e28d2edb02800000001f00000200 534352320fbe3fe37e1810fe0170df7301761acb017640c5017cded30174be5d
+EVENT RAMP RESET step 86/96: VCC=3.0 V, WL=2.26 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af210013f5ed0018485d0012b0560013c4992edb02800000001f00000200 534352320fbe3feed95eee7e0170ee8c01761b3d01c88b4701640e4c0172fb45
+CELL_RESULT 0 0 after_reset__s86_v3000_wl2260 2400 0013af190013f5f60013d50d0014525e0013e1be2edb02800000001f00000200 534352320fbe3feb7e641afe0170e78f01761c0401763f0e017cde620174a924
+CELL_RESULT 0 0 before_reset__s87_v3000_wl2320 2400 0013aec20013f5eb0013d63d001452720013e4802edb02800000001f00008200 534352320fbe3fe8fe1811fe0170e9f301761c8701764be4017cdd2f0174ce76
+EVENT RAMP RESET step 87/96: VCC=3.0 V, WL=2.32 V
+CELL_RESULT 0 0 reset_pulse 2400 0013af4d0013f5eb001846f50012b0580013c29d2edb02800000001f00008200 5343523207be3fedd941e97e0170e6ea01761af301c88b46016452a30172dba0
+CELL_RESULT 0 0 after_reset__s87_v3000_wl2320 2400 0013ae930013f5e70013d686001452b30013e4792edb02800000001f00008200 53435232007ebfeb7e581cfe0170de3501761bb401764029017cda4f0174cc24
+CELL_RESULT 0 0 before_reset__s88_v3000_wl2380 2400 0013adb90013f60a0013d643001452f00013e4a42edb02800000001f00000200 53435232007e3fe2fe9416fe0170de8801761c6b0176410d017cdb980174c9fe
+EVENT RAMP RESET step 88/96: VCC=3.0 V, WL=2.38 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae350013f5e9001847720012b0560013c2ca2edc02800000001f00000200 53435232007e3fe5d981e17e0170e4d50176229701c8b9470164a7df01730940
+CELL_RESULT 0 0 after_reset__s88_v3000_wl2380 2400 0013af210013f5ee0013d4b9001452900013e1be2edb02800000001f00000200 53435232007e3fef7e0812fe0170ecda01761b9d01762fff017cde6d0174a41b
+CELL_RESULT 0 0 before_reset__s89_v3000_wl2440 2400 0013ae8d0013f5bf0013d5160014526d0013e31e2edb02800000001f00008200 53435232007e3fe37ed818fe0170de7301761a4201762953017cdf240174abb4
+EVENT RAMP RESET step 89/96: VCC=3.0 V, WL=2.44 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae5c0013f5f8001846e60012b04b0013c1be2edb02800000001f00008200 53435232007e3fead9eee97e0170e6e301761b3201c8aed30164ce160172e603
+CELL_RESULT 0 0 after_reset__s89_v3000_wl2440 2400 0013af290013f5fd0013d580001452870013e2d22edc02800000001f00008200 53435232007e3feb7e681cfe0170ece2017624020176581f017ce31e0174cbdd
+CELL_RESULT 0 0 before_reset__s90_v3000_wl2500 2400 0013ae510013f5f80013d683001452850013e4552edb02800000001f00000200 53435232007e3fe8fec411fe0170da2701761b530176504c017cdfe80174c21a
+EVENT RAMP RESET step 90/96: VCC=3.0 V, WL=2.5 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aefd0013f5de001847e50012b0390013c41c2edb02800000001f00000200 534352320fbe3fe75976ea7e0170e922017618ad01c8c7730164fe6f0172ff63
+CELL_RESULT 0 0 after_reset__s90_v3000_wl2500 2400 0013aeeb0013f5ca0013d5ee001452910013e3e82edb02800000001f00000200 53435232007e3feb7e841cfe0170ea2a017619b101763e71017cdbc20174baca
+CELL_RESULT 0 0 before_reset__s91_v3000_wl2570 2400 0013af590013f5a60013d544001452f70013e2132edb02800000001f00008200 53435232007e3fe37e9410fe0170e4d7017618d0017631e3017ce0c90174a3ff
+EVENT RAMP RESET step 91/96: VCC=3.0 V, WL=2.57 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aed10013f5bd001846bf0012b06a0013c2112edb02800000001f00008200 53435232007e3fe4d94eea7e0170e74001761a8201c8c791016517380172faab
+CELL_RESULT 0 0 after_reset__s91_v3000_wl2570 2400 0013af210013f5e90013d5c80014523c0013e27c2edc02800000001f00008200 534352320fbe3feb7e5818fe0170ed900176220b01764ae5017ce51e0174cc49
+CELL_RESULT 0 0 before_reset__s92_v3000_wl2630 2400 0013aeba0013f5f10013d4f4001452660013e1cf2edb02800000001f00000200 534352320fbe3fe0fe341efe0170e84301761a3101763bfc017cdd1c0174ac75
+EVENT RAMP RESET step 92/96: VCC=3.0 V, WL=2.63 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aed70013f5cc001846b50012b0570013c23c2edb02800000001f00000200 534352320fbedfe1d921e57e0170e4910176184e01c8a0ec01649fc30172e6d7
+CELL_RESULT 0 0 after_reset__s92_v3000_wl2630 2400 0013ade00013f6030013d5230014523a0013e1f82edb02800000001f00000200 5343523207be3fe37e3412fe0170da9101761b6e0175db58017cd9a20174b4c4
+CELL_RESULT 0 0 before_reset__s93_v3000_wl2690 2400 0013ae810013f5fe0013d55e001452110013e1a62edb02800000001f00008200 53435232007e3fef7e9412fe0170e29901761c880175deb5017cd9f10174ac27
+EVENT RAMP RESET step 93/96: VCC=3.0 V, WL=2.69 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aeb80013f5d0001847870012b00d0013c36a2edc02800000001f00008200 534352320fbe3fe3d92eed7e0170ea1a0176211001c89af5016428370173097e
+CELL_RESULT 0 0 after_reset__s93_v3000_wl2690 2400 0013aeb10013f5ed0013d5240014522a0013e1ce2edb02800000001f00008200 534352320fbe3fe77e6812fe0170e5c001761c760175f703017cd8da0174b233
+CELL_RESULT 0 0 before_reset__s94_v3000_wl2750 2400 0013ae480013f5ef0013d6240014529e0013e4482edb02800000001f00000200 534352320fbe3fe8fe3412fe0170e41901761c4801760b9b017cde910174d026
+EVENT RAMP RESET step 94/96: VCC=3.0 V, WL=2.75 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae140013f5f2001847810012aff50013c3932edb02800000001f00000200 534352320fbe3fe9d98eeb7e0170e81f01761c4701c879680163fe790172df2a
+CELL_RESULT 0 0 after_reset__s94_v3000_wl2750 2400 0013ae340013f5e90013d628001452220013e3e52edb02800000001f00000200 5343523207be3fe77e181afe0170def301761aee0175c965017cda390174bcde
+CELL_RESULT 0 0 before_reset__s95_v3000_wl2820 2400 0013ae820013f5e60013d6790014527d0013e4922edb02800000001f00008200 534352320fbe3fe77e0416fe0170e1da01761b390175cc55017cdc3c0174ce8c
+EVENT RAMP RESET step 95/96: VCC=3.0 V, WL=2.82 V
+CELL_RESULT 0 0 reset_pulse 2400 0013aed10013f5e9001847c90012b0600013c3b22edc02800000001f00008200 5343523207be3fe9d941ee7e0170e4d00176237d01c891780163fa030173073c
+CELL_RESULT 0 0 after_reset__s95_v3000_wl2820 2400 0013aea60013f5f50013d5be001452680013e35a2edc02800000001f00008200 534352320fbe3fe0fe981cfe0170e95c0176240f0175ea6f017ce1190174cf6a
+CELL_RESULT 0 0 before_reset__s96_v3000_wl2880 2400 0013ae520013f5f90013d688001452b90013e4612edb02800000001f00000200 534352320fbe3fe0fe0414fe0170e63101761aed0175e9f0017cdeac0174c435
+EVENT RAMP RESET step 96/96: VCC=3.0 V, WL=2.88 V
+CELL_RESULT 0 0 reset_pulse 2400 0013ae920013f5fd001847960012b0380013c3a02edb02800000001f00000200 534352320fbe3fe1d981e97e0170e42001761c4101c87fac016407b50172e5ed
+CELL_RESULT 0 0 after_reset_limit__s96_v3000_wl2880 2400 0013ae180013f5ff0013d50e001452740013e2492edc02800000001f00000200 53435232047e3fe77e3412fe0170e3c2017623750175de6c017ce9710174cc60
+EVENT RAMP RESET: limit reached; target NOT met; pulses=96; last=14.550 uA nominal
+RAMP_COMPLETE reset 96 0 14.550399
+EVENT Cycle stopped: RESET ramp exhausted without a confirmed target
+TRACE_CHUNK 0 5452433200c8008603000c87f081b7f503000647f182e7f803000007ee8187f5
+TRACE_CHUNK 3 5452433200c8068603001f47f18207f503001907f182f7f6030012c7ed81a7f8
+TRACE_CHUNK 6 5452433200c80c8606003207fd81e7fa05002bc7fb82c7f603002587ee81b7f4
+TRACE_CHUNK 9 5452433200c81286060044c7fd8227f906003e87fa82a7f606003847f78147f9
+TRACE_CHUNK 12 5452433200c8188606005787fd8287f706005147f68267f406004b07fa8157f7
+TRACE_CHUNK 15 5452433200c81e8606006a47fb82b7f806006407fa8237f506005dc7f88177f5
+TRACE_CHUNK 18 5452433200c8248606007d07fe82f7f7060076c7f88207f706007087fa8177f7
+TRACE_CHUNK 21 5452433200c82a8606008fc7f882d7f606008987fa81b7f506008347fe8157f5
+TRACE_CHUNK 24 5452433200c830860600a287f682a7f406009c47fa8197f606009607fb81f7f9
+TRACE_CHUNK 27 5452433200c836860600b547fc8267f60600af07f88167f70600a8c7fc8237f9
+TRACE_CHUNK 30 5452433200c83c860600c807fa8227f60600c1c7fa8157f60600bb87fc8287fb
+TRACE_CHUNK 33 5452433200c842860600dac7f78207f60600d487fa8167f70600ce47ff82e7fa
+TRACE_CHUNK 36 5452433200c848860600ed87fa8177f40600e747fc81b7f70600e107fc8307f7
+TRACE_CHUNK 39 5452433200c84e8606010047f98177f70600fa07fd8207f90600f3c7fa82e7f6
+TRACE_CHUNK 42 5452433200c8548606011307fb8137f606010cc7fa8267f806010687f882a7f8
+TRACE_CHUNK 45 5452433200c85a86060125c7fa8157f606011f87fd82d7f706011947fc8257f8
+TRACE_CHUNK 48 5452433200c8608606013887fa81a7f806013247fe82d7f606012c07f881e7f7
+TRACE_CHUNK 51 5452433200c8668606014b47fb81b7f606014507fc82d7f706013ec7f88187f8
+TRACE_CHUNK 54 5452433200c86c8606015e07ff8257f8060157c7f982b7f306015187fa8187f6
+TRACE_CHUNK 57 5452433200c87286060170c7fb8297f806016a87fa8267f506016447f98167f6
+TRACE_CHUNK 60 5452433200c8788606018387fc82e7f606017d47f88207f806017707fc8147f5
+TRACE_CHUNK 63 5452433200c87e8606019647f982c7f706019007f781a7f6060189c7fc8197f8
+TRACE_CHUNK 66 5452433200c884860601a907fa8297f60601a2c7fb8167f806019c87fd81d7f8
+TRACE_CHUNK 69 5452433200c88a860601bbc7fb8247f50601b587f98167f30601af47fe8267fa
+TRACE_CHUNK 72 5452433200c890860601ce87f98227f70601c847fc8137f60601c207fd8297f8
+TRACE_CHUNK 75 5452433200c896860601e147fa81b7f60601db07fd8187f90601d4c7fd82d7f7
+TRACE_CHUNK 78 5452433200c89c860601f407fa8187f60601edc7fe81e7fb0601e787fc82d7f7
+TRACE_CHUNK 81 5452433200c8a286060206c7f98167f506020087fa8247fa0601fa47f882e7f6
+TRACE_CHUNK 84 5452433200c8a88606021987f88187f506021347fc8297f606020d07f98277f4
+TRACE_CHUNK 87 5452433200c8ae8606022c47fb81a7f906022607fc82d7fa06021fc7fa81d7f5
+TRACE_CHUNK 90 5452433200c8b48606023f07fc81b7fa060238c7fb82e7f706023287f881a7f5
+TRACE_CHUNK 93 5452433200c8ba86060251c7fc8267f906024b87fa82b7f506024547f98177f4
+TRACE_CHUNK 96 5452433200c8c08606026487fd82a7f806025e47fb8277f806025807f88157f5
+TRACE_CHUNK 99 5452433200c8c68606027747fd82d7f806027107f98227f806026ac7f98157f6
+TRACE_CHUNK 102 5452433200c8cc8606028a07fa8307f7060283c7f881c7f606027d87fc8147fa
+TRACE_CHUNK 105 5452433200c8d28606029cc7f982b7f506029687f88197f706029047fb81c7fa
+TRACE_CHUNK 108 5452433200c8d8860602af87f98297f50602a947fa8157f80602a307fc8247f8
+TRACE_CHUNK 111 5452433200c8de860602c247fc81f7f80602bc07f88177f90602b5c7ff82a7fb
+TRACE_CHUNK 114 5452433200c8e4860602d507fb81f7fa0602cec7fb8187f60602c887fd82d7f7
+TRACE_CHUNK 117 5452433200c8ea860602e7c7f881a7f70602e187fb81c7f80602db47fc82c7f7
+TRACE_CHUNK 120 5452433200c8f0860602fa87fb8177f50602f447ff8217fb0602ee07f882a7f7
+TRACE_CHUNK 123 5452433200c8f68606030d47f78147f706030707fe8267f8060300c7fc8297f7
+TRACE_CHUNK 126 5452433200c8fc8611032007f08177f9060319c7fc82a7fa06031387fa8207f5
+TRACE_CHUNK 129 5452433200c90286110332c7f28187f711032c87f082f7f811032647ee81e7f8
+TRACE_CHUNK 132 5452433200c90886000000000000000011033f47ed82d7f711033907ef8187f6
+# set outcome [catch {
+#  hold_cpu $iswb
+#  if {$action eq "hold"} { puts "HELD"; flush stdout } else {
+#   if {(([expr 0x$h0]>>36)&1)!=1} { error "ADC not healthy; initialize the bench first" }
+#   if {$iswb} { clock_profile 10; wb_profile } else { clock_profile 2; scan_profile }
+#   switch $action {
+#    read { scan_capture $row $col 0 2400 read }
+#    set - reset { scan_program $row $col $action }
+#    cycle {
+#     scan_capture $row $col 0 2400 read
+#     for {set n 0} {$n<$cycles} {incr n} {
+#      scan_program $row $col set
+#      set reset_outcome [scan_program $row $col reset]
+#      if {![dict get $reset_outcome target_met]} {
+#       puts "EVENT Cycle stopped: RESET ramp exhausted without a confirmed target"; flush stdout
+#       break
+#      }
+#     }
+#    }
+#    column { for {set r 0} {$r<32} {incr r} { scan_capture $r $col 0 2400 read } }
+#    array {
+#     for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { scan_capture $r $c 0 2400 read } }
+#    }
+#    wb_read - wb_set - wb_reset { wb_capture $row $col [string range $action 3 end] }
+#    wb_cycle {
+#     for {set n 0} {$n<$cycles} {incr n} {
+#      wb_capture $row $col read; wb_capture $row $col set; wb_capture $row $col read
+#      wb_capture $row $col reset; wb_capture $row $col read
+#     }
+#    }
+#    wb_column { for {set r 0} {$r<32} {incr r} { wb_capture $r $col read } }
+#    wb_array { for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { wb_capture $r $c read } } }
+#   }
+#   if {!$iswb} { collect_trace }
+#  }
+# } message options]
+# set restoring 1
+EVENT clock_mhz=2
+# set cleanup [catch {
+#  hold_cpu
+#  if {$action ne "hold"} { clock_profile 2; scan_profile }
+# } cleanup_message]
+# if {$cleanup} { puts "RESTORE_FAILED $cleanup_message"; flush stdout }
+# close_i2c_bridge
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# if {$outcome} { error $message }
+# if {$cleanup} { error "Read-profile restoration failed: $cleanup_message" }
+# puts "JOB_COMPLETE $action"
+JOB_COMPLETE cycle
+# flush stdout
+# exit
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 15:31:53 2026...

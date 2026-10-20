@@ -1,0 +1,39 @@
+{
+  "device_id": "A25E1BAA6577FA4D",
+  "digital_sample_rate": 6250000,
+  "analog_sample_rate": 1562500,
+  "duration_s": 0.01,
+  "threshold_setting_V": 1.8,
+  "nominal_comparator_threshold_V": 0.9,
+  "adc_word_decoded": false,
+  "analog": {
+    "0": {
+      "mean_V": 1.225701713972199,
+      "min_V": 1.095,
+      "max_V": 1.331,
+      "std_V": 0.0389567072882118
+    },
+    "1": {
+      "mean_V": 1.132636473298335,
+      "min_V": 1.025,
+      "max_V": 1.265,
+      "std_V": 0.039639937367725135
+    }
+  },
+  "digital": {
+    "0": {
+      "states": [
+        1
+      ],
+      "transitions": 0
+    },
+    "1": {
+      "states": [
+        0,
+        1
+      ],
+      "transitions": 44148
+    }
+  },
+  "limitation": "Direct single-ended LVDS observation only; no bit/frame clocks; analog bandwidth cannot validate 120-Mbit/s edges."
+}

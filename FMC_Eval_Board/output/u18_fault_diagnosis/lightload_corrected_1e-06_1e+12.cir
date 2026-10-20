@@ -1,0 +1,33 @@
+U18 fault scenario: corrected
+* Illustrative 3-NMOS PCA9306 equivalent; not a vendor silicon model.
+* Load is assumed; no parameter fitted to 2.1 V. Damage/leak resistances hypothetical.
+* Idealized source-only LDO; does not simulate regulator stability or reverse damage.
+.options reltol=1e-7 abstol=1e-12 vntol=1e-9 itl1=500
+.nodeset v(rail)=1.8 v(en)=2.4 v(ref2)=2.4 v(scll)=1.8 v(sclh)=3.3 v(sdal)=1.8 v(sdah)=3.3
+Vhigh high 0 3.3
+Vtarget target 0 1.8
+Vload loadctl 0 1e-06
+Bldo 0 rail I=max(0,min(0.8,20*(v(target)-v(rail))))
+Bload rail 0 I=v(loadctl)
+Rrail rail 0 10Meg
+Rbleed rail 0 1000000000000.0
+Crail rail 0 10u
+R56 high en 200k
+Vref en ref2 0
+C58 ref2 0 100n
+Cen en 0 11p
+Mref ref2 en rail 0 PASS W=1u L=1u
+Mscl sclh en scll 0 PASS W=1u L=1u
+Msda sdah en sdal 0 PASS W=1u L=1u
+.model PASS NMOS(LEVEL=1 VTO=0.6 KP=0.02 LAMBDA=0 GAMMA=0)
+R53 rail sdal 10k
+R54 rail scll 10k
+R57 high sclh 10k
+R58 high sdah 10k
+Cscll scll 0 50p
+Csclh sclh 0 50p
+Csdal sdal 0 50p
+Csdah sdah 0 50p
+.op
+.save v(loadctl) v(rail) v(en) v(ref2) v(scll) v(sclh) @mref[id]
+.end

@@ -1,0 +1,11 @@
+1.8V GPIO transmission-line sensitivity, added series R=0 ohm
+* Assumed 25ohm output, 50ohm line, 1ns flight time, 5pF input. Not extracted PCB.
+* No clamp model so overshoot is visible as a stress flag, not a real pin prediction.
+Vdrive source 0 PULSE(0 1.8 2n 0.3n 0.3n 10n 20n)
+Rdriver source tx 25
+Tline tx 0 rx 0 Z0=50 TD=1n
+Cinput rx 0 5p
+Rleak rx 0 1meg
+.tran 0.02n 45n 0 0.02n
+.save time v(rx) v(source)
+.end

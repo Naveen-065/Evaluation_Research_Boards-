@@ -1,0 +1,18 @@
+{
+  "browser": "Codex in-app browser",
+  "actual_gui_clicks": true,
+  "visual_panel_checked": true,
+  "modes": {
+    "read": "passed",
+    "set": "passed",
+    "reset": "passed",
+    "cycle": "passed",
+    "column": "passed",
+    "array": "passed",
+    "wb_read": "passed",
+    "wb_set": "passed",
+    "wb_reset": "passed",
+    "wb_cycle": "passed"
+  },
+  "hardware_commands_sent": false
+}

@@ -1,0 +1,7 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: pca9306 original equivalent model, dc, c58=100n
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stderr Note: Starting dynamic gmin stepping
+stderr Note: Dynamic gmin stepping completed
+stdout No. of Data Rows : 201

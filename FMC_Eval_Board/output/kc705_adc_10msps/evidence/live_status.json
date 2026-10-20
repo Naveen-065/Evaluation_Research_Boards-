@@ -1,0 +1,39 @@
+{
+  "kc705_bit_sha256": "154E68BFDE30098B5D8B4491EA0D9A157E95809F44625D3125B1F1085FE80BC3",
+  "kc705_programmed": true,
+  "fmc_ports_electrically_identical": 41,
+  "adc_spi_frames": [
+    "124333",
+    "030002",
+    "010010",
+    "E30060",
+    "C78001",
+    "DE01C0",
+    "428001",
+    "250000"
+  ],
+  "adc_fpga_sequencer_completed": true,
+  "adc_physical_register_readback": "unavailable",
+  "adc_clock_command_hz": 10000000,
+  "adc_return_clock_verified": false,
+  "adc_capture_result": "ILA clock stopped in both attempts",
+  "pcb_dac_scan_profile_restored": true,
+  "si5351_10mhz_config_and_plla_lock_verified": true,
+  "external_zynq_bit_sha256": "EA0D8C5FD5273EB8ACBF9C99FF9BF754C46281FF85F2550DEBA93F1C42466874",
+  "external_dac_spi_writes": [
+    "182CCD",
+    "1E4000"
+  ],
+  "external_dac_shared_register_writes": 0,
+  "external_dac_analog_voltages_verified": false,
+  "external_dac_sdo": "not connected; user declined additional wire",
+  "requested_measurements": [
+    "External DAC8",
+    "External DAC14",
+    "PCB C45.2 +3V3A",
+    "PCB C53.2 +1V8A",
+    "PCB C47.2 ADCVCM"
+  ],
+  "adc6_input": "J7.1 AIN6_P and J7.2 AIN6_N; J7.7/8 ground",
+  "adc6_output": "J8.1 OUT6_P and J8.2 OUT6_N, not connected to FMC"
+}

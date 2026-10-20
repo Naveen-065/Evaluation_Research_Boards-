@@ -1,0 +1,108 @@
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49393)
+Traceback (most recent call last):
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 116, in do_GET
+    state['deployment']=deployment(); return self.reply(200,state)
+                        ^^^^^^^^^^^^
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 37, in deployment
+    if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=digest:
+                                         ^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\elesamj\\Documents\\ChatGPT\\X1_FPGA_evalboard\\output\\kc705_scan_read\\build\\kc705_adc_capture.bit'
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56938)
+Traceback (most recent call last):
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 116, in do_GET
+    state['deployment']=deployment(); return self.reply(200,state)
+                        ^^^^^^^^^^^^
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 37, in deployment
+    if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=digest:
+                                         ^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\elesamj\\Documents\\ChatGPT\\X1_FPGA_evalboard\\output\\kc705_scan_read\\build\\kc705_adc_capture.bit'
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52116)
+Traceback (most recent call last):
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 116, in do_GET
+    state['deployment']=deployment(); return self.reply(200,state)
+                        ^^^^^^^^^^^^
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 37, in deployment
+    if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=digest:
+                                         ^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\elesamj\\Documents\\ChatGPT\\X1_FPGA_evalboard\\output\\kc705_scan_read\\build\\kc705_adc_capture.bit'
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54705)
+Traceback (most recent call last):
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 116, in do_GET
+    state['deployment']=deployment(); return self.reply(200,state)
+                        ^^^^^^^^^^^^
+  File "C:\Users\elesamj\Documents\ChatGPT\X1_FPGA_evalboard\output\kc705_scan_read\gui\server.py", line 37, in deployment
+    if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=digest:
+                                         ^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\elesamj\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\elesamj\\Documents\\ChatGPT\\X1_FPGA_evalboard\\output\\kc705_scan_read\\build\\kc705_adc_capture.bit'
+----------------------------------------

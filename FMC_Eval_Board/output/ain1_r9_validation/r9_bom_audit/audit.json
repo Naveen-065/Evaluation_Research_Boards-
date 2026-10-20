@@ -1,0 +1,540 @@
+{
+  "user_confirmed_connection": "AQ1_C00 -> R9 -> VCC_READ -> 3.3 kohm -> GND",
+  "caravel_installed": false,
+  "measured_source_V_prior_to_rewire": 0.539,
+  "loaded_source_voltage_remeasurement_pending": true,
+  "bom": {
+    "path": "CaravelReRAM-SenseEval_v1.2F/jlcpcb/production_files/BOM-CaravelReRAM-SenseEval.csv",
+    "line": 19,
+    "designators": [
+      "R9",
+      "R10",
+      "R11"
+    ],
+    "comment": "470R",
+    "part": "C7420029",
+    "manufacturer_part": "FOJAN FRM252WJR470TK",
+    "selected_part_ohms": 0.47,
+    "selected_part_tolerance_percent": 5,
+    "source": "https://www.lcsc.com/product-detail/C7420029.html",
+    "R9_user_confirmed_ohms": 0.47,
+    "R9_confirmation_source": "User: yes its .470 ohms",
+    "R10_R11_fitted_values_confirmed": false
+  },
+  "R31": {
+    "design_ohms": 1000,
+    "part": "C2907232",
+    "selected_part_ohms": 1000,
+    "source": "https://jlcpcb.com/partdetail/FOJAN-FRC0805F1001TS/C2907232",
+    "actual_fitted_value_confirmed": false
+  },
+  "simulations": [
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 470,
+      "nominal_gain": 13.76595744680851,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.5029082570486663,
+          "AMP1_N_V": 1.5024701500399822,
+          "ADC_differential_V": 0.00043810700868407437,
+          "model_plus_ideal_ADC_code": 2048.897243153785
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.9654139571257652,
+          "AMP1_N_V": 1.039957861515847,
+          "ADC_differential_V": 0.9254560956099183,
+          "model_plus_ideal_ADC_code": 3943.3340838091126
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.9250212201591513,
+      "ideal_ADC_increment_counts": 1894.443458885942,
+      "ngspice_ADC_increment_counts": 1894.4368406553276
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 1000,
+      "nominal_gain": 7.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.5028744684426978,
+          "AMP1_N_V": 1.50250393865623,
+          "ADC_differential_V": 0.0003705297864677881,
+          "model_plus_ideal_ADC_code": 2048.758845002686
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.7380453019667277,
+          "AMP1_N_V": 1.2673265189225642,
+          "ADC_differential_V": 0.4707187830441635,
+          "model_plus_ideal_ADC_code": 3012.032067674447
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.47037400530503987,
+      "ideal_ADC_increment_counts": 963.3259628647216,
+      "ngspice_ADC_increment_counts": 963.2732226717608
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 2000,
+      "nominal_gain": 4.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.502859470488957,
+          "AMP1_N_V": 1.502518936602085,
+          "ADC_differential_V": 0.000340533886872052,
+          "model_plus_ideal_ADC_code": 2048.697413400314
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.6372308873291015,
+          "AMP1_N_V": 1.3681409345455093,
+          "ADC_differential_V": 0.26908995278359216,
+          "model_plus_ideal_ADC_code": 2599.0962233007967
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.2687851458885942,
+      "ideal_ADC_increment_counts": 550.4719787798409,
+      "ngspice_ADC_increment_counts": 550.3988099004828
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 6040,
+      "nominal_gain": 1.9933774834437086,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.5028494345264065,
+          "AMP1_N_V": 1.5025289725705833,
+          "ADC_differential_V": 0.000320461955823248,
+          "model_plus_ideal_ADC_code": 2048.656306085526
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.5697987227275172,
+          "AMP1_N_V": 1.4355730998031015,
+          "ADC_differential_V": 0.13422562292441564,
+          "model_plus_ideal_ADC_code": 2322.8940757492032
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.133947564424614,
+      "ideal_ADC_increment_counts": 274.3246119416095,
+      "ngspice_ADC_increment_counts": 274.2377696636772
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": 10000,
+      "nominal_gain": 1.6,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.5028474827567093,
+          "AMP1_N_V": 1.5025309243456804,
+          "ADC_differential_V": 0.00031655841102895543,
+          "model_plus_ideal_ADC_code": 2048.6483116257873
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.5565793603276117,
+          "AMP1_N_V": 1.4487924623256856,
+          "ADC_differential_V": 0.10778689800192609,
+          "model_plus_ideal_ADC_code": 2268.7475671079446
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.10751405835543769,
+      "ideal_ADC_increment_counts": 220.1887915119364,
+      "ngspice_ADC_increment_counts": 220.09925548215733
+    },
+    {
+      "R9_ohms": 470,
+      "R31_ohms": null,
+      "nominal_gain": 1.000000006,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000054503922,
+          "shunt_drop_V": -5.45039213761811e-09,
+          "resistor_current_A": 5.390000054503921e-13,
+          "AMP1_P_V": 1.5028444797159006,
+          "AMP1_N_V": 1.5025339273816307,
+          "ADC_differential_V": 0.000310552334269909,
+          "model_plus_ideal_ADC_code": 2048.636011180585
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.4718037187970211,
+          "shunt_drop_V": 0.06719628120297894,
+          "resistor_current_A": 0.00014297082387788518,
+          "AMP1_P_V": 1.5364164879372881,
+          "AMP1_N_V": 1.4689553349246736,
+          "ADC_differential_V": 0.06746115301261457,
+          "model_plus_ideal_ADC_code": 2186.1604413698346
+        }
+      },
+      "ideal_load_current_A": 0.00014297082228116712,
+      "ideal_shunt_drop_V": 0.06719628647214855,
+      "ideal_ADC_signal_V": 0.06719628687532628,
+      "ideal_ADC_increment_counts": 137.61799552066822,
+      "ngspice_ADC_increment_counts": 137.52443018924987
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 100,
+      "nominal_gain": 61.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5031207976609096,
+          "AMP1_N_V": 1.5022576140740207,
+          "ADC_differential_V": 0.0008631835868888604,
+          "model_plus_ideal_ADC_code": 2049.7677999859484
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.505461955104969,
+          "AMP1_N_V": 1.4999164490818993,
+          "ADC_differential_V": 0.005545506023069802,
+          "model_plus_ideal_ADC_code": 2059.357196335247
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.004682099822146543,
+      "ideal_ADC_increment_counts": 9.58894043575612,
+      "ngspice_ADC_increment_counts": 9.589396349298568
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 150,
+      "nominal_gain": 41.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5030207960141488,
+          "AMP1_N_V": 1.502357615730296,
+          "ADC_differential_V": 0.0006631802838528156,
+          "model_plus_ideal_ADC_code": 2049.3581932213306
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5045943618954811,
+          "AMP1_N_V": 1.5007840422989116,
+          "ADC_differential_V": 0.0038103195965695225,
+          "model_plus_ideal_ADC_code": 2055.8035345337744
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.0031469851263607913,
+      "ideal_ADC_increment_counts": 6.445025538786901,
+      "ngspice_ADC_increment_counts": 6.445341312443816
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 470,
+      "nominal_gain": 13.76595744680851,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5029082942972996,
+          "AMP1_N_V": 1.5024701127943632,
+          "ADC_differential_V": 0.0004381815029363967,
+          "model_plus_ideal_ADC_code": 2048.8973957180137
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5034129664858429,
+          "AMP1_N_V": 1.5019654377280838,
+          "ADC_differential_V": 0.001447528757759109,
+          "model_plus_ideal_ADC_code": 2050.9645388958907
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.0010566161789078525,
+      "ideal_ADC_increment_counts": 2.163949934403282,
+      "ngspice_ADC_increment_counts": 2.0671431778769147
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 1000,
+      "nominal_gain": 7.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5028744690122513,
+          "AMP1_N_V": 1.5025039380876315,
+          "ADC_differential_V": 0.0003705309246198052,
+          "model_plus_ideal_ADC_code": 2048.7588473336214
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5031194526399043,
+          "AMP1_N_V": 1.5022589515719287,
+          "ADC_differential_V": 0.0008605010679756386,
+          "model_plus_ideal_ADC_code": 2049.762306187214
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.0005372901435250132,
+      "ideal_ADC_increment_counts": 1.100370213939227,
+      "ngspice_ADC_increment_counts": 1.003458853592747
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 2000,
+      "nominal_gain": 4.0,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.50285947076159,
+          "AMP1_N_V": 1.5025189363396365,
+          "ADC_differential_V": 0.00034053442195358663,
+          "model_plus_ideal_ADC_code": 2048.697414496161
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5029893214969325,
+          "AMP1_N_V": 1.502389082720064,
+          "ADC_differential_V": 0.0006002387768684336,
+          "model_plus_ideal_ADC_code": 2049.2292890150266
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.0003070229391571504,
+      "ideal_ADC_increment_counts": 0.628782979393844,
+      "ngspice_ADC_increment_counts": 0.5318745188656067
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 6040,
+      "nominal_gain": 1.9933774834437086,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5028494345182464,
+          "AMP1_N_V": 1.5025289725778745,
+          "ADC_differential_V": 0.00032046194037183007,
+          "model_plus_ideal_ADC_code": 2048.6563060538815
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.502902262342925,
+          "AMP1_N_V": 1.502476141864987,
+          "ADC_differential_V": 0.00042612047793788577,
+          "model_plus_ideal_ADC_code": 2048.872694738817
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.0001530031534541428,
+      "ideal_ADC_increment_counts": 0.3133504582740845,
+      "ngspice_ADC_increment_counts": 0.21638868493528207
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": 10000,
+      "nominal_gain": 1.6,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.5028474676567272,
+          "AMP1_N_V": 1.5025309394363913,
+          "ADC_differential_V": 0.0003165282203358988,
+          "model_plus_ideal_ADC_code": 2048.648249795248
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5029088725545932,
+          "AMP1_N_V": 1.5024695270071997,
+          "ADC_differential_V": 0.0004393455473934438,
+          "model_plus_ideal_ADC_code": 2048.899779681062
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 0.00012280917566286016,
+      "ideal_ADC_increment_counts": 0.2515131917575376,
+      "ngspice_ADC_increment_counts": 0.25152988581385216
+    },
+    {
+      "R9_ohms": 0.47,
+      "R31_ohms": null,
+      "nominal_gain": 1.000000006,
+      "runs": {
+        "unloaded": {
+          "source_V": 0.539,
+          "load_V": 0.5390000000054503,
+          "shunt_drop_V": -5.4503068724898185e-12,
+          "resistor_current_A": 5.390000000054503e-13,
+          "AMP1_P_V": 1.50284447256641,
+          "AMP1_N_V": 1.5025339345260533,
+          "ADC_differential_V": 0.0003105380403567448,
+          "model_plus_ideal_ADC_code": 2048.6359819066506
+        },
+        "loaded_3k3": {
+          "source_V": 0.539,
+          "load_V": 0.5389232442709173,
+          "shunt_drop_V": 7.675572908272255e-05,
+          "resistor_current_A": 0.0001633100740214901,
+          "AMP1_P_V": 1.5028828402065004,
+          "AMP1_N_V": 1.502495559357662,
+          "ADC_differential_V": 0.0003872808488383228,
+          "model_plus_ideal_ADC_code": 2048.793151178421
+        }
+      },
+      "ideal_load_current_A": 0.00016331007401976084,
+      "ideal_shunt_drop_V": 7.67557347892876e-05,
+      "ideal_ADC_signal_V": 7.675573524982201e-05,
+      "ideal_ADC_increment_counts": 0.15719574579163548,
+      "ngspice_ADC_increment_counts": 0.15716927177027173
+    }
+  ],
+  "captures": [
+    {
+      "file": "../load_3k3/ads5282_analog_20261019_201747.summary.json",
+      "description": "Earlier source-side load arrangement; Caravel installed",
+      "samples": 205,
+      "sample_rate_hz": 10000000.0,
+      "capture_checks_pass": true,
+      "ch1": {
+        "raw_unique_words": 9,
+        "candidate_lsb_first_code_min": 2050,
+        "candidate_lsb_first_code_max": 2058,
+        "candidate_lsb_first_code_mean": 2054.1560975609755,
+        "candidate_lsb_first_code_stdev": 1.4600449008277367
+      },
+      "serial_bit_order_independently_validated": false
+    },
+    {
+      "file": "../load_3k3/ads5282_analog_20261019_202241.summary.json",
+      "description": "During confirmation of series load connection; Caravel state not yet confirmed",
+      "samples": 205,
+      "sample_rate_hz": 10000000.0,
+      "capture_checks_pass": true,
+      "ch1": {
+        "raw_unique_words": 8,
+        "candidate_lsb_first_code_min": 2050,
+        "candidate_lsb_first_code_max": 2057,
+        "candidate_lsb_first_code_mean": 2053.9365853658537,
+        "candidate_lsb_first_code_stdev": 1.4316553777922436
+      },
+      "serial_bit_order_independently_validated": false
+    },
+    {
+      "file": "../load_3k3/ads5282_analog_20261019_202359.summary.json",
+      "description": "After user confirmed series connection and Caravel removed",
+      "samples": 205,
+      "sample_rate_hz": 10000000.0,
+      "capture_checks_pass": true,
+      "ch1": {
+        "raw_unique_words": 9,
+        "candidate_lsb_first_code_min": 2049,
+        "candidate_lsb_first_code_max": 2057,
+        "candidate_lsb_first_code_mean": 2053.5463414634146,
+        "candidate_lsb_first_code_stdev": 1.4763332231721134
+      },
+      "serial_bit_order_independently_validated": false
+    }
+  ],
+  "interpretation": [
+    "The PCB label and selected purchase part differ by a factor of 1000 for R9, R10 and R11.",
+    "0.47 ohms with gain 7 produces about one ADC count for this load; near-midscale readings cannot establish a failed signal path or a wrong gain resistor.",
+    "User confirmed fitted R9 is 0.470 ohms; the 470 ohm simulations are comparison cases only and do not describe the fitted R9.",
+    "This simulation does not independently validate ADC serial word alignment, analogue calibration, or physical solder connectivity.",
+    "No hardware output configuration or FPGA bitstream was changed; captures only arm and read the existing ILA."
+  ],
+  "model_limits": [
+    "TI INA851 preliminary PSpice macro-model executed by ngspice 46 with PSpice compatibility.",
+    "An ideal static 12-bit, 2 Vpp ADC transfer is applied to the amplifier output; actual ADC offset and noise are not modeled.",
+    "No inference of actual R31 or R9 from the near-zero ADC data is justified."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "user_reported_direct_R9_V": 0.004,
+  "separate_ground_reading_difference_V": 0.009,
+  "readings_consistent": false,
+  "R9_ohms": 56,
+  "current_from_direct_reading_uA": 71.42857142857143,
+  "load_current_from_prior_0p520_V_and_3k3_uA": 157.57575757575756,
+  "simulation_scope": "U10 gain response to forced 4 mV input; not the physical 3.3k load circuit",
+  "assumed_common_mode_source_V": 0.529,
+  "forced_load_side_V": 0.525,
+  "U10_output_meter_reading_pending": true,
+  "results": [
+    {
+      "R31_ohms": 470,
+      "gain": 13.76595744680851,
+      "ideal_output_signal_mV": 55.06382978723404,
+      "ngspice_output_change_mV": 55.01861587379908,
+      "runs": {
+        "zero": {
+          "AMP1_P_V": 1.5029073204490024,
+          "AMP1_N_V": 1.5024691256263856,
+          "ADC_diff_V": 0.0004381948226168664
+        },
+        "measured_drop": {
+          "AMP1_P_V": 1.5304164344926876,
+          "AMP1_N_V": 1.4749596237962717,
+          "ADC_diff_V": 0.05545681069641595
+        }
+      }
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "ideal_output_signal_mV": 28.0,
+      "ngspice_output_change_mV": 27.953435165552598,
+      "runs": {
+        "zero": {
+          "AMP1_P_V": 1.5028734950787075,
+          "AMP1_N_V": 1.5025029509852985,
+          "ADC_diff_V": 0.00037054409340897543
+        },
+        "measured_drop": {
+          "AMP1_P_V": 1.516850018834563,
+          "AMP1_N_V": 1.4885260395756015,
+          "ADC_diff_V": 0.028323979258961574
+        }
+      }
+    },
+    {
+      "R31_ohms": 1300,
+      "gain": 5.615384615384615,
+      "ideal_output_signal_mV": 22.46153846153846,
+      "ngspice_output_change_mV": 22.414731693769284,
+      "runs": {
+        "zero": {
+          "AMP1_P_V": 1.5028665588598402,
+          "AMP1_N_V": 1.5025098871988336,
+          "ADC_diff_V": 0.0003566716610066134
+        },
+        "measured_drop": {
+          "AMP1_P_V": 1.514073730900412,
+          "AMP1_N_V": 1.491302327545636,
+          "ADC_diff_V": 0.0227714033547759
+        }
+      }
+    }
+  ]
+}

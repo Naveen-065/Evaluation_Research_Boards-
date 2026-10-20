@@ -1,0 +1,119 @@
+{
+  "numerical_checks_passed": true,
+  "hardware_qualified": false,
+  "checks": [
+    {
+      "case": "dac_ti_ibis_typ",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_ti_ibis_min",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_ti_ibis_max",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_input2_1p8_series_0",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_input1_1p8_series_33",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_input1_1p8_series_1000",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_input1_1p8_series_0_bare",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "nt25_open",
+      "rows": 1,
+      "finite": true
+    },
+    {
+      "case": "i2c_opposed_pullups",
+      "rows": 1,
+      "finite": true
+    },
+    {
+      "case": "dac_gpio_vio_1_8",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "dac_gpio_vio_0_0",
+      "rows": 331,
+      "finite": true
+    },
+    {
+      "case": "nt25_sources_R_0_05",
+      "rows": 201,
+      "finite": true
+    },
+    {
+      "case": "nt25_sources_R_0_25",
+      "rows": 201,
+      "finite": true
+    },
+    {
+      "case": "nt25_sources_R_1_0",
+      "rows": 201,
+      "finite": true
+    },
+    {
+      "case": "unpowered_fpga_pullup_load_1000",
+      "rows": 5027,
+      "finite": true
+    },
+    {
+      "case": "unpowered_fpga_pullup_load_100000",
+      "rows": 5027,
+      "finite": true
+    },
+    {
+      "case": "lvds_termination_100",
+      "rows": 2050,
+      "finite": true
+    },
+    {
+      "case": "lvds_termination_50",
+      "rows": 2050,
+      "finite": true
+    },
+    {
+      "case": "lvds_termination_1000",
+      "rows": 2050,
+      "finite": true
+    },
+    {
+      "case": "gpio_line_series_0",
+      "rows": 2664,
+      "finite": true
+    },
+    {
+      "case": "gpio_line_series_33",
+      "rows": 2575,
+      "finite": true
+    }
+  ],
+  "additional_checks": [
+    "21 cases finite and no solver errors",
+    "I2C resistor-network analytical match",
+    "DAC overvoltage all provided INPUT1 corners, RESET nominal, series-resistor variants",
+    "nominal LVDS load calculation",
+    "36 J2 signals bank12",
+    "PCB matches original ZIP"
+  ]
+}

@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "ASP-134604-01") (type "KiCad") (uri "${KIPRJMOD}/Lib/ASP_134604_01/ASP-134604-01.kicad_sym") (options "") (descr "FMC Connector"))
+)

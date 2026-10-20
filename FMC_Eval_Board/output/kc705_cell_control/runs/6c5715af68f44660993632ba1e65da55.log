@@ -1,0 +1,446 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 12:59:29 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/control.tcl
+# set here [file dirname [file normalize [info script]]]
+# if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
+# lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
+# if {$action ni {check hold read set reset cycle column array wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+# foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
+# foreach v [list $setv $setwl $resetv $resetwl] {
+#  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
+# }
+# if {![string is integer -strict $hold] || $hold<20 || $hold>12000 ||
+#     ![string is integer -strict $cycles] || $cycles<1 || $cycles>10 ||
+#     ![regexp {^[a-f0-9]{32}$} $jobid]} { error "Invalid pulse, cycle count or job ID" }
+# set stopfile [file join $here runs "$jobid.stop"]
+# source [file join $here i2c_host.tcl]
+## set here [file dirname [file normalize [info script]]]
+## open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 615.027 ; gain = 272.758
+## connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 620.980 ; gain = 5.953
+## set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+## if {[llength $target] != 1} { error "Known KC705 JTAG cable not found" }
+## current_hw_target $target
+## open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+## set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+## if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+## current_hw_device $dev
+## set_property PROBES.FILE [file join $here build kc705_adc_capture.ltx] $dev
+## refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+## set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+## if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+## set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+## set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+## if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+## proc read_status {} {
+##     global vio statprobe
+##     refresh_hw_vio $vio
+##     set hex [get_property INPUT_VALUE $statprobe]
+##     return [expr 0x$hex]
+## }
+## proc to_hex128 {value} {
+##     set result ""
+##     for {set n 0} {$n < 32} {incr n} {
+##         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+##         set value [expr {$value >> 4}]
+##     }
+##     if {$value != 0} { error "Command overflow" }
+##     return $result
+## }
+## set token [expr {[read_status] & 255}]
+## proc i2c_transfer {addr bytes nr} {
+##     global token cmdprobe
+##     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+##     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+##         error "Bad transaction length"
+##     }
+##     set s [read_status]
+##     if {$s & 256} { error "I2C bridge is already busy" }
+##     set token [expr {($token % 255) + 1}]
+##     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+##     set shift 23
+##     foreach b $bytes {
+##         if {$b < 0 || $b > 255} { error "Bad byte" }
+##         set cmd [expr {$cmd | ($b << $shift)}]
+##         incr shift 8
+##     }
+##     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+##     commit_hw_vio $cmdprobe
+##     set deadline [expr {[clock milliseconds] + 10000}]
+##     while {1} {
+##         set s [read_status]
+##         if {($s & 255) == $token && !($s & 256)} { break }
+##         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+##         after 10
+##     }
+##     if {$s & 512} {
+##         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+##     }
+##     set acked [expr {($s >> 80) & 255}]
+##     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+##     set result {}
+##     for {set i 0} {$i < $nr} {incr i} {
+##         lappend result [expr {($s >> (16+8*$i)) & 255}]
+##     }
+##     return $result
+## }
+## proc mux_select_fmc {} { i2c_transfer 0x74 [list 0x04] 0 }
+## proc mux_read {} { return [lindex [i2c_transfer 0x74 [list] 1] 0] }
+## proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+## proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+## proc close_i2c_bridge {} {
+##     close_hw_target
+##     disconnect_hw_server
+##     close_hw_manager
+## }
+# set sv [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_scan_vio"}]
+# set cp [get_hw_probes -quiet scan_command -of_objects $sv -filter {TYPE == vio_output}]
+# set rp0 [get_hw_probes -quiet scan_result0 -of_objects $sv -filter {TYPE == vio_input}]
+# set rp1 [get_hw_probes -quiet scan_result1 -of_objects $sv -filter {TYPE == vio_input}]
+# if {[llength $sv]!=1 || [llength $cp]!=1 || [llength $rp0]!=1 || [llength $rp1]!=1} { error "Control image/VIO missing" }
+# proc status_read {} {
+#  global sv rp0 rp1
+#  refresh_hw_vio $sv
+#  return [list [get_property INPUT_VALUE $rp0] [get_property INPUT_VALUE $rp1]]
+# }
+# proc cancel_check {} {
+#  global stopfile restoring
+#  if {!$restoring && [file exists $stopfile]} { error "CANCELLED" }
+# }
+# set restoring 0
+# proc command {op payload {timeout 6000}} {
+#  global cp
+#  set old [expr 0x[get_property OUTPUT_VALUE $cp]]
+#  set toggle [expr {1-(($old>>63)&1)}]
+#  set value [expr {($toggle<<63)|(1<<62)|($op<<58)|$payload}]
+#  set_property OUTPUT_VALUE [format %016llX $value] $cp
+#  commit_hw_vio $cp
+#  set deadline [expr {[clock milliseconds]+$timeout}]
+#  while {1} {
+#   if {$op!=4} { cancel_check }
+#   lassign [status_read] h0 h1
+#   set s [expr 0x$h0]
+#   if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
+#   if {[clock milliseconds]>$deadline} { error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1" }
+#   after 10
+#  }
+#  if {$s&1024} { error "Controller fault [expr {($s>>11)&15}]: $h0 / $h1" }
+#  return [list $h0 $h1]
+# }
+# proc hold_cpu {{wb 0}} { command 4 [expr {$wb<<57}] }
+# proc dac {ch voltage} {
+#  if {$ch ni {2 3 4 5 9 10 11 12 13} || $voltage<0 || $voltage>3} { error "Protected DAC channel/value" }
+#  command 2 [expr {(0x10+$ch)<<16 | round($voltage*65536.0/5.0)}]
+# }
+# proc power_mask {wb} { command 2 [expr {$wb ? 0x0901C8 : 0x0901D0}] }
+# proc scan_profile {} {
+#  hold_cpu
+#  dac 2 0.5; dac 3 2.5; dac 4 0; dac 5 2.3
+#  dac 9 0.9; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.0
+#  power_mask 0
+# }
+# proc wb_profile {} {
+#  hold_cpu 1
+#  dac 2 0.5; dac 3 0; dac 4 0.5; dac 5 2.5
+#  # Evaluation-board WB bias profile, encoded for this PCB's 0..5 V ranges.
+#  dac 9 1.0; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.5
+#  power_mask 1
+# }
+# proc write_verify {reg value} {
+#  si5351_write $reg $value
+#  if {[si5351_read $reg]!=$value} { error "Si5351 readback mismatch register $reg" }
+# }
+# proc clock_profile {mhz} {
+#  # CPU must already be held. PLLA stays 900 MHz; CLK0/1 match.
+#  mux_select_fmc
+#  if {[mux_read]!=4} { error "FMC I2C mux mismatch" }
+#  set old [si5351_read 3]
+#  set bytes [expr {$mhz==2 ? {0 1 0 223 0 0 0 0} : {0 1 0 43 0 0 0 0}}]
+#  write_verify 3 255
+#  for {set i 0} {$i<8} {incr i} {
+#   write_verify [expr {42+$i}] [lindex $bytes $i]
+#   write_verify [expr {50+$i}] [lindex $bytes $i]
+#  }
+#  write_verify 165 0; write_verify 166 0
+#  write_verify 16 79; write_verify 17 79
+#  si5351_write 177 32
+#  after 20
+#  if {[si5351_read 0]&0xA8} { error "Si5351 PLL/crystal fault" }
+#  write_verify 3 252
+#  puts "EVENT clock_mhz=$mhz"; flush stdout
+# }
+# proc scan_capture {r c op clocks label} {
+#  cancel_check
+#  lassign [command 1 [expr {($op<<57)|($clocks<<10)|($c<<5)|$r}]] h0 h1
+#  puts "CELL_RESULT $r $c $label $clocks $h0 $h1"; flush stdout
+#  # The scan frame is returned before flagging clipping, so evidence is retained.
+#  if {([expr 0x$h0]>>37)&1} { error "ADC clipping on a current-sense channel; stopped before another pulse" }
+# }
+# proc scan_program {r c op} {
+#  global setv setwl resetv resetwl hold
+#  scan_capture $r $c 0 2400 "before_$op"
+#  hold_cpu
+#  if {$op eq "set"} { dac 2 $setv; dac 3 $setwl } else { dac 2 $resetv; dac 3 $resetwl }
+#  scan_capture $r $c [expr {$op eq "set"}] $hold "${op}_pulse"
+#  hold_cpu; dac 2 0.5; dac 3 2.5
+#  scan_capture $r $c 0 2400 "after_$op"
+# }
+# proc wb_capture {r c op} {
+#  cancel_check
+#  # Native memory-controller packet. Reference firmware repeats a program
+#  # packet to prime/trigger the silicon, then returns fifteen captured words.
+#  set mode [expr {$op eq "read" ? 1 : ($op eq "set" ? 3 : 0)}]
+#  set pwm [expr {$op eq "read" ? 0x82 : 0xFF}]
+#  set value [expr {($mode<<30)|($r<<25)|($c<<20)|(2<<16)|(0xAA<<8)|$pwm}]
+#  set payload [expr {(($op ne "read")<<57)|(0x80<<32)|$value}]
+#  lassign [command 3 $payload 65000] h0 h1
+#  set b [expr 0x$h1]
+#  if {(($b>>40)&0x7FFF)!=0x7FFF || !(($b>>55)&1) || (($b>>64)&0xFFFFFFFF)!=$value} {
+#   error "Wishbone command echo or readback mask mismatch"
+#  }
+#  for {set i 0} {$i<15} {incr i} {
+#   lassign [command 5 $i] h0 h1
+#   puts "WB_WORD $r $c $op $i [format %08X $value] $h0 $h1"; flush stdout
+#  }
+#  puts "WB_COMPLETE $r $c $op"; flush stdout
+# }
+# proc collect_trace {} {
+#  # The last scan operation remains in FPGA trace RAM. Three measured samples
+#  # per VIO read; their time stamps count 10-MSPS snapshots from baseline start.
+#  for {set i 0} {$i<256} {incr i 3} {
+#   cancel_check
+#   lassign [command 6 $i] h0 h1
+#   set b [expr 0x$h1]
+#   if {($b>>224)!=0x54524332 || (($b>>201)&255)!=$i} { error "ADC trace signature/index mismatch" }
+#   set n [expr {($b>>192)&511}]
+#   if {$n<3 || $n>256} { error "ADC trace length invalid: $n" }
+#   puts "TRACE_CHUNK $i $h1"; flush stdout
+#   if {$i+3>=$n} { break }
+#  }
+# }
+# lassign [status_read] h0 h1
+# if {([expr 0x$h1]>>224)!=0x53435232} { error "Full-control FPGA signature mismatch" }
+# puts "CONTROL_STATUS $h0 $h1"
+CONTROL_STATUS 0013aef90013f5fd0013d6fd00144e970013e4282edb02800000001b7fff0209 53435232007e3fef7e7414fe0170e3bb01761d720184a205017cab110174ce01
+# flush stdout
+# if {$action eq "check"} { close_i2c_bridge; exit }
+# set iswb [string match wb_* $action]
+EVENT clock_mhz=2
+CELL_RESULT 0 0 read 2400 0013aef80013f5ed0013d71200144eab0013e4512edb02800000001f00008200 53435232007e3fe8fe3c11fe0170e89001761c40017b10c7017ca15f0174c6f4
+CELL_RESULT 0 1 read 2400 0013af6e0013f6080013d75100144f0c0013e3ff2edc02800000001f00200200 53435232007e3fea7e9812fe0170f4cf017625bc017950c9017ca77d0174e843
+CELL_RESULT 0 2 read 2400 0013af910013f60b0013d7de00144efc0013e6422edb02800000001f00408200 53435232007e3fe77e141cfe0170ebe401761d3e01779797017ca0150174f0f8
+CELL_RESULT 0 3 read 2400 0013af130013f6020013d75700144e990013e4ba2edc02800000001f00600200 53435232007e3fe4fea41afe0170f01a017625380175a871017c9e130174f046
+CELL_RESULT 0 4 read 2400 0013aeb60013f60d0013d7c900144f480013e4ea2edc02800000001f00808200 5343523207be3fe0fea81cfe0170ed9d017624e901746401017ca2420174ef45
+CELL_RESULT 0 5 read 2400 0013ae9f0013f5f00013d85400144edf0013e6012edb02800000001f00a00200 534352320fbe3fe0fe341efe0170e56901761b520174af18017c99840174ee9c
+CELL_RESULT 0 6 read 2400 0013aebc0013f6070013d6b200144f240013e3392edb02800000001f00c08200 534352320fbe3fe8fe181afe0170e14f01761c7e017673ba017c9e3a0174c526
+CELL_RESULT 0 7 read 2400 0013af570013f5fe0013d79900144f670013e5172edc02800000001f00e00200 53435232007e3fe77ed816fe0170f6aa0176244b017bd3d3017cae150174f1c2
+CELL_RESULT 0 8 read 2400 0013ae610013f60f0013d7fe00144f350013e5d12edb02800000001f01008200 53435232007e3fe37ea81afe0170e36d01761cb0017452ef017ca0cc0174edd3
+CELL_RESULT 0 9 read 2400 0013ae9f0013f5fa0013d71a00144ee40013e4822edc02800000001f01200200 53435232007e3fe27ec81afe0170e9ed0176223a017a8f0e017cab390174ea5f
+CELL_RESULT 0 10 read 2400 0013af2f0013f6000013d76f00144f0a0013e5a62edb02800000001f01408200 534352320fbe3fef7eb812fe0170ee7901761a7b0177b650017c9df40174d634
+CELL_RESULT 0 11 read 2400 0013ae570013f6080013d89500144e720013e64e2edb02800000001f01600200 534352320fbe3fe0fec81cfe0170e28101761d8c017543c9017c9cfc0174ed73
+CELL_RESULT 0 12 read 2400 0013ae7a0013f60c0013d6f800144eca0013e46b2edb02800000001f01808200 534352320fbe3fecfe381efe0170eac401761cde0176f751017c9da00174c9b3
+CELL_RESULT 0 13 read 2400 0013af150013f6010013d79f00144f480013e5912edb02800000001f01a00200 534352320fbe3fe4fe1816fe0170e78c01761d290177e23f017ca4d60174d566
+CELL_RESULT 0 14 read 2400 0013af2c0013f5fa0013d71500144f6a0013e4942edc02800000001f01c08200 53435232007e3fe0fee816fe0170f1ee017624480174f003017ca6010174e8ff
+CELL_RESULT 0 15 read 2400 0013af600013f60d0013d7ea00144f490013e5f32edb02800000001f01e00200 53435232087e3fef7e5816fe0170e81501761d18017513ef017c9f010174f03e
+CELL_RESULT 0 16 read 2400 0013aec30013f5f80013d7b600144f690013e62c2edb02800000001f02008200 53435232007e3fef7e341afe0170e6f001761de40174cab6017ca0a50174e497
+CELL_RESULT 0 17 read 2400 0013aea20013f5ff0013d72400144ee20013e3ca2edb02800000001f02200200 53435232007e3fe4fe241efe0170de9a01761da30174e705017c9fae0174c3a3
+CELL_RESULT 0 18 read 2400 0013ae880013f6020013d6e800144f430013e4232edb02800000001f02408200 53435232007e3fef7e8416fe0170dd7001761c420174e39a017c9eda0174c3b5
+CELL_RESULT 0 19 read 2400 0013af050013f6140013d70700144f3c0013e4332edc02800000001f02600200 53435232007e3fe0fe681efe0170eedd017624ed0174d798017ca5c40174e635
+CELL_RESULT 0 20 read 2400 0013adeb0013f5fa0013d74b00144eed0013e5202edb02800000001f02808200 53435232007e3fe8fe181cfe0170e1af01761caf017487f7017c9f700174caa5
+CELL_RESULT 0 21 read 2400 0013adf90013f6120013d76900144f1e0013e3be2edb02800000001f02a00200 534352320fbe3fe77ea41afe0170e1be01761e2e01757c63017c9f7b0174bf99
+CELL_RESULT 0 22 read 2400 0013ade90013f6110013d70f00144f2f0013e3502edb02800000001f02c08200 53435232007e3fe4fe7416fe0170dfc901761ea101759753017c9ef60174c452
+CELL_RESULT 0 23 read 2400 0013af1f0013f6120013d6d000144f610013e45d2edc02800000001f02e00200 53435232007e3fe0fef416fe0170ee330176254a01769b74017ca8ba0174ebe0
+CELL_RESULT 0 24 read 2400 0013ae3b0013f5ff0013d76000144f730013e4482edb02800000001f03008200 53435232007e3fecfe541afe0170e4bf01761cd20175933b017ca4fe0174c3fd
+CELL_RESULT 0 25 read 2400 0013af240013f5fd0013d73c00144f370013e46f2edb02800000001f03200200 534352320fbe3fe37e5410fe0170ec0701761ccc01749e3f017ca5eb0174c5a2
+CELL_RESULT 0 26 read 2400 0013ae940013f6140013d7a000144f5f0013e53c2edc02800000001f03408200 53435232007e3fe57e8418fe0170ef9f017625a30175c81a017cab960174f884
+CELL_RESULT 0 27 read 2400 0013aea40013f6060013d6f300144f830013e3ec2edb02800000001f03600200 53435232007e3fe77e4810fe0170df0801761cf6017cd24c017cae6a0174c2b3
+CELL_RESULT 0 28 read 2400 0013ae960013f5fb0013d79400144f0d0013e6022edb02800000001f03808200 53435232007ebfecfea812fe0170e5ff01761c490175b880017ca4c80174f2d3
+CELL_RESULT 0 29 read 2400 0013aea30013f6070013d6d900144f610013e33c2edb02800000001f03a00200 534352320fbe3fe0fec81efe0170e47301761cb001759c86017ca4d70174c976
+CELL_RESULT 0 30 read 2400 0013af440013f5ea0013d7a400144f170013e4512edc02800000001f03c08200 53435232007e3feb7e9812fe0170efce017624ec0178dd06017caf5e0174e0f5
+CELL_RESULT 0 31 read 2400 0013aebc0013f6100013d7b900144f880013e5812edb02800000001f03e00200 53435232007e3fe8fe3811fe0170e40601761cca0179a2aa017cabbe0174ef1e
+CELL_RESULT 1 0 read 2400 0013aef40013f6080013d6e900144fb20013e38a2edb02800000001f04018200 534352320fbe3fef7ea81afe0170e84f01761c77017b4b6b017caa6a0174cf56
+CELL_RESULT 1 1 read 2400 0013aeff0013f6060013d72100144f4e0013e3c32edb02800000001f04210200 534352320fbe3fef7eb81afe0170e9f301761e710176adae017ca5470174cfb8
+CELL_RESULT 1 2 read 2400 0013af0a0013f5fe0013d6fd00144f660013e3652edb02800000001f04418200 534352320fbe3fe77eb81cfe0170e5e401761d08017605e2017ca6ca0174bf61
+CELL_RESULT 1 3 read 2400 0013aeaa0013f5f60013d84100144f880013e5ee2edb02800000001f04610200 534352320fbe3fe8fe681afe0170eaad01761cde01751c03017ca4970174e74e
+CELL_RESULT 1 4 read 2400 0013af560013f6140013d6dd00144f3a0013e3c42edc02800000001f04818200 53435232007e3fea7e2014fe0170f3c7017624bc017449f9017ca9ad0174e45a
+CELL_RESULT 1 5 read 2400 0013af1f0013f5f00013d7ad00144f5a0013e4b52edb02800000001f04a10200 534352320fbe3fe37e981f7e0170e67301761c3501747f6d017c9fe80174cb0a
+CELL_RESULT 1 6 read 2400 0013aeb50013f5e80013d6b400144f260013e3f92edb02800000001f04c18200 53435232007e3fecfe041dfe0170e41f01761b9f0175a7cb017c9df00174c658
+CELL_RESULT 1 7 read 2400 0013af670013f5eb0013d7de00144f190013e59c2edb02800000001f04e10200 534352320fbe3fef7ef812fe0170eb9501761ade0176e379017ca0ac0174e560
+CELL_RESULT 1 8 read 2400 0013af0c0013f6060013d7f800144f2a0013e5e82edb02800000001f05018200 53435232007e3fe4feb416fe0170e8c101761d82017448f7017ca1280174f502
+CELL_RESULT 1 9 read 2400 0013aecf0013f6140013d88d00144f180013e5ef2edb02800000001f05210200 53435232007e3fecfe141efe0170e74b01761ec30176e38e017ca0980174dc62
+CELL_RESULT 1 10 read 2400 0013aefe0013f6170013d73800144ef70013e3e62edb02800000001f05418200 534352320fbebfef7ee01cfe0170e4c101761d7a0176184f017c9f340174c24c
+CELL_RESULT 1 11 read 2400 0013ae120013f5ff0013d82000144f990013e5e92edb02800000001f05610200 534352320fbe3fe8fe181dfe0170e43f01761c6f0174fba3017c9de90174dee3
+CELL_RESULT 1 12 read 2400 0013af200013f6210013d6b100144f2e0013e2c82edb02800000001f05818200 534352320fbe3fe4fef81afe0170e4c101761d9c0176039a017ca17f0174c717
+CELL_RESULT 1 13 read 2400 0013aec30013f5f10013d79c00144f630013e5272edc02800000001f05a10200 53435232007e3fef7ea81efe0170eaba017623db017667e0017ca9ef0174f51a
+CELL_RESULT 1 14 read 2400 0013aebd0013f60e0013d74700144f820013e4b52edb02800000001f05c18200 53435232007e3fe67e901cfe0170e4e201761d910174a734017ca2710174c73c
+CELL_RESULT 1 15 read 2400 0013af150013f5f50013d81000144efd0013e6682edb02800000001f05e10200 53435232007e3fe77e6818fe0170ea0a01761c1d0174ee59017c9d270174ec2e
+CELL_RESULT 1 16 read 2400 0013af050013f61c0013d7a000144f830013e53e2edb02800000001f06018200 534352320fbe3fe8fe2812fe0170eded01761c660174a0dc017ca0190174d5c6
+CELL_RESULT 1 17 read 2400 0013aed80013f5f00013d7b500144f490013e5ed2edb02800000001f06210200 53435232007e3fe0fe981cfe0170e85701761cb80174c624017ca00d0174ed9d
+CELL_RESULT 1 18 read 2400 0013aeed0013f6030013d77800144eeb0013e4fe2edc02800000001f06418200 534352320fbe3fe8fe7815fe0170f2780176258b0174cc1f017ca44f0174f0eb
+CELL_RESULT 1 19 read 2400 0013af8e0013f6140013d69900144f5a0013e3512edb02800000001f06610200 53435232007e3fe0fe681cfe0170ec6001761d1d017496ef017c9bf40174c59f
+CELL_RESULT 1 20 read 2400 0013aee50013f5db0013d75f00144f3c0013e49d2edc02800000001f06818200 534352320fbe3fe77ec81afe0170f5620176224b01747c22017ca4ae0174ef2c
+CELL_RESULT 1 21 read 2400 0013af780013f5f00013d75200144eb10013e5052edb02800000001f06a10200 534352320ffe3fe0fef81afe0170eef101761c57017517a5017c9da40174d281
+CELL_RESULT 1 22 read 2400 0013aee00013f5e80013d69b00144f8e0013e3592edb02800000001f06c18200 53435232007e3fe8fe4812fe0170e5ee01761b08017545d8017c9d6e0174c2b2
+CELL_RESULT 1 23 read 2400 0013aec60013f5cd0013d6ba00144f7e0013e37f2edb02800000001f06e10200 534352320fbe3fedfe3411fe0170ece001761ac80175c92f017ca3cd0174cc76
+CELL_RESULT 1 24 read 2400 0013af2d0013f5fd0013d67800144f300013e3852edb02800000001f07018200 5343523207be3feb7e5416fe0170e7f301761a86017525ba017c9dfb0174bef9
+CELL_RESULT 1 25 read 2400 0013af060013f5ef0013d77e00144f350013e4342edb02800000001f07210200 53435232007e3fe8feb41afe0170e9e801761b8101748461017c9bcc0174c5e4
+CELL_RESULT 1 26 read 2400 0013af770013f6090013d77f00144f2e0013e5cb2edb02800000001f07418200 534352320fbe3fe37ec812fe0170ea5401761c5201755144017c9cf60174f278
+CELL_RESULT 1 27 read 2400 0013aecd0013f6030013d73400144f700013e4822edb02800000001f07610200 5343523207be3fef7e3414fe0170e7c701761cfd01771a88017ca51d0174c47f
+CELL_RESULT 1 28 read 2400 0013aec70013f6120013d6e000144f1f0013e3962edb02800000001f07818200 53435232007e3fef7e281afe0170e1aa01761c30017514a7017c9d510174bf48
+CELL_RESULT 1 29 read 2400 0013af1c0013f60d0013d6ec00144f580013e3b42edb02800000001f07a10200 53435232007e3fe4fe2815fe0170e5b801761d360175310e017c9d800174c78e
+CELL_RESULT 1 30 read 2400 0013af1b0013f5f60013d74b00144f5f0013e34a2edb02800000001f07c18200 53435232007e3fecfea41cfe0170e92701761c7c0176cfc2017c9e320174cedf
+CELL_RESULT 1 31 read 2400 0013ae9d0013f5e40013d75c00144f7f0013e3a72edb02800000001f07e10200 534352320fbe3fe0feb411fe0170e92101761b5b0176f8a8017c9f970174cbd4
+CELL_RESULT 2 0 read 2400 0013aed60013f5f00013d82100144f520013e5ae2edb02800000001f08028200 53435232007e3fe8fed81efe0170e73f01761bd701783208017ca1610174f145
+CELL_RESULT 2 1 read 2400 0013af0f0013f60c0013d7c300144f060013e5152edb02800000001f08220200 534352320fbe3fe0fe2412fe0170e92c01761d7501792f87017ca1f80174d66a
+CELL_RESULT 2 2 read 2400 0013af600013f5fc0013d78200144f740013e3f82edc02800000001f08428200 53435232007e3fecfe1819fe0170f0ba01762494017755a3017ca9d50174e1e8
+CELL_RESULT 2 3 read 2400 0013af4c0013f6090013d6f700144f6c0013e4e82edb02800000001f08620200 53435232007e3fe0fe741afe0170e6e701761cc50175ca92017ca5600174ce84
+CELL_RESULT 2 4 read 2400 0013aecd0013f5e80013d79600144f790013e5142edb02800000001f08828200 534352320fbe3fe4fee81afe0170e9ed01761c0601744992017ca1b10174cfc3
+CELL_RESULT 2 5 read 2400 0013aee00013f5b90013d6f600144edc0013e3b22edb02800000001f08a20200 534352320fbe3fef7e281afe0170e093017619020174b9bb017c99490174bf80
+CELL_RESULT 2 6 read 2400 0013ae680013f5eb0013d75500144ea20013e5232edc02800000001f08c28200 53435232007e3fe0fe2812fe0170e98f017623a3017783a3017cac5b0174f5de
+CELL_RESULT 2 7 read 2400 0013aec20013f5ab0013d84b00144f180013e5cd2edb02800000001f08e20200 534352320fbe3fe0fea41cfe0170e4d901761a1b01779bc9017ca2e00174dc83
+CELL_RESULT 2 8 read 2400 0013ae950013f5f10013d77300144f3a0013e3d32edb02800000001f09028200 534352320fbe3fe37ef81cfe0170e2fc01761b3501744324017c9b800174be3d
+CELL_RESULT 2 9 read 2400 0013aefe0013f5e30013d7e200144f0f0013e5782edc02800000001f09220200 534352320fbe3fef7e7812fe0170ee260176248c01791e53017ca8860174f7be
+CELL_RESULT 2 10 read 2400 0013aed00013f5f10013d6ef00144ee90013e4012edb02800000001f09428200 53435232007e3fef7e2414fe0170e45c01761c6f01779614017c9fc60174bfe6
+CELL_RESULT 2 11 read 2400 0013af3c0013f5ed0013d6b500144f320013e3592edb02800000001f09620200 53435232007e3fecfe3816fe0170e41f01761c0501754b1c017c9e4d0174be87
+CELL_RESULT 2 12 read 2400 0013aeaf0013f5f50013d67a00144f220013e37b2edb02800000001f09828200 53435232007e3fef7e841cfe0170e04701761b4701787984017c9fe40174d7a1
+CELL_RESULT 2 13 read 2400 0013ae580013f6120013d7b000144ecf0013e5e62edb02800000001f09a20200 53435232007e3fef7e9814fe0170df8701761e32017ebb16017ca4090174ed47
+CELL_RESULT 2 14 read 2400 0013af260013f5f10013d7e200144f260013e5b92edb02800000001f09c28200 534352320fbe3fe0fe841afe0170e3ef01761cc60174d7d8017c9b9b0174f0a6
+CELL_RESULT 2 15 read 2400 0013ae7f0013f60c0013d7d700144efd0013e5dc2edb02800000001f09e20200 53435232007e3fecfe8419fe0170e30f01761b77017537d6017c9d0b0174f3f5
+CELL_RESULT 2 16 read 2400 0013aee30013f5e90013d6ac00144f190013e3a82edb02800000001f0a028200 53435232007e3fe77e141cfe0170e55601761bbf0174ee93017c9a7e0174c5bf
+CELL_RESULT 2 17 read 2400 0013aebf0013f6110013d79200144f6d0013e5b42edb02800000001f0a220200 53435232003e3fe27ee81afe0170e54b01761d6d017505bd017c9df00174dce5
+CELL_RESULT 2 18 read 2400 0013af140013f60e0013d79a00144f430013e5c22edb02800000001f0a428200 53435232007e3fe5fe2812fe0170e76401761d6c017510f1017c9d020174dced
+CELL_RESULT 2 19 read 2400 0013ae0a0013f5f90013d77700144ee90013e5352edc02800000001f0a620200 53435232007e3fe77e6812fe0170e6b5017624d40174ee58017ca3a40174f951
+CELL_RESULT 2 20 read 2400 0013ae440013f5f00013d68300144f270013e3c12edb02800000001f0a828200 534352320fbe3fe4fe441efe0170e24d01761b580174984d017ca0ec0174bde4
+CELL_RESULT 2 21 read 2400 0013aeac0013f5f00013d80000144ed30013e6062edb02800000001f0aa20200 53435232047e3fe8fed412fe0170dc8501761b1e017606f6017c9b310174e58e
+CELL_RESULT 2 22 read 2400 0013b6dd0013fdcd0013e00c001457150013eddd2edb02810000001f0ac28200 534352320fbe3fe77e681cfe0170ea4501761b830175bf5b017c9dde0174f037
+CELL_RESULT 2 23 read 2400 0013ae8d0013f5f60013d6f000144f220013e32e2edb02800000001f0ae20200 53435232007edfeb7ec81cfe0170e43601761bbd0177c31d017c9df70174c890
+CELL_RESULT 2 24 read 2400 0013ae320013f5e60013d7e500144f630013e5ff2edb02800000001f0b028200 53435232007e3fe0fea81efe0170de7601761bd601768871017c9ff70174e0dd
+CELL_RESULT 2 25 read 2400 0013af0b0013f6160013d69b00144f200013e38b2edb02800000001f0b220200 534352320fbe3fecfe6415fe0170e2e901761dda0174a385017c9c0b0174ce0f
+CELL_RESULT 2 26 read 2400 0013af240013f5f90013d71f00144ef90013e3982edb02800000001f0b428200 53435232007e3fe8fe281cfe0170e5e601761b3601764372017c9e8d0174d2a5
+CELL_RESULT 2 27 read 2400 0013ae490013f6010013d7a100144f4f0013e4c82edb02800000001f0b620200 534352320fbe3fecfe681afe0170e07f01761b9401787fbf017ca0f10174ca23
+CELL_RESULT 2 28 read 2400 0013ad950013f5ed0013d7da00144eda0013e5ef2edb02800000001f0b828200 534352320ffe3fe37e3012fe0170e3ac01761b880175b4b9017c9a870174ea76
+CELL_RESULT 2 29 read 2400 0013aee00013f5f40013d72c00144e8d0013e4a22edc02800000001f0ba20200 53435232007e3fe2fe6413fe0170f1fc0176219c017680fc017ca3330174eecf
+CELL_RESULT 2 30 read 2400 0013aeef0013f5f50013d7d300144f080013e5ce2edb02800000001f0bc28200 534352320ffe3fef7e541afe0170e84e01761a1b017f6fc4017ca93f0174e7f6
+CELL_RESULT 2 31 read 2400 0013af3b0013f6030013d7bc00144ef50013e5d22edb02800000001f0be20200 534352320fbe3feb7eb818fe0170ed1d01761a75017fb4be017ca9a00174ef94
+CELL_RESULT 3 0 read 2400 0013ae0b0013f6070013d79d00144ed80013e6252edb02800000001f0c038200 53435232007e3fef7ee41cfe0170e66001761a7601762d60017c9ca20174e897
+CELL_RESULT 3 1 read 2400 0013af420013f5ec0013d74b00144f060013e4b32edc02800000001f0c230200 534352320fbedfef7e781afe0170f3f10176234f01768963017ca3600174f099
+CELL_RESULT 3 2 read 2400 0013af0e0013f5fa0013d70700144f520013e4d62edc02800000001f0c438200 53435232007e3fe77e1414fe0170ed400176237e0175f8a1017ca6940174f3e3
+CELL_RESULT 3 3 read 2400 0013af5f0013f5e00013d67200144f5d0013e3cd2edb02800000001f0c630200 53435232007e3fe0fed41cfe0170e72f0176184b01750a4b017c9d6b0174c7f2
+CELL_RESULT 3 4 read 2400 0013af480013f5d40013d6fa00144ec10013e3d12edb02800000001f0c838200 534352320fbe3fe8fe3412fe0170eee0017618fc01743c27017c97230174d713
+CELL_RESULT 3 5 read 2400 0013aea20013f5cb0013d86400144f2a0013e67a2edb02800000001f0ca30200 53435232007e3fe77e681efe0170e6ef01761a8d017490a4017c9b450174e979
+CELL_RESULT 3 6 read 2400 0013af800013f6010013d7cf00144f070013e49d2edb02800000001f0cc38200 53435232007edfe77e381afe0170f1e101761c580175cf30017c9c920174ce40
+CELL_RESULT 3 7 read 2400 0013aeb50013f5f70013d6f100144f790013e3f82edb02800000001f0ce30200 53435232007e3fe0fee81efe0170e4b401761c3401761325017c9bce0174c730
+CELL_RESULT 3 8 read 2400 0013aeec0013f5f40013d82b00144efa0013e60e2edb02800000001f0d038200 534352320fbe3feafe0415fe0170ec9801761d2701744374017c99600174e03d
+CELL_RESULT 3 9 read 2400 0013aed00013f6010013d71d00144f450013e3632edb02800000001f0d230200 534352320fbe3fecfe681efe0170e9a001761bc101767d4e017c99690174c68c
+CELL_RESULT 3 10 read 2400 0013af410013f5f60013d79e00144ea50013e4632edc02800000001f0d438200 53435232007e3fe0fea812fe0170f267017622de01760723017ca3eb0174e9c4
+CELL_RESULT 3 11 read 2400 0013af100013f6000013d7a700144f9f0013e5d72edb02800000001f0d630200 53435232007e3fef7e1411fe0170eb7801761c140174ee5e017c9d410174e08a
+CELL_RESULT 3 12 read 2400 0013af3b0013f5e60013d65700144eed0013e33e2edb02800000001f0d838200 534352320fbe3feb7e2412fe0170ed1901761b670176497a017c9d560174c920
+CELL_RESULT 3 13 read 2400 0013ae130013f5960013d72800144f440013e43c2edb02800000001f0da30200 534352320fbe3fe0fea81afe0170e364017619a10176800e017ca2b50174c5ab
+CELL_RESULT 3 14 read 2400 0013aefd0013f5f60013d6c700144e9f0013e3662edb02800000001f0dc38200 53435232007e3fecfe0419fe0170eae301761a9b01749317017c96990174d249
+CELL_RESULT 3 15 read 2400 0013af5a0013f5d80013d7f400144f770013e6022edb02800000001f0de30200 53435232007e3fe4fee812fe0170e5fa01761ad20174e083017c9d660174f018
+CELL_RESULT 3 16 read 2400 0013af3a0013f5fa0013d7a500144f0d0013e6542edb02800000001f0e038200 534352320fbe3fe8fed41efe0170e85301761cf90174a8bf017c9cdc0174f2d8
+CELL_RESULT 3 17 read 2400 0013b6ee0013fdda0013e010001457030013ee102edb02810000001f0e230200 534352320ffe3fe1fea41efe0170e6fc01761b1d0174c5b7017c96d50174f2cc
+CELL_RESULT 3 18 read 2400 0013aed10013f5fb0013d7d000144f020013e62e2edb02800000001f0e438200 534352320fbe3feb7e6410fe0170e82401761bf10174f574017c991c0174e4b1
+CELL_RESULT 3 19 read 2400 0013af670013f6040013d6ad00144f2f0013e3962edb02800000001f0e630200 53435232007e3fe4fe8411fe0170eafa01761c2f01749a3e017c9b8f0174c8f2
+CELL_RESULT 3 20 read 2400 0013aee50013f5c10013d6bb00144eb80013e3f72edb02800000001f0e838200 53435232007e3fe8fe0415fe0170e36501761bdb0174707e017c97ad0174d8d4
+CELL_RESULT 3 21 read 2400 0013aeda0013f5fd0013d7af00144f0f0013e60f2edb02800000001f0ea30200 534352320fbe3fe8fef81dfe0170ed5101761b7c017630d9017ca0cb0174ee07
+CELL_RESULT 3 22 read 2400 0013aebc0013f5f90013d7c700144f7c0013e5652edb02800000001f0ec38200 53435232007e3fe77ed81cfe0170e77901761b50017509bc017c9e200174d16d
+CELL_RESULT 3 23 read 2400 0013aee90013f5c80013d7cf00144e8e0013e68b2edb02800000001f0ee30200 53435232007e3fe4fe5416fe0170e6f901761a660175e425017c992e0174f271
+CELL_RESULT 3 24 read 2400 0013ae9c0013f5c30013d7a500144ef20013e6102edb02800000001f0f038200 5343523207be3fef7e9412fe0170e5660176181501753ccb017c9b100174e85e
+CELL_RESULT 3 25 read 2400 0013af010013f5f40013d6c000144ebf0013e39a2edb02800000001f0f230200 53435232007e3fef7e541cfe0170e67201761ac5017475c9017c9a2e0174cbf1
+CELL_RESULT 3 26 read 2400 0013aea80013f5cf0013d77600144f120013e5a62edb02800000001f0f438200 53435232007e3fe4fe5411fe0170e35501761934017570a3017c9d8e0174f46a
+CELL_RESULT 3 27 read 2400 0013ae890013f5f80013d88900144eee0013e6962edb02800000001f0f630200 53435232007e3fe8fe981efe0170e3e101761ba90176af77017c9d700174ef44
+CELL_RESULT 3 28 read 2400 0013ae620013f5f10013d79800144e650013e6042edb02800000001f0f838200 53435232007e3feb7e181cfe0170e0f501761baf0175166f017c95e30174e6ad
+CELL_RESULT 3 29 read 2400 0013af6d0013f5ec0013d6c200144eda0013e4792edb02800000001f0fa30200 53435232007e3fe8fe5412fe0170e8b5017619ac01754504017c9d030174c861
+CELL_RESULT 3 30 read 2400 0013af650013f5dd0013d7a100144e490013e5372edc02800000001f0fc38200 534352320fbe3fe8fed41afe0170f1ca0176223501772df7017c9f1d0174f63b
+CELL_RESULT 3 31 read 2400 0013aed10013f5f70013d81900144e9c0013e5db2edb02800000001f0fe30200 53435232007e3fe0feb41afe0170dfc901761a2b017810d2017c99520174f374
+CELL_RESULT 4 0 read 2400 0013af290013f5ec0013d6e700144f3a0013e4182edb02800000001f10048200 534352320fbe3fef7e6412fe0170e72b01761ade0178c9f3017c9f4c0174c5c7
+CELL_RESULT 4 1 read 2400 0013aee60013f5e80013d7df00144ebf0013e5342edc02800000001f10240200 534352320fbe3fe2fe341efe0170f13801762159017f4c18017cabe60174f677
+CELL_RESULT 4 2 read 2400 0013af140013f5ef0013d6d900144f1f0013e3db2edb02800000001f10448200 53435232007e3fef7ea412fe0170e7ed01761bbd017a8736017c9e490174d6ba
+CELL_RESULT 4 3 read 2400 0013aee00013f5ba0013d71600144f580013e3de2edb02800000001f10640200 534352320fbe3fe77ea416fe0170e6b701761a600175ad47017c9e710174c90a
+CELL_RESULT 4 4 read 2400 0013adf50013f5e50013d80500144f680013e5dd2edb02800000001f10848200 534352320fbe3fe77ee81efe0170e7bc0176189c01745170017c9d960174ea35
+CELL_RESULT 4 5 read 2400 0013af530013f5c90013d6da00144eed0013e43b2edc02800000001f10a40200 53435232007e3feb7ec819fe0170f3e00176232f0174b9fb017ca1760174e64f
+CELL_RESULT 4 6 read 2400 0013af270013f5e40013d6a700144ed70013e3432edb02800000001f10c48200 53435232007e3fe0fe5811fe0170e73b01761a9a01770006017c9ea20174c1b6
+CELL_RESULT 4 7 read 2400 0013af5e0013f6010013d6dc00144eed0013e3b72edb02800000001f10e40200 534352320fbe3fe4fea81efe0170ec7301761b4701797da3017c9e770174c714
+# set outcome [catch {
+#  hold_cpu $iswb
+#  if {$action eq "hold"} { puts "HELD"; flush stdout } else {
+#   if {(([expr 0x$h0]>>36)&1)!=1} { error "ADC not healthy; initialize the bench first" }
+#   if {$iswb} { clock_profile 10; wb_profile } else { clock_profile 2; scan_profile }
+#   switch $action {
+#    read { scan_capture $row $col 0 2400 read }
+#    set - reset { scan_program $row $col $action }
+#    cycle {
+#     for {set n 0} {$n<$cycles} {incr n} { scan_program $row $col set; scan_program $row $col reset }
+#    }
+#    column { for {set r 0} {$r<32} {incr r} { scan_capture $r $col 0 2400 read } }
+#    array {
+#     for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { scan_capture $r $c 0 2400 read } }
+#    }
+#    wb_read - wb_set - wb_reset { wb_capture $row $col [string range $action 3 end] }
+#    wb_cycle {
+#     for {set n 0} {$n<$cycles} {incr n} {
+#      wb_capture $row $col read; wb_capture $row $col set; wb_capture $row $col read
+#      wb_capture $row $col reset; wb_capture $row $col read
+#     }
+#    }
+#    wb_column { for {set r 0} {$r<32} {incr r} { wb_capture $r $col read } }
+#    wb_array { for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { wb_capture $r $c read } } }
+#   }
+#   if {!$iswb} { collect_trace }
+#  }
+# } message options]
+# set restoring 1
+EVENT clock_mhz=2
+# set cleanup [catch {
+#  hold_cpu
+#  if {$action ne "hold"} { clock_profile 2; scan_profile }
+# } cleanup_message]
+# if {$cleanup} { puts "RESTORE_FAILED $cleanup_message"; flush stdout }
+# close_i2c_bridge
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# if {$outcome} { error $message }
+CANCELLED
+    while executing
+"error $message "
+    invoked from within
+"if {$outcome} { error $message }"
+    (file "C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/control.tcl" line 181)
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 13:00:08 2026...

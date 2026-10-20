@@ -1,0 +1,151 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 19 18:28:12 2026
+# Process ID         : 9432
+# Current directory  : C:/Users/fpga.DESKTOP-CVDV1JP
+# Command line       : vivado.exe -mode batch -source C:\Users\fpga.DESKTOP-CVDV1JP\external_dac_adc6\program.tcl -log C:\Users\fpga.DESKTOP-CVDV1JP\external_dac_adc6\evidence\program_data_only.log -tclargs DATA_ONLY
+# Log file           : C:/Users/fpga.DESKTOP-CVDV1JP/external_dac_adc6/evidence/program_data_only.log
+# Journal file       : C:/Users/fpga.DESKTOP-CVDV1JP\vivado.jou
+# Running On         : DESKTOP-CVDV1JP
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : AMD Ryzen 5 5600U with Radeon Graphics         
+# CPU Frequency      : 2296 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 7330 MB
+# Swap memory        : 12348 MB
+# Total Virtual      : 19678 MB
+# Available Virtual  : 8050 MB
+#-----------------------------------------------------------
+source {C:\Users\fpga.DESKTOP-CVDV1JP\external_dac_adc6\program.tcl}
+# set here [file dirname [file normalize [info script]]]
+# open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:15 ; elapsed = 00:00:10 . Memory (MB): peak = 614.000 ; gain = 271.434
+# connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 619.926 ; gain = 5.926
+# set t [get_hw_targets -quiet localhost:3121/xilinx_tcf/Digilent/210512180081]
+# if {[llength $t] != 1} { error "Known external AX7020 cable not found" }
+# current_hw_target $t
+# open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210512180081
+# set d [get_hw_devices -quiet -filter {PART == "xc7z020"}]
+# if {[llength $d] != 1} { error "Expected external XC7Z020, never the KC705" }
+# current_hw_device $d
+# set_property PROGRAM.FILE [file join $here build external_dac_adc6.bit] $d
+# set_property PROBES.FILE [file join $here build external_dac_adc6.ltx] $d
+# set_property FULL_PROBES.FILE [file join $here build external_dac_adc6.ltx] $d
+# program_hw_devices $d
+INFO: [Labtools 27-3164] End of startup status: HIGH
+# refresh_hw_device $d
+INFO: [Labtools 27-2302] Device xc7z020 (JTAG device index = 1) is programmed with a design that has 1 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+# if {[get_property REGISTER.CONFIG_STATUS.BIT13_DONE_INTERNAL_SIGNAL_STATUS $d] != 1} {error "Zynq DONE low"}
+# foreach v [get_hw_vios -quiet -of_objects $d] {
+#     refresh_hw_vio $v
+#     foreach p [get_hw_probes -of_objects $v] {
+#         puts "PROBE $p type=[get_property TYPE $p]"
+#     }
+# }
+PROBE status type=vio_input
+PROBE command type=vio_output
+# puts "EXTERNAL_ZYNQ_SERVICE_PROGRAMMED_NO_DAC_WRITES"
+EXTERNAL_ZYNQ_SERVICE_PROGRAMMED_NO_DAC_WRITES
+# if {$argv eq {DATA_ONLY}} {
+#     set external_dac_device_open 1
+#     source [file join $here write_spare_data_only.tcl]
+# }
+## set here [file dirname [file normalize [info script]]]
+## source [file join $here spi_host.tcl]
+### set here [file dirname [file normalize [info script]]]
+### if {![info exists external_dac_device_open] || !$external_dac_device_open} {
+### open_hw_manager
+### connect_hw_server -allow_non_jtag
+### set t [get_hw_targets -quiet localhost:3121/xilinx_tcf/Digilent/210512180081]
+### if {[llength $t] != 1} {error "Known external Zynq cable missing"}
+### current_hw_target $t
+### open_hw_target
+### set d [get_hw_devices -quiet -filter {PART == "xc7z020"}]
+### if {[llength $d] != 1} {error "External Zynq device missing"}
+### current_hw_device $d
+### set_property PROBES.FILE [file join $here build external_dac_adc6.ltx] $d
+### refresh_hw_device $d
+### }
+### set v [get_hw_vios -quiet -of_objects $d -filter {CELL_NAME == "runtime_vio"}]
+### if {[llength $v] != 1} {error "Service VIO missing"}
+### set cp [get_hw_probes -quiet -of_objects $v -filter {TYPE == vio_output}]
+### set sp [get_hw_probes -quiet -of_objects $v -filter {TYPE == vio_input}]
+### if {[llength $cp] != 1 || [llength $sp] != 1} {error "Unexpected probe layout"}
+### proc get_status {} {
+###     global v sp
+###     refresh_hw_vio $v
+###     return [expr 0x[get_property INPUT_VALUE $sp]]
+### }
+### set s [get_status]
+### if {($s >> 48) != 0xDAC8} {error "Wrong service signature"}
+### set token [expr {($s >> 32) & 255}]
+### proc spi {frame} {
+###     global token cp
+###     if {[get_status] & (1 << 40)} {error "SPI already busy"}
+###     set token [expr {($token % 255) + 1}]
+###     set cmd [format %02X00000000%06X $token $frame]
+###     set_property OUTPUT_VALUE $cmd $cp
+###     commit_hw_vio $cp
+###     set deadline [expr {[clock milliseconds] + 3000}]
+###     while {1} {
+###         set s [get_status]
+###         if {!($s & (1 << 40)) && (($s >> 32) & 255) == $token} {break}
+###         if {[clock milliseconds] > $deadline} {error "External DAC SPI timeout"}
+###         after 5
+###     }
+###     puts "SPI_TX=[format %06X $frame] SPI_RX=[format %06X [expr {$s & 0xFFFFFF}]]"
+###     return [expr {$s & 0xFFFFFF}]
+### }
+### proc rd {address} {
+###     spi [expr {(0x80 | $address) << 16}]
+###     return [expr {[spi 0] & 0xFFFF}]
+### }
+### proc wr {address value} { spi [expr {($address << 16) | $value}] }
+### proc close_spi {} { close_hw_target; disconnect_hw_server; close_hw_manager }
+## spi 0x182CCD
+SPI_TX=182CCD SPI_RX=FFFFFF
+## spi 0x1E4000
+SPI_TX=1E4000 SPI_RX=FFFFFF
+## puts "EXTERNAL_DAC8_DAC14_DATA_ONLY_TRANSMITTED"
+EXTERNAL_DAC8_DAC14_DATA_ONLY_TRANSMITTED
+## puts "DAC8 code=0x2CCD, nominal 1.75 V on existing evaluation 0..10 V span."
+DAC8 code=0x2CCD, nominal 1.75 V on existing evaluation 0..10 V span.
+## puts "DAC14 code=0x4000, nominal 1.25 V on existing evaluation 0..5 V span."
+DAC14 code=0x4000, nominal 1.25 V on existing evaluation 0..5 V span.
+## puts "No power, range, reference, sync, toggle, or other channel registers written."
+No power, range, reference, sync, toggle, or other channel registers written.
+## puts "Power state and ranges are not readable without SDO. Outputs may remain off. Measure before connecting."
+Power state and ranges are not readable without SDO. Outputs may remain off. Measure before connecting.
+## close_spi
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Digilent/210512180081
+## exit
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 19 18:28:36 2026...

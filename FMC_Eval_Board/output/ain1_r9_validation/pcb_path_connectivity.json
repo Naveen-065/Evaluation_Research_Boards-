@@ -1,0 +1,134 @@
+{
+  "AIN1_P": {
+    "expected": [
+      "R33.1",
+      "R9.2"
+    ],
+    "reached": [
+      "R33.1",
+      "R9.2"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "AIN1_N": {
+    "expected": [
+      "R34.1",
+      "R9.3"
+    ],
+    "reached": [
+      "R34.1",
+      "R9.3"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "Net-(U10-IN+)": {
+    "expected": [
+      "R33.2",
+      "U10.4"
+    ],
+    "reached": [
+      "R33.2",
+      "U10.4"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "Net-(U10-IN-)": {
+    "expected": [
+      "R34.2",
+      "U10.1"
+    ],
+    "reached": [
+      "R34.2",
+      "U10.1"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "/ADC/C1RGP": {
+    "expected": [
+      "R31.1",
+      "U10.3"
+    ],
+    "reached": [
+      "R31.1",
+      "U10.3"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "/ADC/C1RGN": {
+    "expected": [
+      "R31.2",
+      "U10.2"
+    ],
+    "reached": [
+      "R31.2",
+      "U10.2"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "Net-(U10-OUT+)": {
+    "expected": [
+      "R37.1",
+      "U10.11"
+    ],
+    "reached": [
+      "R37.1",
+      "U10.11"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "Net-(U10-OUT-)": {
+    "expected": [
+      "R38.1",
+      "U10.10"
+    ],
+    "reached": [
+      "R38.1",
+      "U10.10"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "AMP1_P": {
+    "expected": [
+      "R37.2",
+      "U14.1"
+    ],
+    "reached": [
+      "R37.2",
+      "U14.1"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "AMP1_N": {
+    "expected": [
+      "R38.2",
+      "U14.2"
+    ],
+    "reached": [
+      "R38.2",
+      "U14.2"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "OUT1_P": {
+    "expected": [
+      "J9.H7",
+      "U14.15"
+    ],
+    "reached": [
+      "J9.H7",
+      "U14.15"
+    ],
+    "all_connected_in_pcb_design": true
+  },
+  "OUT1_N": {
+    "expected": [
+      "J9.H8",
+      "U14.16"
+    ],
+    "reached": [
+      "J9.H8",
+      "U14.16"
+    ],
+    "all_connected_in_pcb_design": true
+  }
+}

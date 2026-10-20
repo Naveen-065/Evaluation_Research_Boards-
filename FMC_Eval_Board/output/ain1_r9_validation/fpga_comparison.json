@@ -1,0 +1,21 @@
+{
+  "capture_file": "ads5282_analog_20261019_200552.summary.json",
+  "packets": 204,
+  "sample_rate_hz": 10000000,
+  "decoded_ch1_mean": 2052.024509803922,
+  "decoded_ch1_min": 2048,
+  "decoded_ch1_max": 2056,
+  "decoded_ch1_stdev": 1.4157334601880538,
+  "nominal_adc_equivalent_differential_V_before_offset_correction": 0.0019650926776961786,
+  "assumed_R31_ohms": 1000,
+  "assumed_gain": 7,
+  "assumed_R9_ohms": 470,
+  "apparent_shunt_drop_V_if_zero_offset": 0.00028072752538516835,
+  "apparent_current_A_if_zero_offset": 5.972926072024858e-07,
+  "current_A_per_adc_code_at_gain7": 1.4841375379939208e-07,
+  "measured_shunt_voltage_V": null,
+  "actual_fitted_R31_ohms": null,
+  "independent_end_to_end_gain_validation": "pending meter readings and known load stimulus",
+  "known_adc_pattern_hardware_validation": false,
+  "important": "Apparent current is not a calibrated measured current; ADC and amplifier offsets can explain a near-midscale reading."
+}

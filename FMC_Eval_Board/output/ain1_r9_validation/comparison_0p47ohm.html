@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<title>Confirmed R9 = 0.470 ohms: U10 gain and ADC1</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;color:#193046;max-width:1000px;margin:40px auto;padding:0 24px}h1{font-size:27px}h2{font-size:20px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-bottom:1px solid #cdd6df}.status{background:#fff1d5;padding:15px}code{font-size:15px}</style>
+<h1>R9 = 0.470 Ω → U10 gain → ADC1</h1>
+<p class="status"><b>R9 = 0.470 Ω confirmed by the user.</b> Caravel is removed. Load path:
+AQ1_C00 → R9 → VCC_READ → 3.3 kΩ → ground. R31's fitted value is still unconfirmed.
+The earlier 470 Ω assumption came from the schematic label and does not describe this fitted R9.</p>
+<h2>Calculation including U10</h2>
+<p>Using the previous measured source voltage of 0.539 V and the design value R31 = 1 kΩ:
+INA851 input gain = 1 + 6000/R31 = 7. The PCB leaves G02 pins open, so output-stage gain = 1.
+Overall differential gain = 7. R33, R34, R37 and R38 are series resistors and do not set this nominal DC gain.</p>
+<p><code>I = 0.539 / (3300 + 0.470) = 163.3101 µA<br>
+Vshunt = I × 0.470 = 76.7557 µV<br>
+VADC,diff(signal) = 7 × Vshunt = 0.537290 mV<br>
+ADC LSB = 2 V / 4096 = 0.48828125 mV<br>
+Expected signal increment = 1.100370 counts</code></p>
+<p>The ideal outputs at 1.5 V common mode would be about
+1.500269 V and 1.499731 V.
+Actual offsets can move both these voltages and the ADC baseline.</p>
+<h2>ngspice results</h2>
+<p>TI INA851 PSpice macro-model executed in ngspice 46; an ideal 12-bit, 2 Vpp differential
+ADC transfer is applied to its output. The gain-7 simulated loaded-minus-unloaded increment is
+1.003459 counts. The approximately 0.10-count difference from
+the ideal formula is model behavior, not a measured hardware calibration.</p>
+<table><tr><th>R31 (Ω)</th><th>Gain</th><th>Ideal ADC signal (mV)</th><th>Ideal increment</th><th>ngspice increment</th></tr><tr><td>100</td><td>61</td><td>4.6821</td><td>9.5889</td><td>9.5894</td></tr><tr><td>150</td><td>41</td><td>3.147</td><td>6.445</td><td>6.4453</td></tr><tr><td>470</td><td>13.766</td><td>1.0566</td><td>2.1639</td><td>2.0671</td></tr><tr><td>1000</td><td>7</td><td>0.53729</td><td>1.1004</td><td>1.0035</td></tr><tr><td>2000</td><td>4</td><td>0.30702</td><td>0.62878</td><td>0.53187</td></tr><tr><td>6040</td><td>1.9934</td><td>0.153</td><td>0.31335</td><td>0.21639</td></tr><tr><td>10000</td><td>1.6</td><td>0.12281</td><td>0.25151</td><td>0.25153</td></tr><tr><td>Open</td><td>1</td><td>0.076756</td><td>0.1572</td><td>0.15717</td></tr></table>
+<p>These are comparisons, not instructions to replace R31. At this small stimulus, unknown amplifier/ADC
+offsets and noise prevent establishing actual gain from a single near-midscale capture.</p>
+<h2>FPGA evidence</h2>
+<p>After confirmation that Caravel was removed: 205 coherent packets at
+10 MSPS. ADC1 candidate decoded mean =
+2053.54634, range
+2049–2057,
+standard deviation = 1.4763 counts.
+Capture status and cadence checks pass. Serial bit order has not yet been independently validated by
+a known pattern or sufficiently large known analog signal. This is not a calibrated current measurement.</p>
+<h2>Evidence and remaining check</h2>
+<p>Confirm fitted R31's marking/value to establish intended gain. Direct R9 mV and amplified-output
+readings are pending. A new loaded DAC voltage measurement is also pending; calculations use the earlier 0.539 V reading.</p>
+<p>The assembly BOM associates R9/R10/R11 with C7420029 while labelling them 470R.
+The <a href="https://www.lcsc.com/product-detail/C7420029.html">selected part is 0.47 Ω</a>.
+Only R9's fitted value is user-confirmed.
+<a href="https://www.ti.com/lit/ds/symlink/ina851.pdf">INA851 gain reference</a>;
+<a href="https://www.ti.com/lit/ds/symlink/ads5282.pdf">ADS5282 transfer reference</a>.</p>
+<p><a href="r9_bom_audit/audit.json">Full simulation and capture record</a> ·
+<a href="comparison_assumed470ohm.html">Archived 470 Ω assumption (not the fitted R9)</a></p>
+</html>
