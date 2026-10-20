@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-10-20T10:04:33.215465+00:00",
+  "reported_failure_job": "a81b24a794bb410fa8fe5ddfe52b799c",
+  "cause": "OpenSSH banner exchange timed out before authentication and remote command execution",
+  "failed_cycle_sent_hardware_commands": false,
+  "failed_cycle_replayed": false,
+  "api_revision_expected": "ssh-startup-retry-v1",
+  "api_revision_running": null,
+  "activation_status": "awaiting manual restart after automatic approval review rejected stopping the existing server",
+  "settings": {
+    "connect_timeout_seconds": 30,
+    "max_connect_attempts": 3,
+    "backoff_seconds": [
+      2,
+      4
+    ],
+    "keepalive_seconds": 15,
+    "keepalive_count_max": 3,
+    "replay_after_uncertain_launch": false
+  },
+  "offline_tests": {
+    "transport_and_api_fault_injection": {
+      "passed": 11,
+      "hardware_access": false
+    },
+    "reference_gui_integration": "passed"
+  },
+  "hardware_before_backend_restart": {
+    "check_job": "e6d58fcec56e41baa4f85638e8955b76",
+    "read_job": "4fb511acb1a44e069d93c0acf2a434b1",
+    "read_current_uA_nominal": 18.221389023216656,
+    "trace_points": 134,
+    "clipped": false
+  },
+  "fmc_configuration_changed": false,
+  "ramp_limit_v": 3.0,
+  "source_hashes": {
+    "gui/server.py": "c49638d6555a2640899c16c1c44deabfca101c1659cfb5c3e1cada156d1c6c9c",
+    "gui/ssh_transport.py": "2da1e7f7a58018d3d2857bd9d6768c3fe24de1aa6a0a2e0861516b987455c183",
+    "gui/app.js": "74384c3ea39a4cede625c6a6418475cba7db114edb4ef830e149a7c0a0186b6b",
+    "gui/index.html": "2a68eb83f3cba1376c7975f79e27e69612c21aa13115f460303f1c5ee3eb831e",
+    "gui/styles.css": "4493cda3928320516842f20be6085677c6db5622f6998f881b775201dc8aa263",
+    "tests/test_ssh_transport.py": "9a8b27cdb04b345ff9fd084abfaf266b445038dc9fd515c027b9dc260315116a",
+    "tests/test_reference_gui.mjs": "1137350f916cc7e26161acad14ba817eceef42680e78fecaf6da446b8a0422b2",
+    "restart_gui.ps1": "21455a627c91aeb8e061b61833ca0df65f0316fae36344df4b78f7f7e3c5893d"
+  }
+}

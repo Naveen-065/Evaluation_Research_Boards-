@@ -1,0 +1,12 @@
+make: Entering directory '/tmp/fmc-package.dc09Oh'
+mkdir -p rebuilt
+riscv64-unknown-elf-gcc -Isdk -Isdk/generated -O0 \
+	-mabi=ilp32 -march=rv32i_zicsr -D__vexriscv__ \
+	-Wl,-Bstatic,-T,sdk/sections.lds,--strip-debug -ffreestanding -nostdlib \
+	-o rebuilt/gui_wb_mode.elf sdk/crt0_vex.S sdk/isr.c sdk/stub.c gui_wb_mode.c
+riscv64-unknown-elf-objcopy -O binary rebuilt/gui_wb_mode.elf rebuilt/gui_wb_mode.bin
+riscv64-unknown-elf-objcopy -O verilog rebuilt/gui_wb_mode.elf rebuilt/gui_wb_mode.hex
+sed -i 's/@1000/@0000/g' rebuilt/gui_wb_mode.hex
+make: Leaving directory '/tmp/fmc-package.dc09Oh'
+make: Warning: File 'Makefile' has modification time 246 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.

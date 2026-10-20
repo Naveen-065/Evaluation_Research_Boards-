@@ -1,0 +1,271 @@
+{
+  "run_utc": "2026-10-17T18:35:39.604823+00:00",
+  "engine": "stderr Warning: can't find the initialization file spinit.\nstdout ******\nstdout ** ngspice-46 shared library\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******\nstdout ******\nstdout ** ngspice-46 : Circuit level simulation program\nstdout ** Compiled with KLU Direct Linear Solver\nstdout ** The U. C. Berkeley CAD Group\nstdout ** Copyright 1985-1994, Regents of the University of California.\nstdout ** Copyright 2001-2025, The ngspice team.\nstdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\nstdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******",
+  "model": "Generic level-1 MOS functional equivalent; non-sinking idealized 1.8 V regulator",
+  "vendor_model_status": "Existing TI SCEJ212A model is .prot FREELIB encrypted HSPICE; not executed.",
+  "assumptions": [
+    "No model parameters fitted to measured 2.1 V",
+    "Nominal VTO=0.6 V; KP=0.02 A/V^2; swept 0.4-0.8 V and 0.002-0.2 A/V^2",
+    "Default active load=1 mA; DC sweep 0-20 mA; actual board load unknown",
+    "3.3 V and 1.8 V target ramp together over 100 us for startup",
+    "10 uF rail capacitance; each I2C node 50 pF; actual PCB pullups 10k",
+    "No regulator loop stability, damage, thermal, ESD, silicon corners or full FPGA interface certification"
+  ],
+  "selected_dc": [
+    {
+      "case": "original",
+      "assumed_load_A": 0,
+      "rail_V": 2.696525950734779,
+      "bias_V": 3.3000000000000007,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.6972707676124164,
+      "scl_high_V": 3.2992550629918473,
+      "injection_A": 1.2069349121984546e-07
+    },
+    {
+      "case": "original",
+      "assumed_load_A": 0.0001,
+      "rail_V": 2.6068268919120294,
+      "bias_V": 3.3000000000000007,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.6740689130197404,
+      "scl_high_V": 3.2327578605557576,
+      "injection_A": 8.681228396223949e-05
+    },
+    {
+      "case": "original",
+      "assumed_load_A": 0.001,
+      "rail_V": 2.3919770417815522,
+      "bias_V": 3.3000000000000007,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.6492753760293932,
+      "scl_high_V": 3.042701551712618,
+      "injection_A": 0.0009487795363288842
+    },
+    {
+      "case": "original",
+      "assumed_load_A": 0.01,
+      "rail_V": 1.7999124473162835,
+      "bias_V": 3.3000000000000007,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.537663905665664,
+      "scl_high_V": 2.5622484394523894,
+      "injection_A": 0.008101576028022084
+    },
+    {
+      "case": "resistor_only",
+      "assumed_load_A": 0,
+      "rail_V": 2.6965259507347787,
+      "bias_V": 3.3,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.697270767612416,
+      "scl_high_V": 3.299255062991848,
+      "injection_A": 1.2069349121981835e-07
+    },
+    {
+      "case": "resistor_only",
+      "assumed_load_A": 0.0001,
+      "rail_V": 2.6068268919120285,
+      "bias_V": 3.3,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.6740689130197395,
+      "scl_high_V": 3.2327578605557576,
+      "injection_A": 8.681228396223949e-05
+    },
+    {
+      "case": "resistor_only",
+      "assumed_load_A": 0.001,
+      "rail_V": 2.391977041781552,
+      "bias_V": 3.3,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.6492753760293923,
+      "scl_high_V": 3.042701551712625,
+      "injection_A": 0.0009487795363288807
+    },
+    {
+      "case": "resistor_only",
+      "assumed_load_A": 0.01,
+      "rail_V": 1.7999124473162833,
+      "bias_V": 3.3,
+      "ref2_V": 3.3000000000000003,
+      "scl_low_V": 2.537663905665664,
+      "scl_high_V": 2.5622484394523894,
+      "injection_A": 0.00810157602802207
+    },
+    {
+      "case": "corrected",
+      "assumed_load_A": 0,
+      "rail_V": 2.672641112959432,
+      "bias_V": 3.2760980813853218,
+      "ref2_V": 3.2760980813853218,
+      "scl_low_V": 2.6733799067348656,
+      "scl_high_V": 3.2992610865717484,
+      "injection_A": 1.1950959307341726e-07
+    },
+    {
+      "case": "corrected",
+      "assumed_load_A": 0.0001,
+      "rail_V": 1.799995317224969,
+      "bias_V": 2.4209600432022604,
+      "ref2_V": 2.4209600432022604,
+      "scl_low_V": 1.8106418310709018,
+      "scl_high_V": 3.2893533839541638,
+      "injection_A": 4.39519978398886e-06
+    },
+    {
+      "case": "corrected",
+      "assumed_load_A": 0.001,
+      "rail_V": 1.799950317239883,
+      "bias_V": 2.4209155735025822,
+      "ref2_V": 2.4209155735025822,
+      "scl_low_V": 1.8105971882826317,
+      "scl_high_V": 3.2893530267582474,
+      "injection_A": 4.395422132487305e-06
+    },
+    {
+      "case": "corrected",
+      "assumed_load_A": 0.01,
+      "rail_V": 1.7995003173890234,
+      "bias_V": 2.4204708757761604,
+      "ref2_V": 2.4204708757761604,
+      "scl_low_V": 1.810150760016092,
+      "scl_high_V": 3.2893494551829283,
+      "injection_A": 4.397645621119343e-06
+    }
+  ],
+  "metrics": {
+    "100n": {
+      "final_bias_V": 2.4209155735024903,
+      "time_to_99pct_from_ramp_start_s": 0.0259672447331751,
+      "final_rail_V": 1.7999503172398839
+    },
+    "100p": {
+      "final_bias_V": 2.4209155735025005,
+      "time_to_99pct_from_ramp_start_s": 9.999999999999999e-05,
+      "final_rail_V": 1.7999503172398834
+    },
+    "low_side_pulls_low": {
+      "scl_low_V": 0.005080709430833278,
+      "scl_high_V": 0.014151171531856174
+    },
+    "high_side_pulls_low": {
+      "scl_low_V": 0.010020223758703841,
+      "scl_high_V": 0.0050848362767442114
+    },
+    "released": {
+      "scl_low_V": 1.8105971882825753,
+      "scl_high_V": 3.2893530267320967
+    }
+  },
+  "sensitivity": [
+    {
+      "case": "original",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.963041581612861
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.7999504817525904
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 2.5919738885023125
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 1.7999503819262663
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 2.800886282822605
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 1.799950315435539
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.7999969198710495
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.799950399425522
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 2.3919770417815522
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 1.799950317239883
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 2.6008872821927715
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 1.7999502598444885
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.7999793000351245
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.002,
+      "rail_at_1mA_V": 1.799950315022883
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 2.191980195092191
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.02,
+      "rail_at_1mA_V": 1.7999502512255532
+    },
+    {
+      "case": "original",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 2.400888281572922
+    },
+    {
+      "case": "corrected",
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.2,
+      "rail_at_1mA_V": 1.7999502036712667
+    }
+  ],
+  "no_load_with_100k_bleed_V": 1.799999417223901
+}

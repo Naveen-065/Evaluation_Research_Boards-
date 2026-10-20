@@ -1,0 +1,190 @@
+{
+  "user_range_mA": [
+    1,
+    300
+  ],
+  "R9_user_confirmed_ohms": 0.47,
+  "R31_fitted_value_confirmed": false,
+  "max_allowed_shunt_drop_V": null,
+  "cases": [
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "current_mA": 0,
+      "shunt_drop_V_ideal": 0.0,
+      "ADC_signal_V_ideal": 0.0,
+      "ADC_increment_counts_ideal": 0.0,
+      "ngspice_ADC_differential_V_including_model_offset": 0.0003705297911327232,
+      "ngspice_plus_ideal_ADC_code": 2048.75884501224,
+      "ADC_equivalent_mA_per_count": 0.1484137537993921,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "current_mA": 1.0,
+      "shunt_drop_V_ideal": 0.00047,
+      "ADC_signal_V_ideal": 0.00329,
+      "ADC_increment_counts_ideal": 6.73792,
+      "ngspice_ADC_differential_V_including_model_offset": 0.003613331824749766,
+      "ngspice_plus_ideal_ADC_code": 2055.4001035770875,
+      "ADC_equivalent_mA_per_count": 0.1484137537993921,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "current_mA": 10.0,
+      "shunt_drop_V_ideal": 0.0047,
+      "ADC_signal_V_ideal": 0.0329,
+      "ADC_increment_counts_ideal": 67.3792,
+      "ngspice_ADC_differential_V_including_model_offset": 0.03322470878269712,
+      "ngspice_plus_ideal_ADC_code": 2116.0442035869637,
+      "ADC_equivalent_mA_per_count": 0.1484137537993921,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "current_mA": 100.0,
+      "shunt_drop_V_ideal": 0.047,
+      "ADC_signal_V_ideal": 0.329,
+      "ADC_increment_counts_ideal": 673.792,
+      "ngspice_ADC_differential_V_including_model_offset": 0.32933830924044827,
+      "ngspice_plus_ideal_ADC_code": 2722.484857324438,
+      "ADC_equivalent_mA_per_count": 0.1484137537993921,
+      "ideal_source_only_above_DAC_capability": true
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "current_mA": 300.0,
+      "shunt_drop_V_ideal": 0.141,
+      "ADC_signal_V_ideal": 0.9869999999999999,
+      "ADC_increment_counts_ideal": 2021.3759999999997,
+      "ngspice_ADC_differential_V_including_model_offset": 0.9873685762518514,
+      "ngspice_plus_ideal_ADC_code": 4070.1308441637916,
+      "ADC_equivalent_mA_per_count": 0.1484137537993921,
+      "ideal_source_only_above_DAC_capability": true
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "current_mA": 0,
+      "shunt_drop_V_ideal": 0.0,
+      "ADC_signal_V_ideal": 0.0,
+      "ADC_increment_counts_ideal": 0.0,
+      "ngspice_ADC_differential_V_including_model_offset": 0.00036054663154017064,
+      "ngspice_plus_ideal_ADC_code": 2048.7383995013943,
+      "ADC_equivalent_mA_per_count": 0.17314937943262412,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "current_mA": 1.0,
+      "shunt_drop_V_ideal": 0.00047,
+      "ADC_signal_V_ideal": 0.00282,
+      "ADC_increment_counts_ideal": 5.77536,
+      "ngspice_ADC_differential_V_including_model_offset": 0.0031333233207557765,
+      "ngspice_plus_ideal_ADC_code": 2054.417046160908,
+      "ADC_equivalent_mA_per_count": 0.17314937943262412,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "current_mA": 10.0,
+      "shunt_drop_V_ideal": 0.0047,
+      "ADC_signal_V_ideal": 0.028200000000000003,
+      "ADC_increment_counts_ideal": 57.753600000000006,
+      "ngspice_ADC_differential_V_including_model_offset": 0.028514461419528514,
+      "ngspice_plus_ideal_ADC_code": 2106.3976169871944,
+      "ADC_equivalent_mA_per_count": 0.17314937943262412,
+      "ideal_source_only_above_DAC_capability": false
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "current_mA": 100.0,
+      "shunt_drop_V_ideal": 0.047,
+      "ADC_signal_V_ideal": 0.28200000000000003,
+      "ADC_increment_counts_ideal": 577.5360000000001,
+      "ngspice_ADC_differential_V_including_model_offset": 0.28232598559019695,
+      "ngspice_plus_ideal_ADC_code": 2626.2036184887234,
+      "ADC_equivalent_mA_per_count": 0.17314937943262412,
+      "ideal_source_only_above_DAC_capability": true
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "current_mA": 300.0,
+      "shunt_drop_V_ideal": 0.141,
+      "ADC_signal_V_ideal": 0.8459999999999999,
+      "ADC_increment_counts_ideal": 1732.6079999999997,
+      "ngspice_ADC_differential_V_including_model_offset": 0.8463516036816794,
+      "ngspice_plus_ideal_ADC_code": 3781.3280843400794,
+      "ADC_equivalent_mA_per_count": 0.17314937943262412,
+      "ideal_source_only_above_DAC_capability": true
+    }
+  ],
+  "bench_47ohm_load": [
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "R9_ohms": 0.47,
+      "load_ohms": 47,
+      "source_V_assumed": 0.539,
+      "current_mA_ideal": 11.354539709290078,
+      "shunt_drop_mV_ideal": 5.336633663366336,
+      "load_V_ideal": 0.5336633663366337,
+      "load_power_mW_ideal": 6.059501884462725,
+      "ADC_signal_mV_ideal": 37.35643564356435,
+      "ADC_increment_counts_ideal": 76.5059801980198,
+      "ngspice_AMP1_P_V": 1.5215296148529018,
+      "ngspice_AMP1_N_V": 1.4838482734506955,
+      "actual_loaded_source_voltage_required": true
+    },
+    {
+      "R31_ohms": 1200,
+      "gain": 6.0,
+      "R9_ohms": 0.47,
+      "load_ohms": 47,
+      "source_V_assumed": 0.539,
+      "current_mA_ideal": 11.354539709290078,
+      "shunt_drop_mV_ideal": 5.336633663366336,
+      "load_V_ideal": 0.5336633663366337,
+      "load_power_mW_ideal": 6.059501884462725,
+      "ADC_signal_mV_ideal": 32.01980198019802,
+      "ADC_increment_counts_ideal": 65.57655445544555,
+      "ngspice_AMP1_P_V": 1.5188561739395887,
+      "ngspice_AMP1_N_V": 1.4865217143935001,
+      "actual_loaded_source_voltage_required": true
+    }
+  ],
+  "range_design": {
+    "R9_47ohm_drop_at_300mA_V": 14.1,
+    "R9_47ohm_power_at_300mA_W": 4.2299999999999995,
+    "R9_0p47ohm_drop_at_300mA_V": 0.141,
+    "R9_0p47ohm_power_at_300mA_W": 0.0423,
+    "ADC_ideal_positive_limit_V": 1,
+    "gain7_signal_at_300mA_R9_plus5percent_V": 1.0363499999999999,
+    "gain6_signal_at_300mA_R9_plus5percent_R31_minus1percent_V": 0.8957772727272726,
+    "provisional_final_R31_ohms_if_141mV_drop_accepted": 1200,
+    "provisional_final_gain": 6
+  },
+  "hardware_limitations": [
+    "U1 DAC81416 OUT0 directly drives AQ1_C00/R9; no power buffer is in this PCB path.",
+    "TI specifies output drive up to 25 mA under stated supply-headroom conditions; it cannot directly supply 300 mA.",
+    "Simulated points above 25 mA use an ideal source only and do not establish that the actual DAC can deliver them.",
+    "U1 VSS is GND; 0.539 V is outside the 1 V/1.5 V output-headroom accuracy specification. Measure actual voltage under the 47-ohm load.",
+    "A 300 mA test requires a suitable external power stage or supply and isolation from the DAC output; do not parallel a bench supply with the active DAC.",
+    "A 1 mA signal is only 5.78 counts at gain 6; offset calibration is required, and high precision across the full range may require more than one gain range.",
+    "No hardware settings or components were changed."
+  ],
+  "sources": [
+    "https://www.ti.com/product/DAC81416",
+    "https://www.ti.com/lit/ds/symlink/dac81416.pdf",
+    "https://www.ti.com/lit/ds/symlink/ina851.pdf"
+  ]
+}

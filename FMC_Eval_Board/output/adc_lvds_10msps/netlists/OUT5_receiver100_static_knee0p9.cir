@@ -1,0 +1,41 @@
+ADC LVDS OUT5 receiver100: finite-compliance behavioral model
+* Driver compliance is ASSUMED; no prediction of silicon damage.
+.options reltol=0.002 abstol=1e-9 vntol=1e-6
+Vcm cm 0 1.2
+Vq q 0 PWL(
++ 0 1
++ 1.8e-07 1
++ )
+Bdrive sn sp I=0.0035*v(q)
+Rout sp sn 1meg
+Bcompliance sp sn I=(max(v(sp,sn)-0.9,0)-max(-v(sp,sn)-0.9,0))/20
+* Assumed ideal fast common-mode regulation, same current in both legs.
+Bcmp sp cm I=0.05*(v(sp)+v(sn)-2*v(cm))
+Bcmn sn cm I=0.05*(v(sp)+v(sn)-2*v(cm))
+Cdp sp 0 2p
+Cdn sn 0 2p
+* QFN package: TI SBOC249 0.5ohm/2nH/0.3pF per pin.
+Rpkp sp spp .5
+Lpkp spp dp 2n
+Cpkp dp 0 .3p
+Rpkn sn snn .5
+Lpkn snn dn 2n
+Cpkn dn 0 .3p
+Tdp dp 0 xp 0 Z0=50.0 TD=5.934695e-10
+Rldp xp jp 0.4
+Tcp jp 0 yp 0 Z0=50.0 TD=9.26043e-10
+Rlcp yp zp 0.4
+Lrxp zp rp 1e-09
+Crxp rp 0 5e-12
+Rleakp rp 0 100meg
+Tdn dn 0 xn 0 Z0=50.0 TD=6.132389e-10
+Rldn xn jn 0.4
+Tcn jn 0 yn 0 Z0=50.0 TD=9.26176e-10
+Rlcn yn zn 0.4
+Lrxn zn rn 1e-09
+Crxn rn 0 5e-12
+Rleakn rn 0 100meg
+Rrx zp zn 100.0
+.tran 25p 1.8e-07 0 25p
+.save v(rp) v(rn) v(sp) v(sn) v(jp) v(jn) v(q)
+.end

@@ -1,0 +1,13 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: mezzanine 1.8v pullups into an unpowered fpga bank
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout source                                       0
+stdout pin                                5.50094e-26
+stdout bank                              -1.10019e-25
+stdout vmezz#branch                       1.10019e-28
+stdout No. of Data Rows : 5027

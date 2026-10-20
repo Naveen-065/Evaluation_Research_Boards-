@@ -1,0 +1,30 @@
+PASS exact Tcl script completes with low_pg=False
+PASS UV/PG precede VOUT, then margin and OV writes
+PASS voltage-setting mutations confined to PAGE3
+PASS VOUT_COMMAND is exactly7373
+PASS all other pages remain identical
+PASS final validation succeeds with success marker
+PASS verifies all26 saved settings on all4 pages
+PASS exact Tcl script completes with low_pg=True
+PASS UV/PG precede VOUT, then margin and OV writes
+PASS voltage-setting mutations confined to PAGE3
+PASS VOUT_COMMAND is exactly7373
+PASS all other pages remain identical
+PASS final validation succeeds with success marker
+PASS verifies all26 saved settings on all4 pages
+PASS changed baseline setting aborts before voltage writes
+PASS bad PEC aborts before voltage writes
+PASS incorrect baseline controller ID aborts before voltage writes
+PASS existing voltage fault aborts before voltage writes
+PASS incomplete136-entry baseline rejected
+PASS invalid threshold ordering rejected before voltage writes
+PASS failed post-change telemetry prevents all margin/OV writes
+PASS margin mode0xa4 rejected before voltage writes
+PASS margin mode0x94 rejected before voltage writes
+PASS non-margin OPERATION0x00 accepted when telemetry verifies rail is on
+PASS non-margin OPERATION0x40 accepted when telemetry verifies rail is on
+PASS captured actual136-entry baseline completes with cleared live CML
+PASS actual baseline preserves compatible PG thresholds and lowers0x48 before VOUT
+PASS actual foldback voltage scales to1.566V
+PASS change script never truncates another controller ID read
+ALL OFFLINE VADJ SCRIPT TESTS PASSED

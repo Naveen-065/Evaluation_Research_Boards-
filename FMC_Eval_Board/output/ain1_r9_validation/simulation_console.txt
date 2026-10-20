@@ -1,0 +1,245 @@
+rg_100 gain 61.002974507210496 zero code 2049.76307611974
+rg_150 gain 41.001996658834116 zero code 2049.3537155106233
+rg_470 gain 13.766613864384157 zero code 2048.897188546302
+rg_1000 gain 7.000321833195924 zero code 2048.7586979228167
+rg_2000 gain 4.000173288578831 zero code 2048.6972669333113
+rg_6000 gain 2.0000741842478895 zero code 2048.656404887618
+rg_6040 gain 1.9934513418974968 zero code 2048.6562195740416
+rg_10000 gain 1.600054349465291 zero code 2048.648195907741
+rg_open gain 1.0000246192313185 zero code 2048.635864884652
+{
+  "model_url": "https://www.ti.com/lit/zip/SBOMC50",
+  "model_sha256": "7ce01b0962caee7a0587d785205994dcb3e11a4b17a623d7c835a73d845613d0",
+  "dac0_nominal_V": 0.500030517578125,
+  "r9_ohms": 470,
+  "rg_sweep": [
+    {
+      "rg_ohms": 100,
+      "nominal_gain": 61.0,
+      "ngspice_linear_fitted_gain": 61.002974507210496,
+      "zero_load_adc_diff_V": 0.0008608770115918762,
+      "zero_load_ideal_code": 2049.76307611974,
+      "at_20uA": {
+        "drop_V": 0.009399994071446136,
+        "adc_diff_V": 0.5742888155889723,
+        "ideal_code_unclipped": 3224.143494326215
+      },
+      "positive_adc_full_scale_current_uA_ideal": 34.87966515521451,
+      "last_unclipped_simulated_current_uA": 34.83780955702826
+    },
+    {
+      "rg_ohms": 150,
+      "nominal_gain": 41.0,
+      "ngspice_linear_fitted_gain": 41.001996658834116,
+      "zero_load_adc_diff_V": 0.0006609939016715138,
+      "zero_load_ideal_code": 2049.3537155106233,
+      "at_20uA": {
+        "drop_V": 0.009399994071446104,
+        "adc_diff_V": 0.38607975169057684,
+        "ideal_code_unclipped": 2838.691331462301
+      },
+      "positive_adc_full_scale_current_uA_ideal": 51.89413596263622,
+      "last_unclipped_simulated_current_uA": 51.83186299948106
+    },
+    {
+      "rg_ohms": 470,
+      "nominal_gain": 13.76595744680851,
+      "ngspice_linear_fitted_gain": 13.766613864384157,
+      "zero_load_adc_diff_V": 0.0004380803448740256,
+      "zero_load_ideal_code": 2048.897188546302,
+      "at_20uA": {
+        "drop_V": 0.009399994071446044,
+        "adc_diff_V": 0.12979499025467192,
+        "ideal_code_unclipped": 2313.8201400415683
+      },
+      "positive_adc_full_scale_current_uA_ideal": 154.5595054095827,
+      "last_unclipped_simulated_current_uA": 154.3740340030912
+    },
+    {
+      "rg_ohms": 1000,
+      "nominal_gain": 7.0,
+      "ngspice_linear_fitted_gain": 7.000321833195924,
+      "zero_load_adc_diff_V": 0.00037045797012535964,
+      "zero_load_ideal_code": 2048.7586979228167,
+      "at_20uA": {
+        "drop_V": 0.009399994071446085,
+        "adc_diff_V": 0.0661242403711166,
+        "ideal_code_unclipped": 2183.422444280047
+      },
+      "positive_adc_full_scale_current_uA_ideal": 303.951367781155,
+      "last_unclipped_simulated_current_uA": 303.5866261398176
+    },
+    {
+      "rg_ohms": 2000,
+      "nominal_gain": 4.0,
+      "ngspice_linear_fitted_gain": 4.000173288578831,
+      "zero_load_adc_diff_V": 0.00034046236978091393,
+      "zero_load_ideal_code": 2048.6972669333113,
+      "at_20uA": {
+        "drop_V": 0.009399994071446012,
+        "adc_diff_V": 0.037892847035047326,
+        "ideal_code_unclipped": 2125.6045507277768
+      },
+      "positive_adc_full_scale_current_uA_ideal": 531.9148936170212,
+      "last_unclipped_simulated_current_uA": 531.2765957446809
+    },
+    {
+      "rg_ohms": 6000,
+      "nominal_gain": 2.0,
+      "ngspice_linear_fitted_gain": 2.0000741842478895,
+      "zero_load_adc_diff_V": 0.0003205101990322312,
+      "zero_load_ideal_code": 2048.656404887618,
+      "at_20uA": {
+        "drop_V": 0.009399994071446151,
+        "adc_diff_V": 0.019071923841966546,
+        "ideal_code_unclipped": 2087.0593000283475
+      },
+      "positive_adc_full_scale_current_uA_ideal": 1063.8297872340424,
+      "last_unclipped_simulated_current_uA": 1000.0
+    },
+    {
+      "rg_ohms": 6040,
+      "nominal_gain": 1.9933774834437086,
+      "ngspice_linear_fitted_gain": 1.9934513418974968,
+      "zero_load_adc_diff_V": 0.0003204197138875209,
+      "zero_load_ideal_code": 2048.6562195740416,
+      "at_20uA": {
+        "drop_V": 0.009399994071446151,
+        "adc_diff_V": 0.01900959283251558,
+        "ideal_code_unclipped": 2086.931646120992
+      },
+      "positive_adc_full_scale_current_uA_ideal": 1067.364105464056,
+      "last_unclipped_simulated_current_uA": 1000.0
+    },
+    {
+      "rg_ohms": 10000,
+      "nominal_gain": 1.6,
+      "ngspice_linear_fitted_gain": 1.600054349465291,
+      "zero_load_adc_diff_V": 0.00031650190807663847,
+      "zero_load_ideal_code": 2048.648195907741,
+      "at_20uA": {
+        "drop_V": 0.009399994071446151,
+        "adc_diff_V": 0.015307746303190985,
+        "ideal_code_unclipped": 2079.350264428935
+      },
+      "positive_adc_full_scale_current_uA_ideal": 1329.787234042553,
+      "last_unclipped_simulated_current_uA": 1000.0
+    },
+    {
+      "rg_ohms": null,
+      "nominal_gain": 1.000000006,
+      "ngspice_linear_fitted_gain": 1.0000246192313185,
+      "zero_load_adc_diff_V": 0.00031048090070906476,
+      "zero_load_ideal_code": 2048.635864884652,
+      "at_20uA": {
+        "drop_V": 0.009399994071446151,
+        "adc_diff_V": 0.009661471871149631,
+        "ideal_code_unclipped": 2067.7866943921144
+      },
+      "positive_adc_full_scale_current_uA_ideal": 2127.6595617021276,
+      "last_unclipped_simulated_current_uA": 1000.0
+    }
+  ],
+  "47k_load_simulations_assuming_no_other_load": [
+    {
+      "rg_ohms": 100,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.6541222541065006,
+      "amp1_n_V": 1.351248028860034,
+      "adc_differential_V": 0.3028742252464667,
+      "ideal_adc_code": 2668.2864133047638,
+      "ideal_nominal_increment_from_no_load": 618.4924620244307
+    },
+    {
+      "rg_ohms": 150,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.60451192759655,
+      "amp1_n_V": 1.4008583558579066,
+      "adc_differential_V": 0.2036535717386434,
+      "ideal_adc_code": 2465.0825149207417,
+      "ideal_nominal_increment_from_no_load": 415.7080482459288
+    },
+    {
+      "rg_ohms": 470,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.536957409388211,
+      "amp1_n_V": 1.4684128747322482,
+      "adc_differential_V": 0.06854453465596277,
+      "ideal_adc_code": 2188.3792069754118,
+      "ideal_nominal_increment_from_no_load": 139.57608054754328
+    },
+    {
+      "rg_ohms": 1000,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.5201743342065108,
+      "amp1_n_V": 1.4851959500780487,
+      "adc_differential_V": 0.0349783841284621,
+      "ideal_adc_code": 2119.6357306950904,
+      "ideal_nominal_increment_from_no_load": 70.97454482247565
+    },
+    {
+      "rg_ohms": 2000,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.5127327774681034,
+      "amp1_n_V": 1.4926375068994029,
+      "adc_differential_V": 0.02009527056870053,
+      "ideal_adc_code": 2089.1551141246987,
+      "ideal_nominal_increment_from_no_load": 40.55688275570037
+    },
+    {
+      "rg_ohms": 6040,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.5077553090068208,
+      "amp1_n_V": 1.497614975402855,
+      "adc_differential_V": 0.010140333603965823,
+      "ideal_adc_code": 2068.767403220922,
+      "ideal_nominal_increment_from_no_load": 20.211294220969886
+    },
+    {
+      "rg_ohms": 10000,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.506779534038402,
+      "amp1_n_V": 1.4985907503794484,
+      "adc_differential_V": 0.008188783658953591,
+      "ideal_adc_code": 2064.770628933537,
+      "ideal_nominal_increment_from_no_load": 16.222753102280148
+    },
+    {
+      "rg_ohms": null,
+      "shunt_drop_V": 0.0049507913520142055,
+      "load_current_A": 1.053359862130682e-05,
+      "vcc_read_V": 0.4950797262261108,
+      "amp1_p_V": 1.505291228913339,
+      "amp1_n_V": 1.500079055526647,
+      "adc_differential_V": 0.005212173386692109,
+      "ideal_adc_code": 2058.6745310959454,
+      "ideal_nominal_increment_from_no_load": 10.139220749760417
+    }
+  ],
+  "ngspice_convergence_options": {
+    "rshunt_ohms": 1000000000000.0,
+    "reltol": 1e-05,
+    "itl1": 500,
+    "itl2": 200
+  },
+  "limitations": [
+    "TI preliminary macro-model does not include all gain errors or actual component tolerances.",
+    "Output-clamping behavior is not used to certify safe hardware limits.",
+    "ADC uses ideal static 2 Vpp differential / 12-bit mapping; no ADC offset/noise or sampling kickback model.",
+    "Unknown physical load and fitted R31 cannot be inferred uniquely from a near-zero ADC reading."
+  ]
+}

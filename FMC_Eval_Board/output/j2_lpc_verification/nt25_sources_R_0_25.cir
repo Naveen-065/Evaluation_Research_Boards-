@@ -1,0 +1,8 @@
+NT25 supply conflict sensitivity, assumed total series R=0.25 ohm
+* Ideal regulated sources; this is NOT a reverse-current model of AMS1117.
+Vcarrier carrier 0 3.3
+Vlocal local 0 3.3
+Rpath local carrier 0.25
+.dc Vlocal 3.2 3.4 0.001
+.save v(local) i(Vlocal)
+.end

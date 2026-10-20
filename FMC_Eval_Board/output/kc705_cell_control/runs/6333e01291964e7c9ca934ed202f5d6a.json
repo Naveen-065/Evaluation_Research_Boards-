@@ -1,0 +1,25 @@
+{
+  "id": "6333e01291964e7c9ca934ed202f5d6a",
+  "parameters": {
+    "mode": "check",
+    "row": 0,
+    "col": 0,
+    "set_v": 2.3,
+    "set_wl": 1.3,
+    "reset_v": 2.7,
+    "reset_wl": 1.5,
+    "hold": 2400,
+    "cycles": 1,
+    "dry_run": false
+  },
+  "state": "completed",
+  "started": "2026-10-20T07:35:52.398476+00:00",
+  "results": [],
+  "status": {
+    "adc_healthy": true,
+    "interface_enabled": true,
+    "clock_present": true,
+    "cpu_reset_released": false
+  },
+  "finished": "2026-10-20T07:36:13.101845+00:00"
+}

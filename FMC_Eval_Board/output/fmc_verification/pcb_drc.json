@@ -1,0 +1,3208 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-17T21:47:48",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "schematic_parity": [
+        {
+            "description": "Duplicate footprints",
+            "items": [
+                {
+                    "description": "Footprint R62",
+                    "pos": {
+                        "x": 67.8,
+                        "y": 90.475
+                    },
+                    "uuid": "69ada0dd-e2a5-410d-bb83-b4d3e9d8addb"
+                },
+                {
+                    "description": "Footprint R62",
+                    "pos": {
+                        "x": 71.3232,
+                        "y": 122.6566
+                    },
+                    "uuid": "a19b410c-1c42-491c-b3c3-7bbd8a688e5e"
+                }
+            ],
+            "severity": "warning",
+            "type": "duplicate_footprints"
+        },
+        {
+            "description": "Duplicate footprints",
+            "items": [
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 44.1452,
+                        "y": 157.0482
+                    },
+                    "uuid": "da3ff8fd-8f1d-4088-982b-59f521643144"
+                },
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 95.225
+                    },
+                    "uuid": "cb8cd20b-3729-4035-9df1-f59a3d3ebff0"
+                }
+            ],
+            "severity": "warning",
+            "type": "duplicate_footprints"
+        },
+        {
+            "description": "Pad net (GND) doesn't match net given by schematic (unconnected-(C59-Pad2))",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] of C59 on F.Cu",
+                    "pos": {
+                        "x": 94.725,
+                        "y": 79.799999
+                    },
+                    "uuid": "e3865384-0365-4976-852d-f74d7416e92f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT1",
+                    "pos": {
+                        "x": 82.35,
+                        "y": 78.8
+                    },
+                    "uuid": "a09bed7a-cd33-4c0e-8edb-86afb1434c2a"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT2",
+                    "pos": {
+                        "x": 93.2,
+                        "y": 78.7875
+                    },
+                    "uuid": "26019c01-19c8-41c3-8a11-aa0514fa24c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT3",
+                    "pos": {
+                        "x": 91.65,
+                        "y": 78.7875
+                    },
+                    "uuid": "e466d1e3-5a59-4365-8c1a-6c38c6f2a09f"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT4",
+                    "pos": {
+                        "x": 87.0,
+                        "y": 78.7875
+                    },
+                    "uuid": "a10db03a-bc08-4444-9eb2-b24f02d78666"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT5",
+                    "pos": {
+                        "x": 90.1,
+                        "y": 78.7875
+                    },
+                    "uuid": "36991707-9b26-435d-bc31-7d7951e06952"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT6",
+                    "pos": {
+                        "x": 79.25,
+                        "y": 78.8
+                    },
+                    "uuid": "8bcb7a1d-9288-41de-9079-091452a741f8"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT7",
+                    "pos": {
+                        "x": 80.8,
+                        "y": 78.8
+                    },
+                    "uuid": "938e7485-dcdf-4ee3-8a13-3306ddfde588"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT8",
+                    "pos": {
+                        "x": 83.9,
+                        "y": 78.8
+                    },
+                    "uuid": "30eaed1b-4266-491b-88e9-7cbf7d17b7c2"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT9",
+                    "pos": {
+                        "x": 85.45,
+                        "y": 78.8
+                    },
+                    "uuid": "82ce8f4b-6ea5-41a3-8c1f-43ed7c975fe3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT10",
+                    "pos": {
+                        "x": 88.55,
+                        "y": 78.8
+                    },
+                    "uuid": "7a177f5c-0f24-4bae-ad43-6aa5b9165840"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT11",
+                    "pos": {
+                        "x": 94.75,
+                        "y": 78.7625
+                    },
+                    "uuid": "13f25ddd-25aa-4ced-9ee8-e04e145a08b6"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT12",
+                    "pos": {
+                        "x": 96.3,
+                        "y": 78.7625
+                    },
+                    "uuid": "70262792-d2c3-4c4e-bea6-179de198ae6d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad net (+3V3) doesn't match net given by schematic (VDDA1)",
+            "items": [
+                {
+                    "description": "Pad 1 [+3V3] of NT12 on B.Cu",
+                    "pos": {
+                        "x": 96.3,
+                        "y": 79.5875
+                    },
+                    "uuid": "3b46bff7-5b86-4532-80a1-1c5f2f70f6f6"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Exclude from bill of materials' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT13",
+                    "pos": {
+                        "x": 97.85,
+                        "y": 78.7875
+                    },
+                    "uuid": "5f2baf53-e7e4-4797-ac56-3903846f4396"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Footprint attributes don't match symbol: 'Do not populate' settings differ",
+            "items": [
+                {
+                    "description": "Footprint NT22",
+                    "pos": {
+                        "x": 105.1285,
+                        "y": 109.5944
+                    },
+                    "uuid": "1764ecdf-e6c5-4bad-ac76-3966a6624e77"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad net (vdda1) doesn't match net given by schematic (VDDA1)",
+            "items": [
+                {
+                    "description": "Pad 2 [vdda1] of NT22 on F.Cu",
+                    "pos": {
+                        "x": 105.9535,
+                        "y": 109.5944
+                    },
+                    "uuid": "dc6381af-6a93-47d5-b54c-c28eb21b9b9f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN1_P) doesn't match net given by schematic (/DAC/AIN1_P)",
+            "items": [
+                {
+                    "description": "Pad 2 [AIN1_P] of R9 on F.Cu",
+                    "pos": {
+                        "x": 77.27,
+                        "y": 106.4925
+                    },
+                    "uuid": "b21663ad-0e99-40fa-8e6a-3b4fb3493d3f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN1_N) doesn't match net given by schematic (/DAC/AIN1_N)",
+            "items": [
+                {
+                    "description": "Pad 3 [AIN1_N] of R9 on F.Cu",
+                    "pos": {
+                        "x": 74.73,
+                        "y": 99.6325
+                    },
+                    "uuid": "40cc157c-470f-4cc2-949b-077b0ba6de01"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN2_P) doesn't match net given by schematic (/DAC/AIN2_P)",
+            "items": [
+                {
+                    "description": "Pad 2 [AIN2_P] of R10 on F.Cu",
+                    "pos": {
+                        "x": 82.12,
+                        "y": 106.4925
+                    },
+                    "uuid": "aa0e7f5b-0912-4272-9f41-a25fc940481d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN2_N) doesn't match net given by schematic (/DAC/AIN2_N)",
+            "items": [
+                {
+                    "description": "Pad 3 [AIN2_N] of R10 on F.Cu",
+                    "pos": {
+                        "x": 79.58,
+                        "y": 99.6325
+                    },
+                    "uuid": "9f37f302-1d3d-4266-b0ca-fe223aac02dc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN3_P) doesn't match net given by schematic (/DAC/AIN3_P)",
+            "items": [
+                {
+                    "description": "Pad 2 [AIN3_P] of R11 on F.Cu",
+                    "pos": {
+                        "x": 86.97,
+                        "y": 106.4925
+                    },
+                    "uuid": "5a4ea51d-44b6-4779-a199-f9097ea1aaa1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AIN3_N) doesn't match net given by schematic (/DAC/AIN3_N)",
+            "items": [
+                {
+                    "description": "Pad 3 [AIN3_N] of R11 on F.Cu",
+                    "pos": {
+                        "x": 84.43,
+                        "y": 99.6325
+                    },
+                    "uuid": "db9593fc-5242-455c-b0d7-679a3ec2026d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Missing footprint H1 (~)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Pad net (/Caravel_M.2/vddio) doesn't match net given by schematic (+3V3)",
+            "items": [
+                {
+                    "description": "Pad 1 [/Caravel_M.2/vddio] of R61 on F.Cu",
+                    "pos": {
+                        "x": 75.4,
+                        "y": 75.9125
+                    },
+                    "uuid": "8244d1a0-68a3-4f28-8719-d95df56b9e1e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (+3V3) doesn't match net given by schematic (/Caravel_M.2/vddio)",
+            "items": [
+                {
+                    "description": "Pad 2 [+3V3] of R61 on F.Cu",
+                    "pos": {
+                        "x": 75.4,
+                        "y": 74.0875
+                    },
+                    "uuid": "7c7d5c09-3580-4888-a86a-6dbb40563e16"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (R62) doesn't match symbol value (10K)",
+            "items": [
+                {
+                    "description": "Footprint R62",
+                    "pos": {
+                        "x": 71.3232,
+                        "y": 122.6566
+                    },
+                    "uuid": "a19b410c-1c42-491c-b3c3-7bbd8a688e5e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Field 'Part #' differs (PCB: 'RC0805FR-0710KL', Schematic: 'RC0805FR-071KL')",
+            "items": [
+                {
+                    "description": "Footprint R62",
+                    "pos": {
+                        "x": 71.3232,
+                        "y": 122.6566
+                    },
+                    "uuid": "a19b410c-1c42-491c-b3c3-7bbd8a688e5e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (INT{slash}~{EXT}) doesn't match net given by schematic (/Caravel_M.2/FTEEDATA)",
+            "items": [
+                {
+                    "description": "Pad 2 [INT/~{EXT}] of R62 on F.Cu",
+                    "pos": {
+                        "x": 72.2357,
+                        "y": 122.656598
+                    },
+                    "uuid": "30a12558-59a1-4d5f-9494-c1f69b3e6616"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (~{FTEECS}) doesn't match net given by schematic (/Caravel_M.2/~{FTEECS})",
+            "items": [
+                {
+                    "description": "Pad 1 [~{FTEECS}] of R63 on F.Cu",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 94.3125
+                    },
+                    "uuid": "77512f67-7513-44f4-8152-483e5a3bad31"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEEDATA) doesn't match net given by schematic (/Caravel_M.2/FTEEDATA)",
+            "items": [
+                {
+                    "description": "Pad 1 [FTEEDATA] of R64 on F.Cu",
+                    "pos": {
+                        "x": 62.7,
+                        "y": 94.3125
+                    },
+                    "uuid": "33214725-8d25-4847-9843-4e0cdbe2e6ae"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEECLKI) doesn't match net given by schematic (/Caravel_M.2/FTEECLKI)",
+            "items": [
+                {
+                    "description": "Pad 1 [FTEECLKI] of R65 on F.Cu",
+                    "pos": {
+                        "x": 64.725,
+                        "y": 94.3125
+                    },
+                    "uuid": "623f34be-720f-4cd3-8000-5c7e8d4f2ae5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEEDATA) doesn't match net given by schematic (/Caravel_M.2/FTEEDATA)",
+            "items": [
+                {
+                    "description": "Pad 43 [FTEEDATA] of U5 on F.Cu",
+                    "pos": {
+                        "x": 66.605,
+                        "y": 83.1225
+                    },
+                    "uuid": "f70d3f12-f397-4387-b0b8-f75acaa5231f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEECLKI) doesn't match net given by schematic (/Caravel_M.2/FTEECLKI)",
+            "items": [
+                {
+                    "description": "Pad 44 [FTEECLKI] of U5 on F.Cu",
+                    "pos": {
+                        "x": 66.605,
+                        "y": 82.6225
+                    },
+                    "uuid": "47eee17d-417b-475c-a659-e6f058235caf"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (~{FTEECS}) doesn't match net given by schematic (/Caravel_M.2/~{FTEECS})",
+            "items": [
+                {
+                    "description": "Pad 45 [~{FTEECS}] of U5 on F.Cu",
+                    "pos": {
+                        "x": 66.605,
+                        "y": 82.1225
+                    },
+                    "uuid": "73a4c393-9b5e-4571-9def-e27528fc4460"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "No corresponding pin found in schematic",
+            "items": [
+                {
+                    "description": "Pad 49 [GND] of U5 on F.Cu",
+                    "pos": {
+                        "x": 62.73,
+                        "y": 83.3725
+                    },
+                    "uuid": "f2a01f80-17ea-477c-a41a-7e41d8db8302"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (vccd2) doesn't match net given by schematic (/Caravel_M.2/vccd2)",
+            "items": [
+                {
+                    "description": "Pad 1 [vccd2] of U9 on F.Cu",
+                    "pos": {
+                        "x": 78.499698,
+                        "y": 64.960006
+                    },
+                    "uuid": "920cc724-4cc4-4450-9c33-360a02c511f1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (vdda2) doesn't match net given by schematic (/Caravel_M.2/vdda2)",
+            "items": [
+                {
+                    "description": "Pad 13 [vdda2] of U9 on F.Cu",
+                    "pos": {
+                        "x": 81.499703,
+                        "y": 64.960001
+                    },
+                    "uuid": "2a72d4f6-d624-4a5c-b374-4ee9236c1bd2"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[36]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[36])",
+            "items": [
+                {
+                    "description": "Pad 22 [mprj_io[36]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 83.749697,
+                        "y": 72.510005
+                    },
+                    "uuid": "95218c7a-c405-4fc9-ae0e-44786b02a768"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[35]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[35])",
+            "items": [
+                {
+                    "description": "Pad 32 [mprj_io[35]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 86.249701,
+                        "y": 72.510008
+                    },
+                    "uuid": "d4a65247-8bec-4779-84bb-2622c0292491"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (vdda1) doesn't match net given by schematic (/Caravel_M.2/vdda1)",
+            "items": [
+                {
+                    "description": "Pad 33 [vdda1] of U9 on F.Cu",
+                    "pos": {
+                        "x": 86.499696,
+                        "y": 64.96001
+                    },
+                    "uuid": "63c7b151-4f1e-46c4-b5dc-0337d8e83437"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[34]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[34])",
+            "items": [
+                {
+                    "description": "Pad 34 [mprj_io[34]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 86.749701,
+                        "y": 72.510006
+                    },
+                    "uuid": "13336fbc-d176-4acc-9d1f-3bf0a5817f90"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (+1V8) doesn't match net given by schematic (/Caravel_M.2/vccd1)",
+            "items": [
+                {
+                    "description": "Pad 35 [+1V8] of U9 on F.Cu",
+                    "pos": {
+                        "x": 86.999697,
+                        "y": 64.960005
+                    },
+                    "uuid": "cab98db9-0c7b-40b2-9c7c-8c66a6b47f12"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[33]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[33])",
+            "items": [
+                {
+                    "description": "Pad 36 [mprj_io[33]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 87.249701,
+                        "y": 72.510004
+                    },
+                    "uuid": "d00c7b9c-1fa8-43b5-b43f-0ce8d3e26b28"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[32]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[32])",
+            "items": [
+                {
+                    "description": "Pad 38 [mprj_io[32]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 87.749698,
+                        "y": 72.510006
+                    },
+                    "uuid": "45947b29-fc8f-4f15-8fd8-91e86aaad4e2"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[31]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[31])",
+            "items": [
+                {
+                    "description": "Pad 40 [mprj_io[31]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 88.2497,
+                        "y": 72.510006
+                    },
+                    "uuid": "9097d55c-9984-4f78-8de5-855b7fcf2e32"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[30]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[30])",
+            "items": [
+                {
+                    "description": "Pad 42 [mprj_io[30]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 88.7497,
+                        "y": 72.510001
+                    },
+                    "uuid": "6b08ad10-3e83-448f-99fd-69786471b2e4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[29]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[29])",
+            "items": [
+                {
+                    "description": "Pad 44 [mprj_io[29]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 89.249701,
+                        "y": 72.510001
+                    },
+                    "uuid": "88fa5c68-70fe-4df4-a317-d9916de1efec"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[28]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[28])",
+            "items": [
+                {
+                    "description": "Pad 46 [mprj_io[28]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 89.749702,
+                        "y": 72.510003
+                    },
+                    "uuid": "56d51a2b-e840-4a47-a250-a44db17a5a37"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[27]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[27])",
+            "items": [
+                {
+                    "description": "Pad 48 [mprj_io[27]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 90.249702,
+                        "y": 72.510004
+                    },
+                    "uuid": "b6f25eb2-26be-40ea-b16e-ec43d4487ba7"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[26]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[26])",
+            "items": [
+                {
+                    "description": "Pad 50 [mprj_io[26]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 90.749696,
+                        "y": 72.510002
+                    },
+                    "uuid": "079f559d-8161-49dc-97b1-85676d5cabc1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[25]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[25])",
+            "items": [
+                {
+                    "description": "Pad 52 [mprj_io[25]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 91.249699,
+                        "y": 72.510004
+                    },
+                    "uuid": "f613c343-3574-470d-a5dc-ccb876bc0305"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[22]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[22])",
+            "items": [
+                {
+                    "description": "Pad 58 [mprj_io[22]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 92.749701,
+                        "y": 72.510007
+                    },
+                    "uuid": "f6cdba38-01c0-400b-861d-882ea002cc6c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[5]_ser_rx) doesn't match net given by schematic (/Caravel_M.2/mprj_io[5]_ser_rx)",
+            "items": [
+                {
+                    "description": "Pad 59 [mprj_io[5]_ser_rx] of U9 on F.Cu",
+                    "pos": {
+                        "x": 92.999701,
+                        "y": 64.960005
+                    },
+                    "uuid": "390e8222-8594-46ba-af4b-979bb13f9389"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[21]) doesn't match net given by schematic (/Caravel_M.2/mprj_io[21])",
+            "items": [
+                {
+                    "description": "Pad 60 [mprj_io[21]] of U9 on F.Cu",
+                    "pos": {
+                        "x": 93.249699,
+                        "y": 72.510006
+                    },
+                    "uuid": "ff903ba5-d48f-4d66-8d40-5d41f2f7038b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (mprj_io[6]_ser_tx) doesn't match net given by schematic (/Caravel_M.2/mprj_io[6]_ser_tx)",
+            "items": [
+                {
+                    "description": "Pad 61 [mprj_io[6]_ser_tx] of U9 on F.Cu",
+                    "pos": {
+                        "x": 93.499699,
+                        "y": 64.960007
+                    },
+                    "uuid": "1bc1a213-6245-436f-92aa-82f90d2d8c0e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: '', Schematic: 'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf')",
+            "items": [
+                {
+                    "description": "Footprint U19",
+                    "pos": {
+                        "x": 69.2,
+                        "y": 90.575
+                    },
+                    "uuid": "f8dbe274-8394-4a7c-a29b-2a63f4d0a825"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (U19P1) doesn't match net given by schematic (Net-(U19-DO))",
+            "items": [
+                {
+                    "description": "Pad 1 [U19P1] of U19 on F.Cu",
+                    "pos": {
+                        "x": 67.85,
+                        "y": 89.625
+                    },
+                    "uuid": "6b1121e5-758f-4a81-be16-af7f431422da"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEEDATA) doesn't match net given by schematic (/Caravel_M.2/FTEEDATA)",
+            "items": [
+                {
+                    "description": "Pad 3 [FTEEDATA] of U19 on F.Cu",
+                    "pos": {
+                        "x": 67.85,
+                        "y": 91.525
+                    },
+                    "uuid": "2d05c59c-9cbb-4437-bd8a-fdc1ca296aa0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FTEECLKI) doesn't match net given by schematic (/Caravel_M.2/FTEECLKI)",
+            "items": [
+                {
+                    "description": "Pad 4 [FTEECLKI] of U19 on F.Cu",
+                    "pos": {
+                        "x": 70.55,
+                        "y": 91.525
+                    },
+                    "uuid": "01bec2e7-89a6-49a1-a78e-753d874c7f75"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (~{FTEECS}) doesn't match net given by schematic (/Caravel_M.2/~{FTEECS})",
+            "items": [
+                {
+                    "description": "Pad 5 [~{FTEECS}] of U19 on F.Cu",
+                    "pos": {
+                        "x": 70.55,
+                        "y": 90.575
+                    },
+                    "uuid": "f568c8a6-d5d4-42c9-98a3-b4adb24a72d9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SI5351_SDA) doesn't match net given by schematic (/Caravel_M.2/SI5351_SDA)",
+            "items": [
+                {
+                    "description": "Pad 4 [SI5351_SDA] of Y3 on F.Cu",
+                    "pos": {
+                        "x": 75.1,
+                        "y": 95.7125
+                    },
+                    "uuid": "61299896-89c0-45c5-bc14-d33d62a81027"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SI5351_SCL) doesn't match net given by schematic (/Caravel_M.2/SI5351_SCL)",
+            "items": [
+                {
+                    "description": "Pad 5 [SI5351_SCL] of Y3 on F.Cu",
+                    "pos": {
+                        "x": 75.1,
+                        "y": 96.2125
+                    },
+                    "uuid": "d07159f5-0194-4c14-aa04-40d6e9076861"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (C60) doesn't match symbol value (C_0201_0603Metric)",
+            "items": [
+                {
+                    "description": "Footprint C60",
+                    "pos": {
+                        "x": 67.9196,
+                        "y": 129.5654
+                    },
+                    "uuid": "1b5e1f9e-b0a9-40b3-8cf4-9429bd153419"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Capacitor_SMD:C_0201_0603Metric doesn't match footprint given by symbol (Capacitor_SMD:C_0805_2012Metric)",
+            "items": [
+                {
+                    "description": "Footprint C60",
+                    "pos": {
+                        "x": 67.9196,
+                        "y": 129.5654
+                    },
+                    "uuid": "1b5e1f9e-b0a9-40b3-8cf4-9429bd153419"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'Part #' in footprint",
+            "items": [
+                {
+                    "description": "Footprint C60",
+                    "pos": {
+                        "x": 67.9196,
+                        "y": 129.5654
+                    },
+                    "uuid": "1b5e1f9e-b0a9-40b3-8cf4-9429bd153419"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_C_N) doesn't match net given by schematic (FPGA_MCLKIN_P)",
+            "items": [
+                {
+                    "description": "Pad 1 [FPGA_MCLKIN_C_N] of C60 on F.Cu",
+                    "pos": {
+                        "x": 67.919599,
+                        "y": 129.885401
+                    },
+                    "uuid": "db4c8ae1-30ec-481e-954a-472930d85431"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_N) doesn't match net given by schematic (Net-(U14-CLKP))",
+            "items": [
+                {
+                    "description": "Pad 2 [FPGA_MCLKIN_N] of C60 on F.Cu",
+                    "pos": {
+                        "x": 67.919601,
+                        "y": 129.245399
+                    },
+                    "uuid": "2fa517d6-06b5-4677-9b8d-1e6d95dfdf2e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (C61) doesn't match symbol value (C_0201_0603Metric)",
+            "items": [
+                {
+                    "description": "Footprint C61",
+                    "pos": {
+                        "x": 68.7578,
+                        "y": 129.5908
+                    },
+                    "uuid": "cd45bc4f-593b-40ed-9738-8e696bc917ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Capacitor_SMD:C_0201_0603Metric doesn't match footprint given by symbol (Capacitor_SMD:C_0805_2012Metric)",
+            "items": [
+                {
+                    "description": "Footprint C61",
+                    "pos": {
+                        "x": 68.7578,
+                        "y": 129.5908
+                    },
+                    "uuid": "cd45bc4f-593b-40ed-9738-8e696bc917ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'Part #' in footprint",
+            "items": [
+                {
+                    "description": "Footprint C61",
+                    "pos": {
+                        "x": 68.7578,
+                        "y": 129.5908
+                    },
+                    "uuid": "cd45bc4f-593b-40ed-9738-8e696bc917ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_C_P) doesn't match net given by schematic (FPGA_MCLKIN_N)",
+            "items": [
+                {
+                    "description": "Pad 1 [FPGA_MCLKIN_C_P] of C61 on F.Cu",
+                    "pos": {
+                        "x": 68.757799,
+                        "y": 129.910801
+                    },
+                    "uuid": "d160514d-4b63-48c1-864d-dede9eaffc9b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_P) doesn't match net given by schematic (Net-(U14-CLKN))",
+            "items": [
+                {
+                    "description": "Pad 2 [FPGA_MCLKIN_P] of C61 on F.Cu",
+                    "pos": {
+                        "x": 68.757801,
+                        "y": 129.270799
+                    },
+                    "uuid": "4fd0158d-debf-44c4-98ce-c94e9f183de0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "No corresponding pin found in schematic",
+            "items": [
+                {
+                    "description": "Pad 1 [+1V8] of R62 on F.Cu",
+                    "pos": {
+                        "x": 70.4107,
+                        "y": 122.656602
+                    },
+                    "uuid": "1f1eef5b-fcf1-4c80-85fb-62a387f934ac"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "No corresponding pin found in schematic",
+            "items": [
+                {
+                    "description": "Pad 2 [INT/~{EXT}] of R62 on F.Cu",
+                    "pos": {
+                        "x": 72.2357,
+                        "y": 122.656598
+                    },
+                    "uuid": "30a12558-59a1-4d5f-9494-c1f69b3e6616"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_C_P) doesn't match net given by schematic (Net-(U14-CLKP))",
+            "items": [
+                {
+                    "description": "Pad 58 [FPGA_MCLKIN_C_P] of U14 on F.Cu",
+                    "pos": {
+                        "x": 69.437,
+                        "y": 131.5981
+                    },
+                    "uuid": "f04cf408-d4b4-4f67-b00b-8e544d99f347"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (FPGA_MCLKIN_C_N) doesn't match net given by schematic (Net-(U14-CLKN))",
+            "items": [
+                {
+                    "description": "Pad 59 [FPGA_MCLKIN_C_N] of U14 on F.Cu",
+                    "pos": {
+                        "x": 68.937,
+                        "y": 131.5981
+                    },
+                    "uuid": "35107852-7cf7-4d04-8b61-94d7001b8f19"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Missing symbol field 'Manufacturer_Name' in footprint",
+            "items": [
+                {
+                    "description": "Footprint J9",
+                    "pos": {
+                        "x": 75.035,
+                        "y": 150.555
+                    },
+                    "uuid": "65c975d3-f165-4e27-beff-672f61512c95"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC1))",
+            "items": [
+                {
+                    "description": "Pad C1 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 99.799998,
+                        "y": 153.730001
+                    },
+                    "uuid": "4a6cc3e9-8a3b-4825-a968-4c0665fd0c66"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC2))",
+            "items": [
+                {
+                    "description": "Pad C2 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 98.530001,
+                        "y": 153.730004
+                    },
+                    "uuid": "ea9e2a0f-3925-419b-b03c-8b8b894ff10d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC3))",
+            "items": [
+                {
+                    "description": "Pad C3 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 97.26,
+                        "y": 153.73
+                    },
+                    "uuid": "39ec27fb-a484-4209-b845-bd4d698d686d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC4))",
+            "items": [
+                {
+                    "description": "Pad C4 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 95.989997,
+                        "y": 153.730005
+                    },
+                    "uuid": "7153169c-866b-4e13-9130-10cb61cb01db"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC5))",
+            "items": [
+                {
+                    "description": "Pad C5 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 94.719997,
+                        "y": 153.729999
+                    },
+                    "uuid": "a26fd95b-f577-4dc6-aae0-b1c8ebd1b53e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC6))",
+            "items": [
+                {
+                    "description": "Pad C6 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 93.450002,
+                        "y": 153.729999
+                    },
+                    "uuid": "ad4c35f6-7ee3-4370-8b3f-23a1a387abf9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC7))",
+            "items": [
+                {
+                    "description": "Pad C7 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 92.180002,
+                        "y": 153.730005
+                    },
+                    "uuid": "25243667-7e6e-42b0-bb51-a615d0ea698a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC8))",
+            "items": [
+                {
+                    "description": "Pad C8 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 90.910003,
+                        "y": 153.729997
+                    },
+                    "uuid": "b44e1f82-9f5a-431e-84e0-15a0019f5a05"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadC9))",
+            "items": [
+                {
+                    "description": "Pad C9 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 89.640002,
+                        "y": 153.729995
+                    },
+                    "uuid": "7a6c767c-255b-4155-ae38-dab3d749fb8b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (GND) doesn't match net given by schematic (unconnected-(J9-PadC34))",
+            "items": [
+                {
+                    "description": "Pad C34 [GND] of J9 on B.Cu",
+                    "pos": {
+                        "x": 57.889999,
+                        "y": 153.729996
+                    },
+                    "uuid": "60d84925-5678-4892-b4d8-f7ba17c2d678"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (3V3FMC) doesn't match net given by schematic (Net-(J9-PadC39))",
+            "items": [
+                {
+                    "description": "Pad C39 [3V3FMC] of J9 on B.Cu",
+                    "pos": {
+                        "x": 51.539999,
+                        "y": 153.729996
+                    },
+                    "uuid": "432253f5-01fb-4b35-a6aa-8d63e7231f0f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD1))",
+            "items": [
+                {
+                    "description": "Pad D1 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 99.8,
+                        "y": 152.46
+                    },
+                    "uuid": "758144c3-4709-48cd-b77a-d2d2d666fd01"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD2))",
+            "items": [
+                {
+                    "description": "Pad D2 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 98.529999,
+                        "y": 152.459996
+                    },
+                    "uuid": "e8c19328-4043-4f7f-ac03-dfbe86c65361"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD3))",
+            "items": [
+                {
+                    "description": "Pad D3 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 97.26,
+                        "y": 152.46
+                    },
+                    "uuid": "2ce3ab78-a952-4188-b50d-d70ee829b919"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD4))",
+            "items": [
+                {
+                    "description": "Pad D4 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 95.989999,
+                        "y": 152.459999
+                    },
+                    "uuid": "e5e69974-1c56-411f-9bec-9ce0c8408aed"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD5))",
+            "items": [
+                {
+                    "description": "Pad D5 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 94.720002,
+                        "y": 152.459995
+                    },
+                    "uuid": "00ac5306-5d56-4085-8ac5-ce558e4ce755"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD6))",
+            "items": [
+                {
+                    "description": "Pad D6 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 93.450003,
+                        "y": 152.460003
+                    },
+                    "uuid": "99f5b4c1-17d4-40ab-89d4-7497a4e084f1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD7))",
+            "items": [
+                {
+                    "description": "Pad D7 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 92.18,
+                        "y": 152.459997
+                    },
+                    "uuid": "08948fdc-2d04-4420-a4cd-54b1645394cb"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (R62A) doesn't match net given by schematic (Net-(J9-PadD30))",
+            "items": [
+                {
+                    "description": "Pad D30 [R62A] of J9 on B.Cu",
+                    "pos": {
+                        "x": 62.97,
+                        "y": 152.460003
+                    },
+                    "uuid": "b5b75cb5-754a-44c9-b16f-3ab1124c3fff"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (R62B) doesn't match net given by schematic (Net-(J9-PadD31))",
+            "items": [
+                {
+                    "description": "Pad D31 [R62B] of J9 on B.Cu",
+                    "pos": {
+                        "x": 61.699995,
+                        "y": 152.460002
+                    },
+                    "uuid": "532e1ddc-0136-43d2-8d59-abb7cd4ed8b4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD36))",
+            "items": [
+                {
+                    "description": "Pad D36 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 55.349996,
+                        "y": 152.460002
+                    },
+                    "uuid": "f62317b5-1a0b-4d24-9a19-e4d9becaf943"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadD38))",
+            "items": [
+                {
+                    "description": "Pad D38 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 52.810001,
+                        "y": 152.459994
+                    },
+                    "uuid": "cc443dbf-2563-4262-bc7e-999b4329d444"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadG2))",
+            "items": [
+                {
+                    "description": "Pad G2 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 98.530002,
+                        "y": 148.65
+                    },
+                    "uuid": "87d0182b-679b-442d-a492-b9982ab19e12"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadG3))",
+            "items": [
+                {
+                    "description": "Pad G3 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 97.259999,
+                        "y": 148.650006
+                    },
+                    "uuid": "a6937c38-b5bd-4b5f-82ac-84e60135bd59"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (GND)",
+            "items": [
+                {
+                    "description": "Pad G4 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 95.989998,
+                        "y": 148.650002
+                    },
+                    "uuid": "be014430-5436-4645-9b0f-5cdfcfc010c8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (GND)",
+            "items": [
+                {
+                    "description": "Pad G5 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 94.720004,
+                        "y": 148.649998
+                    },
+                    "uuid": "6ea52203-5a19-4cb8-a36b-fda2142e840c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadH1))",
+            "items": [
+                {
+                    "description": "Pad H1 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 99.800005,
+                        "y": 147.380003
+                    },
+                    "uuid": "caaf553c-2e89-4b87-a488-9e71c74cab50"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadH3))",
+            "items": [
+                {
+                    "description": "Pad H3 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 97.259999,
+                        "y": 147.379999
+                    },
+                    "uuid": "7b66182b-e854-48fe-976d-7f3cd1ec563a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadH6))",
+            "items": [
+                {
+                    "description": "Pad H6 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 93.45,
+                        "y": 147.38
+                    },
+                    "uuid": "d2e027ae-4e9a-4c1f-a0e3-ab9d6367530c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad missing net given by schematic (unconnected-(J9-PadH9))",
+            "items": [
+                {
+                    "description": "Pad H9 [<no net>] of J9 on B.Cu",
+                    "pos": {
+                        "x": 89.639999,
+                        "y": 147.38
+                    },
+                    "uuid": "38bff3ea-1c3c-4d1f-95c9-cb5beea610cd"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SI5351_CLK1_1V8) doesn't match net given by schematic (/FMC Slot/SI5351_CLK1_1V8)",
+            "items": [
+                {
+                    "description": "Pad H19 [SI5351_CLK1_1V8] of J9 on B.Cu",
+                    "pos": {
+                        "x": 76.940001,
+                        "y": 147.38
+                    },
+                    "uuid": "e8b8f538-d2b0-4f92-a3ee-67c571ff927b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (AQ1_nRST) doesn't match net given by schematic (unconnected-(J9-PadH20))",
+            "items": [
+                {
+                    "description": "Pad H20 [AQ1_nRST] of J9 on B.Cu",
+                    "pos": {
+                        "x": 75.669995,
+                        "y": 147.379997
+                    },
+                    "uuid": "f5e8fe27-ee40-463e-9ba7-871f5603f043"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (3V3FMC) doesn't match net given by schematic (Net-(J9-PadC39))",
+            "items": [
+                {
+                    "description": "Pad 1 [3V3FMC] of NT25 on F.Cu",
+                    "pos": {
+                        "x": 52.972199,
+                        "y": 156.6672
+                    },
+                    "uuid": "6b1a5edf-af56-4276-a4ed-275b28d3ff19"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (R63) doesn't match symbol value (10K)",
+            "items": [
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 95.225
+                    },
+                    "uuid": "cb8cd20b-3729-4035-9df1-f59a3d3ebff0"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Resistor_SMD:R_0805_2012Metric doesn't match footprint given by symbol (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder)",
+            "items": [
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 95.225
+                    },
+                    "uuid": "cb8cd20b-3729-4035-9df1-f59a3d3ebff0"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'Manufacturer_Name' in footprint",
+            "items": [
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 95.225
+                    },
+                    "uuid": "cb8cd20b-3729-4035-9df1-f59a3d3ebff0"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "No corresponding pin found in schematic",
+            "items": [
+                {
+                    "description": "Pad 1 [~{FTEECS}] of R63 on F.Cu",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 94.3125
+                    },
+                    "uuid": "77512f67-7513-44f4-8152-483e5a3bad31"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "No corresponding pin found in schematic",
+            "items": [
+                {
+                    "description": "Pad 2 [+3V3] of R63 on F.Cu",
+                    "pos": {
+                        "x": 60.675,
+                        "y": 96.1375
+                    },
+                    "uuid": "241ebbf2-e9a4-4960-a2cd-9d2e176f528c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (R165) doesn't match symbol value (R_0402_1005Metric)",
+            "items": [
+                {
+                    "description": "Footprint R165",
+                    "pos": {
+                        "x": 90.2716,
+                        "y": 152.4762
+                    },
+                    "uuid": "8f112b03-78ac-44bf-a474-40169d5507b3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'Part #' in footprint",
+            "items": [
+                {
+                    "description": "Footprint R165",
+                    "pos": {
+                        "x": 90.2716,
+                        "y": 152.4762
+                    },
+                    "uuid": "8f112b03-78ac-44bf-a474-40169d5507b3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (/Caravel_M.2/ACBUS1) doesn't match net given by schematic (~{RST})",
+            "items": [
+                {
+                    "description": "Pad 12 [/Caravel_M.2/ACBUS1] of U17 on F.Cu",
+                    "pos": {
+                        "x": 105.375,
+                        "y": 140.95
+                    },
+                    "uuid": "24a57360-6719-413d-9b64-487a8a234eca"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (/Caravel_M.2/USB_SI) doesn't match net given by schematic (mprj_io[1]_SDO)",
+            "items": [
+                {
+                    "description": "Pad 13 [/Caravel_M.2/USB_SI] of U17 on F.Cu",
+                    "pos": {
+                        "x": 105.375,
+                        "y": 140.3
+                    },
+                    "uuid": "47b49ff4-165d-4fc2-ad1d-ea22d9d08abc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Value (U18) doesn't match symbol value (VSSOP-8_2.3x2mm_P0.5mm)",
+            "items": [
+                {
+                    "description": "Footprint U18",
+                    "pos": {
+                        "x": 87.0458,
+                        "y": 137.795
+                    },
+                    "uuid": "a6e71742-49dd-4931-9378-e6f38d76f072"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm doesn't match footprint given by symbol (Package_SO:SSOP-8_2.95x2.8mm_P0.65mm)",
+            "items": [
+                {
+                    "description": "Footprint U18",
+                    "pos": {
+                        "x": 87.0458,
+                        "y": 137.795
+                    },
+                    "uuid": "a6e71742-49dd-4931-9378-e6f38d76f072"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'Manufacturer_Name' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U18",
+                    "pos": {
+                        "x": 87.0458,
+                        "y": 137.795
+                    },
+                    "uuid": "a6e71742-49dd-4931-9378-e6f38d76f072"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Value (U20) doesn't match symbol value (SN74LVC1G125DCKR)",
+            "items": [
+                {
+                    "description": "Footprint U20",
+                    "pos": {
+                        "x": 92.583,
+                        "y": 130.6685
+                    },
+                    "uuid": "a6124287-d23d-4769-88b9-ea33fe4c05e3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Package_TO_SOT_SMD:Texas_R-PDSO-G5_DCK-5 doesn't match footprint given by symbol (Package_TO_SOT_SMD:SOT-353_SC-70-5)",
+            "items": [
+                {
+                    "description": "Footprint U20",
+                    "pos": {
+                        "x": 92.583,
+                        "y": 130.6685
+                    },
+                    "uuid": "a6124287-d23d-4769-88b9-ea33fe4c05e3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Field 'Datasheet' differs (PCB: 'SC-70-5', Schematic: 'http://www.ti.com/lit/ds/symlink/sn74aup1t34.pdf')",
+            "items": [
+                {
+                    "description": "Footprint U20",
+                    "pos": {
+                        "x": 92.583,
+                        "y": 130.6685
+                    },
+                    "uuid": "a6124287-d23d-4769-88b9-ea33fe4c05e3"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Pad net (/Caravel_M.2/SI5351_CLK1_RAW) doesn't match net given by schematic (SI5351_CLK1_RAW)",
+            "items": [
+                {
+                    "description": "Pad 2 [/Caravel_M.2/SI5351_CLK1_RAW] of U20 on F.Cu",
+                    "pos": {
+                        "x": 91.483,
+                        "y": 130.6685
+                    },
+                    "uuid": "f3e6c8a5-7d23-45fe-adf8-acef39019119"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad net (SI5351_CLK1_1V8) doesn't match net given by schematic (/FMC Slot/SI5351_CLK1_1V8)",
+            "items": [
+                {
+                    "description": "Pad 4 [SI5351_CLK1_1V8] of U20 on F.Cu",
+                    "pos": {
+                        "x": 93.683,
+                        "y": 131.3185
+                    },
+                    "uuid": "1136b9b6-a1f7-45d9-b7e7-be7645f2d6c7"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        }
+    ],
+    "source": "CaravelReRAM-SenseEval.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 41.0,
+                        "y": 60.0
+                    },
+                    "uuid": "cd6b5353-96fc-4a96-bb8d-009c80c48435"
+                },
+                {
+                    "description": "Segment of J3 on F.Silkscreen",
+                    "pos": {
+                        "x": 48.529997,
+                        "y": 61.909999
+                    },
+                    "uuid": "90f2c122-72e0-49b7-8546-f2b515053ed0"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 41.0,
+                        "y": 60.0
+                    },
+                    "uuid": "cd6b5353-96fc-4a96-bb8d-009c80c48435"
+                },
+                {
+                    "description": "Segment of J3 on F.Silkscreen",
+                    "pos": {
+                        "x": 57.719996,
+                        "y": 61.910003
+                    },
+                    "uuid": "c9078090-e605-45b7-8f3e-150c92703310"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "The footprint library 'footprints' is not enabled in the current configuration",
+            "items": [
+                {
+                    "description": "Footprint H2",
+                    "pos": {
+                        "x": 83.75,
+                        "y": 90.4625
+                    },
+                    "uuid": "00d49cb6-f75d-4047-9ccc-7a8d84a23025"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R50",
+                    "pos": {
+                        "x": 64.545898,
+                        "y": 126.393103
+                    },
+                    "uuid": "0e1ead8e-e63d-4275-a7a8-d843ce68d269"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint NT16",
+                    "pos": {
+                        "x": 90.2785,
+                        "y": 112.5944
+                    },
+                    "uuid": "17be588a-cddc-4c72-8e1d-aa4850438ff0"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0201_0603Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C60",
+                    "pos": {
+                        "x": 67.9196,
+                        "y": 129.5654
+                    },
+                    "uuid": "1b5e1f9e-b0a9-40b3-8cf4-9429bd153419"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R33",
+                    "pos": {
+                        "x": 82.038201,
+                        "y": 115.358801
+                    },
+                    "uuid": "1f64ade5-0527-40bd-8ab5-724c95807ec4"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R39",
+                    "pos": {
+                        "x": 55.8722,
+                        "y": 121.56
+                    },
+                    "uuid": "2d8a242c-1de9-4dc7-bfd1-19e21e405f0b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric_Pad0.98x0.95mm_HandSolder' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R12",
+                    "pos": {
+                        "x": 83.191301,
+                        "y": 122.805196
+                    },
+                    "uuid": "32c856db-273e-4558-9f60-cc064daabee1"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R10",
+                    "pos": {
+                        "x": 80.85,
+                        "y": 103.0625
+                    },
+                    "uuid": "351a10fd-a01e-452a-9772-0c343c570c92"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R49",
+                    "pos": {
+                        "x": 66.908101,
+                        "y": 126.416604
+                    },
+                    "uuid": "376c38b0-3089-43ff-974e-7299eed309b2"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint NT15",
+                    "pos": {
+                        "x": 90.2785,
+                        "y": 111.0944
+                    },
+                    "uuid": "37a87300-1827-4c30-af99-20a06a72838f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_1206_3216Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C3",
+                    "pos": {
+                        "x": 101.9285,
+                        "y": 106.4444
+                    },
+                    "uuid": "3a29cd16-d434-45ea-a7bd-f340ddd22f0b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_1206_3216Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C4",
+                    "pos": {
+                        "x": 97.05,
+                        "y": 106.4444
+                    },
+                    "uuid": "3b983360-9f95-4016-a545-01267e8f9fc1"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint NT25",
+                    "pos": {
+                        "x": 53.7972,
+                        "y": 156.6672
+                    },
+                    "uuid": "3ba0f9f1-7259-4265-b92d-e24afdb4329c"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R31",
+                    "pos": {
+                        "x": 82.038202,
+                        "y": 117.465006
+                    },
+                    "uuid": "45d74a10-dd91-4be3-8397-d50ce008df13"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "The footprint library 'footprints' is not enabled in the current configuration",
+            "items": [
+                {
+                    "description": "Footprint U10",
+                    "pos": {
+                        "x": 77.381803,
+                        "y": 117.221
+                    },
+                    "uuid": "49fda6ce-7dab-4e94-864b-35c2ca52904a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'SOT-223-3_TabPin2' does not match copy in library 'Package_TO_SOT_SMD'",
+            "items": [
+                {
+                    "description": "Footprint U7",
+                    "pos": {
+                        "x": 62.95,
+                        "y": 65.562499
+                    },
+                    "uuid": "4b6de3ab-3633-42f7-822f-95c00855612e"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R37",
+                    "pos": {
+                        "x": 73.072002,
+                        "y": 118.531798
+                    },
+                    "uuid": "4c1ae8bb-1051-49bf-a440-d7bdad35d1ec"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'QFN-48-1EP_8x8mm_P0.5mm_EP6.2x6.2mm' does not match copy in library 'Package_DFN_QFN'",
+            "items": [
+                {
+                    "description": "Footprint U5",
+                    "pos": {
+                        "x": 62.73,
+                        "y": 83.3725
+                    },
+                    "uuid": "533896f1-ce98-4a3d-a05c-3e7364050c06"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R35",
+                    "pos": {
+                        "x": 59.1202,
+                        "y": 130.067101
+                    },
+                    "uuid": "5b58698b-7de6-4eab-8c50-bd224c84a885"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R20",
+                    "pos": {
+                        "x": 58.38,
+                        "y": 95.212499
+                    },
+                    "uuid": "5c85c844-f9ee-4d54-8a39-449d89c73ec3"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C45",
+                    "pos": {
+                        "x": 78.7,
+                        "y": 133.0138
+                    },
+                    "uuid": "602cdab6-321f-47b1-8c2e-2b7ec3fce373"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C14",
+                    "pos": {
+                        "x": 71.479999,
+                        "y": 81.462499
+                    },
+                    "uuid": "60667de5-9cfd-46c9-a54f-39c5e078c8b3"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'L_0603_1608Metric_Pad1.05x0.95mm_HandSolder' does not match copy in library 'Inductor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint L1",
+                    "pos": {
+                        "x": 84.283501,
+                        "y": 128.621796
+                    },
+                    "uuid": "6383e7de-5a22-44b5-9152-be1c705b02db"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm' does not match copy in library 'Package_DFN_QFN'",
+            "items": [
+                {
+                    "description": "Footprint U14",
+                    "pos": {
+                        "x": 70.187,
+                        "y": 136.0356
+                    },
+                    "uuid": "6554dc63-e636-4ab5-9111-edd678dde490"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'PinHeader_1x04_P2.54mm_Vertical' does not match copy in library 'Connector_PinHeader_2.54mm'",
+            "items": [
+                {
+                    "description": "Footprint J2",
+                    "pos": {
+                        "x": 53.2,
+                        "y": 76.9025
+                    },
+                    "uuid": "65729129-e2c3-464d-b75a-23980d15e323"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'USB_C_Receptacle_GCT_USB4085' does not match copy in library 'Connector_USB'",
+            "items": [
+                {
+                    "description": "Footprint J3",
+                    "pos": {
+                        "x": 56.099998,
+                        "y": 67.910001
+                    },
+                    "uuid": "6854f50d-e45d-4680-85db-52f3717208dc"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "The footprint library 'footprints' is not enabled in the current configuration",
+            "items": [
+                {
+                    "description": "Footprint U13",
+                    "pos": {
+                        "x": 67.1108,
+                        "y": 112.4966
+                    },
+                    "uuid": "6c2c672e-6f47-4170-8068-607a032f6dba"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R43",
+                    "pos": {
+                        "x": 62.648,
+                        "y": 109.9714
+                    },
+                    "uuid": "6d1d35b9-c10d-4064-a9a7-cc4511aa3f3b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C18",
+                    "pos": {
+                        "x": 71.48,
+                        "y": 75.312499
+                    },
+                    "uuid": "6d8df810-538c-473f-a2ca-fb8ff5cc14c0"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C53",
+                    "pos": {
+                        "x": 78.675,
+                        "y": 138.775
+                    },
+                    "uuid": "7b2e6dec-fb5b-47f6-9c83-6c7818d23eb2"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_1206_3216Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C1",
+                    "pos": {
+                        "x": 89.662,
+                        "y": 116.7638
+                    },
+                    "uuid": "7c2af1cf-0d39-4700-8e5a-a8395ea2216b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'SOT-223-3_TabPin2' does not match copy in library 'Package_TO_SOT_SMD'",
+            "items": [
+                {
+                    "description": "Footprint U6",
+                    "pos": {
+                        "x": 71.8,
+                        "y": 65.5125
+                    },
+                    "uuid": "8ce5579f-68d1-4189-93c6-5830c520e99d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0603_1608Metric_Pad1.08x0.95mm_HandSolder' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C9",
+                    "pos": {
+                        "x": 79.889301,
+                        "y": 125.319796
+                    },
+                    "uuid": "8d694400-d8bd-4f56-8b74-13d256ce61bf"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C47",
+                    "pos": {
+                        "x": 74.3,
+                        "y": 126.425
+                    },
+                    "uuid": "8fabe7d7-074b-47de-afeb-99fc78e3fc53"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R48",
+                    "pos": {
+                        "x": 76.3,
+                        "y": 126.4
+                    },
+                    "uuid": "9ab31107-aa81-4a0c-8cc1-388d19f8a857"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R62",
+                    "pos": {
+                        "x": 71.3232,
+                        "y": 122.6566
+                    },
+                    "uuid": "a19b410c-1c42-491c-b3c3-7bbd8a688e5e"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint NT14",
+                    "pos": {
+                        "x": 90.2785,
+                        "y": 109.5944
+                    },
+                    "uuid": "a2f408e2-35f6-4371-ad98-e9c898f18e5b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R38",
+                    "pos": {
+                        "x": 73.072,
+                        "y": 116.525204
+                    },
+                    "uuid": "ae0d9504-f923-4e8c-9073-eef015a984cd"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_1206_3216Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C5",
+                    "pos": {
+                        "x": 94.65,
+                        "y": 106.4444
+                    },
+                    "uuid": "aecc3e5c-50a9-4231-a1ce-ce2ee22306e0"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "The footprint library 'footprints' is not enabled in the current configuration",
+            "items": [
+                {
+                    "description": "Footprint U11",
+                    "pos": {
+                        "x": 56.9722,
+                        "y": 125.7006
+                    },
+                    "uuid": "b0e52828-6ea6-4827-8f5e-af0e654e78e8"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R11",
+                    "pos": {
+                        "x": 85.7,
+                        "y": 103.0625
+                    },
+                    "uuid": "bdc87f2b-ef66-4353-8e00-cd6e82e5b610"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C16",
+                    "pos": {
+                        "x": 71.459994,
+                        "y": 77.362498
+                    },
+                    "uuid": "be17f468-3ee7-4b37-bc69-14555d6b322b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R51",
+                    "pos": {
+                        "x": 59.225,
+                        "y": 138.975
+                    },
+                    "uuid": "c8d08ea2-5287-49cb-94c4-e3a155fddc69"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "The footprint library 'footprints' is not enabled in the current configuration",
+            "items": [
+                {
+                    "description": "Footprint U9",
+                    "pos": {
+                        "x": 87.749699,
+                        "y": 70.235004
+                    },
+                    "uuid": "cba350a0-00a0-4671-a784-ba72adee39a1"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'C_0201_0603Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C61",
+                    "pos": {
+                        "x": 68.7578,
+                        "y": 129.5908
+                    },
+                    "uuid": "cd45bc4f-593b-40ed-9738-8e696bc917ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_1206_3216Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C6",
+                    "pos": {
+                        "x": 99.4285,
+                        "y": 106.4444
+                    },
+                    "uuid": "cefd22d5-5974-4a69-b551-1373f406a8aa"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R34",
+                    "pos": {
+                        "x": 82.0382,
+                        "y": 119.446201
+                    },
+                    "uuid": "cfe6db84-cec4-4869-a333-943451d419a1"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'Texas_RHA0040D_VQFN-40-1EP_6x6mm_P0.5mm_EP2.9x2.9mm_ThermalVias' does not match copy in library 'Package_DFN_QFN'",
+            "items": [
+                {
+                    "description": "Footprint U1",
+                    "pos": {
+                        "x": 97.7625,
+                        "y": 113.4
+                    },
+                    "uuid": "d3af4b65-b8c6-4bc4-bdac-42edbfdf3f58"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R45",
+                    "pos": {
+                        "x": 57.4192,
+                        "y": 116.5716
+                    },
+                    "uuid": "d6ae3045-70d4-4ba0-9a48-ce6261e76211"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R9",
+                    "pos": {
+                        "x": 76.0,
+                        "y": 103.0625
+                    },
+                    "uuid": "d7360895-7c9a-4935-9bf0-8093d6741c13"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C37",
+                    "pos": {
+                        "x": 67.347,
+                        "y": 116.6234
+                    },
+                    "uuid": "db8ed079-c0c1-4616-abc7-3007ce60ea12"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0603_1608Metric_Pad0.98x0.95mm_HandSolder' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R13",
+                    "pos": {
+                        "x": 86.772701,
+                        "y": 122.805196
+                    },
+                    "uuid": "dc15ea04-4c7d-4b96-8432-b749875b568a"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C34",
+                    "pos": {
+                        "x": 77.136006,
+                        "y": 113.096199
+                    },
+                    "uuid": "df6b7785-5adb-406b-b054-e0c9496650a8"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C15",
+                    "pos": {
+                        "x": 71.479999,
+                        "y": 79.412499
+                    },
+                    "uuid": "e75b26e0-fe04-4f6e-813f-9d164214d748"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R32",
+                    "pos": {
+                        "x": 56.938999,
+                        "y": 130.068999
+                    },
+                    "uuid": "e9945405-808b-4a8b-b77a-1e4479076fd8"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0603_1608Metric_Pad1.08x0.95mm_HandSolder' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C7",
+                    "pos": {
+                        "x": 87.712501,
+                        "y": 125.649996
+                    },
+                    "uuid": "eae0a128-c69c-47b2-bef1-90b861d4b65f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R40",
+                    "pos": {
+                        "x": 57.853401,
+                        "y": 121.560002
+                    },
+                    "uuid": "eec49239-9a6d-4070-a23a-656808ad5918"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_0805_2012Metric' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R36",
+                    "pos": {
+                        "x": 54.757401,
+                        "y": 130.069
+                    },
+                    "uuid": "ef8e7e9b-f1a5-4956-9133-36fc78004b29"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C40",
+                    "pos": {
+                        "x": 72.25,
+                        "y": 126.4
+                    },
+                    "uuid": "f77f562d-bbe5-4794-8bed-18f134300182"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C35",
+                    "pos": {
+                        "x": 61.053801,
+                        "y": 125.446201
+                    },
+                    "uuid": "f8abecae-5f21-4798-b88e-814ca29ec853"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C39",
+                    "pos": {
+                        "x": 50.2624,
+                        "y": 114.438
+                    },
+                    "uuid": "f8acf743-c099-4e2b-ad8f-82ac3df1e9d0"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C44",
+                    "pos": {
+                        "x": 70.225,
+                        "y": 126.4
+                    },
+                    "uuid": "fae76c61-091e-4cae-ad0b-284ce3525bb4"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'D_SOD-123' does not match copy in library 'Diode_SMD'",
+            "items": [
+                {
+                    "description": "Footprint D1",
+                    "pos": {
+                        "x": 82.276902,
+                        "y": 126.081796
+                    },
+                    "uuid": "fd3755c5-08f6-4693-8943-a5c570c522f7"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C41",
+                    "pos": {
+                        "x": 72.25,
+                        "y": 126.4
+                    },
+                    "uuid": "3cef13e8-7c48-4db8-ba70-586fc264f78b"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'Samtec_FMC_ASP-134604-01_4x40_Vertical' does not match copy in library 'Connector_Samtec'",
+            "items": [
+                {
+                    "description": "Footprint J9",
+                    "pos": {
+                        "x": 75.035,
+                        "y": 150.555
+                    },
+                    "uuid": "65c975d3-f165-4e27-beff-672f61512c95"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'C_0805_2012Metric' does not match copy in library 'Capacitor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint C46",
+                    "pos": {
+                        "x": 70.225,
+                        "y": 126.4
+                    },
+                    "uuid": "7c277fd9-e12f-48c5-81e7-d9ae6764b95d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'R_1206_3216Metric_Pad1.30x1.75mm_HandSolder' does not match copy in library 'Resistor_SMD'",
+            "items": [
+                {
+                    "description": "Footprint R63",
+                    "pos": {
+                        "x": 44.1452,
+                        "y": 157.0482
+                    },
+                    "uuid": "da3ff8fd-8f1d-4088-982b-59f521643144"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "Reference field of R165",
+                    "pos": {
+                        "x": 90.2716,
+                        "y": 151.3062
+                    },
+                    "uuid": "1355a15e-da3a-482d-9477-5b1536d32285"
+                },
+                {
+                    "description": "Polygon of G*** on F.Silkscreen",
+                    "pos": {
+                        "x": 91.668001,
+                        "y": 154.334264
+                    },
+                    "uuid": "d98818d1-6baa-46fc-8531-4901074aaa1b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "Reference field of R165",
+                    "pos": {
+                        "x": 90.2716,
+                        "y": 151.3062
+                    },
+                    "uuid": "1355a15e-da3a-482d-9477-5b1536d32285"
+                },
+                {
+                    "description": "Polygon of G*** on F.Silkscreen",
+                    "pos": {
+                        "x": 90.218923,
+                        "y": 147.711491
+                    },
+                    "uuid": "465792fb-97c0-4dcd-9b8e-de899cbabd75"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "Polygon of G*** on F.Silkscreen",
+                    "pos": {
+                        "x": 90.218923,
+                        "y": 147.711491
+                    },
+                    "uuid": "465792fb-97c0-4dcd-9b8e-de899cbabd75"
+                },
+                {
+                    "description": "Segment of R165 on F.Silkscreen",
+                    "pos": {
+                        "x": 90.117959,
+                        "y": 152.0962
+                    },
+                    "uuid": "f6986bab-b94c-43d9-935a-d45956852372"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "Reference field of U19",
+                    "pos": {
+                        "x": 67.818,
+                        "y": 88.1888
+                    },
+                    "uuid": "5160fa3d-2c0d-4470-af67-d219e24e3d54"
+                },
+                {
+                    "description": "Polygon of U19 on F.Silkscreen",
+                    "pos": {
+                        "x": 68.0,
+                        "y": 89.015
+                    },
+                    "uuid": "f90a7e8b-f1ed-4d02-9eb3-bd53738153ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Polygon of G*** on F.Silkscreen",
+                    "pos": {
+                        "x": 90.218923,
+                        "y": 147.711491
+                    },
+                    "uuid": "465792fb-97c0-4dcd-9b8e-de899cbabd75"
+                },
+                {
+                    "description": "Pad 1 [FPGA_MCLKIN_N] of R165 on F.Cu",
+                    "pos": {
+                        "x": 89.7616,
+                        "y": 152.4762
+                    },
+                    "uuid": "900b7bc4-22ee-42f6-981b-7d49860e1d91"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of U9 on F.Silkscreen",
+                    "pos": {
+                        "x": 97.699698,
+                        "y": 68.485003
+                    },
+                    "uuid": "f666a10d-3419-4e4d-b0aa-57b81b3db85e"
+                },
+                {
+                    "description": "NPTH pad of U9",
+                    "pos": {
+                        "x": 97.749698,
+                        "y": 70.235006
+                    },
+                    "uuid": "3cd131bd-2cbf-432a-97dc-160638f31079"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of U9 on F.Silkscreen",
+                    "pos": {
+                        "x": 77.7997,
+                        "y": 71.985005
+                    },
+                    "uuid": "ac3599a3-27bf-4da8-b9c0-c813e0ff0fd4"
+                },
+                {
+                    "description": "NPTH pad of U9",
+                    "pos": {
+                        "x": 77.7497,
+                        "y": 70.235002
+                    },
+                    "uuid": "ce3ebd9e-772c-49c6-83d0-c2e823cf76b9"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        }
+    ]
+}

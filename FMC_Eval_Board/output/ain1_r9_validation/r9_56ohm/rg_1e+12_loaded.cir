@@ -1,0 +1,23 @@
+PCB DAC0 -> R9 Kelvin shunt -> U10 INA851 -> ADS5282 channel 1
+.include "C:/Users/elesamj/Documents/ChatGPT/X1_FPGA_evalboard/output/ain1_r9_validation/vendor/SBOMC50/INA851.LIB"
+.options reltol=1e-5 abstol=1e-12 vntol=1e-7 rshunt=1e12 itl1=500 itl2=200
+VDAC dac0 0 0.529
+R9 dac0 vcc_read 56
+RLOAD vcc_read 0 3300
+R33 dac0 inp 150
+R34 vcc_read inn 150
+R31 rgp rgn 1000000000000.0
+VPLUS vplus 0 12
+VMINUS vminus 0 -3
+VCLAMP vclamp 0 3.3
+VCM vcm 0 1.5
+XU10 inp inn rgp rgn vplus vminus outp outn vcm fdap fdan g02p g02n vclamp 0 INA851
+R37 outp amp1_p 150
+R38 outn amp1_n 150
+* DC input leakage and input capacitance placeholders, not an ADC macro-model.
+RADC_P amp1_p vcm 1e12
+RADC_N amp1_n vcm 1e12
+CADC_P amp1_p vcm 5p
+CADC_N amp1_n vcm 5p
+.op
+.end

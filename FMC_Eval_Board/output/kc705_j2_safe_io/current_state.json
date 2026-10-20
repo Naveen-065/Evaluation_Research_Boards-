@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-18T20:24:05+08:00",
+  "carrier": "AMD KC705",
+  "device": "xc7k325tffg900-2",
+  "jtag_target": "localhost:3121/xilinx_tcf/Xilinx/00001f14c98801",
+  "daughtercard_connected": false,
+  "programmed_image": "kc705_j2_safe_io.bit",
+  "sha256": "C4CAF37E4E6D4BB5953E513BE9F559E43F2D35FAA720E755FAD5322AA223C2E2",
+  "volatile_jtag_configuration": true,
+  "configuration_checks": {
+    "done_internal": 1,
+    "done_pin": 1,
+    "eos": 1,
+    "soft_debug_cores": 0
+  },
+  "j2_static_high": ["C15", "H13", "H14", "H16"],
+  "j2_static_low": ["C19", "D17", "D18", "G12", "G13", "G15", "G16", "G18", "G19", "H17", "H20"],
+  "j2_input_high_z": ["C10", "C11", "C14", "C18", "D8", "D9", "D11", "D12", "D14", "D15", "G6", "G7", "G9", "G10", "H4", "H5", "H7", "H8", "H10", "H11", "H19"],
+  "excluded": ["C30 management I2C SCL", "C31 management I2C SDA", "JTAG", "PRSNT", "power", "ground", "reserved contacts"]
+}

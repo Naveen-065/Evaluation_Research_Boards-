@@ -16,6 +16,57 @@ The API keeps the experiment behavior used in the recent stair-pulse runs:
 - reset/read polarity uses `OP_SET=0` and ramps rails until read current crosses the reset threshold;
 - Saleae A12-A13 is treated as the set shunt current through `shunt_ohms`, default `470 ohms`.
 
+## Current publication baseline
+
+New characterization runs use the frozen
+[`publication/baseline_v1.json`](./publication/baseline_v1.json): v35 FPGA
+runtime, permanent Caravel firmware, scan at 2 MHz, WB at 10 MHz,
+`Vcc_read=0.5 V`, `Vcc_wl_read=2.5 V`, `Iref=1.0 V`, `Vcomp=0.9 V`,
+`Bias_comp2=0.6 V`, `VBIAS=1.6 V`, `dc_bias=1.5 V`, `VDDIO=4.0 V`, and a
+470-ohm shunt. Verify hashes and physical rail measurements with
+[`publication/verify_baseline.py`](./publication/verify_baseline.py) before a
+publication run. The dated v28 material below is retained only as historical
+validation evidence and is not the active baseline.
+
+## Historical: 2026-09-11 dual-clock Iref 0.9 V backup
+
+This revision is the permanent combined scan-debug/Wishbone setup. Keep only
+the following deployable FPGA pair and the single Caravel firmware image:
+
+| Artifact | SHA-256 |
+|---|---|
+| `prerequisites/fpga_zynq7020/bitstreams/caravel_scan_debug_runtime_dac81416_uart_wb_highz_v28_dualclk_iref0p9.bit` | `95ffdbfa5315c35f7fc64895e2a13c041859eca39c1d72ea57233321d15dd99e` |
+| `prerequisites/fpga_zynq7020/bitstreams/caravel_scan_debug_runtime_dac81416_uart_wb_highz_v28_dualclk_iref0p9.ltx` | `42b0fd8ae624955695a5d2b337b1f10cadfcee7b14e5f1756a9e26e0f35fd065` |
+| `prerequisites/caravel_wishbone/gui_wb_mode.c` | `d61027a9d30337bfff228c8f7ec843c482ed100041a0e1ab23c17dbde4dac2f6` |
+| `prerequisites/caravel_wishbone/gui_wb_mode.hex` | `38949b44a89cae109b87d799adfeb9e9e268ea210c2af513349222a1d12dafb2` |
+
+The FPGA programs DAC7/VDDIO to 4.0 V first, configures the remaining DACs,
+and selects 2 MHz for scan-debug or 10 MHz for Wishbone without changing the
+900 MHz Si5351 PLL. The permanent Caravel firmware supports both modes, so it
+is not reflashed during normal mode changes.
+
+Hardware validation of the rebuilt v28 image completed before this backup:
+
+| Check | Result |
+|---|---|
+| 2 MHz scan read, r31c30 | `0x7FDF`, 110.34 uA at 0.5 V (about 220.68 uS) |
+| 10 MHz WB read, command `0x7FE2AA82` | `0x0007D514`: column 31, coarse 21, fine 20 |
+| WB UART collection | 15 frames; final four were the same nonzero return |
+| Caravel firmware | Permanent image acknowledged; no reflash required |
+| Final board state | 2 MHz scan mode; DAC9/Iref = 0.9 V (`0x2E14`) |
+
+The final Iref sweep used DAC9 = 0.0, 0.9, and 1.8 V. At 0.9 V, the scan means
+and WB results were:
+
+| Programmed ordering | r31c30 mean | r31c31 mean | WB return | Decode: column/coarse/fine |
+|---|---:|---:|---|---|
+| r31c30 low; r31c31 high | 82.63 uS | 198.32 uS | `0x0007DF23` | 31 / 31 / 35 |
+| r31c30 high; r31c31 low | 81.84 uS | 71.85 uS | `0x0007D518` | 31 / 21 / 24 |
+
+The relative ordering reversed, but the RESET-programmed cell did not reach
+the absolute target of 10 uS or lower. After the sweep, DAC9 was updated to the
+new 0.9 V nominal and the FPGA was returned to 2 MHz scan-debug mode.
+
 ## Realtime GUI
 
 The repo includes a local browser GUI for watching scan-debug runs in realtime. It reads the same `api_v1/runs/*/manifest.csv` files that the API writes, so it can be started while another API command is already running in the background.
@@ -428,9 +479,17 @@ python api_v1/scan_debug_cli.py wb-write --wb-value 0x500888FF
 
 Both WB modes accept decimal or `0x`-prefixed 32-bit command values. Their
 defaults are `0x4002AA82` for reads and `0x500888FF` for writes. WB operations
-preserve all live DAC registers and do not modify the PLL or external 2 MHz
-clock. They flash the selected Caravel firmware and use the FPGA only for the
-reset pulse and passive UART capture.
+apply the read-bias profile on DAC4/5 and DAC9-13. The FPGA keeps the Si5351 PLL
+at 900 MHz and changes only the multisynth divider: scan-debug uses 2 MHz and
+native WB uses 10 MHz. It also provides the reset pulse, runtime command, and
+UART capture.
+The permanent Caravel image is normally
+flashed only once: each later WB operation and 32-bit value is sent at runtime
+as checked pulse-width data on FPGA-connected ScanInDL, which returns to high-impedance before
+the register access. If the image is absent, the API installs it once and
+retries. The WB firmware configures GPIO25-GPIO34
+as `GPIO_MODE_USER_STD_ANALOG` so the externally driven bias and supply rails
+remain connected to `analog_io[18:27]`.
 
 Every WB read starts with `0x00036472`, `0x462B000B`, and `0x43201405`.
 The verified legacy/default sequence then sends `0x4002AAFF` followed by
@@ -439,21 +498,23 @@ packet `0x7FF2AA82`; the returned value therefore follows the final r31c31
 command. Other entered values are sent once after the three setup writes.
 Firmware performs 15 register reads and emits one uniquely tagged UART frame
 for each value. The API reports all 15 values and selects the first nonzero
-value as `return_value`.
+value as `return_value`. For reads, `decoded_return` and the GUI display split
+that word into `extra[31:19]`, `col_addr[18:14]`, `coarse_cnt[13:8]`, and
+`fine_cnt[7:0]`.
 
-The optional complete WB bench DAC profile is applied separately with
-`python api_v1/dac_full_wb_run.py`. It sets D0/D1/D2/D5/D7/D9-D13/D15 to
-`0.5/2.5/2.3/2.3/4.0/0.5/0.9/0.6/1.6/1.0/2.1 V`; D3/D4/D6/D8/D14 are
-powered down. Loading the WB runtime afterward preserves those registers.
-Before returning to scan-debug operations, restore the scan DAC range and
-power-state configuration; a scan runtime update changes channel data values
-but does not rewrite the DAC range or power-down registers.
+There is no separate WB DAC image. WB operations use the permanent v28 FPGA
+runtime. They set DAC4/DAC5 to 0.5/2.5 V, apply the nominal DAC9-13 biases (or
+one explicitly requested skew), and select the WB power mask. DAC ranges and
+the 900 MHz PLL multiplier remain fixed. The next scan command restores the
+scan power/range profile, selects 2 MHz, and preserves any explicit DAC9-13
+skew so it can be measured by scan-debug.
 
 WB return values use a direct 9600-baud hardware path. Wire Caravel
 `GPIO6/UART TX` to AX7020 `J10-10` (`V15`, LVCMOS33) and connect the grounds.
-Remove Caravel jumper `J2` before flashing and leave it removed. After the
-flash, FPGA logic resets Caravel, validates the framed UART response, stores
-the 32-bit value in VIO, and publishes it in the GUI's **API return** panel.
+Remove Caravel jumper `J2` before the initial/recovery flash and leave it
+removed. For normal requests FPGA logic resets Caravel, sends the checked
+runtime command, validates the framed UART response, stores the 32-bit value
+in VIO, and publishes it in the GUI's **API return** panel.
 
 `build-array-bitstreams` remains as a compatibility alias and now produces the
 same single runtime image rather than 32 column-specific images.
@@ -488,6 +549,7 @@ The API itself is pure Python and runs on macOS, Ubuntu, or Windows. Hardware ac
 FPGA files copied into this API folder:
 
 - [prerequisites/fpga_zynq7020/caravel_scan_debug_runtime.v](./prerequisites/fpga_zynq7020/caravel_scan_debug_runtime.v)
+- [prerequisites/fpga_zynq7020/si5351_mode_controller.v](./prerequisites/fpga_zynq7020/si5351_mode_controller.v)
 - [prerequisites/fpga_zynq7020/dac81416_runtime_spi.v](./prerequisites/fpga_zynq7020/dac81416_runtime_spi.v)
 - [prerequisites/fpga_zynq7020/uart_rx_8n1.v](./prerequisites/fpga_zynq7020/uart_rx_8n1.v)
 - [prerequisites/fpga_zynq7020/caravel_scan_debug_fpga.xdc](./prerequisites/fpga_zynq7020/caravel_scan_debug_fpga.xdc)
@@ -498,8 +560,8 @@ FPGA files copied into this API folder:
 GUI Wishbone firmware files:
 
 - [prerequisites/caravel_wishbone/gui_wb_mode.c](./prerequisites/caravel_wishbone/gui_wb_mode.c)
+- [prerequisites/caravel_wishbone/gui_wb_mode.hex](./prerequisites/caravel_wishbone/gui_wb_mode.hex) is the single validated permanent Caravel image (`SHA-256 38949b44a89cae109b87d799adfeb9e9e268ea210c2af513349222a1d12dafb2`).
 - [prerequisites/caravel_wishbone/Makefile](./prerequisites/caravel_wishbone/Makefile)
-- [dac_full_wb_run.py](./dac_full_wb_run.py) and [prerequisites/fpga_dac_full_wb](./prerequisites/fpga_dac_full_wb) reproduce the complete WB DAC profile.
 
 Teensy DAC/ADC firmware copied into this API folder:
 
@@ -532,13 +594,14 @@ Local summarizer used by the API:
 
    ```text
    caravel_scan_debug_runtime.v
+   si5351_mode_controller.v
    dac81416_runtime_spi.v
    uart_rx_8n1.v
    caravel_scan_debug_fpga.xdc
    build_runtime_bitstream.tcl
    program_and_run_runtime.tcl
-   caravel_scan_debug_runtime_dac81416_uart_wb_highz_v9.bit
-   caravel_scan_debug_runtime_dac81416_uart_wb_highz_v9.ltx
+   caravel_scan_debug_runtime_dac81416_uart_wb_highz_v28_dualclk_iref0p9.bit
+   caravel_scan_debug_runtime_dac81416_uart_wb_highz_v28_dualclk_iref0p9.ltx
    ```
 
    The API automatically uploads these files. Read, set, reset, cycle, serial
@@ -588,21 +651,49 @@ Local summarizer used by the API:
    --legacy-teensy-dac --adc-dac-port /dev/serial/by-id/...
    ```
 
-## Voltage and Probe Connections
+## Voltage and Pin-State Comparison
 
-Rails controlled directly by the FPGA-connected DAC81416:
+The permanent Caravel firmware uses the same analog pad configuration in both
+modes. `GPIO_MODE_USER_STD_ANALOG` disables the Caravel digital input/output
+path and keeps the pad connected to the user-project analog node. The FPGA
+applies the mode-specific DAC profile before releasing Caravel reset.
 
-| Rail | Caravel/Chip node | DAC channel in current firmware | API default / behavior |
-|---|---:|---:|---|
-| `Vcc_read` | GPIO33 | DAC[0] | held `0 V` |
-| `Vcc_wl_read` | GPIO26 | DAC[1] | held `0 V` |
-| `Vcc_set` | GPIO27 | DAC[6] | ramped by API |
-| `Vcc_wl_set` | GPIO30 | DAC[3] | ramped by API |
-| `Vcc_wl_reset` | GPIO28 | DAC[4] | held `0 V` |
-| `Vcc_reset` | VDDA2 | DAC[5] | held `0 V` |
-| `VDDIO` | VDDIO | DAC[7] | held `4.5 V`; requires the board J5 3.3 V link to be disconnected |
-| `VDDA1` | VDDA1 | DAC[14] / external supply as configured | not changed by API |
-| `VDDC2` | VCCD2 | DAC[15] | not changed by API |
+At power-up, program the full FPGA runtime first. Its independent 50 MHz clock
+configures the Si5351 for 2 MHz; the returned clock then programs DAC7/VDDIO to
+4.0 V first, waits 10 ms, and programs the remaining DAC rails. Flash the
+permanent Caravel firmware only after that DAC initialization has completed.
+
+| Analog signal | Caravel GPIO | DAC route | v28 startup / scan state | WB state | Caravel configuration |
+|---|---:|---:|---|---|---|
+| `dc_bias` | 25 | DAC13 | 1.0 V | 1.0 V nominal, or requested WB skew | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcc_wl_read` | 26 | DAC1 | 2.5 V | preserved | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcc_set` | 27 | DAC6; mirrored on DAC2 | 0.5 V default; API-adjustable in scan mode | DAC6 powered down; DAC2 mirror retained | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcc_wl_reset` | 28 | DAC4 | powered down / 0 V code | 0.5 V, enabled | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vbias` | 29 | DAC12 | 1.6 V | 1.6 V nominal, or requested WB skew | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcc_wl_set` | 30 | DAC3 | 2.5 V default; API-adjustable in scan mode | powered down | `GPIO_MODE_USER_STD_ANALOG` |
+| `Bias_comp2` | 31 | DAC11 | 0.6 V | 0.6 V nominal, or requested WB skew | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcomp` | 32 | DAC10 | 0.9 V | 0.9 V nominal, or requested WB skew | `GPIO_MODE_USER_STD_ANALOG` |
+| `Vcc_read` | 33 | DAC0 | 0.5 V | preserved | `GPIO_MODE_USER_STD_ANALOG` |
+| `Iref` | 34 | DAC9 | 0.9 V | 0.9 V nominal, or requested WB skew | `GPIO_MODE_USER_STD_ANALOG` |
+
+Additional scan support rails are DAC5 = 2.3 V, DAC7/VDDIO = 4.0 V, and
+DAC15/VCCD2 = 2.1 V. In WB mode DAC5 becomes `Vcc_reset=2.5 V`. DAC8 and DAC14
+are powered down in both modes. The board J5 3.3 V link must remain
+disconnected while DAC7 supplies VDDIO.
+
+| Digital signal | Caravel pin/configuration | Scan-debug FPGA state | WB FPGA state | Pull configuration |
+|---|---|---|---|---|
+| `ready` | GPIO1, management output | Caravel→FPGA ready | per-bit command acknowledgement | none |
+| UART TX | GPIO6, management output | idle/high unless logging | Caravel→FPGA 9600-baud return | FPGA input, no pull |
+| `ScanInDR` | GPIO21, user input | FPGA drives packet data | **high-impedance** | no pull |
+| `ScanInDL` | GPIO22, user input after bootstrap | FPGA drives packet data | pulse-width command, then **high-impedance** | no pull |
+| `ScanInCC` | GPIO35, user input | FPGA holds low | FPGA holds low | FPGA pulldown |
+| `TM` | GPIO36, user input | FPGA drives scan timing | **high-impedance** | no pull |
+| `rst_b` | external reset | FPGA drives; 24,000 clocks per cell | FPGA drives before command | no pull |
+| `wb_clk_i` | external XCLK | Si5351 CLK0 at 2 MHz | Si5351 CLK0 at 10 MHz | no pull; Caravel reset held during change |
+
+The 2026-09-10 passive validation measured `Vcc_set=0.4766 V` and
+`Vcc_wl_set=2.5024 V` for requested values of 0.5 V and 2.5 V.
 
 Current probes:
 
@@ -639,7 +730,7 @@ FPGA to Caravel and Saleae digital probes:
 
 | Signal | Caravel node | FPGA J10 / Zynq pin | Saleae LA |
 |---|---|---|---:|
-| `wb_clk_i` / XCLK | Xclk | J10-16 / U14 | 8 |
+| `wb_clk_i` / XCLK | Xclk | Si5351 CLK0 direct to Caravel; CLK1 copy returns on J10-16 / U14 | 8 |
 | `rst_b` | Reset | J10-3 / W19 | 7 |
 | `ready` | GPIO1 | J10-4 / W18 | 6 |
 | `caravel_uart_tx_i` | GPIO6 / UART TX | J10-10 / V15 | — |
@@ -648,7 +739,15 @@ FPGA to Caravel and Saleae digital probes:
 | `ScanInDL` | GPIO22 | J10-7 / Y17 | 10 |
 | `ScanInCC` | scan clock/control | J10-8 / Y16 | optional |
 
+Si5351 control wiring is SDA on J10-11/Y14 and SCL on J10-12/W14. Power the
+clock board from J10-39/40 (3.3 V) and J10-37/38 (ground). CLK0 drives Caravel
+directly; CLK1 is the matched FPGA feedback copy on J10-16/U14. The FPGA's
+onboard 50 MHz input is U18.
+
 The FPGA RTL changes scan data/control on the falling edge of `wb_clk_i`. Caravel samples on the rising edge.
+The shared v28 runtime holds each selected scan cell for 2400 clocks, or
+1.2 ms at the FPGA-selected 2 MHz clock. Single-cell and burst captures
+use the same hold interval and measure from ScanInDR rise through TM fall.
 
 ## Packet Format
 

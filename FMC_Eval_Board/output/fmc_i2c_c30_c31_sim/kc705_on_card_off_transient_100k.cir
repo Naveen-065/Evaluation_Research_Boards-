@@ -1,0 +1,12 @@
+KC705 startup charging an unpowered daughtercard +1V8 rail through C30/C31
+.options reltol=1e-6 abstol=1e-12 vntol=1e-8
+VKC kc3 0 PWL(0 0 1u 0 2u 3.3)
+Rkc_scl kc3 scl 4.7k
+Rkc_sda kc3 sda 4.7k
+R54 rail18 scl 10k
+R53 rail18 sda 10k
+Rload18 rail18 0 100000.0
+Crail18 rail18 0 10u
+.tran 0.1m 0.5 0 0.1m uic
+.save time v(scl) v(rail18)
+.end

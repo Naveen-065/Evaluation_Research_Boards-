@@ -1,0 +1,73 @@
+ADS5282 50MHz existing_low idle_low: illustrative driver, not vendor IBIS
+* C60/C61=100n assumed from schematic; fitted values must be verified.
+* ADS clock-input bias is 5k per leg to 1.5V typical, DIFF_CLK=1.
+* Input capacitance 5e-12/5e-12 F, driver resistance and line are ASSUMPTIONS.
+* Steady-state capacitor precharge is analytic; idle cases start fully rebias-settled.
+Vp sp 0 PULSE(0 1.8 100n 5e-10 5e-10 9.5e-09 20n)
+Vn sn 0 0
+Rp sp dp 25
+Rn sn dn 25
+Ctpstart dp 0 6.250000000000001e-13
+Rtp0 dp pres0 0.25
+Ltp0 pres0 pline0 3.1250000000000003e-09
+Ctp0 pline0 0 1.2500000000000001e-12
+Rtp1 pline0 pres1 0.25
+Ltp1 pres1 pline1 3.1250000000000003e-09
+Ctp1 pline1 0 1.2500000000000001e-12
+Rtp2 pline1 pres2 0.25
+Ltp2 pres2 pline2 3.1250000000000003e-09
+Ctp2 pline2 0 1.2500000000000001e-12
+Rtp3 pline2 pres3 0.25
+Ltp3 pres3 pline3 3.1250000000000003e-09
+Ctp3 pline3 0 1.2500000000000001e-12
+Rtp4 pline3 pres4 0.25
+Ltp4 pres4 pline4 3.1250000000000003e-09
+Ctp4 pline4 0 1.2500000000000001e-12
+Rtp5 pline4 pres5 0.25
+Ltp5 pres5 pline5 3.1250000000000003e-09
+Ctp5 pline5 0 1.2500000000000001e-12
+Rtp6 pline5 pres6 0.25
+Ltp6 pres6 pline6 3.1250000000000003e-09
+Ctp6 pline6 0 1.2500000000000001e-12
+Rtp7 pline6 pres7 0.25
+Ltp7 pres7 p 3.1250000000000003e-09
+Ctp7 p 0 6.250000000000001e-13
+Ctnstart dn 0 6.250000000000001e-13
+Rtn0 dn nres0 0.25
+Ltn0 nres0 nline0 3.1250000000000003e-09
+Ctn0 nline0 0 1.2500000000000001e-12
+Rtn1 nline0 nres1 0.25
+Ltn1 nres1 nline1 3.1250000000000003e-09
+Ctn1 nline1 0 1.2500000000000001e-12
+Rtn2 nline1 nres2 0.25
+Ltn2 nres2 nline2 3.1250000000000003e-09
+Ctn2 nline2 0 1.2500000000000001e-12
+Rtn3 nline2 nres3 0.25
+Ltn3 nres3 nline3 3.1250000000000003e-09
+Ctn3 nline3 0 1.2500000000000001e-12
+Rtn4 nline3 nres4 0.25
+Ltn4 nres4 nline4 3.1250000000000003e-09
+Ctn4 nline4 0 1.2500000000000001e-12
+Rtn5 nline4 nres5 0.25
+Ltn5 nres5 nline5 3.1250000000000003e-09
+Ctn5 nline5 0 1.2500000000000001e-12
+Rtn6 nline5 nres6 0.25
+Ltn6 nres6 nline6 3.1250000000000003e-09
+Ctn6 nline6 0 1.2500000000000001e-12
+Rtn7 nline6 nres7 0.25
+Ltn7 nres7 n 3.1250000000000003e-09
+Ctn7 n 0 6.250000000000001e-13
+R165 p n 100
+C61 p ap 100n
+C60 n an 100n
+Vbias bias 0 1.5
+Rbp ap bias 5k
+Rbn an bias 5k
+Cap ap 0 5e-12
+Can an 0 5e-12
+Cfpgafloat dn 0 3p
+.ic v(ap)=1.5 v(an)=1.5 v(p)=0 v(n)=0 v(dp)=0 v(dn)=0
+.options reltol=1e-5 abstol=1e-12
+.tran 0.05n 420n uic
+.save v(p) v(n) v(ap) v(an) i(Vp) i(Vn)
+.end

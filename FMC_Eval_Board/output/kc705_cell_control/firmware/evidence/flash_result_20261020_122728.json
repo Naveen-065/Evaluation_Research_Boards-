@@ -1,0 +1,10 @@
+{
+  "firmware": "gui_wb_mode.bin",
+  "bytes": 7944,
+  "erased_bytes": 8192,
+  "sha256": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef",
+  "verified": true,
+  "external_clock_bypass": true,
+  "cpu_reset_released": false,
+  "backup": "/home/ubuntu-24-04/kc705_cell_control/firmware/evidence/flash_before_blink_20261020_122728.bin"
+}

@@ -1,0 +1,143 @@
+{
+  "engine": "stderr Warning: can't find the initialization file spinit.\nstdout ******\nstdout ** ngspice-46 shared library\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******\nstdout ******\nstdout ** ngspice-46 : Circuit level simulation program\nstdout ** Compiled with KLU Direct Linear Solver\nstdout ** The U. C. Berkeley CAD Group\nstdout ** Copyright 1985-1994, Regents of the University of California.\nstdout ** Copyright 2001-2025, The ngspice team.\nstdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\nstdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******",
+  "model_scope": [
+    "Actual resistor values and board connections",
+    "Generic level-1 MOS functional equivalent for corrected U18",
+    "Unpowered-rail load swept because real regulator reverse behavior and board load are unknown",
+    "No prediction of silicon damage or regulator thermal behavior"
+  ],
+  "both_powered_idle": {
+    "connector_scl_V": 2.820408154215702,
+    "connector_sda_V": 2.820408154215702,
+    "si5351_scl_side_V": 3.299999966900001,
+    "si5351_sda_side_V": 3.299999966900001,
+    "u18_bias_V": 2.4209646707941355,
+    "injection_into_1v8_per_line_A": 0.0001020408154215702,
+    "injection_into_1v8_total_A": 0.0002040816308431404
+  },
+  "both_powered_host_low": {
+    "connector_scl_V": 0.012062401192839045,
+    "connector_sda_V": 2.820408154215702,
+    "si5351_scl_side_V": 0.021148317898546265,
+    "si5351_sda_side_V": 3.299999966900001,
+    "u18_bias_V": 2.4209646707941355,
+    "host_sink_from_kc_pullup_A": 0.0006995611912355661,
+    "host_sink_from_card_1v8_pullup_A": 0.0001787937598807161,
+    "host_sink_from_card_3v3_pullup_A": 0.00032788516821014534,
+    "host_sink_total_A": 0.0012062401193264276
+  },
+  "kc705_on_card_off_sweep": [
+    {
+      "connector_V": 2.2590603953823205,
+      "card_1v8_rail_V": 0.044295301865095386,
+      "card_3v3_rail_V": -2.948006983204517e-27,
+      "load_ohm": 100,
+      "total_injection_A": 0.0004429530186509539
+    },
+    {
+      "connector_V": 2.371257476873808,
+      "card_1v8_rail_V": 0.39520957914129334,
+      "card_3v3_rail_V": -3.314054235813364e-26,
+      "load_ohm": 1000.0,
+      "total_injection_A": 0.00039520957914129334
+    },
+    {
+      "connector_V": 2.4524590074875934,
+      "card_1v8_rail_V": 0.6491803246389773,
+      "card_3v3_rail_V": -6.164859868948356e-26,
+      "load_ohm": 1800.0,
+      "total_injection_A": 0.000360655735910543
+    },
+    {
+      "connector_V": 2.8530259223760384,
+      "card_1v8_rail_V": 1.9020172752106346,
+      "card_3v3_rail_V": -3.945512162601658e-25,
+      "load_ohm": 10000.0,
+      "total_injection_A": 0.00019020172752106347
+    },
+    {
+      "connector_V": 3.22775964301269,
+      "card_1v8_rail_V": 3.0740567881832446,
+      "card_3v3_rail_V": 0.0,
+      "load_ohm": 100000.0,
+      "total_injection_A": 3.074056788183245e-05
+    },
+    {
+      "connector_V": 3.2923015602121035,
+      "card_1v8_rail_V": 3.2759219341119343,
+      "card_3v3_rail_V": 0.0,
+      "load_ohm": 1000000.0,
+      "total_injection_A": 3.275921934111934e-06
+    },
+    {
+      "connector_V": 3.299225046257063,
+      "card_1v8_rail_V": 3.297576241598383,
+      "card_3v3_rail_V": 0.0,
+      "load_ohm": 10000000.0,
+      "total_injection_A": 3.297576241598383e-07
+    }
+  ],
+  "card_on_kc705_off_sweep": [
+    {
+      "connector_V": 1.2576021355414235,
+      "si5351_side_V": 1.2758628684312543,
+      "kc705_3v3_rail_V": 0.05133069940985405,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 100,
+      "total_injection_A": 0.0005133069940985405
+    },
+    {
+      "connector_V": 1.4529157337476921,
+      "si5351_side_V": 1.4785532908455021,
+      "kc705_3v3_rail_V": 0.433706189178416,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 1000.0,
+      "total_injection_A": 0.000433706189178416
+    },
+    {
+      "connector_V": 1.5795551024154344,
+      "si5351_side_V": 1.6173664287702179,
+      "kc705_3v3_rail_V": 0.6851082371922367,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 1800.0,
+      "total_injection_A": 0.00038061568732902036
+    },
+    {
+      "connector_V": 1.7406315690362542,
+      "si5351_side_V": 2.6546592495492014,
+      "kc705_3v3_rail_V": 1.4094182745232828,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 10000.0,
+      "total_injection_A": 0.00014094182745232829
+    },
+    {
+      "connector_V": 1.7926421849464451,
+      "si5351_side_V": 3.2197836472429033,
+      "kc705_3v3_rail_V": 1.7514823497278411,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 100000.0,
+      "total_injection_A": 1.751482349727841e-05
+    },
+    {
+      "connector_V": 1.807941573576207,
+      "si5351_side_V": 3.2830398609548395,
+      "kc705_3v3_rail_V": 1.8037028718274126,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 1000000.0,
+      "total_injection_A": 1.8037028718274126e-06
+    },
+    {
+      "connector_V": 1.8103538882144004,
+      "si5351_side_V": 3.2887410963171493,
+      "kc705_3v3_rail_V": 1.8099285550039745,
+      "u18_bias_V": 2.4209646707941355,
+      "load_ohm": 10000000.0,
+      "total_injection_A": 1.8099285550039746e-07
+    }
+  ],
+  "transient_100k_final": {
+    "time_s": 0.5,
+    "connector_V": 3.227097494047287,
+    "card_1v8_rail_V": 3.071985779254282
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "recorded_at_utc": "2026-10-19T16:03:54.368319+00:00",
+  "capture": {
+    "source_csv": "ads5282_analog_20261019_212705.csv",
+    "ila_clock_hz": 200000000,
+    "ila_samples": 4096,
+    "coherent_packets": 205,
+    "packet_interval_ila_cycles": {
+      "20": 204
+    },
+    "mean_packet_rate_hz": 10000000.0,
+    "all_capture_checks_pass": true,
+    "status_high_throughout_capture": {
+      "run_enable_1": true,
+      "pll_locked_1": true,
+      "adc_clock_running_1": true,
+      "adc_reset_n_1": true,
+      "config_done_1": true,
+      "dac_enable_1": true,
+      "dac_ready_1": true,
+      "ret_adclk_seen_1": true,
+      "ret_lclk_seen_1": true,
+      "ret_adclk_10m_1": true,
+      "ret_lclk_60m_1": true,
+      "ret_window_valid_1": true,
+      "frame_locked_sync[1:1]": true
+    },
+    "packet_changes_without_valid": 0,
+    "channels": {
+      "1": {
+        "raw_unique_words": 10,
+        "candidate_lsb_first_code_min": 2150,
+        "candidate_lsb_first_code_max": 2159,
+        "candidate_lsb_first_code_mean": 2154.243902439024,
+        "candidate_lsb_first_code_stdev": 1.6524997738810672
+      },
+      "2": {
+        "raw_unique_words": 8,
+        "candidate_lsb_first_code_min": 2044,
+        "candidate_lsb_first_code_max": 2052,
+        "candidate_lsb_first_code_mean": 2047.4243902439025,
+        "candidate_lsb_first_code_stdev": 1.4177929409188963
+      },
+      "3": {
+        "raw_unique_words": 7,
+        "candidate_lsb_first_code_min": 2046,
+        "candidate_lsb_first_code_max": 2052,
+        "candidate_lsb_first_code_mean": 2048.487804878049,
+        "candidate_lsb_first_code_stdev": 1.3884884081217241
+      },
+      "4": {
+        "raw_unique_words": 2,
+        "candidate_lsb_first_code_min": 2043,
+        "candidate_lsb_first_code_max": 2044,
+        "candidate_lsb_first_code_mean": 2043.7756097560975,
+        "candidate_lsb_first_code_stdev": 0.41718013177024976
+      },
+      "5": {
+        "raw_unique_words": 7,
+        "candidate_lsb_first_code_min": 1986,
+        "candidate_lsb_first_code_max": 1992,
+        "candidate_lsb_first_code_mean": 1989.4,
+        "candidate_lsb_first_code_stdev": 1.0801987170389913
+      }
+    },
+    "serial_bit_order_validated_by_known_input_or_test_pattern": false,
+    "adc_register_readback": false,
+    "adc6_captured": false,
+    "limitations": [
+      "Only ADC outputs 1-5 are connected to FMC; OUT6 is on J8.",
+      "Bit-reversed candidate codes need a known input or test-pattern validation.",
+      "No voltage or R9/R10/R11 current calibration is claimed.",
+      "Clock counters establish activity/rate, not LVDS eye quality."
+    ]
+  },
+  "reference_near_zero_capture": "ads5282_analog_20261019_212500.csv",
+  "ADC1_mean_code": 2154.243902439024,
+  "ADC1_ideal_equivalent_mV_before_offset_correction": 51.87690548780477,
+  "ADC1_change_from_near_zero_capture_mV": 49.615014403245894,
+  "reported_amplifier_differential_mV": 50,
+  "analog_voltage_agreement": "Approximately agrees with 50 mV meter report after loose connection was addressed.",
+  "reference_is_calibrated_zero": false,
+  "gain_validation": "Approximate reported ratio 6.25; nominal gain7 not independently established. Fitted R31 and calibration remain unverified.",
+  "R9_user_confirmed_ohms": 56,
+  "Caravel_removed": true,
+  "load_ohms_assumed_retained": 3300,
+  "R31_fitted_value_confirmed": false,
+  "firmware_or_pin_settings_changed_after_restore": false,
+  "previous_gain_inferences_superseded": "Earlier gain estimates combined conflicting non-simultaneous readings before a loose connection was found; do not identify R31 from them.",
+  "R9_direct_mV_after_connection_fixed": 8.0,
+  "current_from_meter_shunt_uA": 142.85714285714286,
+  "approximate_meter_voltage_ratio": 6.25,
+  "final_comparison": "direct8mV/comparison.json"
+}
