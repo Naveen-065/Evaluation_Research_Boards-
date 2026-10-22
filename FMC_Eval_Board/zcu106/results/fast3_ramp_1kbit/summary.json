@@ -1,0 +1,126 @@
+{
+  "method": {
+    "set_points_v": [
+      [
+        2.3,
+        0.44
+      ],
+      [
+        2.3,
+        1.09
+      ],
+      [
+        2.3,
+        1.75
+      ]
+    ],
+    "reset_points_v": [
+      [
+        2.3,
+        0.94
+      ],
+      [
+        2.8,
+        1.83
+      ],
+      [
+        3.0,
+        2.88
+      ]
+    ],
+    "set_target": ">=35 uA nominal SET/R10 delta current",
+    "reset_target": "<=5 uA nominal SET/R10 delta current",
+    "read_bias_v": 0.5,
+    "note": "Commanded DAC values; rails were not independently measured during this run."
+  },
+  "set": {
+    "job_id": "82f9e6aae8bf433695ba00f20ff4f6b7",
+    "duration_seconds": 450.836311,
+    "duration_minutes": 7.513938516666667,
+    "end_to_end_cells_per_second": 2.271334351327349,
+    "target_successes": 1019,
+    "target_failures": 5,
+    "target_success_percent": 99.51171875,
+    "total_pulses": 176,
+    "pulse_count_distribution": {
+      "0": 962,
+      "2": 10,
+      "3": 52
+    },
+    "voltage_pair_counts": {
+      "vcc_2300_wl_440_mv": 62,
+      "vcc_2300_wl_1090_mv": 62,
+      "vcc_2300_wl_1750_mv": 52
+    },
+    "final_current_ua": {
+      "min": 33.93333,
+      "p05": 36.799399550000004,
+      "median": 47.9409575,
+      "mean": 50.07257242480469,
+      "p95": 73.22586909999998,
+      "max": 109.991343
+    },
+    "mac_output_ua_input": {
+      "min": 23970.85070447857,
+      "p05": 24395.575301501216,
+      "median": 26769.17635340269,
+      "mean": 27928.500280899254,
+      "p95": 34205.10339542311,
+      "max": 40817.45093209403
+    }
+  },
+  "reset": {
+    "job_id": "c4756ed4f9044d8f9f0649b0d206d2cb",
+    "duration_seconds": 313.059046,
+    "duration_minutes": 5.217650766666667,
+    "end_to_end_cells_per_second": 3.270948445936298,
+    "target_successes": 0,
+    "target_failures": 1024,
+    "target_success_percent": 0.0,
+    "total_pulses": 3072,
+    "pulse_count_distribution": {
+      "3": 1024
+    },
+    "voltage_pair_counts": {
+      "vcc_2300_wl_940_mv": 1024,
+      "vcc_2800_wl_1830_mv": 1024,
+      "vcc_3000_wl_2880_mv": 1024
+    },
+    "final_current_ua": {
+      "min": 27.516643,
+      "p05": 34.15474305,
+      "median": 45.993592,
+      "mean": 49.64355539257812,
+      "p95": 84.66495815,
+      "max": 142.60161
+    },
+    "mac_output_ua_input": {
+      "min": 18245.479557789913,
+      "p05": 18574.407568432034,
+      "median": 22192.994747032113,
+      "mean": 23027.788073838165,
+      "p95": 29470.427314602595,
+      "max": 37650.63300100314
+    }
+  },
+  "reset_effect_relative_to_set": {
+    "current_change_ua": {
+      "min": -21.676390000000005,
+      "p05": -13.71025415,
+      "median": -3.759610999999996,
+      "mean": -0.4290170322265626,
+      "p95": 22.964651049999993,
+      "max": 74.088179
+    },
+    "cells_reduced_by_at_least_2ua": 594,
+    "cells_increased_by_at_least_2ua": 304,
+    "cells_within_2ua": 126
+  },
+  "speed_comparison": {
+    "old_96_step_set_job": "d42d176742d74a90bd4fef034aec5178",
+    "old_96_step_set_seconds": 3930.804155,
+    "fast3_set_speedup": 8.718916509366965,
+    "interpretation": "End-to-end GUI/API job time, including Vivado startup, JTAG/VIO, MAC readback and cleanup."
+  },
+  "conclusion": "The three-point FPGA ramp makes full-array programming interactive-minute scale, but not real-time. SET is effective; RESET is ineffective at the tested capped rail pairs."
+}

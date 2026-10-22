@@ -1,0 +1,25 @@
+{
+  "read_voltage_v": 0.5,
+  "bin_width_uS": 4.0,
+  "hrs": {
+    "job_id": "30ab5bc5867444e39657ef724e0e33de",
+    "cells": 1024,
+    "median_uS": 36.055745334600005,
+    "mean_uS": 39.215492055070804,
+    "min_uS": 16.2595659382,
+    "max_uS": 174.958744986
+  },
+  "lrs": {
+    "job_id": "d42d176742d74a90bd4fef034aec5178",
+    "cells": 1024,
+    "median_uS": 93.2603323278,
+    "mean_uS": 99.26893534348184,
+    "min_uS": 67.2335144049,
+    "max_uS": 273.42486731
+  },
+  "best_threshold_uS": 68.5126107833,
+  "hrs_above_threshold": 46,
+  "lrs_below_threshold": 3,
+  "separation_accuracy": 0.97607421875,
+  "note": "Nominal, uncalibrated conductance from final full-array mac_read captures."
+}

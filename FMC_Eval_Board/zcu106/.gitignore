@@ -1,0 +1,11 @@
+.Xil/
+vivado_project/
+**/__pycache__/
+kc705_cell_control/runs/*.json
+kc705_cell_control/runs/*.jsonl
+kc705_cell_control/runs/*.log
+kc705_cell_control/runs/*.stop
+!kc705_cell_control/runs/d66f25357c54475ab3585b99f90408eb.json
+!kc705_cell_control/runs/c1701cc7754a4cafb6dce07c0fc1c297.json
+zcu106_cell_control/*.jou
+zcu106_cell_control/*.log

@@ -1,0 +1,14 @@
+{
+  "ready": true,
+  "reason": "ZCU106 J5/HPC0 initialized with FPGA-owned measured three-point PROGRAM_RAMP_FAST; the 96-step ramp remains available as fallback and every scan packet retains the mandatory bounded Caravel reset/READY sequence.",
+  "target": "zcu106",
+  "connector": "J5/HPC0",
+  "fmc_vadj_v": 1.79625,
+  "hashes": {
+    "build/zcu106_adc_capture.bit": "b1344941f1effc4a0fbf4314291f5f6567be2208c4d4bcdc8fc4cea792e36fcf",
+    "build/zcu106_adc_capture.ltx": "d49d9992d961bab1d451e8594ee4f4a9d253aa847a6015373a647e7dbeb24e70",
+    "../kc705_cell_control/firmware/gui_wb_mode.bin": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef"
+  },
+  "calibrated": false,
+  "validation_note": "Live J5 VADJ 1.79625 V; U135 HPC0 channel 0 selected; Si5351 2 MHz/PLLA lock verified; DAC startup completed; ADS5282 return clocks valid at 60/10 MHz; measured three-point fast-ramp and reset-per-packet simulations passed; initialized hardware returned the full controller startup signature; routed timing WNS +0.447 ns, WHS +0.010 ns, and zero failing endpoints."
+}
