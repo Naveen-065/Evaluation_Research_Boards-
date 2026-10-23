@@ -11,7 +11,8 @@ tested Tcl scripts:
   firmware, tests and analysis. The historical directory name is retained so
   the validated relative paths remain unchanged.
 - `results/`: the exact final 32x32 LRS and HRS reads used for the distribution
-  plot, all five contiguous HRS resume configurations, and provenance metadata.
+  plot, all five contiguous HRS resume configurations, provenance metadata, and
+  `ZCU106_latest_1Kbit_raw_cell_data.xlsx` with one unmodified record per cell.
 
 ## Validated hardware and electrical setup
 
@@ -136,6 +137,11 @@ The full-array SET/RESET hardware jobs and per-cell results are preserved in
 `results/array_set_reset_validation.json` and the referenced run JSON files.
 All current values are nominal, uncalibrated estimates; the rails were not
 independently measured during these jobs.
+
+For direct analysis in Excel, `results/ZCU106_latest_1Kbit_raw_cell_data.xlsx`
+contains separate `LRS raw` and `HRS raw` sheets. Each sheet has 1024 source
+records and all 61 stored fields; no formulas, unit conversion, filtering,
+sorting, interpolation, or conductance calculation was applied.
 
 ## Latest distribution and programming-voltage plots
 
