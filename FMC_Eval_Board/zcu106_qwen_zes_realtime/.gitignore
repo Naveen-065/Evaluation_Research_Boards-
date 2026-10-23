@@ -1,0 +1,30 @@
+# Runtime state and user/model data
+runtime/*
+!runtime/.gitkeep
+app/__pycache__/
+app/tests/__pycache__/
+*.py[cod]
+
+# Local model caches and virtual environments
+.venv/
+models/*
+!models/README.md
+.cache/
+
+# Vivado-generated project/cache files.  Reproducible bit/ltx/dcp outputs in
+# fpga/build are intentionally not ignored.
+fpga/.Xil/
+fpga/**/.Xil/
+fpga/vivado_project/
+fpga/**/*.jou
+fpga/**/*.log
+fpga/**/*.str
+
+# The ZES binary/header package is supplied under a confidential third-party
+# licence.  Keep a local copy for board builds, but never publish it by accident.
+board/vendor/zes/*
+!board/vendor/zes/README.md
+# The static relay contains linked proprietary vendor object code.  Keep the
+# verified local build for deployment, but do not publish it.
+board/build/*
+

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZCU106 · Qwen EDAC Laboratory</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">ZCU106 / 1Kbit ReRAM / ZES EDAC</p>
+      <h1>Fault-aware Qwen laboratory</h1>
+      <p class="subtitle">Live tensor protection, streamed local inference, and asynchronous physical-array evidence.</p>
+    </div>
+    <div class="status-cluster" aria-label="System status">
+      <span id="runtimeChip" class="chip neutral">Runtime · checking</span>
+      <span id="edacChip" class="chip neutral">EDAC · checking</span>
+      <span id="fpgaChip" class="chip neutral">FPGA · checking</span>
+    </div>
+  </header>
+
+  <div id="runtimeBanner" class="banner warning" hidden></div>
+
+  <section class="grid upper-grid">
+    <article class="card protect-card">
+      <div class="card-title">
+        <div><p class="kicker">01 · MODEL MEMORY</p><h2>Protect one live 1 KiB tensor view</h2></div>
+        <span id="shaBadge" class="state-badge neutral">Not initialized</span>
+      </div>
+      <p class="explain">Protection is in memory only. Model files on disk are never modified. Check evaluates a copy; Repair writes only a SHA-verifiable correction.</p>
+      <div class="form-grid protect-options">
+        <label>EDAC backend
+          <select id="edacMode">
+            <option value="reference">Reference mock · single-bit</option>
+            <option id="boardEdacOption" value="board">ZCU106 ZES1 relay</option>
+          </select>
+        </label>
+        <label>Decoder threshold
+          <input id="threshold" type="number" min="1" max="8192" step="1" value="3">
+        </label>
+        <label>Check / repair parity
+          <select id="paritySource">
+            <option value="host">Host encoded copy · not X1</option>
+            <option id="physicalParityOption" value="physical">Physical X1 readback · SHA-gated</option>
+          </select>
+        </label>
+      </div>
+      <div class="button-row">
+        <button id="initializeBtn" class="primary" type="button">Initialize &amp; encode parity</button>
+        <button id="checkBtn" type="button">Check · no mutation</button>
+        <button id="repairBtn" type="button">Repair &amp; verify SHA</button>
+      </div>
+      <div class="divider"></div>
+      <div class="fault-row">
+        <label class="range-label">Injected BER · protected 8192-bit view
+          <input id="berRange" type="range" min="0" max="5" step="0.001" value="0.012">
+        </label>
+        <label class="compact-label">Percent
+          <input id="berNumber" type="number" min="0" max="100" step="0.001" value="0.012">
+        </label>
+        <label class="compact-label">Seed
+          <input id="seed" type="number" min="0" max="4294967295" step="1" value="20261023">
+        </label>
+        <button id="injectBtn" class="danger" type="button">Inject into live view</button>
+      </div>
+      <p id="berResolution" class="microcopy">1 bit = 0.012207% of this block.</p>
+      <dl class="metrics six">
+        <div><dt>Tensor</dt><dd id="tensorName">—</dd></div>
+        <div><dt>Injected</dt><dd id="injectedBits">0 bits</dd></div>
+        <div><dt>Decoder</dt><dd id="decoderResult">—</dd></div>
+        <div><dt>Baseline SHA</dt><dd id="baselineSha">—</dd></div>
+        <div><dt>Current SHA</dt><dd id="currentSha">—</dd></div>
+        <div><dt>Parity</dt><dd id="paritySha">—</dd></div>
+      </dl>
+      <p id="protectionMessage" class="message" aria-live="polite">Initialize protection to begin.</p>
+    </article>
+
+    <article class="card inference-card">
+      <div class="card-title">
+        <div><p class="kicker">02 · INFERENCE</p><h2>Prompt the active runtime</h2></div>
+        <span id="streamState" class="state-badge neutral">Idle</span>
+      </div>
+      <form id="promptForm">
+        <label>Input text
+          <textarea id="prompt" rows="6" maxlength="8000" placeholder="Ask the local model a question…" required>Explain why EDAC is useful for ReRAM-backed AI weights.</textarea>
+        </label>
+        <div class="form-grid three">
+          <label>Max new tokens<input id="maxTokens" type="number" min="1" max="256" value="128"></label>
+          <label class="toggle-field"><input id="hardwareProbe" type="checkbox"><span>Async FPGA 32-cell probe</span></label>
+          <div class="button-row end"><button id="generateBtn" class="primary" type="submit">Generate</button><button id="cancelBtn" type="button" disabled>Cancel</button></div>
+        </div>
+      </form>
+      <div class="response-head"><span>Live response</span><span id="tokenMeta">Waiting</span></div>
+      <div id="response" class="response" aria-live="polite">The streamed response will appear here.</div>
+      <p id="inferenceMessage" class="message">FPGA assistance is read-only and asynchronous; token streaming does not wait for it.</p>
+    </article>
+  </section>
+
+  <section class="grid lower-grid">
+    <article class="card map-card">
+      <div class="card-title map-title">
+        <div><p class="kicker">03 · PHYSICAL EVIDENCE</p><h2>1Kbit parity memory map</h2></div>
+        <div class="button-row">
+          <button id="programMapBtn" class="danger" type="button">Program parity to X1</button>
+          <button id="readMapBtn" class="primary" type="button">Read parity map</button>
+          <button id="cancelMapBtn" type="button" disabled>Stop</button>
+          <button id="simulateMapBtn" class="ghost" type="button" title="Clearly labelled; sends no FPGA command">Simulation</button>
+        </div>
+      </div>
+      <div class="map-meta">
+        <span id="mapSource" class="state-badge neutral">No readback</span>
+        <span id="mapProgressText">0 / 1024</span>
+        <progress id="mapProgress" max="1024" value="0"></progress>
+      </div>
+      <div class="map-layout">
+        <div>
+          <div id="memoryMap" class="memory-map" role="grid" aria-label="32 by 32 physical ReRAM parity map"></div>
+          <div class="axis-note">Physical index = row × 32 + column</div>
+        </div>
+        <aside class="legend" aria-label="Memory map legend">
+          <h3>Readback legend</h3>
+          <span><i class="swatch lrs"></i>Logical 1 · LRS</span>
+          <span><i class="swatch hrs"></i>Logical 0 · HRS</span>
+          <span><i class="swatch spare"></i>Unused spare</span>
+          <span><i class="swatch failed"></i>Failed cell</span>
+          <span><i class="swatch mismatch"></i>Mismatch / unknown</span>
+          <p>Classification uses direct FPGA readback current and the validated 34.256 µA separator. Gray cells are deliberately unused.</p>
+        </aside>
+      </div>
+      <p id="mapMessage" class="message" aria-live="polite">Initialize parity before programming or reading the array. Programming changes cells 0..575 and leaves all spares untouched.</p>
+    </article>
+
+    <aside class="card telemetry-card">
+      <div class="card-title"><div><p class="kicker">04 · TELEMETRY</p><h2>Run state</h2></div></div>
+      <dl class="telemetry">
+        <div><dt>Runtime</dt><dd id="runtimeDetail">—</dd></div>
+        <div><dt>ZES relay</dt><dd id="relayDetail">—</dd></div>
+        <div><dt>Bitmap tools</dt><dd id="senseDetail">—</dd></div>
+        <div><dt>FPGA probe</dt><dd id="probeDetail">Off</dd></div>
+      </dl>
+      <div id="eventLog" class="event-log" aria-live="polite"><div>Console ready.</div></div>
+      <button id="refreshBtn" class="wide" type="button">Refresh capabilities</button>
+    </aside>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

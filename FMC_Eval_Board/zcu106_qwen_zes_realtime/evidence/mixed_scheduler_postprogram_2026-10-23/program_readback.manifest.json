@@ -1,0 +1,16 @@
+{
+  "protocol": "ZCU106_BITMAP_V1",
+  "source_sha256": "67102448b3b7251de5d455b640db32f27247d1d3dd93cd7aebf058153ceef95b",
+  "fpga_bitmap_register_readback_match": true,
+  "mapping": "row-major; word 0 bit 0 = physical row 0 column 0",
+  "start": 0,
+  "count": 576,
+  "hold_clocks": 2400,
+  "reset_retry_limit": 2,
+  "completed": 576,
+  "failures": 53,
+  "set_targets": 287,
+  "set_failures": 11,
+  "reset_targets": 289,
+  "reset_failures": 42
+}

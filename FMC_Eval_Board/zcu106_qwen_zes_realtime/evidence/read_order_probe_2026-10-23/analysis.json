@@ -1,0 +1,30 @@
+{
+  "protocol": "ZCU106_ROW_ORDER_ANALYSIS_V1",
+  "rows": [17, 18],
+  "threshold_uA": 34.2563054,
+  "random_seed": 20261023,
+  "pairwise": {
+    "forward_reverse": {
+      "classification_changes": 1,
+      "changed_physical_indices": [575],
+      "mean_abs_current_delta_uA": 0.2254522923,
+      "median_abs_current_delta_uA": 0.1570283415,
+      "max_abs_current_delta_uA": 0.9647215930
+    },
+    "forward_random": {
+      "classification_changes": 0,
+      "changed_physical_indices": [],
+      "mean_abs_current_delta_uA": 0.2628680262,
+      "median_abs_current_delta_uA": 0.2325915205,
+      "max_abs_current_delta_uA": 0.7275867420
+    },
+    "reverse_random": {
+      "classification_changes": 1,
+      "changed_physical_indices": [575],
+      "mean_abs_current_delta_uA": 0.2463470217,
+      "median_abs_current_delta_uA": 0.1986392190,
+      "max_abs_current_delta_uA": 0.7252625390
+    }
+  },
+  "conclusion": "Read order is not the dominant error source; only marginal r17c31 changes classification."
+}
