@@ -137,6 +137,26 @@ The full-array SET/RESET hardware jobs and per-cell results are preserved in
 All current values are nominal, uncalibrated estimates; the rails were not
 independently measured during these jobs.
 
+## Latest distribution and programming-voltage plots
+
+Run:
+
+```powershell
+python kc705_cell_control/analysis/plot_latest_array_set_reset.py
+```
+
+This recreates `output/plots/latest_lrs_hrs_conductance_distribution.png` and
+`output/plots/latest_set_reset_programming_voltage.png`, together with their
+CSV data and JSON summaries. The conductance plot uses the final 1024-cell SET
+and RESET reads, 4-uS bins, frequency curves and hollow measured-count markers.
+The latest medians are 102.89 uS for LRS and 35.71 uS for HRS. The best
+data-derived separator is 75.68 uS, with 99.71% separation accuracy.
+
+The voltage plot assigns a voltage only when a cell crossed its target during
+its own targeted ramp. Already-in-state cells and cells changing before a
+later retry are reported separately. The seven RESET failures are shown as
+censored 3.00-V/2.88-V limits, not as transition voltages.
+
 ## Regression tests
 
 ```powershell

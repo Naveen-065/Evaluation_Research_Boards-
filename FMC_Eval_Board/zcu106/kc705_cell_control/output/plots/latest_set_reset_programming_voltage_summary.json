@@ -1,0 +1,67 @@
+{
+  "source_jobs": {
+    "set": "3049643729fb4425a6a6433f69dabacb",
+    "reset_passes": [
+      "08cbce7693ea4d17b447c0746e55e802",
+      "2a74d697bfe4400a81a6332ef9b54152",
+      "80881d174711464388e6fb957ac02bc5"
+    ]
+  },
+  "method": {
+    "transition": "Terminal commanded rail for a cell that crossed target during its own targeted FPGA ramp.",
+    "excluded": "Cells already in-state or changing before their next targeted retry have no assignable transition voltage.",
+    "failed_cap": "Censored limit at 3.00 V VCC, 2.88 V WL and 6.0 ms; not a transition.",
+    "voltage_basis": "Commanded DAC values, not independently probed analog rails."
+  },
+  "set": {
+    "already_lrs": 1022,
+    "targeted_transitions": 2,
+    "transition_vcc_v": {
+      "n": 2,
+      "min": 2.3,
+      "q1": 2.3,
+      "median": 2.3,
+      "mean": 2.3,
+      "q3": 2.3,
+      "max": 2.3
+    },
+    "transition_wl_v": {
+      "n": 2,
+      "min": 0.44,
+      "q1": 0.7675000000000001,
+      "median": 1.095,
+      "mean": 1.095,
+      "q3": 1.4224999999999999,
+      "max": 1.75
+    }
+  },
+  "reset": {
+    "already_hrs_first_pass": 906,
+    "targeted_transitions": 92,
+    "indirect_before_retry": 19,
+    "failed_at_cap": 7,
+    "targeted_transition_vcc_v": {
+      "n": 92,
+      "min": 2.3,
+      "q1": 2.3,
+      "median": 2.3,
+      "mean": 2.4565217391304355,
+      "q3": 2.7,
+      "max": 3.0
+    },
+    "targeted_transition_wl_v": {
+      "n": 92,
+      "min": 0.94,
+      "q1": 1.9924999999999997,
+      "median": 2.44,
+      "mean": 2.202282608695652,
+      "q3": 2.69,
+      "max": 2.88
+    },
+    "targeted_transition_hold_ms_counts": {
+      "1.2": 73,
+      "2.4": 10,
+      "6.0": 9
+    }
+  }
+}
