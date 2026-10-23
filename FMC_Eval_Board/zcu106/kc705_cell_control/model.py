@@ -2,7 +2,7 @@
 import math
 from datetime import datetime, timezone
 
-MODES = ["read", "set", "reset", "cycle", "column", "array", "scan_mac",
+MODES = ["read", "set", "reset", "cycle", "column", "array", "array_set", "array_reset", "scan_mac",
          "wb_read", "wb_set", "wb_reset", "wb_cycle", "check"]
 PATHS = ["READ / R9", "RESET / R11", "SET / R10", "ADC4", "ADC5"]
 DEFAULTS = dict(mode="read", row=0, col=0, set_v=2.3, set_wl=1.3,
@@ -56,6 +56,15 @@ def validate(data):
 
 def plan(p):
     m=p["mode"]
+    if m in ("array_set", "array_reset"):
+        reset=m=="array_reset"
+        return {"cells":1024,"program_operations":1024,
+                "fpga_owned_scheduler":True,"reset_sweeps_per_failed_cell":3 if reset else 0,
+                "reset_hold_ms":[1.2,2.4,6.0] if reset else [],
+                "verification_reads":10,
+                "target_current_ua":34.2563054 if reset else 35.0,
+                "voltage_ceiling_v":3.0,
+                "note":"Plan only; no hardware access or synthetic measurements."}
     if m == "scan_mac":
         rows, cols = len(p["weight_matrix"]), len(p["weight_matrix"][0])
         return {"cells": rows*cols, "matrix_shape": [rows, cols],

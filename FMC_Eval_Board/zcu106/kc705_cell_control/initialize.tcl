@@ -186,18 +186,22 @@ set sv [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_scan_vio"}]
 set cp [get_hw_probes -quiet scan_command -of_objects $sv -filter {TYPE == vio_output}]
 set rp0 [get_hw_probes -quiet scan_result0 -of_objects $sv -filter {TYPE == vio_input}]
 set rp1 [get_hw_probes -quiet scan_result1 -of_objects $sv -filter {TYPE == vio_input}]
-# Programming recreates the VIO core with its initial output, while Vivado can
-# retain the previous session's OUTPUT_VALUE property.  Refresh before deriving
-# the edge token so the startup HOLD is guaranteed to toggle in fabric.
-refresh_hw_vio $sv
-set old [expr 0x[get_property OUTPUT_VALUE $cp]]
-set toggle [expr {1-(($old>>63)&1)}]
+# Programming recreates the VIO core and controller toggle at zero, while
+# Vivado can retain the previous session's OUTPUT_VALUE property.  Drive the
+# known first edge explicitly; do not derive it from that stale property.
+set toggle 1
 set_property OUTPUT_VALUE [format %016llX [expr {($toggle<<63)|(1<<62)|(4<<58)}]] $cp
 commit_hw_vio $cp
-after 20
-refresh_hw_vio $sv
-set h0 [get_property INPUT_VALUE $rp0]
-set h1 [get_property INPUT_VALUE $rp1]
+set deadline [expr {[clock milliseconds]+2000}]
+while {1} {
+ refresh_hw_vio $sv
+ set h0 [get_property INPUT_VALUE $rp0]
+ set h1 [get_property INPUT_VALUE $rp1]
+ set status [expr 0x$h0]
+ if {(($status>>15)&1)==$toggle && ($status&512) && !($status&256)} { break }
+ if {[clock milliseconds]>$deadline} { error "Full controller startup command timeout: $h0/$h1" }
+ after 10
+}
 if {([expr 0x$h1]>>224)!=0x53435232 || !(([expr 0x$h0]>>36)&1) || !(([expr 0x$h0]>>32)&1)} { error "Full controller startup failed: $h0/$h1" }
 puts "FULL_CONTROL_STARTUP_PASS $h0 $h1"
 puts "Targets: VDDA1=3.0 V VCCD2=1.8 V; ADC 10 MSPS; CPU held until operation"

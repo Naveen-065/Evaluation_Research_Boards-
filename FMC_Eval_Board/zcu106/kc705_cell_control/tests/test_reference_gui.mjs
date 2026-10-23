@@ -36,7 +36,7 @@ await new Promise(r=>setImmediate(r));
 assert.equal(elements.heatmap.children.length,1024);
 assert.equal([...html.matchAll(/<canvas\b/g)].length,1,"Only the reference Read Trace is visible");
 assert.ok(!html.includes('id="waveform"'));
-for(const mode of ["read","set","reset","cycle","column","array","wb_read","wb_set","wb_reset","wb_cycle"]){
+for(const mode of ["read","set","reset","cycle","column","array","array_set","array_reset","wb_read","wb_set","wb_reset","wb_cycle"]){
   elements.operationInput.value=mode;elements.operationInput.onchange();
   await elements.commandForm.onsubmit({preventDefault(){}});
   const p=requests.filter(x=>x.path==="/api/run").at(-1).body;
@@ -74,7 +74,7 @@ const wb=JSON.parse(fs.readFileSync(new URL("runs/c1701cc7754a4cafb6dce07c0fc1c2
 context.render({...empty,deployment:{ready:true},job:wb,jobs:[wb],history:wb.results});
 assert.equal(elements.lastCurrent.textContent,"--","WB TDC data is not converted into ADC conductance");
 assert.match(elements.tickerText.children[0].textContent,/no valid TDC; unverified/);
-console.log("PASS: all ten payloads, saved RESET pulse/read association, job isolation, invalid/log values, WB status, single-chart layout.");
+console.log("PASS: all payloads, saved RESET pulse/read association, job isolation, invalid/log values, WB status, single-chart layout.");
 const rampBefore={...reset.results[0],operation:"before_reset__s1_v2300_wl940"};
 const rampPulse={...reset.results[1],operation:"reset_pulse"};
 const rampAfter={...reset.results[2],operation:"after_reset_limit__s1_v2300_wl940"};

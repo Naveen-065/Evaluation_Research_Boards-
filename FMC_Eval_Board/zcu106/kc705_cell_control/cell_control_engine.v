@@ -276,7 +276,9 @@ reg [1:0] mac_stage=0;
          program_hold<={1'b0,command[24:10]}; program_clip_seen<=0;
          packet<={command[57],command[4:0],command[9:5],command[4:0]};
          reset_low<=1; tm<=0; se<=1; si<=0; wb_mode<=0; wb_release<=0;
-         dac_frame<=command[57] ? 24'h0901D0 : 24'h0901CC;
+         // Both polarities use the established DAC2/DAC3 scan-programming
+         // pair; OP_SET in the scan packet selects SET versus RESET.
+         dac_frame<=24'h0901D0;
          dac_start<=1; state<=DAC;
         end
        end
@@ -325,12 +327,12 @@ reg [1:0] mac_stage=0;
      if(program_active) case(program_phase)
       0: begin
        program_phase<=1;
-       dac_frame<={(program_set ? 8'h12 : 8'h15),program_vcc_code};
+       dac_frame<={8'h12,program_vcc_code};
        dac_start<=1; state<=DAC;
       end
       1: begin
        program_phase<=2;
-       dac_frame<={(program_set ? 8'h13 : 8'h14),program_wl_code};
+       dac_frame<={8'h13,program_wl_code};
        dac_start<=1; state<=DAC;
       end
       2: begin
@@ -344,20 +346,16 @@ reg [1:0] mac_stage=0;
       end
       4: begin
        program_phase<=5;
-       dac_frame<=program_set ? 24'h138000 : 24'h1575C3;
+       dac_frame<=24'h138000;
        dac_start<=1; state<=DAC;
       end
       5: begin
-       if(!program_set) begin
-        program_phase<=6; dac_frame<=24'h0901D0; dac_start<=1; state<=DAC;
-       end else begin
-        program_phase<=7; packet<={1'b0,program_row,program_col,program_row};
-        hold_cycles<=16'd2400; clip_mask<=0; base_count<=0; active_count<=0;
-        for(j=0;j<5;j=j+1) begin baseline[j]<=0; active[j]<=0; end
-        reset_ticks<=0; saw_ready_low<=0; trace_count<=0; trace_sample<=0; trace_decimate<=0;
-        ready_fallback_used<=0;
-        trace_div<=100; tm<=0; se<=1; si<=0; reset_low<=1; state<=RESET;
-       end
+       program_phase<=7; packet<={1'b0,program_row,program_col,program_row};
+       hold_cycles<=16'd2400; clip_mask<=0; base_count<=0; active_count<=0;
+       for(j=0;j<5;j=j+1) begin baseline[j]<=0; active[j]<=0; end
+       reset_ticks<=0; saw_ready_low<=0; trace_count<=0; trace_sample<=0; trace_decimate<=0;
+       ready_fallback_used<=0;
+       trace_div<=100; tm<=0; se<=1; si<=0; reset_low<=1; state<=RESET;
       end
       6: begin
        program_phase<=7; packet<={1'b0,program_row,program_col,program_row};
@@ -407,7 +405,7 @@ reg [1:0] mac_stage=0;
      if(ticks==POST_CYCLES-1) begin
       if(program_active && program_phase==3) begin
        program_clip_seen<=|clip_mask[2:0]; program_phase<=4;
-       dac_frame<=program_set ? 24'h12199A : 24'h140000;
+       dac_frame<=24'h12199A;
        dac_start<=1; state<=DAC; ticks<=0; reset_low<=1; tm<=0; se<=1; si<=0;
       end else begin
        state<=IDLE; done<=1;

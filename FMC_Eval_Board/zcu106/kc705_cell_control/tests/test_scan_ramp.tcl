@@ -95,8 +95,7 @@ proc scan_capture {r c op clocks label {emit 1} {allow_program_clip 0} {mac_inpu
   if {$op} {
    assert {$rail_mask eq "scan" && [dict get $rails 2]>0 && [dict get $rails 3]>0} "SET did not use DAC2/DAC3"
   } else {
-   assert {$rail_mask eq "reset" && [dict get $rails 5]>=2.3 && [dict get $rails 5]<=3.0 &&
-           [dict get $rails 4]>=0.94 && [dict get $rails 4]<=2.88} "RESET did not use the DAC5/DAC4 ramp"
+   assert {$rail_mask eq "scan" && [dict get $rails 2]>0 && [dict get $rails 3]>0} "RESET did not use the proven DAC2/DAC3 path"
   }
   set value 80
  } else {
@@ -125,9 +124,9 @@ set result [scan_program 0 0 reset]
 assert {[dict get $result target_met] && $pulse_count==1} "RESET must read back and confirm"
 reset_test
 set result [scan_program 0 0 reset]
-assert {![dict get $result target_met] && $pulse_count==3} "Fast RESET ramp exhaustion must be bounded"
+assert {![dict get $result target_met] && $pulse_count==96} "Reliable RESET ramp exhaustion must be bounded"
 assert {[llength [lsearch -all -inline $frames before_reset*]]==1} "RESET must perform only one host-side pre-read before the FPGA ramp"
-assert {[string match after_reset_limit__s3_v3000_wl2880 [lindex $frames end]]} "Wrong fast RESET ramp endpoint"
+assert {[string match after_reset_limit__s96_v3000_wl2880 [lindex $frames end]]} "Wrong reliable RESET ramp endpoint"
 reset_test
 set cancelled 1
 assert {[catch {scan_program 0 0 reset}] && !$pulse_count && ![llength $mutations]} "Cancellation must stop before programming"
@@ -144,7 +143,7 @@ foreach op {set reset} {
   assert {[lindex $pair 0]<=3000 && [lindex $pair 1]<=3000} "Grid exceeds hard limit"
  }
 }
-puts "PASS: target skip, ten stable reads, one initial pre-read, FPGA three-point PROGRAM_RAMP, bounded exhaustion, invalid feedback and cancellation"
+puts "PASS: target skip, ten stable reads, one initial pre-read, FPGA SET fast ramp, full RESET ramp, bounded exhaustion, invalid feedback and cancellation"
 set f [open [file join [file dirname [file dirname [file normalize [info script]]]] control.tcl]]
 set source [read $f]; close $f
 set begin [string first "proc dac " $source]

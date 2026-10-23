@@ -1,0 +1,3808 @@
+API_SSH_ATTEMPT 1/3
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source {C:\Users\SER7\Documents\GitHub\Evaluation_Research_Boards-\FMC_Eval_Board\output\zcu106_cell_control\control.tcl}
+# set zcu_here [file dirname [file normalize [info script]]]
+# set source_dir [file normalize [file join $zcu_here .. kc705_cell_control]]
+# set hw_target_pattern localhost:3121/xilinx_tcf/Xilinx/*
+# set hw_part xczu7
+# set probes_file [file join $zcu_here build zcu106_adc_capture.ltx]
+# set fmc_mux_address 0x75
+# set fmc_mux_value 0x01
+# source [file join $source_dir control.tcl]
+## set here [file dirname [file normalize [info script]]]
+## if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
+## lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
+## if {$action ni {check hold read set reset cycle column array array_set array_reset scan_mac diagnostic_reset_setrails wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+## foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
+## foreach v [list $setv $setwl $resetv $resetwl] {
+##  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
+## }
+## if {$resetv<2.3 || $resetv>3.0 || $resetwl<0.94} {
+##  error "RESET ramp limits require VCC 2.3..3.0 V and WL 0.94..3.0 V"
+## }
+## if {![string is integer -strict $hold] || $hold<20 || $hold>12000 ||
+##     ![string is integer -strict $cycles] || $cycles<1 || $cycles>10 ||
+##     ![regexp {^[a-f0-9]{32}$} $jobid]} { error "Invalid pulse, cycle count or job ID" }
+## set stopfile [file join $here runs "$jobid.stop"]
+## source [file join $here i2c_host.tcl]
+### set here [file dirname [file normalize [info script]]]
+### if {![info exists hw_target_pattern]} { set hw_target_pattern localhost:3121/xilinx_tcf/Xilinx/00001f14c98801 }
+### if {![info exists hw_part]} { set hw_part xc7k325t }
+### if {![info exists probes_file]} { set probes_file [file join $here build kc705_adc_capture.ltx] }
+### if {![info exists fmc_mux_address]} { set fmc_mux_address 0x74 }
+### if {![info exists fmc_mux_value]} { set fmc_mux_value 0x04 }
+### open_hw_manager
+### connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2022.2
+  **** Build date : Oct 14 2022 at 05:18:10
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2022.2.0
+  ****** Build date   : Oct 05 2022-07:25:37
+    **** Build number : 2022.2.1664925937
+      ** Copyright 2017-2026 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:09 . Memory (MB): peak = 1029.258 ; gain = 24.836
+### set target [get_hw_targets -quiet $hw_target_pattern]
+### if {[llength $target] != 1} { error "Expected exactly one JTAG target matching $hw_target_pattern" }
+### current_hw_target $target
+### open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/11672
+### set dev [get_hw_devices -quiet -filter "PART == $hw_part"]
+### if {[llength $dev] != 1} { error "Expected exactly one FPGA part $hw_part" }
+### current_hw_device $dev
+### if {[info exists program_before_vio]} {
+###     set_property PROGRAM.FILE $program_before_vio $dev
+###     set_property PROBES.FILE $probes_file $dev
+###     set_property FULL_PROBES.FILE $probes_file $dev
+###     program_hw_devices $dev
+### }
+### set_property PROBES.FILE $probes_file $dev
+### refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+refresh_hw_device: Time (s): cpu = 00:00:04 ; elapsed = 00:00:17 . Memory (MB): peak = 3232.105 ; gain = 2201.484
+### set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+### if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+### set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+### set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+### if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+### proc read_status {} {
+###     global vio statprobe
+###     refresh_hw_vio $vio
+###     set hex [get_property INPUT_VALUE $statprobe]
+###     return [expr 0x$hex]
+### }
+### proc to_hex128 {value} {
+###     set result ""
+###     for {set n 0} {$n < 32} {incr n} {
+###         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+###         set value [expr {$value >> 4}]
+###     }
+###     if {$value != 0} { error "Command overflow" }
+###     return $result
+### }
+### set token [expr {[read_status] & 255}]
+### proc i2c_transfer {addr bytes nr} {
+###     global token cmdprobe
+###     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+###     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+###         error "Bad transaction length"
+###     }
+###     set s [read_status]
+###     if {$s & 256} { error "I2C bridge is already busy" }
+###     set token [expr {($token % 255) + 1}]
+###     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+###     set shift 23
+###     foreach b $bytes {
+###         if {$b < 0 || $b > 255} { error "Bad byte" }
+###         set cmd [expr {$cmd | ($b << $shift)}]
+###         incr shift 8
+###     }
+###     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+###     commit_hw_vio $cmdprobe
+###     set deadline [expr {[clock milliseconds] + 10000}]
+###     while {1} {
+###         set s [read_status]
+###         if {($s & 255) == $token && !($s & 256)} { break }
+###         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+###         after 10
+###     }
+###     if {$s & 512} {
+###         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+###     }
+###     set acked [expr {($s >> 80) & 255}]
+###     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+###     set result {}
+###     for {set i 0} {$i < $nr} {incr i} {
+###         lappend result [expr {($s >> (16+8*$i)) & 255}]
+###     }
+###     return $result
+### }
+### proc mux_select_fmc {} {
+###     global fmc_mux_address fmc_mux_value
+###     i2c_transfer $fmc_mux_address [list $fmc_mux_value] 0
+### }
+### proc mux_read {} {
+###     global fmc_mux_address
+###     return [lindex [i2c_transfer $fmc_mux_address [list] 1] 0]
+### }
+### proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+### proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+### proc close_i2c_bridge {} {
+###     close_hw_target
+###     disconnect_hw_server
+###     close_hw_manager
+### }
+## set sv [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_scan_vio"}]
+## set cp [get_hw_probes -quiet scan_command -of_objects $sv -filter {TYPE == vio_output}]
+## set rp0 [get_hw_probes -quiet scan_result0 -of_objects $sv -filter {TYPE == vio_input}]
+## set rp1 [get_hw_probes -quiet scan_result1 -of_objects $sv -filter {TYPE == vio_input}]
+## if {[llength $sv]!=1 || [llength $cp]!=1 || [llength $rp0]!=1 || [llength $rp1]!=1} { error "Control image/VIO missing" }
+## proc status_read {} {
+##  global sv rp0 rp1
+##  refresh_hw_vio $sv
+##  return [list [get_property INPUT_VALUE $rp0] [get_property INPUT_VALUE $rp1]]
+## }
+## proc cancel_check {} {
+##  global stopfile restoring
+##  if {!$restoring && [file exists $stopfile]} { error "CANCELLED" }
+## }
+## set restoring 0
+## proc command {op payload {timeout 6000}} {
+##  global cp
+##  set old [expr 0x[get_property OUTPUT_VALUE $cp]]
+##  set toggle [expr {1-(($old>>63)&1)}]
+##  set value [expr {($toggle<<63)|(1<<62)|($op<<58)|$payload}]
+##  set_property OUTPUT_VALUE [format %016llX $value] $cp
+##  commit_hw_vio $cp
+##  set deadline [expr {[clock milliseconds]+$timeout}]
+##  set last_array_completed -1
+##  while {1} {
+##   if {$op!=4} { cancel_check }
+##   lassign [status_read] h0 h1
+##   set s [expr 0x$h0]
+##   if {$op==12} {
+##    set q [expr 0x$h1]
+##    if {($q>>224)==0x41525032} {
+##     set completed [expr {($q>>213)&0x7ff}]
+##     if {$completed!=$last_array_completed} {
+##      set failed [expr {($q>>202)&0x7ff}]
+##      set index [expr {($q>>173)&0x3ff}]
+##      puts "ARRAY_PROGRESS $completed $failed [expr {$index>>5}] [expr {$index&31}]"; flush stdout
+##      set last_array_completed $completed
+##     }
+##    }
+##   }
+##   if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
+##   if {[clock milliseconds]>$deadline} { error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1" }
+##   after 10
+##  }
+##  if {$s&1024} { error "Controller fault [expr {($s>>11)&15}]: $h0 / $h1" }
+##  return [list $h0 $h1]
+## }
+## proc hold_cpu {{wb 0}} { command 4 [expr {$wb<<57}] }
+## proc dac {ch voltage} {
+##  if {$ch ni {2 3 4 5 9 10 11 12 13} || $voltage<0 || $voltage>3} { error "Protected DAC channel/value" }
+##  # Floor the maximum code so even rounding cannot command above 3.0 V.
+##  command 2 [expr {(0x10+$ch)<<16 | min(39321,round($voltage*65536.0/5.0))}]
+## }
+## proc power_mask {wb} {
+##  # The reference disables DAC6, its physical VCC_SET output. This PCB uses
+##  # DAC2 for VCC_SET, so disable bit2 as well as WL_SET/unused outputs in WB.
+##  command 2 [expr {$wb ? 0x0901CC : 0x0901D0}]
+## }
+## proc scan_profile {} {
+##  hold_cpu
+##  # Keep the unused dedicated RESET rail low, restore its support rail, and
+##  # return the proven DAC2/DAC3 scan-programming pair to read bias.
+##  dac 2 0.5; dac 3 2.5; dac 4 0; dac 5 2.3
+##  dac 9 0.9; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.0
+##  power_mask 0
+## }
+## proc wb_profile {} {
+##  hold_cpu 1
+##  dac 2 0.5; dac 3 0; dac 4 0.5; dac 5 2.5
+##  # Evaluation-board WB bias profile, encoded for this PCB's 0..5 V ranges.
+##  dac 9 1.0; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.5
+##  power_mask 1
+## }
+## proc write_verify {reg value} {
+##  si5351_write $reg $value
+##  if {[si5351_read $reg]!=$value} { error "Si5351 readback mismatch register $reg" }
+## }
+## proc clock_profile {mhz} {
+##  global fmc_mux_value
+##  # CPU must already be held. PLLA stays 900 MHz; CLK0/1 match.
+##  mux_select_fmc
+##  if {[mux_read]!=$fmc_mux_value} { error "FMC I2C mux mismatch" }
+##  set old [si5351_read 3]
+##  set bytes [expr {$mhz==2 ? {0 1 0 223 0 0 0 0} : {0 1 0 43 0 0 0 0}}]
+##  write_verify 3 255
+##  for {set i 0} {$i<8} {incr i} {
+##   write_verify [expr {42+$i}] [lindex $bytes $i]
+##   write_verify [expr {50+$i}] [lindex $bytes $i]
+##  }
+##  write_verify 165 0; write_verify 166 0
+##  write_verify 16 79; write_verify 17 79
+##  si5351_write 177 32
+##  after 20
+##  if {[si5351_read 0]&0xA8} { error "Si5351 PLL/crystal fault" }
+##  write_verify 3 252
+##  puts "EVENT clock_mhz=$mhz"; flush stdout
+## }
+## proc emit_scan {r c label clocks pair} {
+##  lassign $pair h0 h1
+##  puts "CELL_RESULT $r $c $label $clocks $h0 $h1"; flush stdout
+## }
+## proc scan_capture {r c op clocks label {emit 1} {allow_program_clip 0} {mac_input {}}} {
+##  cancel_check
+##  set mac_payload 0
+##  if {$mac_input ne {}} {
+##   if {![string is integer -strict $mac_input] || $mac_input<-128 || $mac_input>127 || $op} {
+##    error "MAC input must be signed 8-bit and use a READ packet"
+##   }
+##   set mac_payload [expr {(1<<56)|(($mac_input&255)<<48)}]
+##  }
+##  lassign [command 1 [expr {($op<<57)|$mac_payload|($clocks<<10)|($c<<5)|$r}]] h0 h1
+##  set pair [list $h0 $h1]
+##  if {$emit} { emit_scan $r $c $label $clocks $pair }
+##  # A SET/RESET programming pulse can legitimately exceed the current-sense ADC
+##  # span.  Like the reference Kintex flow, programming decisions are made only
+##  # from the restored read-profile capture after the pulse.  Preserve and flag
+##  # the saturated pulse trace, but never relax clipping checks for a READ.
+##  if {([expr 0x$h0]>>37)&1} {
+##   if {!$emit} { emit_scan $r $c $label $clocks $pair }
+##   if {$allow_program_clip} {
+##    puts "EVENT PROGRAM_PULSE_CLIPPED $label: trace retained; continuing to post-pulse read"; flush stdout
+##    return $pair
+##   }
+##   error "ADC clipping on a current-sense channel; stopped before another pulse"
+##  }
+##  return $pair
+## }
+## source [file join $here scan_ramp.tcl]
+### proc ramp_grid {op maxv maxwl} {
+###  if {$op ni {set reset}} { error "Unknown ramp operation" }
+###  if {$op eq "set"} {
+###   foreach v [list $maxv $maxwl] {
+###    if {![string is double -strict $v] || $v<=0 || $v>3.0} { error "SET ramp limit must be >0 and <=3.0 V" }
+###   }
+###   set grid {{2300 440} {2300 1090} {2300 1750}}
+###  } else {
+###   # Reference RESET ramp. Hardware A/B testing restored the proven Kintex/Zynq
+###   # path: DAC2/DAC3 drive the programming rails and OP_SET=0 selects RESET.
+###   # The 3.1/3.5-V reference levels are deliberately omitted so neither
+###   # programmed rail exceeds the 3.0-V cap.
+###   if {![string is double -strict $maxv] || $maxv<2.3 || $maxv>3.0 ||
+###       ![string is double -strict $maxwl] || $maxwl<0.94 || $maxwl>3.0} {
+###    error "RESET ramp limits require VCC 2.3..3.0 V and WL 0.94..3.0 V"
+###   }
+###   set vs {2300 2700 3000}
+###   set ws {940 1010 1070 1130 1190 1260 1320 1380 1440 1510 1570 1630 1690 1760 1820 1880 1940 2010 2070 2130 2190 2260 2320 2380 2440 2500 2570 2630 2690 2750 2820 2880}
+###   set grid {}
+###   foreach v $vs {
+###    if {$v>round($maxv*1000)} continue
+###    foreach w $ws {
+###     if {$w<=round($maxwl*1000)} { lappend grid [list $v $w] }
+###    }
+###   }
+###  }
+###  set bounded {}
+###  foreach pair $grid {
+###   lassign $pair v w
+###   if {$v<=round($maxv*1000) && $w<=round($maxwl*1000)} { lappend bounded $pair }
+###  }
+###  if {![llength $bounded]} { error "Ramp limits exclude every ramp step" }
+###  return $bounded
+### }
+### proc ramp_current {pair r c} {
+###  lassign $pair h0 h1
+###  set a [expr 0x$h0]; set b [expr 0x$h1]
+###  set packet [expr {($r<<10)|($c<<5)|$r}]
+###  if {($b>>224)!=0x53435232 || !($a&512) || ($a&1280) ||
+###      (($a>>16)&65535)!=$packet || (($a>>37)&1)} { error "Invalid ramp ADC feedback" }
+###  set nb [expr {($a>>64)&65535}]; set na [expr {($a>>80)&65535}]
+###  if {$nb<500 || $nb>800 || $na<11960 || $na>12040} { error "Invalid ramp ADC sample count" }
+###  set base [expr {double(($a>>160)&0xffffffff)/$nb}]
+###  set active [expr {double(($b>>64)&0xffffffff)/$na}]
+###  if {$base<0 || $base>4095 || $active<0 || $active>4095} { error "Ramp ADC sum outside range" }
+###  return [expr {($active-$base)/2048.0/(7*56)*1e6}]
+### }
+### proc ramp_passes {op current} {
+###  # The measured full-array separator is 68.5126108 uS. At the 0.5-V read
+###  # bias this is 34.2563054 uA.  The former 5-uA criterion was outside the
+###  # observed HRS distribution and falsely marked every RESET as failed.
+###  return [expr {$op eq "set" ? $current>=35.0 : $current<=34.2563054}]
+### }
+### proc ramp_read {r c label} {
+###  set pair [scan_capture $r $c 0 2400 $label 0]
+###  set current [ramp_current $pair $r $c]
+###  return [list $pair $current]
+### }
+### proc program_step {r c op mv mw label} {
+###  global hold
+###  set setop [expr {$op eq "set"}]
+###  set vcc_code [expr {min(39321,round($mv/1000.0*65536.0/5.0))}]
+###  set wl_code [expr {min(39321,round($mw/1000.0*65536.0/5.0))}]
+###  set payload [expr {($setop<<57)|($vcc_code<<41)|($wl_code<<25)|
+###                          ($hold<<10)|($c<<5)|$r}]
+###  lassign [command 8 $payload] h0 h1
+###  set pair [list $h0 $h1]
+###  if {([expr 0x$h0]>>44)&1} {
+###   puts "EVENT PROGRAM_STEP pulse clipped at r$r/c$c; post-pulse READ is clean"; flush stdout
+###  }
+###  return [list $pair [ramp_current $pair $r $c]]
+### }
+### proc program_ramp {r c op maxv maxwl} {
+###  global hold
+###  set setop [expr {$op eq "set"}]
+###  set vcc_code [expr {min(39321,round($maxv*65536.0/5.0))}]
+###  set wl_code [expr {min(39321,round($maxwl*65536.0/5.0))}]
+###  set payload [expr {($setop<<57)|($vcc_code<<41)|($wl_code<<25)|
+###                          ($hold<<10)|($c<<5)|$r}]
+###  # The fabric executes all bounded ramp steps and ten-read confirmation.
+###  # Thirty seconds is a fault timeout, not an intentional delay.
+###  # SET uses command 11 (three points). RESET uses command 9 (all 96 bounded
+###  # points) because the three-point proxy was not a reliable transition grid.
+###  set fpga_op [expr {$op eq "set" ? 11 : 9}]
+###  lassign [command $fpga_op $payload [expr {$op eq "set" ? 30000 : 180000}]] h0 h1
+###  set a [expr 0x$h0]; set b [expr 0x$h1]
+###  if {($b>>224)!=0x53435232} { error "Invalid FPGA ramp result" }
+###  set pulses [expr {($b>>216)&255}]
+###  set met [expr {($b>>215)&1}]
+###  set pulse_clipped [expr {($b>>214)&1}]
+###  set last_index [expr {($b>>207)&127}]
+###  set confirmations [expr {($b>>203)&15}]
+###  set max_pulses [llength [ramp_grid $op $maxv $maxwl]]
+###  if {$pulses<1 || $pulses>$max_pulses || $last_index>=$max_pulses || ($met && $confirmations!=10)} {
+###   error "Invalid FPGA ramp summary: pulses=$pulses met=$met last_index=$last_index confirmations=$confirmations"
+###  }
+###  set currents {}
+###  for {set page 0} {$page*28<$pulses} {incr page} {
+###   lassign [command 10 $page] p0 p1
+###   set x [expr 0x$p0]; set y [expr 0x$p1]
+###   if {($y>>224)!=0x524D5032 || (($x>>16)&255)!=$pulses || (($x>>26)&3)!=$page} {
+###    error "Invalid FPGA ramp trace page $page"
+###   }
+###   for {set k 0} {$k<28 && [llength $currents]<$pulses} {incr k} {
+###    set raw [expr {$k<14 ? (($x>>(32+16*$k))&65535) : (($y>>(16*($k-14)))&65535)}]
+###    if {$raw&32768} { set raw [expr {$raw-65536}] }
+###    # FPGA trace words hold ramp_delta/2^14; ramp_delta is 48000 times
+###    # the average ADC-code difference.  The ramp pass/fail comparison in
+###    # fabric still uses the full-precision ramp_delta value.
+###    lappend currents [expr {$raw*(16384.0/48000.0)/2048.0/392.0*1e6}]
+###   }
+###  }
+###  return [dict create pair [list $h0 $h1] pulses $pulses target_met $met \
+###          pulse_clipped $pulse_clipped last_index $last_index currents $currents]
+### }
+### proc scan_array_program {op start count} {
+###  global hold
+###  if {$op ni {set reset} || ![string is integer -strict $start] ||
+###      ![string is integer -strict $count] || $start<0 || $count<1 ||
+###      $start+$count>1024} { error "Invalid FPGA array-program range" }
+###  set setop [expr {$op eq "set"}]
+###  set reliable [expr {$op eq "reset"}]
+###  # Two additional complete RESET sweeps (three total) maximize transition
+###  # probability while retaining the characterized 3.0-V hard ceiling. Fabric
+###  # escalates the default hold from 1.2 ms to 2.4 ms and then 6.0 ms.
+###  set retry_limit [expr {$reliable ? 2 : 0}]
+###  set payload [expr {($setop<<57)|($reliable<<56)|($start<<46)|
+###                     (($count-1)<<36)|($hold<<21)|($retry_limit<<19)}]
+###  puts "EVENT FPGA array scheduler: [string toupper $op] cells $start..[expr {$start+$count-1}], reliable=$reliable, max_sweeps=[expr {$retry_limit+1}]"; flush stdout
+###  lassign [command 12 $payload 28800000] h0 h1
+###  set b [expr 0x$h1]
+###  if {($b>>224)!=0x41525232} { error "Invalid FPGA array-program summary" }
+###  set completed [expr {($b>>213)&0x7ff}]
+###  set failures [expr {($b>>202)&0x7ff}]
+###  set total_pulses [expr {($b>>183)&0x7ffff}]
+###  set reported_start [expr {($b>>161)&0x3ff}]
+###  set reported_end [expr {($b>>151)&0x3ff}]
+###  if {$completed!=$count || $reported_start!=$start || $reported_end!=$start+$count-1 || $failures>$completed} {
+###   error "Invalid FPGA array-program counts/range: completed=$completed failures=$failures range=$reported_start..$reported_end"
+###  }
+###  set scale [expr {(16384.0/48000.0)/2048.0/392.0*1e6}]
+###  for {set page 0} {$page*14<$count} {incr page} {
+###   lassign [command 13 $page] p0 p1
+###   set x [expr 0x$p0]; set y [expr 0x$p1]
+###   if {($y>>224)!=0x41524732 || (($x>>16)&0xffff)!=$page*14} {
+###    error "Invalid FPGA array result page $page"
+###   }
+###   for {set k 0} {$k<14 && $page*14+$k<$count} {incr k} {
+###    set word [expr {$k<7 ? (($x>>(32+32*$k))&0xffffffff) : (($y>>(32*($k-7)))&0xffffffff)}]
+###    set raw [expr {$word&0xffff}]
+###    if {$raw&0x8000} { set raw [expr {$raw-0x10000}] }
+###    set pulses [expr {($word>>16)&0x3ff}]
+###    set met [expr {($word>>26)&1}]
+###    set clipped [expr {($word>>27)&1}]
+###    set index [expr {$start+$page*14+$k}]
+###    set r [expr {$index>>5}]; set c [expr {$index&31}]
+###    set current [expr {$raw*$scale}]
+###    puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"
+###    puts "ARRAY_PROGRAM_DETAIL $r $c $op $pulses $met $clipped [format %.6f $current]"
+###   }
+###   flush stdout
+###  }
+###  puts "ARRAY_PROGRAM_SUMMARY $op $completed $failures $total_pulses"; flush stdout
+###  return [dict create operation $op completed $completed failures $failures total_pulses $total_pulses]
+### }
+### proc ramp_confirm {r c op suffix last_step} {
+###  set readings {}
+###  for {set k 1} {$k<=10} {incr k} {
+###   lassign [ramp_read $r $c "confirm_${op}_${k}$suffix"] pair current
+###   set pass [ramp_passes $op $current]
+###   set outcome [expr {!$pass && $last_step ? "_limit" : ($pass && $k==10 ? "_met" : "")}]
+###   emit_scan $r $c "confirm_${op}_${k}${outcome}$suffix" 2400 $pair
+###   lappend readings $current
+###   if {!$pass} { return [dict create target_met 0 readings $readings last_current $current] }
+###  }
+###  return [dict create target_met 1 readings $readings last_current $current]
+### }
+### proc ramp_finish {op pulses met current} {
+###  set verdict [expr {$met ? "target confirmed by 10 reads" : "limit reached; target NOT met"}]
+###  puts "EVENT RAMP [string toupper $op]: $verdict; pulses=$pulses; last=[format %.3f $current] uA nominal"
+###  puts "RAMP_COMPLETE $op $pulses $met [format %.6f $current]"; flush stdout
+###  return [dict create operation $op pulses $pulses target_met $met last_current $current]
+### }
+### proc scan_program {r c op} {
+###  global setv setwl resetv resetwl hold
+###  set maxv [expr {$op eq "set" ? $setv : $resetv}]
+###  set maxwl [expr {$op eq "set" ? $setwl : $resetwl}]
+###  set grid [ramp_grid $op $maxv $maxwl]
+###  set step 0; set pulses 0
+###  # Establish the state once before the first pulse.  Every compound
+###  # PROGRAM_STEP below already restores the read rails and returns a clean
+###  # post-pulse capture, so repeating the same standalone read before the next
+###  # ramp point adds a VIO round trip without adding a new safety decision.
+###  lassign [lindex $grid 0] first_mv first_mw
+###  set first_suffix "__s1_v${first_mv}_wl${first_mw}"
+###  lassign [ramp_read $r $c "before_$op$first_suffix"] pair current
+###  emit_scan $r $c "before_$op$first_suffix" 2400 $pair
+###  if {[ramp_passes $op $current]} {
+###   set result [ramp_confirm $r $c $op $first_suffix 0]
+###   if {[dict get $result target_met]} {
+###    return [ramp_finish $op $pulses 1 [dict get $result last_current]]
+###   }
+###  }
+###  cancel_check
+###  puts "EVENT PROGRAM_RAMP [string toupper $op] r$r/c$c: FPGA owns up to [llength $grid] serial single-cell steps"; flush stdout
+###  set result [program_ramp $r $c $op $maxv $maxwl]
+###  set pulses [dict get $result pulses]
+###  set met [dict get $result target_met]
+###  set currents [dict get $result currents]
+###  for {set k 0} {$k<$pulses} {incr k} {
+###   lassign [lindex $grid $k] mv mw
+###   puts "RAMP_POINT $r $c $op [expr {$k+1}] $mv $mw [format %.6f [lindex $currents $k]]"
+###  }
+###  lassign [lindex $grid [expr {$pulses-1}]] mv mw
+###  set suffix "__s${pulses}_v${mv}_wl${mw}"
+###  set outcome [expr {$met ? "_met" : "_limit"}]
+###  set pair [dict get $result pair]
+###  emit_scan $r $c "after_${op}${outcome}$suffix" 2400 $pair
+###  set current [ramp_current $pair $r $c]
+###  if {[dict get $result pulse_clipped]} {
+###   puts "EVENT PROGRAM_RAMP pulse clipping observed; restored READ result is clean"
+###  }
+###  return [ramp_finish $op $pulses $met $current]
+### }
+## proc mac_config {} {
+##  global here jobid
+##  set path [file join $here runs "$jobid.mac.txt"]
+##  if {![file exists $path]} { error "MAC configuration is missing" }
+##  set f [open $path r]
+##  set header [split [string trim [gets $f]]]
+##  if {[llength $header] ni {3 4}} { close $f; error "Invalid MAC configuration header" }
+##  lassign $header rows cols program program_start
+##  if {$program_start eq {}} { set program_start 0 }
+##  if {![string is integer -strict $rows] || $rows<1 || $rows>32 ||
+##      ![string is integer -strict $cols] || $cols<1 || $cols>32 || $program ni {0 1} ||
+##      ![string is integer -strict $program_start] || $program_start<0 || $program_start>$rows*$cols} {
+##   close $f; error "MAC dimensions/program flag are invalid"
+##  }
+##  set inputs [split [string trim [gets $f]]]
+##  if {[llength $inputs]!=$rows} { close $f; error "MAC input length differs from matrix rows" }
+##  foreach value $inputs {
+##   if {![string is integer -strict $value] || $value<-128 || $value>127} {
+##    close $f; error "MAC inputs must be signed 8-bit integers"
+##   }
+##  }
+##  set matrix {}
+##  for {set r 0} {$r<$rows} {incr r} {
+##   set weights [split [string trim [gets $f]]]
+##   if {[llength $weights]!=$cols} { close $f; error "MAC matrix is not rectangular" }
+##   foreach weight $weights {
+##    if {$weight ni {0 1}} { close $f; error "MAC weights must be binary" }
+##   }
+##   lappend matrix $weights
+##  }
+##  close $f
+##  return [dict create rows $rows cols $cols program $program program_start $program_start inputs $inputs matrix $matrix]
+## }
+## proc mac_clear {} {
+##  lassign [command 7 [expr {1<<57}]] h0 h1
+##  set b [expr 0x$h1]
+##  if {($b>>224)!=0x4D414332 || ($b&((1<<56)-1))!=0} { error "FPGA MAC clear/readback failed" }
+## }
+## proc mac_result {col} {
+##  lassign [command 7 $col] h0 h1
+##  set b [expr 0x$h1]
+##  if {($b>>224)!=0x4D414332 || (($b>>56)&31)!=$col || (($b>>64)&0xffffffff)!=48000} {
+##   error "FPGA MAC result signature/index/scale mismatch"
+##  }
+##  set raw [expr {$b&((1<<56)-1)}]
+##  if {$raw&(1<<55)} { set raw [expr {$raw-(1<<56)}] }
+##  return $raw
+## }
+## proc scan_mac {} {
+##  set cfg [mac_config]
+##  set rows [dict get $cfg rows]; set cols [dict get $cfg cols]
+##  set inputs [dict get $cfg inputs]; set matrix [dict get $cfg matrix]
+##  puts "MAC_METADATA $rows $cols [dict get $cfg program]"; flush stdout
+##  set program_start [dict get $cfg program_start]
+##  puts "MAC_RESUME $program_start"; flush stdout
+##  set program_attempts 0; set program_failures 0
+##  if {[dict get $cfg program]} {
+##   set array_owned 0
+##   if {$rows==32 && $cols==32} {
+##    if {$program_start==1024} {
+##     set array_owned 1
+##    } else {
+##     set first [lindex [lindex $matrix [expr {$program_start/32}]] [expr {$program_start%32}]]
+##     set uniform 1
+##     for {set index $program_start} {$index<1024} {incr index} {
+##      if {[lindex [lindex $matrix [expr {$index/32}]] [expr {$index%32}]]!=$first} { set uniform 0; break }
+##     }
+##     if {$uniform} {
+##      set array_owned 1
+##      set outcome [scan_array_program [expr {$first ? "set" : "reset"}] $program_start [expr {1024-$program_start}]]
+##      set program_attempts [dict get $outcome completed]
+##      set program_failures [dict get $outcome failures]
+##     }
+##    }
+##   }
+##   if {!$array_owned} {
+##    for {set r 0} {$r<$rows} {incr r} {
+##     for {set c 0} {$c<$cols} {incr c} {
+##      if {$r*$cols+$c<$program_start} continue
+##      cancel_check
+##      set op [expr {[lindex [lindex $matrix $r] $c] ? "set" : "reset"}]
+##      puts "EVENT MAC programming r$r/c$c as [string toupper $op]"; flush stdout
+##      set outcome [scan_program $r $c $op]
+##      incr program_attempts
+##      set met [dict get $outcome target_met]
+##      set current [dict get $outcome last_current]
+##      puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"; flush stdout
+##      if {!$met} {
+##       incr program_failures
+##       puts "EVENT MAC programming error r$r/c$c: [string toupper $op] target not confirmed; continuing"; flush stdout
+##      }
+##     }
+##    }
+##   }
+##  }
+##  puts "MAC_PROGRAM_SUMMARY $program_attempts $program_failures"; flush stdout
+##  scan_profile
+##  mac_clear
+##  set active 0
+##  for {set c 0} {$c<$cols} {incr c} {
+##   for {set r 0} {$r<$rows} {incr r} {
+##    set value [lindex $inputs $r]
+##    if {$value==0} continue
+##    incr active
+##    puts "EVENT MAC measuring r$r/c$c input=$value"; flush stdout
+##    scan_capture $r $c 0 2400 "mac_read__r${r}_c${c}" 1 0 $value
+##   }
+##  }
+##  for {set c 0} {$c<$cols} {incr c} {
+##   puts "MAC_RESULT $c [mac_result $c] 48000"; flush stdout
+##  }
+##  puts "MAC_COMPLETE $rows $cols $active"; flush stdout
+## }
+## proc wb_capture {r c op} {
+##  cancel_check
+##  # Use the reference project's permanent runtime firmware programming path
+##  # documented in api_v1/prerequisites/HARDWARE_RUNTIME_BACKUP.md.
+##  set mode [expr {$op eq "read" ? 1 : ($op eq "set" ? 3 : 0)}]
+##  # Match evaluation-board memory_controller_packet(), including READ PWM.
+##  set pwm 0xFF
+##  set value [expr {($mode<<30)|($r<<25)|($c<<20)|(2<<16)|(0xAA<<8)|$pwm}]
+##  # gui_wb_mode.c's write branch calls issue_program_setup for SET/RESET.
+##  # It sends the program packet twice without an intervening chip reset.
+##  # Repeating the read-transport command instead resets between packets and
+##  # returned zero banks on this PCB. READ uses issue_read_setup_once.
+##  set programming [expr {$op ne "read"}]
+##  set payload [expr {($programming<<57)|(0x80<<32)|$value}]
+##  cancel_check
+##  lassign [command 3 $payload 65000] h0 h1
+##  set b [expr 0x$h1]
+##  if {(($b>>40)&0x7FFF)!=0x7FFF || !(($b>>55)&1) || (($b>>64)&0xFFFFFFFF)!=$value} {
+##   error "Wishbone command echo or readback mask mismatch"
+##  }
+##  puts "EVENT WB $op r$r/c$c firmware transaction completed"; flush stdout
+##  for {set i 0} {$i<15} {incr i} {
+##   lassign [command 5 $i] h0 h1
+##   puts "WB_WORD $r $c $op $i [format %08X $value] $h0 $h1"; flush stdout
+##  }
+##  puts "WB_COMPLETE $r $c $op"; flush stdout
+## }
+## proc collect_trace {} {
+##  # The last scan operation remains in FPGA trace RAM. Three measured samples
+##  # per VIO read; their time stamps count 10-MSPS snapshots from baseline start.
+##  for {set i 0} {$i<256} {incr i 3} {
+##   cancel_check
+##   lassign [command 6 $i] h0 h1
+##   set b [expr 0x$h1]
+##   if {($b>>224)!=0x54524332 || (($b>>201)&255)!=$i} { error "ADC trace signature/index mismatch" }
+##   set n [expr {($b>>192)&511}]
+##   if {$n<3 || $n>256} { error "ADC trace length invalid: $n" }
+##   puts "TRACE_CHUNK $i $h1"; flush stdout
+##   if {$i+3>=$n} { break }
+##  }
+## }
+## lassign [status_read] h0 h1
+## if {([expr 0x$h1]>>224)!=0x53435232} { error "Full-control FPGA signature mismatch" }
+## puts "CONTROL_STATUS $h0 $h1";
+CONTROL_STATUS 0013c3d70013f5fd0013e2e00014376c0013f03e2edb02800000201b0f038209 53435232017e3feafe7017fe01726c9701761c5d01782896017af4680175b544
+## flush stdout
+## if {$action eq "check"} { close_i2c_bridge; exit }
+## set iswb [string match wb_* $action]
+EVENT clock_mhz=2
+EVENT FPGA array scheduler: SET cells 0..1023, reliable=0, max_sweeps=1
+ARRAY_PROGRESS 0 0 0 0
+ARRAY_PROGRESS 1 0 0 1
+ARRAY_PROGRESS 2 0 0 2
+ARRAY_PROGRESS 3 0 0 3
+ARRAY_PROGRESS 4 0 0 4
+ARRAY_PROGRESS 5 0 0 5
+ARRAY_PROGRESS 6 0 0 6
+ARRAY_PROGRESS 7 0 0 7
+ARRAY_PROGRESS 8 0 0 8
+ARRAY_PROGRESS 9 0 0 9
+ARRAY_PROGRESS 10 0 0 10
+ARRAY_PROGRESS 11 0 0 11
+ARRAY_PROGRESS 12 0 0 12
+ARRAY_PROGRESS 13 0 0 13
+ARRAY_PROGRESS 14 0 0 14
+ARRAY_PROGRESS 15 0 0 15
+ARRAY_PROGRESS 16 0 0 16
+ARRAY_PROGRESS 17 0 0 17
+ARRAY_PROGRESS 18 0 0 18
+ARRAY_PROGRESS 19 0 0 19
+ARRAY_PROGRESS 20 0 0 20
+ARRAY_PROGRESS 21 0 0 21
+ARRAY_PROGRESS 22 0 0 22
+ARRAY_PROGRESS 23 0 0 23
+ARRAY_PROGRESS 24 0 0 24
+ARRAY_PROGRESS 25 0 0 25
+ARRAY_PROGRESS 26 0 0 26
+ARRAY_PROGRESS 27 0 0 27
+ARRAY_PROGRESS 28 0 0 28
+ARRAY_PROGRESS 29 0 0 29
+ARRAY_PROGRESS 30 0 0 30
+ARRAY_PROGRESS 31 0 0 31
+ARRAY_PROGRESS 32 0 1 0
+ARRAY_PROGRESS 33 0 1 1
+ARRAY_PROGRESS 34 0 1 2
+ARRAY_PROGRESS 35 0 1 3
+ARRAY_PROGRESS 36 0 1 4
+ARRAY_PROGRESS 37 0 1 5
+ARRAY_PROGRESS 38 0 1 6
+ARRAY_PROGRESS 39 0 1 7
+ARRAY_PROGRESS 40 0 1 8
+ARRAY_PROGRESS 41 0 1 9
+ARRAY_PROGRESS 42 0 1 10
+ARRAY_PROGRESS 43 0 1 11
+ARRAY_PROGRESS 44 0 1 12
+ARRAY_PROGRESS 45 0 1 13
+ARRAY_PROGRESS 46 0 1 14
+ARRAY_PROGRESS 47 0 1 15
+ARRAY_PROGRESS 48 0 1 16
+ARRAY_PROGRESS 49 0 1 17
+ARRAY_PROGRESS 50 0 1 18
+ARRAY_PROGRESS 51 0 1 19
+ARRAY_PROGRESS 52 0 1 20
+ARRAY_PROGRESS 53 0 1 21
+ARRAY_PROGRESS 54 0 1 22
+ARRAY_PROGRESS 55 0 1 23
+ARRAY_PROGRESS 56 0 1 24
+ARRAY_PROGRESS 57 0 1 25
+ARRAY_PROGRESS 58 0 1 26
+ARRAY_PROGRESS 59 0 1 27
+ARRAY_PROGRESS 60 0 1 28
+ARRAY_PROGRESS 61 0 1 29
+ARRAY_PROGRESS 62 0 1 30
+ARRAY_PROGRESS 63 0 1 31
+ARRAY_PROGRESS 64 0 2 0
+ARRAY_PROGRESS 65 0 2 1
+ARRAY_PROGRESS 66 0 2 2
+ARRAY_PROGRESS 67 0 2 3
+ARRAY_PROGRESS 68 0 2 4
+ARRAY_PROGRESS 69 0 2 5
+ARRAY_PROGRESS 70 0 2 6
+ARRAY_PROGRESS 71 0 2 7
+ARRAY_PROGRESS 72 0 2 8
+ARRAY_PROGRESS 73 0 2 9
+ARRAY_PROGRESS 74 0 2 10
+ARRAY_PROGRESS 75 0 2 11
+ARRAY_PROGRESS 76 0 2 12
+ARRAY_PROGRESS 77 0 2 13
+ARRAY_PROGRESS 78 0 2 14
+ARRAY_PROGRESS 79 0 2 15
+ARRAY_PROGRESS 80 0 2 16
+ARRAY_PROGRESS 81 0 2 17
+ARRAY_PROGRESS 82 0 2 18
+ARRAY_PROGRESS 83 0 2 19
+ARRAY_PROGRESS 84 0 2 20
+ARRAY_PROGRESS 85 0 2 21
+ARRAY_PROGRESS 86 0 2 22
+ARRAY_PROGRESS 87 0 2 23
+ARRAY_PROGRESS 88 0 2 24
+ARRAY_PROGRESS 89 0 2 25
+ARRAY_PROGRESS 90 0 2 26
+ARRAY_PROGRESS 91 0 2 27
+ARRAY_PROGRESS 92 0 2 28
+ARRAY_PROGRESS 93 0 2 29
+ARRAY_PROGRESS 94 0 2 30
+ARRAY_PROGRESS 95 0 2 31
+ARRAY_PROGRESS 96 0 3 0
+ARRAY_PROGRESS 97 0 3 1
+ARRAY_PROGRESS 98 0 3 2
+ARRAY_PROGRESS 99 0 3 3
+ARRAY_PROGRESS 100 0 3 4
+ARRAY_PROGRESS 101 0 3 5
+ARRAY_PROGRESS 102 0 3 6
+ARRAY_PROGRESS 103 0 3 7
+ARRAY_PROGRESS 104 0 3 8
+ARRAY_PROGRESS 105 0 3 9
+ARRAY_PROGRESS 106 0 3 10
+ARRAY_PROGRESS 107 0 3 11
+ARRAY_PROGRESS 108 0 3 12
+ARRAY_PROGRESS 109 0 3 13
+ARRAY_PROGRESS 110 0 3 14
+ARRAY_PROGRESS 111 0 3 15
+ARRAY_PROGRESS 112 0 3 16
+ARRAY_PROGRESS 113 0 3 17
+ARRAY_PROGRESS 114 0 3 18
+ARRAY_PROGRESS 115 0 3 19
+ARRAY_PROGRESS 116 0 3 20
+ARRAY_PROGRESS 117 0 3 21
+ARRAY_PROGRESS 118 0 3 22
+ARRAY_PROGRESS 119 0 3 23
+ARRAY_PROGRESS 120 0 3 24
+ARRAY_PROGRESS 121 0 3 25
+ARRAY_PROGRESS 122 0 3 26
+ARRAY_PROGRESS 123 0 3 27
+ARRAY_PROGRESS 124 0 3 28
+ARRAY_PROGRESS 125 0 3 29
+ARRAY_PROGRESS 126 0 3 30
+ARRAY_PROGRESS 127 0 3 31
+ARRAY_PROGRESS 128 0 4 0
+ARRAY_PROGRESS 129 0 4 1
+ARRAY_PROGRESS 130 0 4 2
+ARRAY_PROGRESS 131 0 4 3
+ARRAY_PROGRESS 132 0 4 4
+ARRAY_PROGRESS 133 0 4 5
+ARRAY_PROGRESS 134 0 4 6
+ARRAY_PROGRESS 135 0 4 7
+ARRAY_PROGRESS 136 0 4 8
+ARRAY_PROGRESS 137 0 4 9
+ARRAY_PROGRESS 138 0 4 10
+ARRAY_PROGRESS 139 0 4 11
+ARRAY_PROGRESS 140 0 4 12
+ARRAY_PROGRESS 141 0 4 13
+ARRAY_PROGRESS 142 0 4 14
+ARRAY_PROGRESS 143 0 4 15
+ARRAY_PROGRESS 144 0 4 16
+ARRAY_PROGRESS 145 0 4 17
+ARRAY_PROGRESS 146 0 4 18
+ARRAY_PROGRESS 147 0 4 19
+ARRAY_PROGRESS 148 0 4 20
+ARRAY_PROGRESS 149 0 4 21
+ARRAY_PROGRESS 150 0 4 22
+ARRAY_PROGRESS 151 0 4 23
+ARRAY_PROGRESS 152 0 4 24
+ARRAY_PROGRESS 153 0 4 25
+ARRAY_PROGRESS 154 0 4 26
+ARRAY_PROGRESS 155 0 4 27
+ARRAY_PROGRESS 156 0 4 28
+ARRAY_PROGRESS 157 0 4 29
+ARRAY_PROGRESS 158 0 4 30
+ARRAY_PROGRESS 159 0 4 31
+ARRAY_PROGRESS 160 0 5 0
+ARRAY_PROGRESS 161 0 5 1
+ARRAY_PROGRESS 162 0 5 2
+ARRAY_PROGRESS 163 0 5 3
+ARRAY_PROGRESS 164 0 5 4
+ARRAY_PROGRESS 165 0 5 5
+ARRAY_PROGRESS 166 0 5 6
+ARRAY_PROGRESS 167 0 5 7
+ARRAY_PROGRESS 168 0 5 8
+ARRAY_PROGRESS 169 0 5 9
+ARRAY_PROGRESS 170 0 5 10
+ARRAY_PROGRESS 171 0 5 11
+ARRAY_PROGRESS 172 0 5 12
+ARRAY_PROGRESS 173 0 5 13
+ARRAY_PROGRESS 174 0 5 14
+ARRAY_PROGRESS 175 0 5 15
+ARRAY_PROGRESS 176 0 5 16
+ARRAY_PROGRESS 177 0 5 17
+ARRAY_PROGRESS 178 0 5 18
+ARRAY_PROGRESS 179 0 5 19
+ARRAY_PROGRESS 180 0 5 20
+ARRAY_PROGRESS 181 0 5 21
+ARRAY_PROGRESS 182 0 5 22
+ARRAY_PROGRESS 183 0 5 23
+ARRAY_PROGRESS 184 0 5 24
+ARRAY_PROGRESS 185 0 5 25
+ARRAY_PROGRESS 186 0 5 26
+ARRAY_PROGRESS 187 0 5 27
+ARRAY_PROGRESS 188 0 5 28
+ARRAY_PROGRESS 189 0 5 29
+ARRAY_PROGRESS 190 0 5 30
+ARRAY_PROGRESS 191 0 5 31
+ARRAY_PROGRESS 192 0 6 0
+ARRAY_PROGRESS 193 0 6 1
+ARRAY_PROGRESS 194 0 6 2
+ARRAY_PROGRESS 195 0 6 3
+ARRAY_PROGRESS 196 0 6 4
+ARRAY_PROGRESS 197 0 6 5
+ARRAY_PROGRESS 198 0 6 6
+ARRAY_PROGRESS 199 0 6 7
+ARRAY_PROGRESS 200 0 6 8
+ARRAY_PROGRESS 201 0 6 9
+ARRAY_PROGRESS 202 0 6 10
+ARRAY_PROGRESS 203 0 6 11
+ARRAY_PROGRESS 204 0 6 12
+ARRAY_PROGRESS 205 0 6 13
+ARRAY_PROGRESS 206 0 6 14
+ARRAY_PROGRESS 207 0 6 15
+ARRAY_PROGRESS 208 0 6 16
+ARRAY_PROGRESS 209 0 6 17
+ARRAY_PROGRESS 210 0 6 18
+ARRAY_PROGRESS 211 0 6 19
+ARRAY_PROGRESS 212 0 6 20
+ARRAY_PROGRESS 213 0 6 21
+ARRAY_PROGRESS 214 0 6 22
+ARRAY_PROGRESS 215 0 6 23
+ARRAY_PROGRESS 216 0 6 24
+ARRAY_PROGRESS 217 0 6 25
+ARRAY_PROGRESS 218 0 6 26
+ARRAY_PROGRESS 219 0 6 27
+ARRAY_PROGRESS 220 0 6 28
+ARRAY_PROGRESS 221 0 6 29
+ARRAY_PROGRESS 222 0 6 30
+ARRAY_PROGRESS 223 0 6 31
+ARRAY_PROGRESS 224 0 7 0
+ARRAY_PROGRESS 225 0 7 1
+ARRAY_PROGRESS 226 0 7 2
+ARRAY_PROGRESS 227 0 7 3
+ARRAY_PROGRESS 228 0 7 4
+ARRAY_PROGRESS 229 0 7 5
+ARRAY_PROGRESS 230 0 7 6
+ARRAY_PROGRESS 231 0 7 7
+ARRAY_PROGRESS 232 0 7 8
+ARRAY_PROGRESS 233 0 7 9
+ARRAY_PROGRESS 234 0 7 10
+ARRAY_PROGRESS 235 0 7 11
+ARRAY_PROGRESS 236 0 7 12
+ARRAY_PROGRESS 237 0 7 13
+ARRAY_PROGRESS 238 0 7 14
+ARRAY_PROGRESS 239 0 7 15
+ARRAY_PROGRESS 240 0 7 16
+ARRAY_PROGRESS 241 0 7 17
+ARRAY_PROGRESS 242 0 7 18
+ARRAY_PROGRESS 243 0 7 19
+ARRAY_PROGRESS 244 0 7 20
+ARRAY_PROGRESS 245 0 7 21
+ARRAY_PROGRESS 246 0 7 22
+ARRAY_PROGRESS 247 0 7 23
+ARRAY_PROGRESS 248 0 7 24
+ARRAY_PROGRESS 249 0 7 25
+ARRAY_PROGRESS 250 0 7 26
+ARRAY_PROGRESS 251 0 7 27
+ARRAY_PROGRESS 252 0 7 28
+ARRAY_PROGRESS 253 0 7 29
+ARRAY_PROGRESS 254 0 7 30
+ARRAY_PROGRESS 255 0 7 31
+ARRAY_PROGRESS 256 0 8 0
+ARRAY_PROGRESS 257 0 8 1
+ARRAY_PROGRESS 258 0 8 2
+ARRAY_PROGRESS 259 0 8 3
+ARRAY_PROGRESS 260 0 8 4
+ARRAY_PROGRESS 261 0 8 5
+ARRAY_PROGRESS 262 0 8 6
+ARRAY_PROGRESS 263 0 8 7
+ARRAY_PROGRESS 264 0 8 8
+ARRAY_PROGRESS 265 0 8 9
+ARRAY_PROGRESS 266 0 8 10
+ARRAY_PROGRESS 267 0 8 11
+ARRAY_PROGRESS 268 0 8 12
+ARRAY_PROGRESS 269 0 8 13
+ARRAY_PROGRESS 270 0 8 14
+ARRAY_PROGRESS 271 0 8 15
+ARRAY_PROGRESS 272 0 8 16
+ARRAY_PROGRESS 273 0 8 17
+ARRAY_PROGRESS 274 0 8 18
+ARRAY_PROGRESS 275 0 8 19
+ARRAY_PROGRESS 276 0 8 20
+ARRAY_PROGRESS 277 0 8 21
+ARRAY_PROGRESS 278 0 8 22
+ARRAY_PROGRESS 279 0 8 23
+ARRAY_PROGRESS 280 0 8 24
+ARRAY_PROGRESS 281 0 8 25
+ARRAY_PROGRESS 282 0 8 26
+ARRAY_PROGRESS 283 0 8 27
+ARRAY_PROGRESS 284 0 8 28
+ARRAY_PROGRESS 285 0 8 29
+ARRAY_PROGRESS 286 0 8 30
+ARRAY_PROGRESS 287 0 8 31
+ARRAY_PROGRESS 288 0 9 0
+ARRAY_PROGRESS 289 0 9 1
+ARRAY_PROGRESS 290 0 9 2
+ARRAY_PROGRESS 291 0 9 3
+ARRAY_PROGRESS 292 0 9 4
+ARRAY_PROGRESS 293 0 9 5
+ARRAY_PROGRESS 294 0 9 6
+ARRAY_PROGRESS 295 0 9 7
+ARRAY_PROGRESS 296 0 9 8
+ARRAY_PROGRESS 297 0 9 9
+ARRAY_PROGRESS 298 0 9 10
+ARRAY_PROGRESS 299 0 9 11
+ARRAY_PROGRESS 300 0 9 12
+ARRAY_PROGRESS 301 0 9 13
+ARRAY_PROGRESS 302 0 9 14
+ARRAY_PROGRESS 303 0 9 15
+ARRAY_PROGRESS 304 0 9 16
+ARRAY_PROGRESS 305 0 9 17
+ARRAY_PROGRESS 306 0 9 18
+ARRAY_PROGRESS 307 0 9 19
+ARRAY_PROGRESS 308 0 9 20
+ARRAY_PROGRESS 309 0 9 21
+ARRAY_PROGRESS 310 0 9 22
+ARRAY_PROGRESS 311 0 9 23
+ARRAY_PROGRESS 312 0 9 24
+ARRAY_PROGRESS 313 0 9 25
+ARRAY_PROGRESS 314 0 9 26
+ARRAY_PROGRESS 315 0 9 27
+ARRAY_PROGRESS 316 0 9 28
+ARRAY_PROGRESS 317 0 9 29
+ARRAY_PROGRESS 318 0 9 30
+ARRAY_PROGRESS 319 0 9 31
+ARRAY_PROGRESS 320 0 10 0
+ARRAY_PROGRESS 321 0 10 1
+ARRAY_PROGRESS 322 0 10 2
+ARRAY_PROGRESS 323 0 10 3
+ARRAY_PROGRESS 324 0 10 4
+ARRAY_PROGRESS 325 0 10 5
+ARRAY_PROGRESS 326 0 10 6
+ARRAY_PROGRESS 327 0 10 7
+ARRAY_PROGRESS 328 0 10 8
+ARRAY_PROGRESS 329 0 10 9
+ARRAY_PROGRESS 330 0 10 10
+ARRAY_PROGRESS 331 0 10 11
+ARRAY_PROGRESS 332 0 10 12
+ARRAY_PROGRESS 333 0 10 13
+ARRAY_PROGRESS 334 0 10 14
+ARRAY_PROGRESS 335 0 10 15
+ARRAY_PROGRESS 336 0 10 16
+ARRAY_PROGRESS 337 0 10 17
+ARRAY_PROGRESS 338 0 10 18
+ARRAY_PROGRESS 339 0 10 19
+ARRAY_PROGRESS 340 0 10 20
+ARRAY_PROGRESS 341 0 10 21
+ARRAY_PROGRESS 342 0 10 22
+ARRAY_PROGRESS 343 0 10 23
+ARRAY_PROGRESS 344 0 10 24
+ARRAY_PROGRESS 345 0 10 25
+ARRAY_PROGRESS 346 0 10 26
+ARRAY_PROGRESS 347 0 10 27
+ARRAY_PROGRESS 348 0 10 28
+ARRAY_PROGRESS 349 0 10 29
+ARRAY_PROGRESS 350 0 10 30
+ARRAY_PROGRESS 351 0 10 31
+ARRAY_PROGRESS 352 0 11 0
+ARRAY_PROGRESS 353 0 11 1
+ARRAY_PROGRESS 354 0 11 2
+ARRAY_PROGRESS 355 0 11 3
+ARRAY_PROGRESS 356 0 11 4
+ARRAY_PROGRESS 357 0 11 5
+ARRAY_PROGRESS 358 0 11 6
+ARRAY_PROGRESS 359 0 11 7
+ARRAY_PROGRESS 360 0 11 8
+ARRAY_PROGRESS 361 0 11 9
+ARRAY_PROGRESS 362 0 11 10
+ARRAY_PROGRESS 363 0 11 11
+ARRAY_PROGRESS 364 0 11 12
+ARRAY_PROGRESS 365 0 11 13
+ARRAY_PROGRESS 366 0 11 14
+ARRAY_PROGRESS 367 0 11 15
+ARRAY_PROGRESS 368 0 11 16
+ARRAY_PROGRESS 369 0 11 17
+ARRAY_PROGRESS 370 0 11 18
+ARRAY_PROGRESS 371 0 11 19
+ARRAY_PROGRESS 372 0 11 20
+ARRAY_PROGRESS 373 0 11 21
+ARRAY_PROGRESS 374 0 11 22
+ARRAY_PROGRESS 375 0 11 23
+ARRAY_PROGRESS 376 0 11 24
+ARRAY_PROGRESS 377 0 11 25
+ARRAY_PROGRESS 378 0 11 26
+ARRAY_PROGRESS 379 0 11 27
+ARRAY_PROGRESS 380 0 11 28
+ARRAY_PROGRESS 381 0 11 29
+ARRAY_PROGRESS 382 0 11 30
+ARRAY_PROGRESS 383 0 11 31
+ARRAY_PROGRESS 384 0 12 0
+ARRAY_PROGRESS 385 0 12 1
+ARRAY_PROGRESS 386 0 12 2
+ARRAY_PROGRESS 387 0 12 3
+ARRAY_PROGRESS 388 0 12 4
+ARRAY_PROGRESS 389 0 12 5
+ARRAY_PROGRESS 390 0 12 6
+ARRAY_PROGRESS 391 0 12 7
+ARRAY_PROGRESS 392 0 12 8
+ARRAY_PROGRESS 393 0 12 9
+ARRAY_PROGRESS 394 0 12 10
+ARRAY_PROGRESS 395 0 12 11
+ARRAY_PROGRESS 396 0 12 12
+ARRAY_PROGRESS 397 0 12 13
+ARRAY_PROGRESS 398 0 12 14
+ARRAY_PROGRESS 399 0 12 15
+ARRAY_PROGRESS 400 0 12 16
+ARRAY_PROGRESS 401 0 12 17
+ARRAY_PROGRESS 402 0 12 18
+ARRAY_PROGRESS 403 0 12 19
+ARRAY_PROGRESS 404 0 12 20
+ARRAY_PROGRESS 405 0 12 21
+ARRAY_PROGRESS 406 0 12 22
+ARRAY_PROGRESS 407 0 12 23
+ARRAY_PROGRESS 408 0 12 24
+ARRAY_PROGRESS 409 0 12 25
+ARRAY_PROGRESS 410 0 12 26
+ARRAY_PROGRESS 411 0 12 27
+ARRAY_PROGRESS 412 0 12 28
+ARRAY_PROGRESS 413 0 12 29
+ARRAY_PROGRESS 414 0 12 30
+ARRAY_PROGRESS 415 0 12 31
+ARRAY_PROGRESS 416 0 13 0
+ARRAY_PROGRESS 417 0 13 1
+ARRAY_PROGRESS 418 0 13 2
+ARRAY_PROGRESS 419 0 13 3
+ARRAY_PROGRESS 420 0 13 4
+ARRAY_PROGRESS 421 0 13 5
+ARRAY_PROGRESS 422 0 13 6
+ARRAY_PROGRESS 423 0 13 7
+ARRAY_PROGRESS 424 0 13 8
+ARRAY_PROGRESS 425 0 13 9
+ARRAY_PROGRESS 426 0 13 10
+ARRAY_PROGRESS 427 0 13 11
+ARRAY_PROGRESS 428 0 13 12
+ARRAY_PROGRESS 429 0 13 13
+ARRAY_PROGRESS 430 0 13 14
+ARRAY_PROGRESS 431 0 13 15
+ARRAY_PROGRESS 432 0 13 16
+ARRAY_PROGRESS 433 0 13 17
+ARRAY_PROGRESS 434 0 13 18
+ARRAY_PROGRESS 435 0 13 19
+ARRAY_PROGRESS 436 0 13 20
+ARRAY_PROGRESS 437 0 13 21
+ARRAY_PROGRESS 438 0 13 22
+ARRAY_PROGRESS 439 0 13 23
+ARRAY_PROGRESS 440 0 13 24
+ARRAY_PROGRESS 441 0 13 25
+ARRAY_PROGRESS 442 0 13 26
+ARRAY_PROGRESS 443 0 13 27
+ARRAY_PROGRESS 444 0 13 28
+ARRAY_PROGRESS 445 0 13 29
+ARRAY_PROGRESS 446 0 13 30
+ARRAY_PROGRESS 447 0 13 31
+ARRAY_PROGRESS 448 0 14 0
+ARRAY_PROGRESS 449 0 14 1
+ARRAY_PROGRESS 450 0 14 2
+ARRAY_PROGRESS 451 0 14 3
+ARRAY_PROGRESS 452 0 14 4
+ARRAY_PROGRESS 453 0 14 5
+ARRAY_PROGRESS 454 0 14 6
+ARRAY_PROGRESS 455 0 14 7
+ARRAY_PROGRESS 456 0 14 8
+ARRAY_PROGRESS 457 0 14 9
+ARRAY_PROGRESS 458 0 14 10
+ARRAY_PROGRESS 459 0 14 11
+ARRAY_PROGRESS 460 0 14 12
+ARRAY_PROGRESS 461 0 14 13
+ARRAY_PROGRESS 462 0 14 14
+ARRAY_PROGRESS 463 0 14 15
+ARRAY_PROGRESS 464 0 14 16
+ARRAY_PROGRESS 465 0 14 17
+ARRAY_PROGRESS 466 0 14 18
+ARRAY_PROGRESS 467 0 14 19
+ARRAY_PROGRESS 468 0 14 20
+ARRAY_PROGRESS 469 0 14 21
+ARRAY_PROGRESS 470 0 14 22
+ARRAY_PROGRESS 471 0 14 23
+ARRAY_PROGRESS 472 0 14 24
+ARRAY_PROGRESS 473 0 14 25
+ARRAY_PROGRESS 474 0 14 26
+ARRAY_PROGRESS 475 0 14 27
+ARRAY_PROGRESS 476 0 14 28
+ARRAY_PROGRESS 477 0 14 29
+ARRAY_PROGRESS 478 0 14 30
+ARRAY_PROGRESS 479 0 14 31
+ARRAY_PROGRESS 480 0 15 0
+ARRAY_PROGRESS 481 0 15 1
+ARRAY_PROGRESS 482 0 15 2
+ARRAY_PROGRESS 483 0 15 3
+ARRAY_PROGRESS 484 0 15 4
+ARRAY_PROGRESS 485 0 15 5
+ARRAY_PROGRESS 486 0 15 6
+ARRAY_PROGRESS 487 0 15 7
+ARRAY_PROGRESS 488 0 15 8
+ARRAY_PROGRESS 489 0 15 9
+ARRAY_PROGRESS 490 0 15 10
+ARRAY_PROGRESS 491 0 15 11
+ARRAY_PROGRESS 492 0 15 12
+ARRAY_PROGRESS 493 0 15 13
+ARRAY_PROGRESS 494 0 15 14
+ARRAY_PROGRESS 495 0 15 15
+ARRAY_PROGRESS 496 0 15 16
+ARRAY_PROGRESS 497 0 15 17
+ARRAY_PROGRESS 498 0 15 18
+ARRAY_PROGRESS 499 0 15 19
+ARRAY_PROGRESS 500 0 15 20
+ARRAY_PROGRESS 501 0 15 21
+ARRAY_PROGRESS 502 0 15 22
+ARRAY_PROGRESS 503 0 15 23
+ARRAY_PROGRESS 504 0 15 24
+ARRAY_PROGRESS 505 0 15 25
+ARRAY_PROGRESS 506 0 15 26
+ARRAY_PROGRESS 507 0 15 27
+ARRAY_PROGRESS 508 0 15 28
+ARRAY_PROGRESS 509 0 15 29
+ARRAY_PROGRESS 510 0 15 30
+ARRAY_PROGRESS 511 0 15 31
+ARRAY_PROGRESS 512 0 16 0
+ARRAY_PROGRESS 513 0 16 1
+ARRAY_PROGRESS 514 0 16 2
+ARRAY_PROGRESS 515 0 16 3
+ARRAY_PROGRESS 516 0 16 4
+ARRAY_PROGRESS 517 0 16 5
+ARRAY_PROGRESS 518 0 16 6
+ARRAY_PROGRESS 519 0 16 7
+ARRAY_PROGRESS 520 0 16 8
+ARRAY_PROGRESS 521 0 16 9
+ARRAY_PROGRESS 522 0 16 10
+ARRAY_PROGRESS 523 0 16 11
+ARRAY_PROGRESS 524 0 16 12
+ARRAY_PROGRESS 525 0 16 13
+ARRAY_PROGRESS 526 0 16 14
+ARRAY_PROGRESS 527 0 16 15
+ARRAY_PROGRESS 528 0 16 16
+ARRAY_PROGRESS 529 0 16 17
+ARRAY_PROGRESS 530 0 16 18
+ARRAY_PROGRESS 531 0 16 19
+ARRAY_PROGRESS 532 0 16 20
+ARRAY_PROGRESS 533 0 16 21
+ARRAY_PROGRESS 534 0 16 22
+ARRAY_PROGRESS 535 0 16 23
+ARRAY_PROGRESS 536 0 16 24
+ARRAY_PROGRESS 537 0 16 25
+ARRAY_PROGRESS 538 0 16 26
+ARRAY_PROGRESS 539 0 16 27
+ARRAY_PROGRESS 540 0 16 28
+ARRAY_PROGRESS 541 0 16 29
+ARRAY_PROGRESS 542 0 16 30
+ARRAY_PROGRESS 543 0 16 31
+ARRAY_PROGRESS 544 0 17 0
+ARRAY_PROGRESS 545 0 17 1
+ARRAY_PROGRESS 546 0 17 2
+ARRAY_PROGRESS 547 0 17 3
+ARRAY_PROGRESS 548 0 17 4
+ARRAY_PROGRESS 549 0 17 5
+ARRAY_PROGRESS 550 0 17 6
+ARRAY_PROGRESS 551 0 17 7
+ARRAY_PROGRESS 552 0 17 8
+ARRAY_PROGRESS 553 0 17 9
+ARRAY_PROGRESS 554 0 17 10
+ARRAY_PROGRESS 555 0 17 11
+ARRAY_PROGRESS 556 0 17 12
+ARRAY_PROGRESS 557 0 17 13
+ARRAY_PROGRESS 558 0 17 14
+ARRAY_PROGRESS 559 0 17 15
+ARRAY_PROGRESS 560 0 17 16
+ARRAY_PROGRESS 561 0 17 17
+ARRAY_PROGRESS 562 0 17 18
+ARRAY_PROGRESS 563 0 17 19
+ARRAY_PROGRESS 564 0 17 20
+ARRAY_PROGRESS 565 0 17 21
+ARRAY_PROGRESS 566 0 17 22
+ARRAY_PROGRESS 567 0 17 23
+ARRAY_PROGRESS 568 0 17 24
+ARRAY_PROGRESS 569 0 17 25
+ARRAY_PROGRESS 570 0 17 26
+ARRAY_PROGRESS 571 0 17 27
+ARRAY_PROGRESS 572 0 17 28
+ARRAY_PROGRESS 573 0 17 29
+ARRAY_PROGRESS 574 0 17 30
+ARRAY_PROGRESS 575 0 17 31
+ARRAY_PROGRESS 576 0 18 0
+ARRAY_PROGRESS 577 0 18 1
+ARRAY_PROGRESS 578 0 18 2
+ARRAY_PROGRESS 579 0 18 3
+ARRAY_PROGRESS 580 0 18 4
+ARRAY_PROGRESS 581 0 18 5
+ARRAY_PROGRESS 582 0 18 6
+ARRAY_PROGRESS 583 0 18 7
+ARRAY_PROGRESS 584 0 18 8
+ARRAY_PROGRESS 585 0 18 9
+ARRAY_PROGRESS 586 0 18 10
+ARRAY_PROGRESS 587 0 18 11
+ARRAY_PROGRESS 588 0 18 12
+ARRAY_PROGRESS 589 0 18 13
+ARRAY_PROGRESS 590 0 18 14
+ARRAY_PROGRESS 591 0 18 15
+ARRAY_PROGRESS 592 0 18 16
+ARRAY_PROGRESS 593 0 18 17
+ARRAY_PROGRESS 594 0 18 18
+ARRAY_PROGRESS 595 0 18 19
+ARRAY_PROGRESS 596 0 18 20
+ARRAY_PROGRESS 597 0 18 21
+ARRAY_PROGRESS 598 0 18 22
+ARRAY_PROGRESS 599 0 18 23
+ARRAY_PROGRESS 600 0 18 24
+ARRAY_PROGRESS 601 0 18 25
+ARRAY_PROGRESS 602 0 18 26
+ARRAY_PROGRESS 603 0 18 27
+ARRAY_PROGRESS 604 0 18 28
+ARRAY_PROGRESS 605 0 18 29
+ARRAY_PROGRESS 606 0 18 30
+ARRAY_PROGRESS 607 0 18 31
+ARRAY_PROGRESS 608 0 19 0
+ARRAY_PROGRESS 609 0 19 1
+ARRAY_PROGRESS 610 0 19 2
+ARRAY_PROGRESS 611 0 19 3
+ARRAY_PROGRESS 612 0 19 4
+ARRAY_PROGRESS 613 0 19 5
+ARRAY_PROGRESS 614 0 19 6
+ARRAY_PROGRESS 615 0 19 7
+ARRAY_PROGRESS 616 0 19 8
+ARRAY_PROGRESS 617 0 19 9
+ARRAY_PROGRESS 618 0 19 10
+ARRAY_PROGRESS 619 0 19 11
+ARRAY_PROGRESS 620 0 19 12
+ARRAY_PROGRESS 621 0 19 13
+ARRAY_PROGRESS 622 0 19 14
+ARRAY_PROGRESS 623 0 19 15
+ARRAY_PROGRESS 624 0 19 16
+ARRAY_PROGRESS 625 0 19 17
+ARRAY_PROGRESS 626 0 19 18
+ARRAY_PROGRESS 627 0 19 19
+ARRAY_PROGRESS 628 0 19 20
+ARRAY_PROGRESS 629 0 19 21
+ARRAY_PROGRESS 630 0 19 22
+ARRAY_PROGRESS 631 0 19 23
+ARRAY_PROGRESS 632 0 19 24
+ARRAY_PROGRESS 633 0 19 25
+ARRAY_PROGRESS 634 0 19 26
+ARRAY_PROGRESS 635 0 19 27
+ARRAY_PROGRESS 636 0 19 28
+ARRAY_PROGRESS 637 0 19 29
+ARRAY_PROGRESS 638 0 19 30
+ARRAY_PROGRESS 639 0 19 31
+ARRAY_PROGRESS 640 0 20 0
+ARRAY_PROGRESS 641 0 20 1
+ARRAY_PROGRESS 642 0 20 2
+ARRAY_PROGRESS 643 0 20 3
+ARRAY_PROGRESS 644 0 20 4
+ARRAY_PROGRESS 645 0 20 5
+ARRAY_PROGRESS 646 0 20 6
+ARRAY_PROGRESS 647 0 20 7
+ARRAY_PROGRESS 648 0 20 8
+ARRAY_PROGRESS 649 0 20 9
+ARRAY_PROGRESS 650 0 20 10
+ARRAY_PROGRESS 651 0 20 11
+ARRAY_PROGRESS 652 0 20 12
+ARRAY_PROGRESS 653 0 20 13
+ARRAY_PROGRESS 654 0 20 14
+ARRAY_PROGRESS 655 0 20 15
+ARRAY_PROGRESS 656 0 20 16
+ARRAY_PROGRESS 657 0 20 17
+ARRAY_PROGRESS 658 0 20 18
+ARRAY_PROGRESS 659 0 20 19
+ARRAY_PROGRESS 660 0 20 20
+ARRAY_PROGRESS 661 0 20 21
+ARRAY_PROGRESS 662 0 20 22
+ARRAY_PROGRESS 663 0 20 23
+ARRAY_PROGRESS 664 0 20 24
+ARRAY_PROGRESS 665 0 20 25
+ARRAY_PROGRESS 666 0 20 26
+ARRAY_PROGRESS 667 0 20 27
+ARRAY_PROGRESS 668 0 20 28
+ARRAY_PROGRESS 669 0 20 29
+ARRAY_PROGRESS 670 0 20 30
+ARRAY_PROGRESS 671 0 20 31
+ARRAY_PROGRESS 672 0 21 0
+ARRAY_PROGRESS 673 0 21 1
+ARRAY_PROGRESS 674 0 21 2
+ARRAY_PROGRESS 675 0 21 3
+ARRAY_PROGRESS 676 0 21 4
+ARRAY_PROGRESS 677 0 21 5
+ARRAY_PROGRESS 678 0 21 6
+ARRAY_PROGRESS 679 0 21 7
+ARRAY_PROGRESS 680 0 21 8
+ARRAY_PROGRESS 681 0 21 9
+ARRAY_PROGRESS 682 0 21 10
+ARRAY_PROGRESS 683 0 21 11
+ARRAY_PROGRESS 684 0 21 12
+ARRAY_PROGRESS 685 0 21 13
+ARRAY_PROGRESS 686 0 21 14
+ARRAY_PROGRESS 687 0 21 15
+ARRAY_PROGRESS 688 0 21 16
+ARRAY_PROGRESS 689 0 21 17
+ARRAY_PROGRESS 690 0 21 18
+ARRAY_PROGRESS 691 0 21 19
+ARRAY_PROGRESS 692 0 21 20
+ARRAY_PROGRESS 693 0 21 21
+ARRAY_PROGRESS 694 0 21 22
+ARRAY_PROGRESS 695 0 21 23
+ARRAY_PROGRESS 696 0 21 24
+ARRAY_PROGRESS 697 0 21 25
+ARRAY_PROGRESS 698 0 21 26
+ARRAY_PROGRESS 699 0 21 27
+ARRAY_PROGRESS 700 0 21 28
+ARRAY_PROGRESS 701 0 21 29
+ARRAY_PROGRESS 702 0 21 30
+ARRAY_PROGRESS 703 0 21 31
+ARRAY_PROGRESS 704 0 22 0
+ARRAY_PROGRESS 705 0 22 1
+ARRAY_PROGRESS 706 0 22 2
+ARRAY_PROGRESS 707 0 22 3
+ARRAY_PROGRESS 708 0 22 4
+ARRAY_PROGRESS 709 0 22 5
+ARRAY_PROGRESS 710 0 22 6
+ARRAY_PROGRESS 711 0 22 7
+ARRAY_PROGRESS 712 0 22 8
+ARRAY_PROGRESS 713 0 22 9
+ARRAY_PROGRESS 714 0 22 10
+ARRAY_PROGRESS 715 0 22 11
+ARRAY_PROGRESS 716 0 22 12
+ARRAY_PROGRESS 717 0 22 13
+ARRAY_PROGRESS 718 0 22 14
+ARRAY_PROGRESS 719 0 22 15
+ARRAY_PROGRESS 720 0 22 16
+ARRAY_PROGRESS 721 0 22 17
+ARRAY_PROGRESS 722 0 22 18
+ARRAY_PROGRESS 723 0 22 19
+ARRAY_PROGRESS 724 0 22 20
+ARRAY_PROGRESS 725 0 22 21
+ARRAY_PROGRESS 726 0 22 22
+ARRAY_PROGRESS 727 0 22 23
+ARRAY_PROGRESS 728 0 22 24
+ARRAY_PROGRESS 729 0 22 25
+ARRAY_PROGRESS 730 0 22 26
+ARRAY_PROGRESS 731 0 22 27
+ARRAY_PROGRESS 732 0 22 28
+ARRAY_PROGRESS 733 0 22 29
+ARRAY_PROGRESS 734 0 22 30
+ARRAY_PROGRESS 735 0 22 31
+ARRAY_PROGRESS 736 0 23 0
+ARRAY_PROGRESS 737 0 23 1
+ARRAY_PROGRESS 738 0 23 2
+ARRAY_PROGRESS 739 0 23 3
+ARRAY_PROGRESS 740 0 23 4
+ARRAY_PROGRESS 741 0 23 5
+ARRAY_PROGRESS 742 0 23 6
+ARRAY_PROGRESS 743 0 23 7
+ARRAY_PROGRESS 744 0 23 8
+ARRAY_PROGRESS 745 0 23 9
+ARRAY_PROGRESS 746 0 23 10
+ARRAY_PROGRESS 747 0 23 11
+ARRAY_PROGRESS 748 0 23 12
+ARRAY_PROGRESS 749 0 23 13
+ARRAY_PROGRESS 750 0 23 14
+ARRAY_PROGRESS 751 0 23 15
+ARRAY_PROGRESS 752 0 23 16
+ARRAY_PROGRESS 753 0 23 17
+ARRAY_PROGRESS 754 0 23 18
+ARRAY_PROGRESS 755 0 23 19
+ARRAY_PROGRESS 756 0 23 20
+ARRAY_PROGRESS 757 0 23 21
+ARRAY_PROGRESS 758 0 23 22
+ARRAY_PROGRESS 759 0 23 23
+ARRAY_PROGRESS 760 0 23 24
+ARRAY_PROGRESS 761 0 23 25
+ARRAY_PROGRESS 762 0 23 26
+ARRAY_PROGRESS 763 0 23 27
+ARRAY_PROGRESS 764 0 23 28
+ARRAY_PROGRESS 765 0 23 29
+ARRAY_PROGRESS 766 0 23 30
+ARRAY_PROGRESS 767 0 23 31
+ARRAY_PROGRESS 768 0 24 0
+ARRAY_PROGRESS 769 0 24 1
+ARRAY_PROGRESS 770 0 24 2
+ARRAY_PROGRESS 771 0 24 3
+ARRAY_PROGRESS 772 0 24 4
+ARRAY_PROGRESS 773 0 24 5
+ARRAY_PROGRESS 774 0 24 6
+ARRAY_PROGRESS 775 0 24 7
+ARRAY_PROGRESS 776 0 24 8
+ARRAY_PROGRESS 777 0 24 9
+ARRAY_PROGRESS 778 0 24 10
+ARRAY_PROGRESS 779 0 24 11
+ARRAY_PROGRESS 780 0 24 12
+ARRAY_PROGRESS 781 0 24 13
+ARRAY_PROGRESS 782 0 24 14
+ARRAY_PROGRESS 783 0 24 15
+ARRAY_PROGRESS 784 0 24 16
+ARRAY_PROGRESS 785 0 24 17
+ARRAY_PROGRESS 786 0 24 18
+ARRAY_PROGRESS 787 0 24 19
+ARRAY_PROGRESS 788 0 24 20
+ARRAY_PROGRESS 789 0 24 21
+ARRAY_PROGRESS 790 0 24 22
+ARRAY_PROGRESS 791 0 24 23
+ARRAY_PROGRESS 792 0 24 24
+ARRAY_PROGRESS 793 0 24 25
+ARRAY_PROGRESS 794 0 24 26
+ARRAY_PROGRESS 795 0 24 27
+ARRAY_PROGRESS 796 0 24 28
+ARRAY_PROGRESS 797 0 24 29
+ARRAY_PROGRESS 798 0 24 30
+ARRAY_PROGRESS 799 0 24 31
+ARRAY_PROGRESS 800 0 25 0
+ARRAY_PROGRESS 801 0 25 1
+ARRAY_PROGRESS 802 0 25 2
+ARRAY_PROGRESS 803 0 25 3
+ARRAY_PROGRESS 804 0 25 4
+ARRAY_PROGRESS 805 0 25 5
+ARRAY_PROGRESS 806 0 25 6
+ARRAY_PROGRESS 807 0 25 7
+ARRAY_PROGRESS 808 0 25 8
+ARRAY_PROGRESS 809 0 25 9
+ARRAY_PROGRESS 810 0 25 10
+ARRAY_PROGRESS 811 0 25 11
+ARRAY_PROGRESS 812 0 25 12
+ARRAY_PROGRESS 813 0 25 13
+ARRAY_PROGRESS 814 0 25 14
+ARRAY_PROGRESS 815 0 25 15
+ARRAY_PROGRESS 816 0 25 16
+ARRAY_PROGRESS 817 0 25 17
+ARRAY_PROGRESS 818 0 25 18
+ARRAY_PROGRESS 819 0 25 19
+ARRAY_PROGRESS 820 0 25 20
+ARRAY_PROGRESS 821 0 25 21
+ARRAY_PROGRESS 822 0 25 22
+ARRAY_PROGRESS 823 0 25 23
+ARRAY_PROGRESS 824 0 25 24
+ARRAY_PROGRESS 825 0 25 25
+ARRAY_PROGRESS 826 0 25 26
+ARRAY_PROGRESS 827 0 25 27
+ARRAY_PROGRESS 828 0 25 28
+ARRAY_PROGRESS 829 0 25 29
+ARRAY_PROGRESS 830 0 25 30
+ARRAY_PROGRESS 831 0 25 31
+ARRAY_PROGRESS 832 0 26 0
+ARRAY_PROGRESS 833 0 26 1
+ARRAY_PROGRESS 834 0 26 2
+ARRAY_PROGRESS 835 0 26 3
+ARRAY_PROGRESS 836 0 26 4
+ARRAY_PROGRESS 837 0 26 5
+ARRAY_PROGRESS 838 0 26 6
+ARRAY_PROGRESS 839 0 26 7
+ARRAY_PROGRESS 840 0 26 8
+ARRAY_PROGRESS 841 0 26 9
+ARRAY_PROGRESS 842 0 26 10
+ARRAY_PROGRESS 843 0 26 11
+ARRAY_PROGRESS 844 0 26 12
+ARRAY_PROGRESS 845 0 26 13
+ARRAY_PROGRESS 846 0 26 14
+ARRAY_PROGRESS 847 0 26 15
+ARRAY_PROGRESS 848 0 26 16
+ARRAY_PROGRESS 849 0 26 17
+ARRAY_PROGRESS 850 0 26 18
+ARRAY_PROGRESS 851 0 26 19
+ARRAY_PROGRESS 852 0 26 20
+ARRAY_PROGRESS 853 0 26 21
+ARRAY_PROGRESS 854 0 26 22
+ARRAY_PROGRESS 855 0 26 23
+ARRAY_PROGRESS 856 0 26 24
+ARRAY_PROGRESS 857 0 26 25
+ARRAY_PROGRESS 858 0 26 26
+ARRAY_PROGRESS 859 0 26 27
+ARRAY_PROGRESS 860 0 26 28
+ARRAY_PROGRESS 861 0 26 29
+ARRAY_PROGRESS 862 0 26 30
+ARRAY_PROGRESS 863 0 26 31
+ARRAY_PROGRESS 864 0 27 0
+ARRAY_PROGRESS 865 0 27 1
+ARRAY_PROGRESS 866 0 27 2
+ARRAY_PROGRESS 867 0 27 3
+ARRAY_PROGRESS 868 0 27 4
+ARRAY_PROGRESS 869 0 27 5
+ARRAY_PROGRESS 870 0 27 6
+ARRAY_PROGRESS 871 0 27 7
+ARRAY_PROGRESS 872 0 27 8
+ARRAY_PROGRESS 873 0 27 9
+ARRAY_PROGRESS 874 0 27 10
+ARRAY_PROGRESS 875 0 27 11
+ARRAY_PROGRESS 876 0 27 12
+ARRAY_PROGRESS 877 0 27 13
+ARRAY_PROGRESS 878 0 27 14
+ARRAY_PROGRESS 879 0 27 15
+ARRAY_PROGRESS 880 0 27 16
+ARRAY_PROGRESS 881 0 27 17
+ARRAY_PROGRESS 882 0 27 18
+ARRAY_PROGRESS 883 0 27 19
+ARRAY_PROGRESS 884 0 27 20
+ARRAY_PROGRESS 885 0 27 21
+ARRAY_PROGRESS 886 0 27 22
+ARRAY_PROGRESS 887 0 27 23
+ARRAY_PROGRESS 888 0 27 24
+ARRAY_PROGRESS 889 0 27 25
+ARRAY_PROGRESS 890 0 27 26
+ARRAY_PROGRESS 891 0 27 27
+ARRAY_PROGRESS 892 0 27 28
+ARRAY_PROGRESS 893 0 27 29
+ARRAY_PROGRESS 894 0 27 30
+ARRAY_PROGRESS 895 0 27 31
+ARRAY_PROGRESS 896 0 28 0
+ARRAY_PROGRESS 897 0 28 1
+ARRAY_PROGRESS 898 0 28 2
+ARRAY_PROGRESS 899 0 28 3
+ARRAY_PROGRESS 900 0 28 4
+ARRAY_PROGRESS 901 0 28 5
+ARRAY_PROGRESS 902 0 28 6
+ARRAY_PROGRESS 903 0 28 7
+ARRAY_PROGRESS 904 0 28 8
+ARRAY_PROGRESS 905 0 28 9
+ARRAY_PROGRESS 906 0 28 10
+ARRAY_PROGRESS 907 0 28 11
+ARRAY_PROGRESS 908 0 28 12
+ARRAY_PROGRESS 909 0 28 13
+ARRAY_PROGRESS 910 0 28 14
+ARRAY_PROGRESS 911 0 28 15
+ARRAY_PROGRESS 912 0 28 16
+ARRAY_PROGRESS 913 0 28 17
+ARRAY_PROGRESS 914 0 28 18
+ARRAY_PROGRESS 915 0 28 19
+ARRAY_PROGRESS 916 0 28 20
+ARRAY_PROGRESS 917 0 28 21
+ARRAY_PROGRESS 918 0 28 22
+ARRAY_PROGRESS 919 0 28 23
+ARRAY_PROGRESS 920 0 28 24
+ARRAY_PROGRESS 921 0 28 25
+ARRAY_PROGRESS 922 0 28 26
+ARRAY_PROGRESS 923 0 28 27
+ARRAY_PROGRESS 924 0 28 28
+ARRAY_PROGRESS 925 0 28 29
+ARRAY_PROGRESS 926 0 28 30
+ARRAY_PROGRESS 927 0 28 31
+ARRAY_PROGRESS 928 0 29 0
+ARRAY_PROGRESS 929 0 29 1
+ARRAY_PROGRESS 930 0 29 2
+ARRAY_PROGRESS 931 0 29 3
+ARRAY_PROGRESS 932 0 29 4
+ARRAY_PROGRESS 933 0 29 5
+ARRAY_PROGRESS 934 0 29 6
+ARRAY_PROGRESS 935 0 29 7
+ARRAY_PROGRESS 936 0 29 8
+ARRAY_PROGRESS 937 0 29 9
+ARRAY_PROGRESS 938 0 29 10
+ARRAY_PROGRESS 939 0 29 11
+ARRAY_PROGRESS 940 0 29 12
+ARRAY_PROGRESS 941 0 29 13
+ARRAY_PROGRESS 942 0 29 14
+ARRAY_PROGRESS 943 0 29 15
+ARRAY_PROGRESS 944 0 29 16
+ARRAY_PROGRESS 945 0 29 17
+ARRAY_PROGRESS 946 0 29 18
+ARRAY_PROGRESS 947 0 29 19
+ARRAY_PROGRESS 948 0 29 20
+ARRAY_PROGRESS 949 0 29 21
+ARRAY_PROGRESS 950 0 29 22
+ARRAY_PROGRESS 951 0 29 23
+ARRAY_PROGRESS 952 0 29 24
+ARRAY_PROGRESS 953 0 29 25
+ARRAY_PROGRESS 954 0 29 26
+ARRAY_PROGRESS 955 0 29 27
+ARRAY_PROGRESS 956 0 29 28
+ARRAY_PROGRESS 957 0 29 29
+ARRAY_PROGRESS 958 0 29 30
+ARRAY_PROGRESS 959 0 29 31
+ARRAY_PROGRESS 960 0 30 0
+ARRAY_PROGRESS 961 0 30 1
+ARRAY_PROGRESS 962 0 30 2
+ARRAY_PROGRESS 963 0 30 3
+ARRAY_PROGRESS 964 0 30 4
+ARRAY_PROGRESS 965 0 30 5
+ARRAY_PROGRESS 966 0 30 6
+ARRAY_PROGRESS 967 0 30 7
+ARRAY_PROGRESS 968 0 30 8
+ARRAY_PROGRESS 969 0 30 9
+ARRAY_PROGRESS 970 0 30 10
+ARRAY_PROGRESS 971 0 30 11
+ARRAY_PROGRESS 972 0 30 12
+ARRAY_PROGRESS 973 0 30 13
+ARRAY_PROGRESS 974 0 30 14
+ARRAY_PROGRESS 975 0 30 15
+ARRAY_PROGRESS 976 0 30 16
+ARRAY_PROGRESS 977 0 30 17
+ARRAY_PROGRESS 978 0 30 18
+ARRAY_PROGRESS 979 0 30 19
+ARRAY_PROGRESS 980 0 30 20
+ARRAY_PROGRESS 981 0 30 21
+ARRAY_PROGRESS 982 0 30 22
+ARRAY_PROGRESS 983 0 30 23
+ARRAY_PROGRESS 984 0 30 24
+ARRAY_PROGRESS 985 0 30 25
+ARRAY_PROGRESS 986 0 30 26
+ARRAY_PROGRESS 987 0 30 27
+ARRAY_PROGRESS 988 0 30 28
+ARRAY_PROGRESS 989 0 30 29
+ARRAY_PROGRESS 990 0 30 30
+ARRAY_PROGRESS 991 0 30 31
+ARRAY_PROGRESS 992 0 31 0
+ARRAY_PROGRESS 993 0 31 1
+ARRAY_PROGRESS 994 0 31 2
+ARRAY_PROGRESS 995 0 31 3
+ARRAY_PROGRESS 996 0 31 4
+ARRAY_PROGRESS 997 0 31 5
+ARRAY_PROGRESS 998 0 31 6
+ARRAY_PROGRESS 999 0 31 7
+ARRAY_PROGRESS 1000 0 31 8
+ARRAY_PROGRESS 1001 0 31 9
+ARRAY_PROGRESS 1002 0 31 10
+ARRAY_PROGRESS 1003 0 31 11
+ARRAY_PROGRESS 1004 0 31 12
+ARRAY_PROGRESS 1005 0 31 13
+ARRAY_PROGRESS 1006 0 31 14
+ARRAY_PROGRESS 1007 0 31 15
+ARRAY_PROGRESS 1008 0 31 16
+ARRAY_PROGRESS 1009 0 31 17
+ARRAY_PROGRESS 1010 0 31 18
+ARRAY_PROGRESS 1011 0 31 19
+ARRAY_PROGRESS 1012 0 31 20
+ARRAY_PROGRESS 1013 0 31 21
+ARRAY_PROGRESS 1014 0 31 22
+ARRAY_PROGRESS 1015 0 31 23
+ARRAY_PROGRESS 1016 0 31 24
+ARRAY_PROGRESS 1017 0 31 25
+ARRAY_PROGRESS 1018 0 31 26
+ARRAY_PROGRESS 1019 0 31 27
+ARRAY_PROGRESS 1020 0 31 28
+ARRAY_PROGRESS 1021 0 31 29
+ARRAY_PROGRESS 1022 0 31 30
+ARRAY_PROGRESS 1023 0 31 31
+MAC_PROGRAM_RESULT 0 0 set 1 129.251701
+ARRAY_PROGRAM_DETAIL 0 0 set 0 1 0 129.251701
+MAC_PROGRAM_RESULT 0 1 set 1 96.513605
+ARRAY_PROGRAM_DETAIL 0 1 set 0 1 0 96.513605
+MAC_PROGRAM_RESULT 0 2 set 1 119.897959
+ARRAY_PROGRAM_DETAIL 0 2 set 0 1 0 119.897959
+MAC_PROGRAM_RESULT 0 3 set 1 89.710884
+ARRAY_PROGRAM_DETAIL 0 3 set 0 1 0 89.710884
+MAC_PROGRAM_RESULT 0 4 set 1 103.316327
+ARRAY_PROGRAM_DETAIL 0 4 set 0 1 0 103.316327
+MAC_PROGRAM_RESULT 0 5 set 1 80.357143
+ARRAY_PROGRAM_DETAIL 0 5 set 0 1 0 80.357143
+MAC_PROGRAM_RESULT 0 6 set 1 94.387755
+ARRAY_PROGRAM_DETAIL 0 6 set 0 1 0 94.387755
+MAC_PROGRAM_RESULT 0 7 set 1 86.734694
+ARRAY_PROGRAM_DETAIL 0 7 set 0 1 0 86.734694
+MAC_PROGRAM_RESULT 0 8 set 1 102.465986
+ARRAY_PROGRAM_DETAIL 0 8 set 0 1 0 102.465986
+MAC_PROGRAM_RESULT 0 9 set 1 65.901361
+ARRAY_PROGRAM_DETAIL 0 9 set 0 1 0 65.901361
+MAC_PROGRAM_RESULT 0 10 set 1 82.908163
+ARRAY_PROGRAM_DETAIL 0 10 set 0 1 0 82.908163
+MAC_PROGRAM_RESULT 0 11 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 0 11 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 0 12 set 1 71.853741
+ARRAY_PROGRAM_DETAIL 0 12 set 0 1 0 71.853741
+MAC_PROGRAM_RESULT 0 13 set 1 90.986395
+ARRAY_PROGRAM_DETAIL 0 13 set 0 1 0 90.986395
+MAC_PROGRAM_RESULT 0 14 set 1 73.129252
+ARRAY_PROGRAM_DETAIL 0 14 set 0 1 0 73.129252
+MAC_PROGRAM_RESULT 0 15 set 1 73.979592
+ARRAY_PROGRAM_DETAIL 0 15 set 0 1 0 73.979592
+MAC_PROGRAM_RESULT 0 16 set 1 75.255102
+ARRAY_PROGRAM_DETAIL 0 16 set 0 1 0 75.255102
+MAC_PROGRAM_RESULT 0 17 set 1 67.602041
+ARRAY_PROGRAM_DETAIL 0 17 set 0 1 0 67.602041
+MAC_PROGRAM_RESULT 0 18 set 1 70.153061
+ARRAY_PROGRAM_DETAIL 0 18 set 0 1 0 70.153061
+MAC_PROGRAM_RESULT 0 19 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 0 19 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 0 20 set 1 72.278912
+ARRAY_PROGRAM_DETAIL 0 20 set 0 1 0 72.278912
+MAC_PROGRAM_RESULT 0 21 set 1 70.578231
+ARRAY_PROGRAM_DETAIL 0 21 set 0 1 0 70.578231
+MAC_PROGRAM_RESULT 0 22 set 1 69.302721
+ARRAY_PROGRAM_DETAIL 0 22 set 0 1 0 69.302721
+MAC_PROGRAM_RESULT 0 23 set 1 87.585034
+ARRAY_PROGRAM_DETAIL 0 23 set 0 1 0 87.585034
+MAC_PROGRAM_RESULT 0 24 set 1 78.231293
+ARRAY_PROGRAM_DETAIL 0 24 set 3 1 0 78.231293
+MAC_PROGRAM_RESULT 0 25 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 0 25 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 0 26 set 1 76.530612
+ARRAY_PROGRAM_DETAIL 0 26 set 0 1 0 76.530612
+MAC_PROGRAM_RESULT 0 27 set 1 102.040816
+ARRAY_PROGRAM_DETAIL 0 27 set 0 1 0 102.040816
+MAC_PROGRAM_RESULT 0 28 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 0 28 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 0 29 set 1 80.782313
+ARRAY_PROGRAM_DETAIL 0 29 set 0 1 0 80.782313
+MAC_PROGRAM_RESULT 0 30 set 1 81.632653
+ARRAY_PROGRAM_DETAIL 0 30 set 0 1 0 81.632653
+MAC_PROGRAM_RESULT 0 31 set 1 87.585034
+ARRAY_PROGRAM_DETAIL 0 31 set 0 1 0 87.585034
+MAC_PROGRAM_RESULT 1 0 set 1 106.717687
+ARRAY_PROGRAM_DETAIL 1 0 set 0 1 0 106.717687
+MAC_PROGRAM_RESULT 1 1 set 1 82.908163
+ARRAY_PROGRAM_DETAIL 1 1 set 0 1 0 82.908163
+MAC_PROGRAM_RESULT 1 2 set 1 86.734694
+ARRAY_PROGRAM_DETAIL 1 2 set 0 1 0 86.734694
+MAC_PROGRAM_RESULT 1 3 set 1 108.843537
+ARRAY_PROGRAM_DETAIL 1 3 set 0 1 0 108.843537
+MAC_PROGRAM_RESULT 1 4 set 1 76.105442
+ARRAY_PROGRAM_DETAIL 1 4 set 0 1 0 76.105442
+MAC_PROGRAM_RESULT 1 5 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 1 5 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 1 6 set 1 88.435374
+ARRAY_PROGRAM_DETAIL 1 6 set 0 1 0 88.435374
+MAC_PROGRAM_RESULT 1 7 set 1 98.214286
+ARRAY_PROGRAM_DETAIL 1 7 set 0 1 0 98.214286
+MAC_PROGRAM_RESULT 1 8 set 1 73.554422
+ARRAY_PROGRAM_DETAIL 1 8 set 0 1 0 73.554422
+MAC_PROGRAM_RESULT 1 9 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 1 9 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 1 10 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 1 10 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 1 11 set 1 63.775510
+ARRAY_PROGRAM_DETAIL 1 11 set 0 1 0 63.775510
+MAC_PROGRAM_RESULT 1 12 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 1 12 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 1 13 set 1 68.027211
+ARRAY_PROGRAM_DETAIL 1 13 set 0 1 0 68.027211
+MAC_PROGRAM_RESULT 1 14 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 1 14 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 1 15 set 1 68.452381
+ARRAY_PROGRAM_DETAIL 1 15 set 0 1 0 68.452381
+MAC_PROGRAM_RESULT 1 16 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 1 16 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 1 17 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 1 17 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 1 18 set 1 80.357143
+ARRAY_PROGRAM_DETAIL 1 18 set 0 1 0 80.357143
+MAC_PROGRAM_RESULT 1 19 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 1 19 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 1 20 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 1 20 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 1 21 set 1 99.914966
+ARRAY_PROGRAM_DETAIL 1 21 set 0 1 0 99.914966
+MAC_PROGRAM_RESULT 1 22 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 1 22 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 1 23 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 1 23 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 1 24 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 1 24 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 1 25 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 1 25 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 1 26 set 1 60.799320
+ARRAY_PROGRAM_DETAIL 1 26 set 0 1 0 60.799320
+MAC_PROGRAM_RESULT 1 27 set 1 75.680272
+ARRAY_PROGRAM_DETAIL 1 27 set 0 1 0 75.680272
+MAC_PROGRAM_RESULT 1 28 set 1 71.853741
+ARRAY_PROGRAM_DETAIL 1 28 set 0 1 0 71.853741
+MAC_PROGRAM_RESULT 1 29 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 1 29 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 1 30 set 1 63.775510
+ARRAY_PROGRAM_DETAIL 1 30 set 0 1 0 63.775510
+MAC_PROGRAM_RESULT 1 31 set 1 68.452381
+ARRAY_PROGRAM_DETAIL 1 31 set 0 1 0 68.452381
+MAC_PROGRAM_RESULT 2 0 set 1 82.057823
+ARRAY_PROGRAM_DETAIL 2 0 set 0 1 0 82.057823
+MAC_PROGRAM_RESULT 2 1 set 1 66.326531
+ARRAY_PROGRAM_DETAIL 2 1 set 0 1 0 66.326531
+MAC_PROGRAM_RESULT 2 2 set 1 68.452381
+ARRAY_PROGRAM_DETAIL 2 2 set 0 1 0 68.452381
+MAC_PROGRAM_RESULT 2 3 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 2 3 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 2 4 set 1 60.799320
+ARRAY_PROGRAM_DETAIL 2 4 set 0 1 0 60.799320
+MAC_PROGRAM_RESULT 2 5 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 2 5 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 2 6 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 2 6 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 2 7 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 2 7 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 2 8 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 2 8 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 2 9 set 1 85.884354
+ARRAY_PROGRAM_DETAIL 2 9 set 0 1 0 85.884354
+MAC_PROGRAM_RESULT 2 10 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 2 10 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 2 11 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 2 11 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 2 12 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 2 12 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 2 13 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 2 13 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 2 14 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 2 14 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 2 15 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 2 15 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 2 16 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 2 16 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 2 17 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 2 17 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 2 18 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 2 18 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 2 19 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 2 19 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 2 20 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 2 20 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 2 21 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 2 21 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 2 22 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 2 22 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 2 23 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 2 23 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 2 24 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 2 24 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 2 25 set 1 86.309524
+ARRAY_PROGRAM_DETAIL 2 25 set 0 1 0 86.309524
+MAC_PROGRAM_RESULT 2 26 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 2 26 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 2 27 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 2 27 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 2 28 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 2 28 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 2 29 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 2 29 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 2 30 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 2 30 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 2 31 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 2 31 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 3 0 set 1 93.962585
+ARRAY_PROGRAM_DETAIL 3 0 set 0 1 0 93.962585
+MAC_PROGRAM_RESULT 3 1 set 1 105.442177
+ARRAY_PROGRAM_DETAIL 3 1 set 0 1 0 105.442177
+MAC_PROGRAM_RESULT 3 2 set 1 80.357143
+ARRAY_PROGRAM_DETAIL 3 2 set 0 1 0 80.357143
+MAC_PROGRAM_RESULT 3 3 set 1 68.877551
+ARRAY_PROGRAM_DETAIL 3 3 set 0 1 0 68.877551
+MAC_PROGRAM_RESULT 3 4 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 3 4 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 3 5 set 1 65.051020
+ARRAY_PROGRAM_DETAIL 3 5 set 0 1 0 65.051020
+MAC_PROGRAM_RESULT 3 6 set 1 78.656463
+ARRAY_PROGRAM_DETAIL 3 6 set 0 1 0 78.656463
+MAC_PROGRAM_RESULT 3 7 set 1 67.602041
+ARRAY_PROGRAM_DETAIL 3 7 set 0 1 0 67.602041
+MAC_PROGRAM_RESULT 3 8 set 1 66.751701
+ARRAY_PROGRAM_DETAIL 3 8 set 0 1 0 66.751701
+MAC_PROGRAM_RESULT 3 9 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 3 9 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 3 10 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 3 10 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 3 11 set 1 90.561224
+ARRAY_PROGRAM_DETAIL 3 11 set 0 1 0 90.561224
+MAC_PROGRAM_RESULT 3 12 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 3 12 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 3 13 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 3 13 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 3 14 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 3 14 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 3 15 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 3 15 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 3 16 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 3 16 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 3 17 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 3 17 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 3 18 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 3 18 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 3 19 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 3 19 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 3 20 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 3 20 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 3 21 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 3 21 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 3 22 set 1 95.238095
+ARRAY_PROGRAM_DETAIL 3 22 set 0 1 0 95.238095
+MAC_PROGRAM_RESULT 3 23 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 3 23 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 3 24 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 3 24 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 3 25 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 3 25 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 3 26 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 3 26 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 3 27 set 1 71.428571
+ARRAY_PROGRAM_DETAIL 3 27 set 0 1 0 71.428571
+MAC_PROGRAM_RESULT 3 28 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 3 28 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 3 29 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 3 29 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 3 30 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 3 30 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 3 31 set 1 65.051020
+ARRAY_PROGRAM_DETAIL 3 31 set 0 1 0 65.051020
+MAC_PROGRAM_RESULT 4 0 set 1 77.806122
+ARRAY_PROGRAM_DETAIL 4 0 set 0 1 0 77.806122
+MAC_PROGRAM_RESULT 4 1 set 1 65.476190
+ARRAY_PROGRAM_DETAIL 4 1 set 0 1 0 65.476190
+MAC_PROGRAM_RESULT 4 2 set 1 78.656463
+ARRAY_PROGRAM_DETAIL 4 2 set 0 1 0 78.656463
+MAC_PROGRAM_RESULT 4 3 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 4 3 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 4 4 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 4 4 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 4 5 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 4 5 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 4 6 set 1 70.153061
+ARRAY_PROGRAM_DETAIL 4 6 set 0 1 0 70.153061
+MAC_PROGRAM_RESULT 4 7 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 4 7 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 4 8 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 4 8 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 4 9 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 4 9 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 4 10 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 4 10 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 4 11 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 4 11 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 4 12 set 1 86.734694
+ARRAY_PROGRAM_DETAIL 4 12 set 0 1 0 86.734694
+MAC_PROGRAM_RESULT 4 13 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 4 13 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 4 14 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 4 14 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 4 15 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 4 15 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 4 16 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 4 16 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 4 17 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 4 17 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 4 18 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 4 18 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 4 19 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 4 19 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 4 20 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 4 20 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 4 21 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 4 21 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 4 22 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 4 22 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 4 23 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 4 23 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 4 24 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 4 24 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 4 25 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 4 25 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 4 26 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 4 26 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 4 27 set 1 64.625850
+ARRAY_PROGRAM_DETAIL 4 27 set 0 1 0 64.625850
+MAC_PROGRAM_RESULT 4 28 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 4 28 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 4 29 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 4 29 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 4 30 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 4 30 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 4 31 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 4 31 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 5 0 set 1 115.221088
+ARRAY_PROGRAM_DETAIL 5 0 set 0 1 0 115.221088
+MAC_PROGRAM_RESULT 5 1 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 5 1 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 5 2 set 1 73.979592
+ARRAY_PROGRAM_DETAIL 5 2 set 0 1 0 73.979592
+MAC_PROGRAM_RESULT 5 3 set 1 70.153061
+ARRAY_PROGRAM_DETAIL 5 3 set 0 1 0 70.153061
+MAC_PROGRAM_RESULT 5 4 set 1 68.877551
+ARRAY_PROGRAM_DETAIL 5 4 set 0 1 0 68.877551
+MAC_PROGRAM_RESULT 5 5 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 5 5 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 5 6 set 1 77.380952
+ARRAY_PROGRAM_DETAIL 5 6 set 0 1 0 77.380952
+MAC_PROGRAM_RESULT 5 7 set 1 64.625850
+ARRAY_PROGRAM_DETAIL 5 7 set 0 1 0 64.625850
+MAC_PROGRAM_RESULT 5 8 set 1 65.476190
+ARRAY_PROGRAM_DETAIL 5 8 set 0 1 0 65.476190
+MAC_PROGRAM_RESULT 5 9 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 5 9 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 5 10 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 5 10 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 5 11 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 5 11 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 5 12 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 5 12 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 5 13 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 5 13 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 5 14 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 5 14 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 5 15 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 5 15 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 5 16 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 5 16 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 5 17 set 1 93.112245
+ARRAY_PROGRAM_DETAIL 5 17 set 0 1 0 93.112245
+MAC_PROGRAM_RESULT 5 18 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 5 18 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 5 19 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 5 19 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 5 20 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 5 20 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 5 21 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 5 21 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 5 22 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 5 22 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 5 23 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 5 23 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 5 24 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 5 24 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 5 25 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 5 25 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 5 26 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 5 26 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 5 27 set 1 68.027211
+ARRAY_PROGRAM_DETAIL 5 27 set 0 1 0 68.027211
+MAC_PROGRAM_RESULT 5 28 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 5 28 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 5 29 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 5 29 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 5 30 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 5 30 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 5 31 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 5 31 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 6 0 set 1 77.806122
+ARRAY_PROGRAM_DETAIL 6 0 set 0 1 0 77.806122
+MAC_PROGRAM_RESULT 6 1 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 6 1 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 6 2 set 1 95.238095
+ARRAY_PROGRAM_DETAIL 6 2 set 0 1 0 95.238095
+MAC_PROGRAM_RESULT 6 3 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 6 3 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 6 4 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 6 4 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 6 5 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 6 5 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 6 6 set 1 66.751701
+ARRAY_PROGRAM_DETAIL 6 6 set 0 1 0 66.751701
+MAC_PROGRAM_RESULT 6 7 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 6 7 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 6 8 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 6 8 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 6 9 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 6 9 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 6 10 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 6 10 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 6 11 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 6 11 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 6 12 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 6 12 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 6 13 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 6 13 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 6 14 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 6 14 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 6 15 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 6 15 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 6 16 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 6 16 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 6 17 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 6 17 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 6 18 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 6 18 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 6 19 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 6 19 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 6 20 set 1 102.465986
+ARRAY_PROGRAM_DETAIL 6 20 set 0 1 0 102.465986
+MAC_PROGRAM_RESULT 6 21 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 6 21 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 6 22 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 6 22 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 6 23 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 6 23 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 6 24 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 6 24 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 6 25 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 6 25 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 6 26 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 6 26 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 6 27 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 6 27 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 6 28 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 6 28 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 6 29 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 6 29 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 6 30 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 6 30 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 6 31 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 6 31 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 7 0 set 1 97.789116
+ARRAY_PROGRAM_DETAIL 7 0 set 0 1 0 97.789116
+MAC_PROGRAM_RESULT 7 1 set 1 72.278912
+ARRAY_PROGRAM_DETAIL 7 1 set 0 1 0 72.278912
+MAC_PROGRAM_RESULT 7 2 set 1 76.530612
+ARRAY_PROGRAM_DETAIL 7 2 set 0 1 0 76.530612
+MAC_PROGRAM_RESULT 7 3 set 1 68.877551
+ARRAY_PROGRAM_DETAIL 7 3 set 0 1 0 68.877551
+MAC_PROGRAM_RESULT 7 4 set 1 70.578231
+ARRAY_PROGRAM_DETAIL 7 4 set 0 1 0 70.578231
+MAC_PROGRAM_RESULT 7 5 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 7 5 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 7 6 set 1 107.142857
+ARRAY_PROGRAM_DETAIL 7 6 set 0 1 0 107.142857
+MAC_PROGRAM_RESULT 7 7 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 7 7 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 7 8 set 1 69.302721
+ARRAY_PROGRAM_DETAIL 7 8 set 0 1 0 69.302721
+MAC_PROGRAM_RESULT 7 9 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 7 9 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 7 10 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 7 10 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 7 11 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 7 11 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 7 12 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 7 12 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 7 13 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 7 13 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 7 14 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 7 14 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 7 15 set 1 61.649660
+ARRAY_PROGRAM_DETAIL 7 15 set 0 1 0 61.649660
+MAC_PROGRAM_RESULT 7 16 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 7 16 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 7 17 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 7 17 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 7 18 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 7 18 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 7 19 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 7 19 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 7 20 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 7 20 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 7 21 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 7 21 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 7 22 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 7 22 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 7 23 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 7 23 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 7 24 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 7 24 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 7 25 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 7 25 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 7 26 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 7 26 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 7 27 set 1 71.428571
+ARRAY_PROGRAM_DETAIL 7 27 set 0 1 0 71.428571
+MAC_PROGRAM_RESULT 7 28 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 7 28 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 7 29 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 7 29 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 7 30 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 7 30 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 7 31 set 1 96.513605
+ARRAY_PROGRAM_DETAIL 7 31 set 0 1 0 96.513605
+MAC_PROGRAM_RESULT 8 0 set 1 79.081633
+ARRAY_PROGRAM_DETAIL 8 0 set 0 1 0 79.081633
+MAC_PROGRAM_RESULT 8 1 set 1 65.901361
+ARRAY_PROGRAM_DETAIL 8 1 set 0 1 0 65.901361
+MAC_PROGRAM_RESULT 8 2 set 1 66.751701
+ARRAY_PROGRAM_DETAIL 8 2 set 0 1 0 66.751701
+MAC_PROGRAM_RESULT 8 3 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 8 3 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 8 4 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 8 4 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 8 5 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 8 5 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 8 6 set 1 68.877551
+ARRAY_PROGRAM_DETAIL 8 6 set 0 1 0 68.877551
+MAC_PROGRAM_RESULT 8 7 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 8 7 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 8 8 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 8 8 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 8 9 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 8 9 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 8 10 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 8 10 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 8 11 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 8 11 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 8 12 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 8 12 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 8 13 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 8 13 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 8 14 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 8 14 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 8 15 set 1 85.034014
+ARRAY_PROGRAM_DETAIL 8 15 set 0 1 0 85.034014
+MAC_PROGRAM_RESULT 8 16 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 8 16 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 8 17 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 8 17 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 8 18 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 8 18 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 8 19 set 1 63.350340
+ARRAY_PROGRAM_DETAIL 8 19 set 0 1 0 63.350340
+MAC_PROGRAM_RESULT 8 20 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 8 20 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 8 21 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 8 21 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 8 22 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 8 22 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 8 23 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 8 23 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 8 24 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 8 24 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 8 25 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 8 25 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 8 26 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 8 26 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 8 27 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 8 27 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 8 28 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 8 28 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 8 29 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 8 29 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 8 30 set 1 65.901361
+ARRAY_PROGRAM_DETAIL 8 30 set 0 1 0 65.901361
+MAC_PROGRAM_RESULT 8 31 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 8 31 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 9 0 set 1 70.153061
+ARRAY_PROGRAM_DETAIL 9 0 set 0 1 0 70.153061
+MAC_PROGRAM_RESULT 9 1 set 1 101.615646
+ARRAY_PROGRAM_DETAIL 9 1 set 0 1 0 101.615646
+MAC_PROGRAM_RESULT 9 2 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 9 2 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 9 3 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 9 3 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 9 4 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 9 4 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 9 5 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 9 5 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 9 6 set 1 60.799320
+ARRAY_PROGRAM_DETAIL 9 6 set 0 1 0 60.799320
+MAC_PROGRAM_RESULT 9 7 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 9 7 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 9 8 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 9 8 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 9 9 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 9 9 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 9 10 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 9 10 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 9 11 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 9 11 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 9 12 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 9 12 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 9 13 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 9 13 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 9 14 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 9 14 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 9 15 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 9 15 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 9 16 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 9 16 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 9 17 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 9 17 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 9 18 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 9 18 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 9 19 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 9 19 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 9 20 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 9 20 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 9 21 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 9 21 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 9 22 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 9 22 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 9 23 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 9 23 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 9 24 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 9 24 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 9 25 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 9 25 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 9 26 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 9 26 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 9 27 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 9 27 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 9 28 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 9 28 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 9 29 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 9 29 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 9 30 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 9 30 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 9 31 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 9 31 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 10 0 set 1 81.207483
+ARRAY_PROGRAM_DETAIL 10 0 set 0 1 0 81.207483
+MAC_PROGRAM_RESULT 10 1 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 10 1 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 10 2 set 1 67.602041
+ARRAY_PROGRAM_DETAIL 10 2 set 0 1 0 67.602041
+MAC_PROGRAM_RESULT 10 3 set 1 60.799320
+ARRAY_PROGRAM_DETAIL 10 3 set 0 1 0 60.799320
+MAC_PROGRAM_RESULT 10 4 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 10 4 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 10 5 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 10 5 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 10 6 set 1 93.537415
+ARRAY_PROGRAM_DETAIL 10 6 set 0 1 0 93.537415
+MAC_PROGRAM_RESULT 10 7 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 10 7 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 10 8 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 10 8 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 10 9 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 10 9 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 10 10 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 10 10 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 10 11 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 10 11 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 10 12 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 10 12 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 10 13 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 10 13 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 10 14 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 10 14 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 10 15 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 10 15 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 10 16 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 10 16 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 10 17 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 10 17 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 10 18 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 10 18 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 10 19 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 10 19 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 10 20 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 10 20 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 10 21 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 10 21 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 10 22 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 10 22 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 10 23 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 10 23 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 10 24 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 10 24 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 10 25 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 10 25 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 10 26 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 10 26 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 10 27 set 1 96.088435
+ARRAY_PROGRAM_DETAIL 10 27 set 0 1 0 96.088435
+MAC_PROGRAM_RESULT 10 28 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 10 28 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 10 29 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 10 29 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 10 30 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 10 30 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 10 31 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 10 31 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 11 0 set 1 88.435374
+ARRAY_PROGRAM_DETAIL 11 0 set 0 1 0 88.435374
+MAC_PROGRAM_RESULT 11 1 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 11 1 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 11 2 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 11 2 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 11 3 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 11 3 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 11 4 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 11 4 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 11 5 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 11 5 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 11 6 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 11 6 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 11 7 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 11 7 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 11 8 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 11 8 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 11 9 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 11 9 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 11 10 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 11 10 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 11 11 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 11 11 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 11 12 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 11 12 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 11 13 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 11 13 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 11 14 set 1 41.666667
+ARRAY_PROGRAM_DETAIL 11 14 set 0 1 0 41.666667
+MAC_PROGRAM_RESULT 11 15 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 11 15 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 11 16 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 11 16 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 11 17 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 11 17 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 11 18 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 11 18 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 11 19 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 11 19 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 11 20 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 11 20 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 11 21 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 11 21 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 11 22 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 11 22 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 11 23 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 11 23 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 11 24 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 11 24 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 11 25 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 11 25 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 11 26 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 11 26 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 11 27 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 11 27 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 11 28 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 11 28 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 11 29 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 11 29 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 11 30 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 11 30 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 11 31 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 11 31 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 12 0 set 1 76.105442
+ARRAY_PROGRAM_DETAIL 12 0 set 0 1 0 76.105442
+MAC_PROGRAM_RESULT 12 1 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 12 1 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 12 2 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 12 2 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 12 3 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 12 3 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 12 4 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 12 4 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 12 5 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 12 5 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 12 6 set 1 68.877551
+ARRAY_PROGRAM_DETAIL 12 6 set 0 1 0 68.877551
+MAC_PROGRAM_RESULT 12 7 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 12 7 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 12 8 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 12 8 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 12 9 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 12 9 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 12 10 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 12 10 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 12 11 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 12 11 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 12 12 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 12 12 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 12 13 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 12 13 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 12 14 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 12 14 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 12 15 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 12 15 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 12 16 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 12 16 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 12 17 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 12 17 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 12 18 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 12 18 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 12 19 set 1 79.931973
+ARRAY_PROGRAM_DETAIL 12 19 set 0 1 0 79.931973
+MAC_PROGRAM_RESULT 12 20 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 12 20 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 12 21 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 12 21 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 12 22 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 12 22 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 12 23 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 12 23 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 12 24 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 12 24 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 12 25 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 12 25 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 12 26 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 12 26 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 12 27 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 12 27 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 12 28 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 12 28 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 12 29 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 12 29 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 12 30 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 12 30 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 12 31 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 12 31 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 13 0 set 1 82.908163
+ARRAY_PROGRAM_DETAIL 13 0 set 0 1 0 82.908163
+MAC_PROGRAM_RESULT 13 1 set 1 63.350340
+ARRAY_PROGRAM_DETAIL 13 1 set 0 1 0 63.350340
+MAC_PROGRAM_RESULT 13 2 set 1 69.302721
+ARRAY_PROGRAM_DETAIL 13 2 set 0 1 0 69.302721
+MAC_PROGRAM_RESULT 13 3 set 1 61.649660
+ARRAY_PROGRAM_DETAIL 13 3 set 0 1 0 61.649660
+MAC_PROGRAM_RESULT 13 4 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 13 4 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 13 5 set 1 96.088435
+ARRAY_PROGRAM_DETAIL 13 5 set 0 1 0 96.088435
+MAC_PROGRAM_RESULT 13 6 set 1 68.452381
+ARRAY_PROGRAM_DETAIL 13 6 set 0 1 0 68.452381
+MAC_PROGRAM_RESULT 13 7 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 13 7 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 13 8 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 13 8 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 13 9 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 13 9 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 13 10 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 13 10 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 13 11 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 13 11 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 13 12 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 13 12 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 13 13 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 13 13 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 13 14 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 13 14 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 13 15 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 13 15 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 13 16 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 13 16 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 13 17 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 13 17 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 13 18 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 13 18 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 13 19 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 13 19 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 13 20 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 13 20 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 13 21 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 13 21 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 13 22 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 13 22 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 13 23 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 13 23 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 13 24 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 13 24 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 13 25 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 13 25 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 13 26 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 13 26 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 13 27 set 1 74.829932
+ARRAY_PROGRAM_DETAIL 13 27 set 0 1 0 74.829932
+MAC_PROGRAM_RESULT 13 28 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 13 28 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 13 29 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 13 29 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 13 30 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 13 30 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 13 31 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 13 31 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 14 0 set 1 90.561224
+ARRAY_PROGRAM_DETAIL 14 0 set 0 1 0 90.561224
+MAC_PROGRAM_RESULT 14 1 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 14 1 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 14 2 set 1 60.799320
+ARRAY_PROGRAM_DETAIL 14 2 set 0 1 0 60.799320
+MAC_PROGRAM_RESULT 14 3 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 14 3 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 14 4 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 14 4 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 14 5 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 14 5 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 14 6 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 14 6 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 14 7 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 14 7 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 14 8 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 14 8 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 14 9 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 14 9 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 14 10 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 14 10 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 14 11 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 14 11 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 14 12 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 14 12 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 14 13 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 14 13 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 14 14 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 14 14 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 14 15 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 14 15 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 14 16 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 14 16 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 14 17 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 14 17 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 14 18 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 14 18 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 14 19 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 14 19 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 14 20 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 14 20 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 14 21 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 14 21 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 14 22 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 14 22 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 14 23 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 14 23 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 14 24 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 14 24 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 14 25 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 14 25 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 14 26 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 14 26 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 14 27 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 14 27 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 14 28 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 14 28 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 14 29 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 14 29 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 14 30 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 14 30 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 14 31 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 14 31 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 15 0 set 1 79.506803
+ARRAY_PROGRAM_DETAIL 15 0 set 0 1 0 79.506803
+MAC_PROGRAM_RESULT 15 1 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 15 1 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 15 2 set 1 66.751701
+ARRAY_PROGRAM_DETAIL 15 2 set 0 1 0 66.751701
+MAC_PROGRAM_RESULT 15 3 set 1 98.639456
+ARRAY_PROGRAM_DETAIL 15 3 set 0 1 0 98.639456
+MAC_PROGRAM_RESULT 15 4 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 15 4 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 15 5 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 15 5 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 15 6 set 1 68.027211
+ARRAY_PROGRAM_DETAIL 15 6 set 0 1 0 68.027211
+MAC_PROGRAM_RESULT 15 7 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 15 7 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 15 8 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 15 8 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 15 9 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 15 9 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 15 10 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 15 10 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 15 11 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 15 11 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 15 12 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 15 12 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 15 13 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 15 13 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 15 14 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 15 14 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 15 15 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 15 15 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 15 16 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 15 16 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 15 17 set 1 68.452381
+ARRAY_PROGRAM_DETAIL 15 17 set 0 1 0 68.452381
+MAC_PROGRAM_RESULT 15 18 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 15 18 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 15 19 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 15 19 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 15 20 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 15 20 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 15 21 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 15 21 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 15 22 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 15 22 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 15 23 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 15 23 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 15 24 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 15 24 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 15 25 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 15 25 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 15 26 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 15 26 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 15 27 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 15 27 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 15 28 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 15 28 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 15 29 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 15 29 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 15 30 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 15 30 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 15 31 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 15 31 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 16 0 set 1 99.064626
+ARRAY_PROGRAM_DETAIL 16 0 set 0 1 0 99.064626
+MAC_PROGRAM_RESULT 16 1 set 1 61.224490
+ARRAY_PROGRAM_DETAIL 16 1 set 0 1 0 61.224490
+MAC_PROGRAM_RESULT 16 2 set 1 62.925170
+ARRAY_PROGRAM_DETAIL 16 2 set 0 1 0 62.925170
+MAC_PROGRAM_RESULT 16 3 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 16 3 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 16 4 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 16 4 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 16 5 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 16 5 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 16 6 set 1 65.476190
+ARRAY_PROGRAM_DETAIL 16 6 set 0 1 0 65.476190
+MAC_PROGRAM_RESULT 16 7 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 16 7 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 16 8 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 16 8 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 16 9 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 16 9 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 16 10 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 16 10 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 16 11 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 16 11 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 16 12 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 16 12 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 16 13 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 16 13 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 16 14 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 16 14 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 16 15 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 16 15 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 16 16 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 16 16 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 16 17 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 16 17 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 16 18 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 16 18 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 16 19 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 16 19 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 16 20 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 16 20 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 16 21 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 16 21 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 16 22 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 16 22 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 16 23 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 16 23 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 16 24 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 16 24 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 16 25 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 16 25 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 16 26 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 16 26 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 16 27 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 16 27 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 16 28 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 16 28 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 16 29 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 16 29 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 16 30 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 16 30 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 16 31 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 16 31 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 17 0 set 1 71.853741
+ARRAY_PROGRAM_DETAIL 17 0 set 0 1 0 71.853741
+MAC_PROGRAM_RESULT 17 1 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 17 1 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 17 2 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 17 2 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 17 3 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 17 3 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 17 4 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 17 4 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 17 5 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 17 5 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 17 6 set 1 59.523810
+ARRAY_PROGRAM_DETAIL 17 6 set 0 1 0 59.523810
+MAC_PROGRAM_RESULT 17 7 set 1 89.285714
+ARRAY_PROGRAM_DETAIL 17 7 set 0 1 0 89.285714
+MAC_PROGRAM_RESULT 17 8 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 17 8 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 17 9 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 17 9 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 17 10 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 17 10 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 17 11 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 17 11 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 17 12 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 17 12 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 17 13 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 17 13 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 17 14 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 17 14 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 17 15 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 17 15 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 17 16 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 17 16 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 17 17 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 17 17 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 17 18 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 17 18 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 17 19 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 17 19 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 17 20 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 17 20 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 17 21 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 17 21 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 17 22 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 17 22 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 17 23 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 17 23 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 17 24 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 17 24 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 17 25 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 17 25 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 17 26 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 17 26 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 17 27 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 17 27 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 17 28 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 17 28 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 17 29 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 17 29 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 17 30 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 17 30 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 17 31 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 17 31 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 18 0 set 1 90.561224
+ARRAY_PROGRAM_DETAIL 18 0 set 0 1 0 90.561224
+MAC_PROGRAM_RESULT 18 1 set 1 67.176871
+ARRAY_PROGRAM_DETAIL 18 1 set 0 1 0 67.176871
+MAC_PROGRAM_RESULT 18 2 set 1 72.278912
+ARRAY_PROGRAM_DETAIL 18 2 set 0 1 0 72.278912
+MAC_PROGRAM_RESULT 18 3 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 18 3 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 18 4 set 1 63.775510
+ARRAY_PROGRAM_DETAIL 18 4 set 0 1 0 63.775510
+MAC_PROGRAM_RESULT 18 5 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 18 5 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 18 6 set 1 72.704082
+ARRAY_PROGRAM_DETAIL 18 6 set 0 1 0 72.704082
+MAC_PROGRAM_RESULT 18 7 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 18 7 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 18 8 set 1 96.513605
+ARRAY_PROGRAM_DETAIL 18 8 set 0 1 0 96.513605
+MAC_PROGRAM_RESULT 18 9 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 18 9 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 18 10 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 18 10 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 18 11 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 18 11 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 18 12 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 18 12 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 18 13 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 18 13 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 18 14 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 18 14 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 18 15 set 1 67.602041
+ARRAY_PROGRAM_DETAIL 18 15 set 0 1 0 67.602041
+MAC_PROGRAM_RESULT 18 16 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 18 16 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 18 17 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 18 17 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 18 18 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 18 18 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 18 19 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 18 19 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 18 20 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 18 20 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 18 21 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 18 21 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 18 22 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 18 22 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 18 23 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 18 23 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 18 24 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 18 24 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 18 25 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 18 25 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 18 26 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 18 26 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 18 27 set 1 65.051020
+ARRAY_PROGRAM_DETAIL 18 27 set 0 1 0 65.051020
+MAC_PROGRAM_RESULT 18 28 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 18 28 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 18 29 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 18 29 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 18 30 set 1 97.363946
+ARRAY_PROGRAM_DETAIL 18 30 set 0 1 0 97.363946
+MAC_PROGRAM_RESULT 18 31 set 1 62.500000
+ARRAY_PROGRAM_DETAIL 18 31 set 0 1 0 62.500000
+MAC_PROGRAM_RESULT 19 0 set 1 64.625850
+ARRAY_PROGRAM_DETAIL 19 0 set 0 1 0 64.625850
+MAC_PROGRAM_RESULT 19 1 set 1 75.680272
+ARRAY_PROGRAM_DETAIL 19 1 set 0 1 0 75.680272
+MAC_PROGRAM_RESULT 19 2 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 19 2 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 19 3 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 19 3 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 19 4 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 19 4 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 19 5 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 19 5 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 19 6 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 19 6 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 19 7 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 19 7 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 19 8 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 19 8 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 19 9 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 19 9 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 19 10 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 19 10 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 19 11 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 19 11 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 19 12 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 19 12 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 19 13 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 19 13 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 19 14 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 19 14 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 19 15 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 19 15 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 19 16 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 19 16 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 19 17 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 19 17 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 19 18 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 19 18 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 19 19 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 19 19 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 19 20 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 19 20 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 19 21 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 19 21 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 19 22 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 19 22 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 19 23 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 19 23 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 19 24 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 19 24 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 19 25 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 19 25 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 19 26 set 1 82.057823
+ARRAY_PROGRAM_DETAIL 19 26 set 0 1 0 82.057823
+MAC_PROGRAM_RESULT 19 27 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 19 27 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 19 28 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 19 28 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 19 29 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 19 29 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 19 30 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 19 30 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 19 31 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 19 31 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 20 0 set 1 63.775510
+ARRAY_PROGRAM_DETAIL 20 0 set 0 1 0 63.775510
+MAC_PROGRAM_RESULT 20 1 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 20 1 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 20 2 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 20 2 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 20 3 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 20 3 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 20 4 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 20 4 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 20 5 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 20 5 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 20 6 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 20 6 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 20 7 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 20 7 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 20 8 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 20 8 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 20 9 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 20 9 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 20 10 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 20 10 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 20 11 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 20 11 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 20 12 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 20 12 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 20 13 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 20 13 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 20 14 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 20 14 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 20 15 set 1 85.459184
+ARRAY_PROGRAM_DETAIL 20 15 set 0 1 0 85.459184
+MAC_PROGRAM_RESULT 20 16 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 20 16 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 20 17 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 20 17 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 20 18 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 20 18 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 20 19 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 20 19 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 20 20 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 20 20 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 20 21 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 20 21 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 20 22 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 20 22 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 20 23 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 20 23 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 20 24 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 20 24 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 20 25 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 20 25 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 20 26 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 20 26 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 20 27 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 20 27 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 20 28 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 20 28 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 20 29 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 20 29 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 20 30 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 20 30 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 20 31 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 20 31 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 21 0 set 1 77.380952
+ARRAY_PROGRAM_DETAIL 21 0 set 0 1 0 77.380952
+MAC_PROGRAM_RESULT 21 1 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 21 1 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 21 2 set 1 63.775510
+ARRAY_PROGRAM_DETAIL 21 2 set 0 1 0 63.775510
+MAC_PROGRAM_RESULT 21 3 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 21 3 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 21 4 set 1 97.363946
+ARRAY_PROGRAM_DETAIL 21 4 set 0 1 0 97.363946
+MAC_PROGRAM_RESULT 21 5 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 21 5 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 21 6 set 1 65.051020
+ARRAY_PROGRAM_DETAIL 21 6 set 0 1 0 65.051020
+MAC_PROGRAM_RESULT 21 7 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 21 7 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 21 8 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 21 8 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 21 9 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 21 9 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 21 10 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 21 10 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 21 11 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 21 11 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 21 12 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 21 12 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 21 13 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 21 13 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 21 14 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 21 14 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 21 15 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 21 15 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 21 16 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 21 16 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 21 17 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 21 17 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 21 18 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 21 18 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 21 19 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 21 19 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 21 20 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 21 20 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 21 21 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 21 21 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 21 22 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 21 22 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 21 23 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 21 23 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 21 24 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 21 24 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 21 25 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 21 25 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 21 26 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 21 26 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 21 27 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 21 27 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 21 28 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 21 28 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 21 29 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 21 29 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 21 30 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 21 30 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 21 31 set 1 67.176871
+ARRAY_PROGRAM_DETAIL 21 31 set 0 1 0 67.176871
+MAC_PROGRAM_RESULT 22 0 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 22 0 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 22 1 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 22 1 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 22 2 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 22 2 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 22 3 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 22 3 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 22 4 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 22 4 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 22 5 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 22 5 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 22 6 set 1 64.625850
+ARRAY_PROGRAM_DETAIL 22 6 set 0 1 0 64.625850
+MAC_PROGRAM_RESULT 22 7 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 22 7 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 22 8 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 22 8 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 22 9 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 22 9 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 22 10 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 22 10 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 22 11 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 22 11 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 22 12 set 1 73.554422
+ARRAY_PROGRAM_DETAIL 22 12 set 0 1 0 73.554422
+MAC_PROGRAM_RESULT 22 13 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 22 13 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 22 14 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 22 14 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 22 15 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 22 15 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 22 16 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 22 16 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 22 17 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 22 17 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 22 18 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 22 18 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 22 19 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 22 19 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 22 20 set 1 41.666667
+ARRAY_PROGRAM_DETAIL 22 20 set 0 1 0 41.666667
+MAC_PROGRAM_RESULT 22 21 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 22 21 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 22 22 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 22 22 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 22 23 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 22 23 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 22 24 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 22 24 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 22 25 set 1 39.115646
+ARRAY_PROGRAM_DETAIL 22 25 set 1 1 0 39.115646
+MAC_PROGRAM_RESULT 22 26 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 22 26 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 22 27 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 22 27 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 22 28 set 1 38.265306
+ARRAY_PROGRAM_DETAIL 22 28 set 0 1 0 38.265306
+MAC_PROGRAM_RESULT 22 29 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 22 29 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 22 30 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 22 30 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 22 31 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 22 31 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 23 0 set 1 92.261905
+ARRAY_PROGRAM_DETAIL 23 0 set 0 1 0 92.261905
+MAC_PROGRAM_RESULT 23 1 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 23 1 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 23 2 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 23 2 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 23 3 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 23 3 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 23 4 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 23 4 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 23 5 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 23 5 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 23 6 set 1 60.374150
+ARRAY_PROGRAM_DETAIL 23 6 set 0 1 0 60.374150
+MAC_PROGRAM_RESULT 23 7 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 23 7 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 23 8 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 23 8 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 23 9 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 23 9 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 23 10 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 23 10 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 23 11 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 23 11 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 23 12 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 23 12 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 23 13 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 23 13 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 23 14 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 23 14 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 23 15 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 23 15 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 23 16 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 23 16 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 23 17 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 23 17 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 23 18 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 23 18 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 23 19 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 23 19 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 23 20 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 23 20 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 23 21 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 23 21 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 23 22 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 23 22 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 23 23 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 23 23 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 23 24 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 23 24 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 23 25 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 23 25 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 23 26 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 23 26 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 23 27 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 23 27 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 23 28 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 23 28 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 23 29 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 23 29 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 23 30 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 23 30 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 23 31 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 23 31 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 24 0 set 1 67.602041
+ARRAY_PROGRAM_DETAIL 24 0 set 0 1 0 67.602041
+MAC_PROGRAM_RESULT 24 1 set 1 79.506803
+ARRAY_PROGRAM_DETAIL 24 1 set 0 1 0 79.506803
+MAC_PROGRAM_RESULT 24 2 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 24 2 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 24 3 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 24 3 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 24 4 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 24 4 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 24 5 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 24 5 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 24 6 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 24 6 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 24 7 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 24 7 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 24 8 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 24 8 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 24 9 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 24 9 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 24 10 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 24 10 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 24 11 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 24 11 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 24 12 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 24 12 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 24 13 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 24 13 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 24 14 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 24 14 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 24 15 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 24 15 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 24 16 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 24 16 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 24 17 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 24 17 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 24 18 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 24 18 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 24 19 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 24 19 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 24 20 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 24 20 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 24 21 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 24 21 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 24 22 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 24 22 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 24 23 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 24 23 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 24 24 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 24 24 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 24 25 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 24 25 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 24 26 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 24 26 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 24 27 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 24 27 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 24 28 set 1 39.965986
+ARRAY_PROGRAM_DETAIL 24 28 set 0 1 0 39.965986
+MAC_PROGRAM_RESULT 24 29 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 24 29 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 24 30 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 24 30 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 24 31 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 24 31 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 25 0 set 1 82.482993
+ARRAY_PROGRAM_DETAIL 25 0 set 0 1 0 82.482993
+MAC_PROGRAM_RESULT 25 1 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 25 1 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 25 2 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 25 2 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 25 3 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 25 3 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 25 4 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 25 4 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 25 5 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 25 5 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 25 6 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 25 6 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 25 7 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 25 7 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 25 8 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 25 8 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 25 9 set 1 39.965986
+ARRAY_PROGRAM_DETAIL 25 9 set 0 1 0 39.965986
+MAC_PROGRAM_RESULT 25 10 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 25 10 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 25 11 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 25 11 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 25 12 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 25 12 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 25 13 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 25 13 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 25 14 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 25 14 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 25 15 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 25 15 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 25 16 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 25 16 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 25 17 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 25 17 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 25 18 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 25 18 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 25 19 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 25 19 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 25 20 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 25 20 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 25 21 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 25 21 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 25 22 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 25 22 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 25 23 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 25 23 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 25 24 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 25 24 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 25 25 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 25 25 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 25 26 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 25 26 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 25 27 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 25 27 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 25 28 set 1 38.690476
+ARRAY_PROGRAM_DETAIL 25 28 set 0 1 0 38.690476
+MAC_PROGRAM_RESULT 25 29 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 25 29 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 25 30 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 25 30 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 25 31 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 25 31 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 26 0 set 1 90.561224
+ARRAY_PROGRAM_DETAIL 26 0 set 0 1 0 90.561224
+MAC_PROGRAM_RESULT 26 1 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 26 1 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 26 2 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 26 2 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 26 3 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 26 3 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 26 4 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 26 4 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 26 5 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 26 5 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 26 6 set 1 64.200680
+ARRAY_PROGRAM_DETAIL 26 6 set 0 1 0 64.200680
+MAC_PROGRAM_RESULT 26 7 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 26 7 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 26 8 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 26 8 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 26 9 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 26 9 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 26 10 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 26 10 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 26 11 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 26 11 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 26 12 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 26 12 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 26 13 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 26 13 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 26 14 set 1 41.666667
+ARRAY_PROGRAM_DETAIL 26 14 set 0 1 0 41.666667
+MAC_PROGRAM_RESULT 26 15 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 26 15 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 26 16 set 1 41.666667
+ARRAY_PROGRAM_DETAIL 26 16 set 0 1 0 41.666667
+MAC_PROGRAM_RESULT 26 17 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 26 17 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 26 18 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 26 18 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 26 19 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 26 19 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 26 20 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 26 20 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 26 21 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 26 21 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 26 22 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 26 22 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 26 23 set 1 46.343537
+ARRAY_PROGRAM_DETAIL 26 23 set 0 1 0 46.343537
+MAC_PROGRAM_RESULT 26 24 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 26 24 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 26 25 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 26 25 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 26 26 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 26 26 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 26 27 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 26 27 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 26 28 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 26 28 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 26 29 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 26 29 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 26 30 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 26 30 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 26 31 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 26 31 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 27 0 set 1 70.578231
+ARRAY_PROGRAM_DETAIL 27 0 set 0 1 0 70.578231
+MAC_PROGRAM_RESULT 27 1 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 27 1 set 0 1 0 56.547619
+MAC_PROGRAM_RESULT 27 2 set 1 92.261905
+ARRAY_PROGRAM_DETAIL 27 2 set 0 1 0 92.261905
+MAC_PROGRAM_RESULT 27 3 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 27 3 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 27 4 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 27 4 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 27 5 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 27 5 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 27 6 set 1 59.098639
+ARRAY_PROGRAM_DETAIL 27 6 set 0 1 0 59.098639
+MAC_PROGRAM_RESULT 27 7 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 27 7 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 27 8 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 27 8 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 27 9 set 1 41.666667
+ARRAY_PROGRAM_DETAIL 27 9 set 0 1 0 41.666667
+MAC_PROGRAM_RESULT 27 10 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 27 10 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 27 11 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 27 11 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 27 12 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 27 12 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 27 13 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 27 13 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 27 14 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 27 14 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 27 15 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 27 15 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 27 16 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 27 16 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 27 17 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 27 17 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 27 18 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 27 18 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 27 19 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 27 19 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 27 20 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 27 20 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 27 21 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 27 21 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 27 22 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 27 22 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 27 23 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 27 23 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 27 24 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 27 24 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 27 25 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 27 25 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 27 26 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 27 26 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 27 27 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 27 27 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 27 28 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 27 28 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 27 29 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 27 29 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 27 30 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 27 30 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 27 31 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 27 31 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 28 0 set 1 74.404762
+ARRAY_PROGRAM_DETAIL 28 0 set 0 1 0 74.404762
+MAC_PROGRAM_RESULT 28 1 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 28 1 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 28 2 set 1 61.649660
+ARRAY_PROGRAM_DETAIL 28 2 set 0 1 0 61.649660
+MAC_PROGRAM_RESULT 28 3 set 1 62.074830
+ARRAY_PROGRAM_DETAIL 28 3 set 0 1 0 62.074830
+MAC_PROGRAM_RESULT 28 4 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 28 4 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 28 5 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 28 5 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 28 6 set 1 95.663265
+ARRAY_PROGRAM_DETAIL 28 6 set 0 1 0 95.663265
+MAC_PROGRAM_RESULT 28 7 set 1 54.421769
+ARRAY_PROGRAM_DETAIL 28 7 set 0 1 0 54.421769
+MAC_PROGRAM_RESULT 28 8 set 1 55.272109
+ARRAY_PROGRAM_DETAIL 28 8 set 0 1 0 55.272109
+MAC_PROGRAM_RESULT 28 9 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 28 9 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 28 10 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 28 10 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 28 11 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 28 11 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 28 12 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 28 12 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 28 13 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 28 13 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 28 14 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 28 14 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 28 15 set 1 52.295918
+ARRAY_PROGRAM_DETAIL 28 15 set 0 1 0 52.295918
+MAC_PROGRAM_RESULT 28 16 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 28 16 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 28 17 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 28 17 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 28 18 set 1 48.044218
+ARRAY_PROGRAM_DETAIL 28 18 set 0 1 0 48.044218
+MAC_PROGRAM_RESULT 28 19 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 28 19 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 28 20 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 28 20 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 28 21 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 28 21 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 28 22 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 28 22 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 28 23 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 28 23 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 28 24 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 28 24 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 28 25 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 28 25 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 28 26 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 28 26 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 28 27 set 1 59.948980
+ARRAY_PROGRAM_DETAIL 28 27 set 0 1 0 59.948980
+MAC_PROGRAM_RESULT 28 28 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 28 28 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 28 29 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 28 29 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 28 30 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 28 30 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 28 31 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 28 31 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 29 0 set 1 81.207483
+ARRAY_PROGRAM_DETAIL 29 0 set 0 1 0 81.207483
+MAC_PROGRAM_RESULT 29 1 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 29 1 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 29 2 set 1 64.625850
+ARRAY_PROGRAM_DETAIL 29 2 set 0 1 0 64.625850
+MAC_PROGRAM_RESULT 29 3 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 29 3 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 29 4 set 1 57.397959
+ARRAY_PROGRAM_DETAIL 29 4 set 0 1 0 57.397959
+MAC_PROGRAM_RESULT 29 5 set 1 70.153061
+ARRAY_PROGRAM_DETAIL 29 5 set 0 1 0 70.153061
+MAC_PROGRAM_RESULT 29 6 set 1 69.727891
+ARRAY_PROGRAM_DETAIL 29 6 set 0 1 0 69.727891
+MAC_PROGRAM_RESULT 29 7 set 1 54.846939
+ARRAY_PROGRAM_DETAIL 29 7 set 0 1 0 54.846939
+MAC_PROGRAM_RESULT 29 8 set 1 57.823129
+ARRAY_PROGRAM_DETAIL 29 8 set 0 1 0 57.823129
+MAC_PROGRAM_RESULT 29 9 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 29 9 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 29 10 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 29 10 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 29 11 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 29 11 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 29 12 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 29 12 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 29 13 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 29 13 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 29 14 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 29 14 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 29 15 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 29 15 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 29 16 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 29 16 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 29 17 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 29 17 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 29 18 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 29 18 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 29 19 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 29 19 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 29 20 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 29 20 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 29 21 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 29 21 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 29 22 set 1 48.894558
+ARRAY_PROGRAM_DETAIL 29 22 set 0 1 0 48.894558
+MAC_PROGRAM_RESULT 29 23 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 29 23 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 29 24 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 29 24 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 29 25 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 29 25 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 29 26 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 29 26 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 29 27 set 1 110.969388
+ARRAY_PROGRAM_DETAIL 29 27 set 0 1 0 110.969388
+MAC_PROGRAM_RESULT 29 28 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 29 28 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 29 29 set 1 48.469388
+ARRAY_PROGRAM_DETAIL 29 29 set 0 1 0 48.469388
+MAC_PROGRAM_RESULT 29 30 set 1 51.870748
+ARRAY_PROGRAM_DETAIL 29 30 set 0 1 0 51.870748
+MAC_PROGRAM_RESULT 29 31 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 29 31 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 30 0 set 1 88.860544
+ARRAY_PROGRAM_DETAIL 30 0 set 0 1 0 88.860544
+MAC_PROGRAM_RESULT 30 1 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 30 1 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 30 2 set 1 58.248299
+ARRAY_PROGRAM_DETAIL 30 2 set 0 1 0 58.248299
+MAC_PROGRAM_RESULT 30 3 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 30 3 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 30 4 set 1 53.996599
+ARRAY_PROGRAM_DETAIL 30 4 set 0 1 0 53.996599
+MAC_PROGRAM_RESULT 30 5 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 30 5 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 30 6 set 1 58.673469
+ARRAY_PROGRAM_DETAIL 30 6 set 0 1 0 58.673469
+MAC_PROGRAM_RESULT 30 7 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 30 7 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 30 8 set 1 53.571429
+ARRAY_PROGRAM_DETAIL 30 8 set 0 1 0 53.571429
+MAC_PROGRAM_RESULT 30 9 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 30 9 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 30 10 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 30 10 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 30 11 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 30 11 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 30 12 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 30 12 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 30 13 set 1 46.768707
+ARRAY_PROGRAM_DETAIL 30 13 set 0 1 0 46.768707
+MAC_PROGRAM_RESULT 30 14 set 1 40.391156
+ARRAY_PROGRAM_DETAIL 30 14 set 0 1 0 40.391156
+MAC_PROGRAM_RESULT 30 15 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 30 15 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 30 16 set 1 42.091837
+ARRAY_PROGRAM_DETAIL 30 16 set 0 1 0 42.091837
+MAC_PROGRAM_RESULT 30 17 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 30 17 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 30 18 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 30 18 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 30 19 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 30 19 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 30 20 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 30 20 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 30 21 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 30 21 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 30 22 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 30 22 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 30 23 set 1 45.918367
+ARRAY_PROGRAM_DETAIL 30 23 set 0 1 0 45.918367
+MAC_PROGRAM_RESULT 30 24 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 30 24 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 30 25 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 30 25 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 30 26 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 30 26 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 30 27 set 1 53.146259
+ARRAY_PROGRAM_DETAIL 30 27 set 0 1 0 53.146259
+MAC_PROGRAM_RESULT 30 28 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 30 28 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 30 29 set 1 43.367347
+ARRAY_PROGRAM_DETAIL 30 29 set 0 1 0 43.367347
+MAC_PROGRAM_RESULT 30 30 set 1 47.193878
+ARRAY_PROGRAM_DETAIL 30 30 set 0 1 0 47.193878
+MAC_PROGRAM_RESULT 30 31 set 1 49.744898
+ARRAY_PROGRAM_DETAIL 30 31 set 0 1 0 49.744898
+MAC_PROGRAM_RESULT 31 0 set 1 65.476190
+ARRAY_PROGRAM_DETAIL 31 0 set 0 1 0 65.476190
+MAC_PROGRAM_RESULT 31 1 set 1 52.721088
+ARRAY_PROGRAM_DETAIL 31 1 set 0 1 0 52.721088
+MAC_PROGRAM_RESULT 31 2 set 1 55.697279
+ARRAY_PROGRAM_DETAIL 31 2 set 0 1 0 55.697279
+MAC_PROGRAM_RESULT 31 3 set 1 50.170068
+ARRAY_PROGRAM_DETAIL 31 3 set 0 1 0 50.170068
+MAC_PROGRAM_RESULT 31 4 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 31 4 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 31 5 set 1 49.319728
+ARRAY_PROGRAM_DETAIL 31 5 set 0 1 0 49.319728
+MAC_PROGRAM_RESULT 31 6 set 1 56.972789
+ARRAY_PROGRAM_DETAIL 31 6 set 0 1 0 56.972789
+MAC_PROGRAM_RESULT 31 7 set 1 47.619048
+ARRAY_PROGRAM_DETAIL 31 7 set 0 1 0 47.619048
+MAC_PROGRAM_RESULT 31 8 set 1 56.122449
+ARRAY_PROGRAM_DETAIL 31 8 set 0 1 0 56.122449
+MAC_PROGRAM_RESULT 31 9 set 1 41.241497
+ARRAY_PROGRAM_DETAIL 31 9 set 0 1 0 41.241497
+MAC_PROGRAM_RESULT 31 10 set 1 45.068027
+ARRAY_PROGRAM_DETAIL 31 10 set 0 1 0 45.068027
+MAC_PROGRAM_RESULT 31 11 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 31 11 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 31 12 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 31 12 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 31 13 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 31 13 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 31 14 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 31 14 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 31 15 set 1 51.020408
+ARRAY_PROGRAM_DETAIL 31 15 set 0 1 0 51.020408
+MAC_PROGRAM_RESULT 31 16 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 31 16 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 31 17 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 31 17 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 31 18 set 1 42.942177
+ARRAY_PROGRAM_DETAIL 31 18 set 0 1 0 42.942177
+MAC_PROGRAM_RESULT 31 19 set 1 44.217687
+ARRAY_PROGRAM_DETAIL 31 19 set 0 1 0 44.217687
+MAC_PROGRAM_RESULT 31 20 set 1 44.642857
+ARRAY_PROGRAM_DETAIL 31 20 set 0 1 0 44.642857
+MAC_PROGRAM_RESULT 31 21 set 1 45.493197
+ARRAY_PROGRAM_DETAIL 31 21 set 0 1 0 45.493197
+MAC_PROGRAM_RESULT 31 22 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 31 22 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 31 23 set 1 50.595238
+ARRAY_PROGRAM_DETAIL 31 23 set 0 1 0 50.595238
+MAC_PROGRAM_RESULT 31 24 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 31 24 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 31 25 set 1 40.816327
+ARRAY_PROGRAM_DETAIL 31 25 set 0 1 0 40.816327
+MAC_PROGRAM_RESULT 31 26 set 1 43.792517
+ARRAY_PROGRAM_DETAIL 31 26 set 0 1 0 43.792517
+MAC_PROGRAM_RESULT 31 27 set 1 51.445578
+ARRAY_PROGRAM_DETAIL 31 27 set 0 1 0 51.445578
+MAC_PROGRAM_RESULT 31 28 set 1 39.540816
+ARRAY_PROGRAM_DETAIL 31 28 set 0 1 0 39.540816
+MAC_PROGRAM_RESULT 31 29 set 1 42.517007
+ARRAY_PROGRAM_DETAIL 31 29 set 0 1 0 42.517007
+MAC_PROGRAM_RESULT 31 30 set 1 93.112245
+ARRAY_PROGRAM_DETAIL 31 30 set 0 1 0 93.112245
+MAC_PROGRAM_RESULT 31 31 set 1 56.547619
+ARRAY_PROGRAM_DETAIL 31 31 set 0 1 0 56.547619
+ARRAY_PROGRAM_SUMMARY set 1024 0 4
+## set outcome [catch {
+##  hold_cpu $iswb
+##  if {$action eq "hold"} { puts "HELD"; flush stdout } else {
+##   if {(([expr 0x$h0]>>36)&1)!=1} { error "ADC not healthy; initialize the bench first" }
+##   if {$iswb} { clock_profile 10; wb_profile } else { clock_profile 2; scan_profile }
+##   switch $action {
+##    read { scan_capture $row $col 0 2400 read }
+##    set - reset { scan_program $row $col $action }
+##    cycle {
+##     scan_capture $row $col 0 2400 read
+##     for {set n 0} {$n<$cycles} {incr n} {
+##      scan_program $row $col set
+##      set reset_outcome [scan_program $row $col reset]
+##      if {![dict get $reset_outcome target_met]} {
+##       puts "EVENT Cycle stopped: RESET ramp exhausted without a confirmed target"; flush stdout
+##       break
+##      }
+##     }
+##    }
+##    column { for {set r 0} {$r<32} {incr r} { scan_capture $r $col 0 2400 read } }
+##    array {
+##     for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { scan_capture $r $c 0 2400 read } }
+##    }
+##    array_set { scan_array_program set 0 1024 }
+##    array_reset { scan_array_program reset 0 1024 }
+##    diagnostic_reset_setrails {
+##     scan_capture $row $col 0 2400 before_reset_setrails
+##     hold_cpu; dac 2 $resetv; dac 3 $resetwl; power_mask 0
+##     scan_capture $row $col 0 $hold reset_setrails_pulse 1 1
+##     hold_cpu; dac 2 0.5; dac 3 2.5; power_mask 0
+##     scan_capture $row $col 0 2400 after_reset_setrails
+##    }
+##     scan_mac { scan_mac }
+##    wb_read - wb_set - wb_reset { wb_capture $row $col [string range $action 3 end] }
+##    wb_cycle {
+##     for {set n 0} {$n<$cycles} {incr n} {
+##      wb_capture $row $col read; wb_capture $row $col set; wb_capture $row $col read
+##      wb_capture $row $col reset; wb_capture $row $col read
+##     }
+##    }
+##    wb_column { for {set r 0} {$r<32} {incr r} { wb_capture $r $col read } }
+##    wb_array { for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { wb_capture $r $c read } } }
+##   }
+##    if {!$iswb && $action ni {scan_mac array_set array_reset}} { collect_trace }
+##  }
+## } message options]
+## set restoring 1
+EVENT clock_mhz=2
+## set cleanup [catch {
+##  hold_cpu
+##  if {$action ne "hold"} { clock_profile 2; scan_profile }
+## } cleanup_message]
+## if {$cleanup} { puts "RESTORE_FAILED $cleanup_message"; flush stdout }
+## close_i2c_bridge
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/11672
+## if {$outcome} { error $message }
+## if {$cleanup} { error "Read-profile restoration failed: $cleanup_message" }
+## puts "JOB_COMPLETE $action";
+JOB_COMPLETE array_set
+## flush stdout
+## exit
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 23 12:49:40 2026...

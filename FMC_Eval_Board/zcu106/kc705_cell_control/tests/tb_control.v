@@ -18,7 +18,7 @@ module tb_control;
   .result0(r0),.result1(r1));
  runtime_dac_spi #(.HALF(6),.GAP(10)) spi(.clk(clk),.enable(en),.start(ds),.data(df),
   .busy(db),.done(dd),.sclk(sc),.sdata(sd),.ncs(cs));
- integer count=0,frames=0,shiftbits=0;
+ integer count=0,frames=0,shiftbits=0,reset_edges=0;
  reg [23:0] received=0;
  reg [15:0] scan_packet=0;
  always @(negedge sc) if(!cs) begin received={received[22:0],sd}; count=count+1; end
@@ -33,7 +33,7 @@ module tb_control;
   end
   valid<=!valid;
  end
- always @(posedge rst) ready<=0;
+ always @(posedge rst) begin ready<=0; reset_edges=reset_edges+1; end
  // Board-level prerequisite: TXS0108E pull-ups make a floating SE high,
  // which disables the Caravel functional WB FSM despite correct UART traffic.
 always @(negedge clk) if(en && dut.core.wb_mode && (sz || se || tm))
@@ -121,6 +121,13 @@ always @(posedge si) if(dut.core.wb_mode && dut.core.state==14) begin
   completed();
   if(r0[10] || frames!=k+5 || received!=24'h138000 || r0[31:16]!={1'b0,5'd4,5'd5,5'd4} || dut.core.program_active)
    $fatal(1,"compound PROGRAM_STEP failed frames=%d last=%h status=%h",frames-k,received,r0[63:0]);
+  // RESET uses that same proven DAC2/DAC3 path, with OP_SET low.
+  k=frames;
+  command(8,(58'h7000<<41)|(58'h3000<<25)|(58'd40<<10)|(58'd24<<5)|58'd3);
+  completed();
+  if(r0[10] || frames!=k+5 || received!=24'h138000 ||
+     r0[31:16]!={1'b0,5'd3,5'd24,5'd3} || dut.core.program_active)
+   $fatal(1,"compound RESET set-rail path failed frames=%d last=%h status=%h",frames-k,received,r0[63:0]);
   // One external fast PROGRAM_RAMP command must execute a SET step and all ten
   // confirmation reads internally.  Only one selected cell is ever scanned.
   k=frames; shiftbits=0; scan_packet=0;
@@ -135,6 +142,26 @@ always @(posedge si) if(dut.core.wb_mode && dut.core.state==14) begin
   if(r1[255:224]!=32'h54524332 || r1[200:192]<3 ||
      r1[11:0]!=2048 || r1[63:56]!=3 || r1[55:36]!=0)
    $fatal(1,"measured trace header/first baseline point mismatch %h",r1);
+  // The array scheduler performs an initial read plus ten confirmations for
+  // each cell without any host command between cells.  The core underneath
+  // still resets and waits READY for every one of those scan packets.
+  k=reset_edges;
+  command(12,(58'd1<<57)|(58'd1<<36)|(58'd40<<21)); completed();
+  if(r0[10] || r1[255:224]!=32'h41525232 || r1[223:213]!=2 ||
+     r1[212:202]!=0 || r1[160:151]!=1 || reset_edges!=k+22)
+   $fatal(1,"two-cell fabric scheduler failed %h/%h",r0,r1);
+  command(13,0); completed(); repeat(10) @(posedge clk);
+  if(r1[255:224]!=32'h41524732 || !r0[58] || !r0[90] ||
+     r0[57:48]!=0 || r0[89:80]!=0)
+   $fatal(1,"array result page failed %h/%h",r0,r1);
+  // count_minus_one=1023 must become 1024, not wrap to zero.  Abort before
+  // the intentionally long test operation proceeds past its first packet.
+  command(12,(58'd1<<56)|(58'd1023<<36)|(58'd40<<21)|(58'd2<<19));
+  if(dut.array_remaining!=1024 || dut.array_set || !dut.array_reliable ||
+     dut.array_retry_limit!=2)
+   $fatal(1,"full reliable RESET scheduler configuration failed count=%d",dut.array_remaining);
+  command(4,0); completed();
+  if(!rst || tm) $fatal(1,"array scheduler abort not safe");
   // The MAC scan still selects only one row/cell.  Its signed input product
   // is accumulated inside the FPGA for the selected output column.
   command(7,58'd1<<57); completed();

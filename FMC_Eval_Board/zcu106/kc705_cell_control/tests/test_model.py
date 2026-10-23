@@ -17,6 +17,10 @@ class ModelTests(unittest.TestCase):
     def test_read_plan_does_not_program(self):
         self.assertEqual(plan(validate({"mode":"array"}))["program_operations"],0)
         self.assertEqual(plan(validate({"mode":"column"}))["cells"],32)
+        reset=plan(validate({"mode":"array_reset"}))
+        self.assertEqual(reset["program_operations"],1024)
+        self.assertEqual(reset["reset_sweeps_per_failed_cell"],3)
+        self.assertAlmostEqual(reset["target_current_ua"],34.2563054)
     def test_serial_fpga_mac_validation_and_plan(self):
         p=validate({"mode":"scan_mac","weight_matrix":[[1,0,1],[0,1,0]],
                     "input_vector":[-3,7],"program_matrix":True})

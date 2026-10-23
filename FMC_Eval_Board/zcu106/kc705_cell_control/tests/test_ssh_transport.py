@@ -170,7 +170,7 @@ class HttpApiTests(unittest.TestCase):
                             break
                         self.assertLess(time.monotonic(), deadline, "Fixture worker did not finish")
                         time.sleep(0.05)
-                    self.assertEqual(status["api_revision"], "fpga-program-ramp-fast3-measured-v3")
+                    self.assertEqual(status["api_revision"], "fpga-array-scheduler-resetpath-v4.2")
                     self.assertEqual(status["transport"]["connect_timeout_seconds"], 30)
                     self.assertEqual(status["job"]["state"], "completed")
                     self.assertEqual(status["job"]["connection_attempt"], 2)

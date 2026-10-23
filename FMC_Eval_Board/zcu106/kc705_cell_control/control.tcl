@@ -2,7 +2,7 @@
 set here [file dirname [file normalize [info script]]]
 if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
 lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
-if {$action ni {check hold read set reset cycle column array scan_mac wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+if {$action ni {check hold read set reset cycle column array array_set array_reset scan_mac diagnostic_reset_setrails wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
 foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
 foreach v [list $setv $setwl $resetv $resetwl] {
  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
@@ -38,10 +38,23 @@ proc command {op payload {timeout 6000}} {
  set_property OUTPUT_VALUE [format %016llX $value] $cp
  commit_hw_vio $cp
  set deadline [expr {[clock milliseconds]+$timeout}]
+ set last_array_completed -1
  while {1} {
   if {$op!=4} { cancel_check }
   lassign [status_read] h0 h1
   set s [expr 0x$h0]
+  if {$op==12} {
+   set q [expr 0x$h1]
+   if {($q>>224)==0x41525032} {
+    set completed [expr {($q>>213)&0x7ff}]
+    if {$completed!=$last_array_completed} {
+     set failed [expr {($q>>202)&0x7ff}]
+     set index [expr {($q>>173)&0x3ff}]
+     puts "ARRAY_PROGRESS $completed $failed [expr {$index>>5}] [expr {$index&31}]"; flush stdout
+     set last_array_completed $completed
+    }
+   }
+  }
   if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
   if {[clock milliseconds]>$deadline} { error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1" }
   after 10
@@ -62,8 +75,8 @@ proc power_mask {wb} {
 }
 proc scan_profile {} {
  hold_cpu
- # When returning from RESET, DAC4 is still enabled.  Force it low before
- # restoring DAC5 and re-enabling the scan/read DAC2-3 pair.
+ # Keep the unused dedicated RESET rail low, restore its support rail, and
+ # return the proven DAC2/DAC3 scan-programming pair to read bias.
  dac 2 0.5; dac 3 2.5; dac 4 0; dac 5 2.3
  dac 9 0.9; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.0
  power_mask 0
@@ -187,20 +200,40 @@ proc scan_mac {} {
  puts "MAC_RESUME $program_start"; flush stdout
  set program_attempts 0; set program_failures 0
  if {[dict get $cfg program]} {
-  for {set r 0} {$r<$rows} {incr r} {
-   for {set c 0} {$c<$cols} {incr c} {
-    if {$r*$cols+$c<$program_start} continue
-    cancel_check
-    set op [expr {[lindex [lindex $matrix $r] $c] ? "set" : "reset"}]
-    puts "EVENT MAC programming r$r/c$c as [string toupper $op]"; flush stdout
-    set outcome [scan_program $r $c $op]
-    incr program_attempts
-    set met [dict get $outcome target_met]
-    set current [dict get $outcome last_current]
-    puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"; flush stdout
-    if {![dict get $outcome target_met]} {
-     incr program_failures
-     puts "EVENT MAC programming error r$r/c$c: [string toupper $op] target not confirmed; continuing"; flush stdout
+  set array_owned 0
+  if {$rows==32 && $cols==32} {
+   if {$program_start==1024} {
+    set array_owned 1
+   } else {
+    set first [lindex [lindex $matrix [expr {$program_start/32}]] [expr {$program_start%32}]]
+    set uniform 1
+    for {set index $program_start} {$index<1024} {incr index} {
+     if {[lindex [lindex $matrix [expr {$index/32}]] [expr {$index%32}]]!=$first} { set uniform 0; break }
+    }
+    if {$uniform} {
+     set array_owned 1
+     set outcome [scan_array_program [expr {$first ? "set" : "reset"}] $program_start [expr {1024-$program_start}]]
+     set program_attempts [dict get $outcome completed]
+     set program_failures [dict get $outcome failures]
+    }
+   }
+  }
+  if {!$array_owned} {
+   for {set r 0} {$r<$rows} {incr r} {
+    for {set c 0} {$c<$cols} {incr c} {
+     if {$r*$cols+$c<$program_start} continue
+     cancel_check
+     set op [expr {[lindex [lindex $matrix $r] $c] ? "set" : "reset"}]
+     puts "EVENT MAC programming r$r/c$c as [string toupper $op]"; flush stdout
+     set outcome [scan_program $r $c $op]
+     incr program_attempts
+     set met [dict get $outcome target_met]
+     set current [dict get $outcome last_current]
+     puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"; flush stdout
+     if {!$met} {
+      incr program_failures
+      puts "EVENT MAC programming error r$r/c$c: [string toupper $op] target not confirmed; continuing"; flush stdout
+     }
     }
    }
   }
@@ -292,6 +325,15 @@ set outcome [catch {
    array {
     for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { scan_capture $r $c 0 2400 read } }
    }
+   array_set { scan_array_program set 0 1024 }
+   array_reset { scan_array_program reset 0 1024 }
+   diagnostic_reset_setrails {
+    scan_capture $row $col 0 2400 before_reset_setrails
+    hold_cpu; dac 2 $resetv; dac 3 $resetwl; power_mask 0
+    scan_capture $row $col 0 $hold reset_setrails_pulse 1 1
+    hold_cpu; dac 2 0.5; dac 3 2.5; power_mask 0
+    scan_capture $row $col 0 2400 after_reset_setrails
+   }
     scan_mac { scan_mac }
    wb_read - wb_set - wb_reset { wb_capture $row $col [string range $action 3 end] }
    wb_cycle {
@@ -303,7 +345,7 @@ set outcome [catch {
    wb_column { for {set r 0} {$r<32} {incr r} { wb_capture $r $col read } }
    wb_array { for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { wb_capture $r $c read } } }
   }
-   if {!$iswb && $action ne "scan_mac"} { collect_trace }
+   if {!$iswb && $action ni {scan_mac array_set array_reset}} { collect_trace }
  }
 } message options]
 # Leave CPU held and restore the scan read rails even after cancellation/fault.

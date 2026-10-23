@@ -1,0 +1,3808 @@
+API_SSH_ATTEMPT 1/3
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source {C:\Users\SER7\Documents\GitHub\Evaluation_Research_Boards-\FMC_Eval_Board\output\zcu106_cell_control\control.tcl}
+# set zcu_here [file dirname [file normalize [info script]]]
+# set source_dir [file normalize [file join $zcu_here .. kc705_cell_control]]
+# set hw_target_pattern localhost:3121/xilinx_tcf/Xilinx/*
+# set hw_part xczu7
+# set probes_file [file join $zcu_here build zcu106_adc_capture.ltx]
+# set fmc_mux_address 0x75
+# set fmc_mux_value 0x01
+# source [file join $source_dir control.tcl]
+## set here [file dirname [file normalize [info script]]]
+## if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
+## lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
+## if {$action ni {check hold read set reset cycle column array array_set array_reset scan_mac diagnostic_reset_setrails wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+## foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
+## foreach v [list $setv $setwl $resetv $resetwl] {
+##  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
+## }
+## if {$resetv<2.3 || $resetv>3.0 || $resetwl<0.94} {
+##  error "RESET ramp limits require VCC 2.3..3.0 V and WL 0.94..3.0 V"
+## }
+## if {![string is integer -strict $hold] || $hold<20 || $hold>12000 ||
+##     ![string is integer -strict $cycles] || $cycles<1 || $cycles>10 ||
+##     ![regexp {^[a-f0-9]{32}$} $jobid]} { error "Invalid pulse, cycle count or job ID" }
+## set stopfile [file join $here runs "$jobid.stop"]
+## source [file join $here i2c_host.tcl]
+### set here [file dirname [file normalize [info script]]]
+### if {![info exists hw_target_pattern]} { set hw_target_pattern localhost:3121/xilinx_tcf/Xilinx/00001f14c98801 }
+### if {![info exists hw_part]} { set hw_part xc7k325t }
+### if {![info exists probes_file]} { set probes_file [file join $here build kc705_adc_capture.ltx] }
+### if {![info exists fmc_mux_address]} { set fmc_mux_address 0x74 }
+### if {![info exists fmc_mux_value]} { set fmc_mux_value 0x04 }
+### open_hw_manager
+### connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2022.2
+  **** Build date : Oct 14 2022 at 05:18:10
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2022.2.0
+  ****** Build date   : Oct 05 2022-07:25:37
+    **** Build number : 2022.2.1664925937
+      ** Copyright 2017-2026 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:09 . Memory (MB): peak = 1029.848 ; gain = 24.863
+### set target [get_hw_targets -quiet $hw_target_pattern]
+### if {[llength $target] != 1} { error "Expected exactly one JTAG target matching $hw_target_pattern" }
+### current_hw_target $target
+### open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/11672
+### set dev [get_hw_devices -quiet -filter "PART == $hw_part"]
+### if {[llength $dev] != 1} { error "Expected exactly one FPGA part $hw_part" }
+### current_hw_device $dev
+### if {[info exists program_before_vio]} {
+###     set_property PROGRAM.FILE $program_before_vio $dev
+###     set_property PROBES.FILE $probes_file $dev
+###     set_property FULL_PROBES.FILE $probes_file $dev
+###     program_hw_devices $dev
+### }
+### set_property PROBES.FILE $probes_file $dev
+### refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 3 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_3]
+refresh_hw_device: Time (s): cpu = 00:00:05 ; elapsed = 00:00:21 . Memory (MB): peak = 3228.027 ; gain = 2195.891
+### set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+### if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+### set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+### set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+### if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+### proc read_status {} {
+###     global vio statprobe
+###     refresh_hw_vio $vio
+###     set hex [get_property INPUT_VALUE $statprobe]
+###     return [expr 0x$hex]
+### }
+### proc to_hex128 {value} {
+###     set result ""
+###     for {set n 0} {$n < 32} {incr n} {
+###         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+###         set value [expr {$value >> 4}]
+###     }
+###     if {$value != 0} { error "Command overflow" }
+###     return $result
+### }
+### set token [expr {[read_status] & 255}]
+### proc i2c_transfer {addr bytes nr} {
+###     global token cmdprobe
+###     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+###     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+###         error "Bad transaction length"
+###     }
+###     set s [read_status]
+###     if {$s & 256} { error "I2C bridge is already busy" }
+###     set token [expr {($token % 255) + 1}]
+###     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+###     set shift 23
+###     foreach b $bytes {
+###         if {$b < 0 || $b > 255} { error "Bad byte" }
+###         set cmd [expr {$cmd | ($b << $shift)}]
+###         incr shift 8
+###     }
+###     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+###     commit_hw_vio $cmdprobe
+###     set deadline [expr {[clock milliseconds] + 10000}]
+###     while {1} {
+###         set s [read_status]
+###         if {($s & 255) == $token && !($s & 256)} { break }
+###         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+###         after 10
+###     }
+###     if {$s & 512} {
+###         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+###     }
+###     set acked [expr {($s >> 80) & 255}]
+###     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+###     set result {}
+###     for {set i 0} {$i < $nr} {incr i} {
+###         lappend result [expr {($s >> (16+8*$i)) & 255}]
+###     }
+###     return $result
+### }
+### proc mux_select_fmc {} {
+###     global fmc_mux_address fmc_mux_value
+###     i2c_transfer $fmc_mux_address [list $fmc_mux_value] 0
+### }
+### proc mux_read {} {
+###     global fmc_mux_address
+###     return [lindex [i2c_transfer $fmc_mux_address [list] 1] 0]
+### }
+### proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+### proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+### proc close_i2c_bridge {} {
+###     close_hw_target
+###     disconnect_hw_server
+###     close_hw_manager
+### }
+## set sv [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_scan_vio"}]
+## set cp [get_hw_probes -quiet scan_command -of_objects $sv -filter {TYPE == vio_output}]
+## set rp0 [get_hw_probes -quiet scan_result0 -of_objects $sv -filter {TYPE == vio_input}]
+## set rp1 [get_hw_probes -quiet scan_result1 -of_objects $sv -filter {TYPE == vio_input}]
+## if {[llength $sv]!=1 || [llength $cp]!=1 || [llength $rp0]!=1 || [llength $rp1]!=1} { error "Control image/VIO missing" }
+## proc status_read {} {
+##  global sv rp0 rp1
+##  refresh_hw_vio $sv
+##  return [list [get_property INPUT_VALUE $rp0] [get_property INPUT_VALUE $rp1]]
+## }
+## proc cancel_check {} {
+##  global stopfile restoring
+##  if {!$restoring && [file exists $stopfile]} { error "CANCELLED" }
+## }
+## set restoring 0
+## proc command {op payload {timeout 6000}} {
+##  global cp
+##  set old [expr 0x[get_property OUTPUT_VALUE $cp]]
+##  set toggle [expr {1-(($old>>63)&1)}]
+##  set value [expr {($toggle<<63)|(1<<62)|($op<<58)|$payload}]
+##  set_property OUTPUT_VALUE [format %016llX $value] $cp
+##  commit_hw_vio $cp
+##  set deadline [expr {[clock milliseconds]+$timeout}]
+##  set last_array_completed -1
+##  while {1} {
+##   if {$op!=4} { cancel_check }
+##   lassign [status_read] h0 h1
+##   set s [expr 0x$h0]
+##   if {$op==12} {
+##    set q [expr 0x$h1]
+##    if {($q>>224)==0x41525032} {
+##     set completed [expr {($q>>213)&0x7ff}]
+##     if {$completed!=$last_array_completed} {
+##      set failed [expr {($q>>202)&0x7ff}]
+##      set index [expr {($q>>173)&0x3ff}]
+##      puts "ARRAY_PROGRESS $completed $failed [expr {$index>>5}] [expr {$index&31}]"; flush stdout
+##      set last_array_completed $completed
+##     }
+##    }
+##   }
+##   if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
+##   if {[clock milliseconds]>$deadline} { error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1" }
+##   after 10
+##  }
+##  if {$s&1024} { error "Controller fault [expr {($s>>11)&15}]: $h0 / $h1" }
+##  return [list $h0 $h1]
+## }
+## proc hold_cpu {{wb 0}} { command 4 [expr {$wb<<57}] }
+## proc dac {ch voltage} {
+##  if {$ch ni {2 3 4 5 9 10 11 12 13} || $voltage<0 || $voltage>3} { error "Protected DAC channel/value" }
+##  # Floor the maximum code so even rounding cannot command above 3.0 V.
+##  command 2 [expr {(0x10+$ch)<<16 | min(39321,round($voltage*65536.0/5.0))}]
+## }
+## proc power_mask {wb} {
+##  # The reference disables DAC6, its physical VCC_SET output. This PCB uses
+##  # DAC2 for VCC_SET, so disable bit2 as well as WL_SET/unused outputs in WB.
+##  command 2 [expr {$wb ? 0x0901CC : 0x0901D0}]
+## }
+## proc scan_profile {} {
+##  hold_cpu
+##  # Keep the unused dedicated RESET rail low, restore its support rail, and
+##  # return the proven DAC2/DAC3 scan-programming pair to read bias.
+##  dac 2 0.5; dac 3 2.5; dac 4 0; dac 5 2.3
+##  dac 9 0.9; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.0
+##  power_mask 0
+## }
+## proc wb_profile {} {
+##  hold_cpu 1
+##  dac 2 0.5; dac 3 0; dac 4 0.5; dac 5 2.5
+##  # Evaluation-board WB bias profile, encoded for this PCB's 0..5 V ranges.
+##  dac 9 1.0; dac 10 0.9; dac 11 0.6; dac 12 1.6; dac 13 1.5
+##  power_mask 1
+## }
+## proc write_verify {reg value} {
+##  si5351_write $reg $value
+##  if {[si5351_read $reg]!=$value} { error "Si5351 readback mismatch register $reg" }
+## }
+## proc clock_profile {mhz} {
+##  global fmc_mux_value
+##  # CPU must already be held. PLLA stays 900 MHz; CLK0/1 match.
+##  mux_select_fmc
+##  if {[mux_read]!=$fmc_mux_value} { error "FMC I2C mux mismatch" }
+##  set old [si5351_read 3]
+##  set bytes [expr {$mhz==2 ? {0 1 0 223 0 0 0 0} : {0 1 0 43 0 0 0 0}}]
+##  write_verify 3 255
+##  for {set i 0} {$i<8} {incr i} {
+##   write_verify [expr {42+$i}] [lindex $bytes $i]
+##   write_verify [expr {50+$i}] [lindex $bytes $i]
+##  }
+##  write_verify 165 0; write_verify 166 0
+##  write_verify 16 79; write_verify 17 79
+##  si5351_write 177 32
+##  after 20
+##  if {[si5351_read 0]&0xA8} { error "Si5351 PLL/crystal fault" }
+##  write_verify 3 252
+##  puts "EVENT clock_mhz=$mhz"; flush stdout
+## }
+## proc emit_scan {r c label clocks pair} {
+##  lassign $pair h0 h1
+##  puts "CELL_RESULT $r $c $label $clocks $h0 $h1"; flush stdout
+## }
+## proc scan_capture {r c op clocks label {emit 1} {allow_program_clip 0} {mac_input {}}} {
+##  cancel_check
+##  set mac_payload 0
+##  if {$mac_input ne {}} {
+##   if {![string is integer -strict $mac_input] || $mac_input<-128 || $mac_input>127 || $op} {
+##    error "MAC input must be signed 8-bit and use a READ packet"
+##   }
+##   set mac_payload [expr {(1<<56)|(($mac_input&255)<<48)}]
+##  }
+##  lassign [command 1 [expr {($op<<57)|$mac_payload|($clocks<<10)|($c<<5)|$r}]] h0 h1
+##  set pair [list $h0 $h1]
+##  if {$emit} { emit_scan $r $c $label $clocks $pair }
+##  # A SET/RESET programming pulse can legitimately exceed the current-sense ADC
+##  # span.  Like the reference Kintex flow, programming decisions are made only
+##  # from the restored read-profile capture after the pulse.  Preserve and flag
+##  # the saturated pulse trace, but never relax clipping checks for a READ.
+##  if {([expr 0x$h0]>>37)&1} {
+##   if {!$emit} { emit_scan $r $c $label $clocks $pair }
+##   if {$allow_program_clip} {
+##    puts "EVENT PROGRAM_PULSE_CLIPPED $label: trace retained; continuing to post-pulse read"; flush stdout
+##    return $pair
+##   }
+##   error "ADC clipping on a current-sense channel; stopped before another pulse"
+##  }
+##  return $pair
+## }
+## source [file join $here scan_ramp.tcl]
+### proc ramp_grid {op maxv maxwl} {
+###  if {$op ni {set reset}} { error "Unknown ramp operation" }
+###  if {$op eq "set"} {
+###   foreach v [list $maxv $maxwl] {
+###    if {![string is double -strict $v] || $v<=0 || $v>3.0} { error "SET ramp limit must be >0 and <=3.0 V" }
+###   }
+###   set grid {{2300 440} {2300 1090} {2300 1750}}
+###  } else {
+###   # Reference RESET ramp. Hardware A/B testing restored the proven Kintex/Zynq
+###   # path: DAC2/DAC3 drive the programming rails and OP_SET=0 selects RESET.
+###   # The 3.1/3.5-V reference levels are deliberately omitted so neither
+###   # programmed rail exceeds the 3.0-V cap.
+###   if {![string is double -strict $maxv] || $maxv<2.3 || $maxv>3.0 ||
+###       ![string is double -strict $maxwl] || $maxwl<0.94 || $maxwl>3.0} {
+###    error "RESET ramp limits require VCC 2.3..3.0 V and WL 0.94..3.0 V"
+###   }
+###   set vs {2300 2700 3000}
+###   set ws {940 1010 1070 1130 1190 1260 1320 1380 1440 1510 1570 1630 1690 1760 1820 1880 1940 2010 2070 2130 2190 2260 2320 2380 2440 2500 2570 2630 2690 2750 2820 2880}
+###   set grid {}
+###   foreach v $vs {
+###    if {$v>round($maxv*1000)} continue
+###    foreach w $ws {
+###     if {$w<=round($maxwl*1000)} { lappend grid [list $v $w] }
+###    }
+###   }
+###  }
+###  set bounded {}
+###  foreach pair $grid {
+###   lassign $pair v w
+###   if {$v<=round($maxv*1000) && $w<=round($maxwl*1000)} { lappend bounded $pair }
+###  }
+###  if {![llength $bounded]} { error "Ramp limits exclude every ramp step" }
+###  return $bounded
+### }
+### proc ramp_current {pair r c} {
+###  lassign $pair h0 h1
+###  set a [expr 0x$h0]; set b [expr 0x$h1]
+###  set packet [expr {($r<<10)|($c<<5)|$r}]
+###  if {($b>>224)!=0x53435232 || !($a&512) || ($a&1280) ||
+###      (($a>>16)&65535)!=$packet || (($a>>37)&1)} { error "Invalid ramp ADC feedback" }
+###  set nb [expr {($a>>64)&65535}]; set na [expr {($a>>80)&65535}]
+###  if {$nb<500 || $nb>800 || $na<11960 || $na>12040} { error "Invalid ramp ADC sample count" }
+###  set base [expr {double(($a>>160)&0xffffffff)/$nb}]
+###  set active [expr {double(($b>>64)&0xffffffff)/$na}]
+###  if {$base<0 || $base>4095 || $active<0 || $active>4095} { error "Ramp ADC sum outside range" }
+###  return [expr {($active-$base)/2048.0/(7*56)*1e6}]
+### }
+### proc ramp_passes {op current} {
+###  # The measured full-array separator is 68.5126108 uS. At the 0.5-V read
+###  # bias this is 34.2563054 uA.  The former 5-uA criterion was outside the
+###  # observed HRS distribution and falsely marked every RESET as failed.
+###  return [expr {$op eq "set" ? $current>=35.0 : $current<=34.2563054}]
+### }
+### proc ramp_read {r c label} {
+###  set pair [scan_capture $r $c 0 2400 $label 0]
+###  set current [ramp_current $pair $r $c]
+###  return [list $pair $current]
+### }
+### proc program_step {r c op mv mw label} {
+###  global hold
+###  set setop [expr {$op eq "set"}]
+###  set vcc_code [expr {min(39321,round($mv/1000.0*65536.0/5.0))}]
+###  set wl_code [expr {min(39321,round($mw/1000.0*65536.0/5.0))}]
+###  set payload [expr {($setop<<57)|($vcc_code<<41)|($wl_code<<25)|
+###                          ($hold<<10)|($c<<5)|$r}]
+###  lassign [command 8 $payload] h0 h1
+###  set pair [list $h0 $h1]
+###  if {([expr 0x$h0]>>44)&1} {
+###   puts "EVENT PROGRAM_STEP pulse clipped at r$r/c$c; post-pulse READ is clean"; flush stdout
+###  }
+###  return [list $pair [ramp_current $pair $r $c]]
+### }
+### proc program_ramp {r c op maxv maxwl} {
+###  global hold
+###  set setop [expr {$op eq "set"}]
+###  set vcc_code [expr {min(39321,round($maxv*65536.0/5.0))}]
+###  set wl_code [expr {min(39321,round($maxwl*65536.0/5.0))}]
+###  set payload [expr {($setop<<57)|($vcc_code<<41)|($wl_code<<25)|
+###                          ($hold<<10)|($c<<5)|$r}]
+###  # The fabric executes all bounded ramp steps and ten-read confirmation.
+###  # Thirty seconds is a fault timeout, not an intentional delay.
+###  # SET uses command 11 (three points). RESET uses command 9 (all 96 bounded
+###  # points) because the three-point proxy was not a reliable transition grid.
+###  set fpga_op [expr {$op eq "set" ? 11 : 9}]
+###  lassign [command $fpga_op $payload [expr {$op eq "set" ? 30000 : 180000}]] h0 h1
+###  set a [expr 0x$h0]; set b [expr 0x$h1]
+###  if {($b>>224)!=0x53435232} { error "Invalid FPGA ramp result" }
+###  set pulses [expr {($b>>216)&255}]
+###  set met [expr {($b>>215)&1}]
+###  set pulse_clipped [expr {($b>>214)&1}]
+###  set last_index [expr {($b>>207)&127}]
+###  set confirmations [expr {($b>>203)&15}]
+###  set max_pulses [llength [ramp_grid $op $maxv $maxwl]]
+###  if {$pulses<1 || $pulses>$max_pulses || $last_index>=$max_pulses || ($met && $confirmations!=10)} {
+###   error "Invalid FPGA ramp summary: pulses=$pulses met=$met last_index=$last_index confirmations=$confirmations"
+###  }
+###  set currents {}
+###  for {set page 0} {$page*28<$pulses} {incr page} {
+###   lassign [command 10 $page] p0 p1
+###   set x [expr 0x$p0]; set y [expr 0x$p1]
+###   if {($y>>224)!=0x524D5032 || (($x>>16)&255)!=$pulses || (($x>>26)&3)!=$page} {
+###    error "Invalid FPGA ramp trace page $page"
+###   }
+###   for {set k 0} {$k<28 && [llength $currents]<$pulses} {incr k} {
+###    set raw [expr {$k<14 ? (($x>>(32+16*$k))&65535) : (($y>>(16*($k-14)))&65535)}]
+###    if {$raw&32768} { set raw [expr {$raw-65536}] }
+###    # FPGA trace words hold ramp_delta/2^14; ramp_delta is 48000 times
+###    # the average ADC-code difference.  The ramp pass/fail comparison in
+###    # fabric still uses the full-precision ramp_delta value.
+###    lappend currents [expr {$raw*(16384.0/48000.0)/2048.0/392.0*1e6}]
+###   }
+###  }
+###  return [dict create pair [list $h0 $h1] pulses $pulses target_met $met \
+###          pulse_clipped $pulse_clipped last_index $last_index currents $currents]
+### }
+### proc scan_array_program {op start count} {
+###  global hold
+###  if {$op ni {set reset} || ![string is integer -strict $start] ||
+###      ![string is integer -strict $count] || $start<0 || $count<1 ||
+###      $start+$count>1024} { error "Invalid FPGA array-program range" }
+###  set setop [expr {$op eq "set"}]
+###  set reliable [expr {$op eq "reset"}]
+###  # Two additional complete RESET sweeps (three total) maximize transition
+###  # probability while retaining the characterized 3.0-V hard ceiling. Fabric
+###  # escalates the default hold from 1.2 ms to 2.4 ms and then 6.0 ms.
+###  set retry_limit [expr {$reliable ? 2 : 0}]
+###  set payload [expr {($setop<<57)|($reliable<<56)|($start<<46)|
+###                     (($count-1)<<36)|($hold<<21)|($retry_limit<<19)}]
+###  puts "EVENT FPGA array scheduler: [string toupper $op] cells $start..[expr {$start+$count-1}], reliable=$reliable, max_sweeps=[expr {$retry_limit+1}]"; flush stdout
+###  lassign [command 12 $payload 28800000] h0 h1
+###  set b [expr 0x$h1]
+###  if {($b>>224)!=0x41525232} { error "Invalid FPGA array-program summary" }
+###  set completed [expr {($b>>213)&0x7ff}]
+###  set failures [expr {($b>>202)&0x7ff}]
+###  set total_pulses [expr {($b>>183)&0x7ffff}]
+###  set reported_start [expr {($b>>161)&0x3ff}]
+###  set reported_end [expr {($b>>151)&0x3ff}]
+###  if {$completed!=$count || $reported_start!=$start || $reported_end!=$start+$count-1 || $failures>$completed} {
+###   error "Invalid FPGA array-program counts/range: completed=$completed failures=$failures range=$reported_start..$reported_end"
+###  }
+###  set scale [expr {(16384.0/48000.0)/2048.0/392.0*1e6}]
+###  for {set page 0} {$page*14<$count} {incr page} {
+###   lassign [command 13 $page] p0 p1
+###   set x [expr 0x$p0]; set y [expr 0x$p1]
+###   if {($y>>224)!=0x41524732 || (($x>>16)&0xffff)!=$page*14} {
+###    error "Invalid FPGA array result page $page"
+###   }
+###   for {set k 0} {$k<14 && $page*14+$k<$count} {incr k} {
+###    set word [expr {$k<7 ? (($x>>(32+32*$k))&0xffffffff) : (($y>>(32*($k-7)))&0xffffffff)}]
+###    set raw [expr {$word&0xffff}]
+###    if {$raw&0x8000} { set raw [expr {$raw-0x10000}] }
+###    set pulses [expr {($word>>16)&0x3ff}]
+###    set met [expr {($word>>26)&1}]
+###    set clipped [expr {($word>>27)&1}]
+###    set index [expr {$start+$page*14+$k}]
+###    set r [expr {$index>>5}]; set c [expr {$index&31}]
+###    set current [expr {$raw*$scale}]
+###    puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"
+###    puts "ARRAY_PROGRAM_DETAIL $r $c $op $pulses $met $clipped [format %.6f $current]"
+###   }
+###   flush stdout
+###  }
+###  puts "ARRAY_PROGRAM_SUMMARY $op $completed $failures $total_pulses"; flush stdout
+###  return [dict create operation $op completed $completed failures $failures total_pulses $total_pulses]
+### }
+### proc ramp_confirm {r c op suffix last_step} {
+###  set readings {}
+###  for {set k 1} {$k<=10} {incr k} {
+###   lassign [ramp_read $r $c "confirm_${op}_${k}$suffix"] pair current
+###   set pass [ramp_passes $op $current]
+###   set outcome [expr {!$pass && $last_step ? "_limit" : ($pass && $k==10 ? "_met" : "")}]
+###   emit_scan $r $c "confirm_${op}_${k}${outcome}$suffix" 2400 $pair
+###   lappend readings $current
+###   if {!$pass} { return [dict create target_met 0 readings $readings last_current $current] }
+###  }
+###  return [dict create target_met 1 readings $readings last_current $current]
+### }
+### proc ramp_finish {op pulses met current} {
+###  set verdict [expr {$met ? "target confirmed by 10 reads" : "limit reached; target NOT met"}]
+###  puts "EVENT RAMP [string toupper $op]: $verdict; pulses=$pulses; last=[format %.3f $current] uA nominal"
+###  puts "RAMP_COMPLETE $op $pulses $met [format %.6f $current]"; flush stdout
+###  return [dict create operation $op pulses $pulses target_met $met last_current $current]
+### }
+### proc scan_program {r c op} {
+###  global setv setwl resetv resetwl hold
+###  set maxv [expr {$op eq "set" ? $setv : $resetv}]
+###  set maxwl [expr {$op eq "set" ? $setwl : $resetwl}]
+###  set grid [ramp_grid $op $maxv $maxwl]
+###  set step 0; set pulses 0
+###  # Establish the state once before the first pulse.  Every compound
+###  # PROGRAM_STEP below already restores the read rails and returns a clean
+###  # post-pulse capture, so repeating the same standalone read before the next
+###  # ramp point adds a VIO round trip without adding a new safety decision.
+###  lassign [lindex $grid 0] first_mv first_mw
+###  set first_suffix "__s1_v${first_mv}_wl${first_mw}"
+###  lassign [ramp_read $r $c "before_$op$first_suffix"] pair current
+###  emit_scan $r $c "before_$op$first_suffix" 2400 $pair
+###  if {[ramp_passes $op $current]} {
+###   set result [ramp_confirm $r $c $op $first_suffix 0]
+###   if {[dict get $result target_met]} {
+###    return [ramp_finish $op $pulses 1 [dict get $result last_current]]
+###   }
+###  }
+###  cancel_check
+###  puts "EVENT PROGRAM_RAMP [string toupper $op] r$r/c$c: FPGA owns up to [llength $grid] serial single-cell steps"; flush stdout
+###  set result [program_ramp $r $c $op $maxv $maxwl]
+###  set pulses [dict get $result pulses]
+###  set met [dict get $result target_met]
+###  set currents [dict get $result currents]
+###  for {set k 0} {$k<$pulses} {incr k} {
+###   lassign [lindex $grid $k] mv mw
+###   puts "RAMP_POINT $r $c $op [expr {$k+1}] $mv $mw [format %.6f [lindex $currents $k]]"
+###  }
+###  lassign [lindex $grid [expr {$pulses-1}]] mv mw
+###  set suffix "__s${pulses}_v${mv}_wl${mw}"
+###  set outcome [expr {$met ? "_met" : "_limit"}]
+###  set pair [dict get $result pair]
+###  emit_scan $r $c "after_${op}${outcome}$suffix" 2400 $pair
+###  set current [ramp_current $pair $r $c]
+###  if {[dict get $result pulse_clipped]} {
+###   puts "EVENT PROGRAM_RAMP pulse clipping observed; restored READ result is clean"
+###  }
+###  return [ramp_finish $op $pulses $met $current]
+### }
+## proc mac_config {} {
+##  global here jobid
+##  set path [file join $here runs "$jobid.mac.txt"]
+##  if {![file exists $path]} { error "MAC configuration is missing" }
+##  set f [open $path r]
+##  set header [split [string trim [gets $f]]]
+##  if {[llength $header] ni {3 4}} { close $f; error "Invalid MAC configuration header" }
+##  lassign $header rows cols program program_start
+##  if {$program_start eq {}} { set program_start 0 }
+##  if {![string is integer -strict $rows] || $rows<1 || $rows>32 ||
+##      ![string is integer -strict $cols] || $cols<1 || $cols>32 || $program ni {0 1} ||
+##      ![string is integer -strict $program_start] || $program_start<0 || $program_start>$rows*$cols} {
+##   close $f; error "MAC dimensions/program flag are invalid"
+##  }
+##  set inputs [split [string trim [gets $f]]]
+##  if {[llength $inputs]!=$rows} { close $f; error "MAC input length differs from matrix rows" }
+##  foreach value $inputs {
+##   if {![string is integer -strict $value] || $value<-128 || $value>127} {
+##    close $f; error "MAC inputs must be signed 8-bit integers"
+##   }
+##  }
+##  set matrix {}
+##  for {set r 0} {$r<$rows} {incr r} {
+##   set weights [split [string trim [gets $f]]]
+##   if {[llength $weights]!=$cols} { close $f; error "MAC matrix is not rectangular" }
+##   foreach weight $weights {
+##    if {$weight ni {0 1}} { close $f; error "MAC weights must be binary" }
+##   }
+##   lappend matrix $weights
+##  }
+##  close $f
+##  return [dict create rows $rows cols $cols program $program program_start $program_start inputs $inputs matrix $matrix]
+## }
+## proc mac_clear {} {
+##  lassign [command 7 [expr {1<<57}]] h0 h1
+##  set b [expr 0x$h1]
+##  if {($b>>224)!=0x4D414332 || ($b&((1<<56)-1))!=0} { error "FPGA MAC clear/readback failed" }
+## }
+## proc mac_result {col} {
+##  lassign [command 7 $col] h0 h1
+##  set b [expr 0x$h1]
+##  if {($b>>224)!=0x4D414332 || (($b>>56)&31)!=$col || (($b>>64)&0xffffffff)!=48000} {
+##   error "FPGA MAC result signature/index/scale mismatch"
+##  }
+##  set raw [expr {$b&((1<<56)-1)}]
+##  if {$raw&(1<<55)} { set raw [expr {$raw-(1<<56)}] }
+##  return $raw
+## }
+## proc scan_mac {} {
+##  set cfg [mac_config]
+##  set rows [dict get $cfg rows]; set cols [dict get $cfg cols]
+##  set inputs [dict get $cfg inputs]; set matrix [dict get $cfg matrix]
+##  puts "MAC_METADATA $rows $cols [dict get $cfg program]"; flush stdout
+##  set program_start [dict get $cfg program_start]
+##  puts "MAC_RESUME $program_start"; flush stdout
+##  set program_attempts 0; set program_failures 0
+##  if {[dict get $cfg program]} {
+##   set array_owned 0
+##   if {$rows==32 && $cols==32} {
+##    if {$program_start==1024} {
+##     set array_owned 1
+##    } else {
+##     set first [lindex [lindex $matrix [expr {$program_start/32}]] [expr {$program_start%32}]]
+##     set uniform 1
+##     for {set index $program_start} {$index<1024} {incr index} {
+##      if {[lindex [lindex $matrix [expr {$index/32}]] [expr {$index%32}]]!=$first} { set uniform 0; break }
+##     }
+##     if {$uniform} {
+##      set array_owned 1
+##      set outcome [scan_array_program [expr {$first ? "set" : "reset"}] $program_start [expr {1024-$program_start}]]
+##      set program_attempts [dict get $outcome completed]
+##      set program_failures [dict get $outcome failures]
+##     }
+##    }
+##   }
+##   if {!$array_owned} {
+##    for {set r 0} {$r<$rows} {incr r} {
+##     for {set c 0} {$c<$cols} {incr c} {
+##      if {$r*$cols+$c<$program_start} continue
+##      cancel_check
+##      set op [expr {[lindex [lindex $matrix $r] $c] ? "set" : "reset"}]
+##      puts "EVENT MAC programming r$r/c$c as [string toupper $op]"; flush stdout
+##      set outcome [scan_program $r $c $op]
+##      incr program_attempts
+##      set met [dict get $outcome target_met]
+##      set current [dict get $outcome last_current]
+##      puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"; flush stdout
+##      if {!$met} {
+##       incr program_failures
+##       puts "EVENT MAC programming error r$r/c$c: [string toupper $op] target not confirmed; continuing"; flush stdout
+##      }
+##     }
+##    }
+##   }
+##  }
+##  puts "MAC_PROGRAM_SUMMARY $program_attempts $program_failures"; flush stdout
+##  scan_profile
+##  mac_clear
+##  set active 0
+##  for {set c 0} {$c<$cols} {incr c} {
+##   for {set r 0} {$r<$rows} {incr r} {
+##    set value [lindex $inputs $r]
+##    if {$value==0} continue
+##    incr active
+##    puts "EVENT MAC measuring r$r/c$c input=$value"; flush stdout
+##    scan_capture $r $c 0 2400 "mac_read__r${r}_c${c}" 1 0 $value
+##   }
+##  }
+##  for {set c 0} {$c<$cols} {incr c} {
+##   puts "MAC_RESULT $c [mac_result $c] 48000"; flush stdout
+##  }
+##  puts "MAC_COMPLETE $rows $cols $active"; flush stdout
+## }
+## proc wb_capture {r c op} {
+##  cancel_check
+##  # Use the reference project's permanent runtime firmware programming path
+##  # documented in api_v1/prerequisites/HARDWARE_RUNTIME_BACKUP.md.
+##  set mode [expr {$op eq "read" ? 1 : ($op eq "set" ? 3 : 0)}]
+##  # Match evaluation-board memory_controller_packet(), including READ PWM.
+##  set pwm 0xFF
+##  set value [expr {($mode<<30)|($r<<25)|($c<<20)|(2<<16)|(0xAA<<8)|$pwm}]
+##  # gui_wb_mode.c's write branch calls issue_program_setup for SET/RESET.
+##  # It sends the program packet twice without an intervening chip reset.
+##  # Repeating the read-transport command instead resets between packets and
+##  # returned zero banks on this PCB. READ uses issue_read_setup_once.
+##  set programming [expr {$op ne "read"}]
+##  set payload [expr {($programming<<57)|(0x80<<32)|$value}]
+##  cancel_check
+##  lassign [command 3 $payload 65000] h0 h1
+##  set b [expr 0x$h1]
+##  if {(($b>>40)&0x7FFF)!=0x7FFF || !(($b>>55)&1) || (($b>>64)&0xFFFFFFFF)!=$value} {
+##   error "Wishbone command echo or readback mask mismatch"
+##  }
+##  puts "EVENT WB $op r$r/c$c firmware transaction completed"; flush stdout
+##  for {set i 0} {$i<15} {incr i} {
+##   lassign [command 5 $i] h0 h1
+##   puts "WB_WORD $r $c $op $i [format %08X $value] $h0 $h1"; flush stdout
+##  }
+##  puts "WB_COMPLETE $r $c $op"; flush stdout
+## }
+## proc collect_trace {} {
+##  # The last scan operation remains in FPGA trace RAM. Three measured samples
+##  # per VIO read; their time stamps count 10-MSPS snapshots from baseline start.
+##  for {set i 0} {$i<256} {incr i 3} {
+##   cancel_check
+##   lassign [command 6 $i] h0 h1
+##   set b [expr 0x$h1]
+##   if {($b>>224)!=0x54524332 || (($b>>201)&255)!=$i} { error "ADC trace signature/index mismatch" }
+##   set n [expr {($b>>192)&511}]
+##   if {$n<3 || $n>256} { error "ADC trace length invalid: $n" }
+##   puts "TRACE_CHUNK $i $h1"; flush stdout
+##   if {$i+3>=$n} { break }
+##  }
+## }
+## lassign [status_read] h0 h1
+## if {([expr 0x$h1]>>224)!=0x53435232} { error "Full-control FPGA signature mismatch" }
+## puts "CONTROL_STATUS $h0 $h1";
+CONTROL_STATUS 0013c3500013f5df0013e3610014372e0013f14b2edb02800000201b7fff0209 53435232017e3fe4fe641bfe017267cd01761b82017abace017aee230175cfe4
+## flush stdout
+## if {$action eq "check"} { close_i2c_bridge; exit }
+## set iswb [string match wb_* $action]
+EVENT clock_mhz=2
+EVENT FPGA array scheduler: RESET cells 0..1023, reliable=1, max_sweeps=3
+ARRAY_PROGRESS 0 0 0 0
+ARRAY_PROGRESS 1 1 0 1
+ARRAY_PROGRESS 2 1 0 2
+ARRAY_PROGRESS 3 1 0 3
+ARRAY_PROGRESS 4 1 0 4
+ARRAY_PROGRESS 5 1 0 5
+ARRAY_PROGRESS 6 1 0 6
+ARRAY_PROGRESS 7 1 0 7
+ARRAY_PROGRESS 8 1 0 8
+ARRAY_PROGRESS 9 1 0 9
+ARRAY_PROGRESS 10 1 0 10
+ARRAY_PROGRESS 11 1 0 11
+ARRAY_PROGRESS 12 1 0 12
+ARRAY_PROGRESS 13 1 0 13
+ARRAY_PROGRESS 14 1 0 14
+ARRAY_PROGRESS 15 1 0 15
+ARRAY_PROGRESS 16 1 0 16
+ARRAY_PROGRESS 17 1 0 17
+ARRAY_PROGRESS 18 1 0 18
+ARRAY_PROGRESS 19 1 0 19
+ARRAY_PROGRESS 20 1 0 20
+ARRAY_PROGRESS 21 1 0 21
+ARRAY_PROGRESS 22 1 0 22
+ARRAY_PROGRESS 23 1 0 23
+ARRAY_PROGRESS 24 1 0 24
+ARRAY_PROGRESS 25 1 0 25
+ARRAY_PROGRESS 26 1 0 26
+ARRAY_PROGRESS 27 1 0 27
+ARRAY_PROGRESS 28 1 0 28
+ARRAY_PROGRESS 29 1 0 29
+ARRAY_PROGRESS 30 1 0 30
+ARRAY_PROGRESS 31 1 0 31
+ARRAY_PROGRESS 32 1 1 0
+ARRAY_PROGRESS 33 2 1 1
+ARRAY_PROGRESS 34 2 1 2
+ARRAY_PROGRESS 35 2 1 3
+ARRAY_PROGRESS 36 2 1 4
+ARRAY_PROGRESS 37 2 1 5
+ARRAY_PROGRESS 38 2 1 6
+ARRAY_PROGRESS 39 2 1 7
+ARRAY_PROGRESS 40 2 1 8
+ARRAY_PROGRESS 41 2 1 9
+ARRAY_PROGRESS 42 2 1 10
+ARRAY_PROGRESS 43 2 1 11
+ARRAY_PROGRESS 44 2 1 12
+ARRAY_PROGRESS 45 2 1 13
+ARRAY_PROGRESS 46 2 1 14
+ARRAY_PROGRESS 47 2 1 15
+ARRAY_PROGRESS 48 2 1 16
+ARRAY_PROGRESS 49 2 1 17
+ARRAY_PROGRESS 50 2 1 18
+ARRAY_PROGRESS 51 2 1 19
+ARRAY_PROGRESS 52 2 1 20
+ARRAY_PROGRESS 53 2 1 21
+ARRAY_PROGRESS 54 2 1 22
+ARRAY_PROGRESS 55 2 1 23
+ARRAY_PROGRESS 56 2 1 24
+ARRAY_PROGRESS 57 2 1 25
+ARRAY_PROGRESS 58 2 1 26
+ARRAY_PROGRESS 59 2 1 27
+ARRAY_PROGRESS 60 2 1 28
+ARRAY_PROGRESS 61 2 1 29
+ARRAY_PROGRESS 62 2 1 30
+ARRAY_PROGRESS 63 2 1 31
+ARRAY_PROGRESS 64 2 2 0
+ARRAY_PROGRESS 65 3 2 1
+ARRAY_PROGRESS 66 3 2 2
+ARRAY_PROGRESS 67 3 2 3
+ARRAY_PROGRESS 68 3 2 4
+ARRAY_PROGRESS 69 3 2 5
+ARRAY_PROGRESS 70 3 2 6
+ARRAY_PROGRESS 71 3 2 7
+ARRAY_PROGRESS 72 3 2 8
+ARRAY_PROGRESS 73 3 2 9
+ARRAY_PROGRESS 74 3 2 10
+ARRAY_PROGRESS 75 3 2 11
+ARRAY_PROGRESS 76 3 2 12
+ARRAY_PROGRESS 77 3 2 13
+ARRAY_PROGRESS 78 3 2 14
+ARRAY_PROGRESS 79 3 2 15
+ARRAY_PROGRESS 80 3 2 16
+ARRAY_PROGRESS 81 3 2 17
+ARRAY_PROGRESS 82 3 2 18
+ARRAY_PROGRESS 83 3 2 19
+ARRAY_PROGRESS 84 3 2 20
+ARRAY_PROGRESS 85 3 2 21
+ARRAY_PROGRESS 86 3 2 22
+ARRAY_PROGRESS 87 3 2 23
+ARRAY_PROGRESS 88 3 2 24
+ARRAY_PROGRESS 89 3 2 25
+ARRAY_PROGRESS 90 3 2 26
+ARRAY_PROGRESS 91 3 2 27
+ARRAY_PROGRESS 92 3 2 28
+ARRAY_PROGRESS 93 3 2 29
+ARRAY_PROGRESS 94 3 2 30
+ARRAY_PROGRESS 95 3 2 31
+ARRAY_PROGRESS 96 3 3 0
+ARRAY_PROGRESS 97 4 3 1
+ARRAY_PROGRESS 98 4 3 2
+ARRAY_PROGRESS 99 4 3 3
+ARRAY_PROGRESS 100 4 3 4
+ARRAY_PROGRESS 101 4 3 5
+ARRAY_PROGRESS 102 4 3 6
+ARRAY_PROGRESS 103 4 3 7
+ARRAY_PROGRESS 104 4 3 8
+ARRAY_PROGRESS 105 4 3 9
+ARRAY_PROGRESS 106 4 3 10
+ARRAY_PROGRESS 107 4 3 11
+ARRAY_PROGRESS 108 4 3 12
+ARRAY_PROGRESS 109 4 3 13
+ARRAY_PROGRESS 110 4 3 14
+ARRAY_PROGRESS 111 4 3 15
+ARRAY_PROGRESS 112 4 3 16
+ARRAY_PROGRESS 113 4 3 17
+ARRAY_PROGRESS 114 4 3 18
+ARRAY_PROGRESS 115 4 3 19
+ARRAY_PROGRESS 116 4 3 20
+ARRAY_PROGRESS 117 4 3 21
+ARRAY_PROGRESS 118 4 3 22
+ARRAY_PROGRESS 119 4 3 23
+ARRAY_PROGRESS 120 4 3 24
+ARRAY_PROGRESS 121 4 3 25
+ARRAY_PROGRESS 122 4 3 26
+ARRAY_PROGRESS 123 4 3 27
+ARRAY_PROGRESS 124 4 3 28
+ARRAY_PROGRESS 125 4 3 29
+ARRAY_PROGRESS 126 4 3 30
+ARRAY_PROGRESS 127 4 3 31
+ARRAY_PROGRESS 128 4 4 0
+ARRAY_PROGRESS 129 4 4 1
+ARRAY_PROGRESS 130 4 4 2
+ARRAY_PROGRESS 131 4 4 3
+ARRAY_PROGRESS 132 4 4 4
+ARRAY_PROGRESS 133 4 4 5
+ARRAY_PROGRESS 134 4 4 6
+ARRAY_PROGRESS 135 4 4 7
+ARRAY_PROGRESS 136 4 4 8
+ARRAY_PROGRESS 137 4 4 9
+ARRAY_PROGRESS 138 4 4 10
+ARRAY_PROGRESS 139 4 4 11
+ARRAY_PROGRESS 140 4 4 12
+ARRAY_PROGRESS 141 4 4 13
+ARRAY_PROGRESS 142 4 4 14
+ARRAY_PROGRESS 143 4 4 15
+ARRAY_PROGRESS 144 4 4 16
+ARRAY_PROGRESS 145 4 4 17
+ARRAY_PROGRESS 146 4 4 18
+ARRAY_PROGRESS 147 4 4 19
+ARRAY_PROGRESS 148 4 4 20
+ARRAY_PROGRESS 149 4 4 21
+ARRAY_PROGRESS 150 4 4 22
+ARRAY_PROGRESS 151 4 4 23
+ARRAY_PROGRESS 152 4 4 24
+ARRAY_PROGRESS 153 4 4 25
+ARRAY_PROGRESS 154 4 4 26
+ARRAY_PROGRESS 155 4 4 27
+ARRAY_PROGRESS 156 4 4 28
+ARRAY_PROGRESS 157 4 4 29
+ARRAY_PROGRESS 158 4 4 30
+ARRAY_PROGRESS 159 4 4 31
+ARRAY_PROGRESS 160 4 5 0
+ARRAY_PROGRESS 161 4 5 1
+ARRAY_PROGRESS 162 4 5 2
+ARRAY_PROGRESS 163 4 5 3
+ARRAY_PROGRESS 164 4 5 4
+ARRAY_PROGRESS 165 4 5 5
+ARRAY_PROGRESS 166 4 5 6
+ARRAY_PROGRESS 167 4 5 7
+ARRAY_PROGRESS 168 4 5 8
+ARRAY_PROGRESS 169 4 5 9
+ARRAY_PROGRESS 170 4 5 10
+ARRAY_PROGRESS 171 4 5 11
+ARRAY_PROGRESS 172 4 5 12
+ARRAY_PROGRESS 173 4 5 13
+ARRAY_PROGRESS 174 4 5 14
+ARRAY_PROGRESS 175 4 5 15
+ARRAY_PROGRESS 176 4 5 16
+ARRAY_PROGRESS 177 4 5 17
+ARRAY_PROGRESS 178 4 5 18
+ARRAY_PROGRESS 179 4 5 19
+ARRAY_PROGRESS 180 4 5 20
+ARRAY_PROGRESS 181 4 5 21
+ARRAY_PROGRESS 182 4 5 22
+ARRAY_PROGRESS 183 4 5 23
+ARRAY_PROGRESS 184 4 5 24
+ARRAY_PROGRESS 185 4 5 25
+ARRAY_PROGRESS 186 4 5 26
+ARRAY_PROGRESS 187 4 5 27
+ARRAY_PROGRESS 188 4 5 28
+ARRAY_PROGRESS 189 4 5 29
+ARRAY_PROGRESS 190 4 5 30
+ARRAY_PROGRESS 191 4 5 31
+ARRAY_PROGRESS 192 4 6 0
+ARRAY_PROGRESS 193 4 6 1
+ARRAY_PROGRESS 194 4 6 2
+ARRAY_PROGRESS 195 4 6 3
+ARRAY_PROGRESS 196 4 6 4
+ARRAY_PROGRESS 197 4 6 5
+ARRAY_PROGRESS 198 4 6 6
+ARRAY_PROGRESS 199 4 6 7
+ARRAY_PROGRESS 200 4 6 8
+ARRAY_PROGRESS 201 4 6 9
+ARRAY_PROGRESS 202 4 6 10
+ARRAY_PROGRESS 203 4 6 11
+ARRAY_PROGRESS 204 4 6 12
+ARRAY_PROGRESS 205 4 6 13
+ARRAY_PROGRESS 206 4 6 14
+ARRAY_PROGRESS 207 4 6 15
+ARRAY_PROGRESS 208 4 6 16
+ARRAY_PROGRESS 209 4 6 17
+ARRAY_PROGRESS 210 4 6 18
+ARRAY_PROGRESS 211 4 6 19
+ARRAY_PROGRESS 212 4 6 20
+ARRAY_PROGRESS 213 4 6 21
+ARRAY_PROGRESS 214 4 6 22
+ARRAY_PROGRESS 215 4 6 23
+ARRAY_PROGRESS 216 4 6 24
+ARRAY_PROGRESS 217 4 6 25
+ARRAY_PROGRESS 218 4 6 26
+ARRAY_PROGRESS 219 4 6 27
+ARRAY_PROGRESS 220 4 6 28
+ARRAY_PROGRESS 221 4 6 29
+ARRAY_PROGRESS 222 4 6 30
+ARRAY_PROGRESS 223 4 6 31
+ARRAY_PROGRESS 224 4 7 0
+ARRAY_PROGRESS 225 4 7 1
+ARRAY_PROGRESS 226 4 7 2
+ARRAY_PROGRESS 227 4 7 3
+ARRAY_PROGRESS 228 4 7 4
+ARRAY_PROGRESS 229 4 7 5
+ARRAY_PROGRESS 230 4 7 6
+ARRAY_PROGRESS 231 4 7 7
+ARRAY_PROGRESS 232 4 7 8
+ARRAY_PROGRESS 233 4 7 9
+ARRAY_PROGRESS 234 4 7 10
+ARRAY_PROGRESS 235 4 7 11
+ARRAY_PROGRESS 236 4 7 12
+ARRAY_PROGRESS 237 4 7 13
+ARRAY_PROGRESS 238 4 7 14
+ARRAY_PROGRESS 239 4 7 15
+ARRAY_PROGRESS 240 4 7 16
+ARRAY_PROGRESS 241 4 7 17
+ARRAY_PROGRESS 242 4 7 18
+ARRAY_PROGRESS 243 4 7 19
+ARRAY_PROGRESS 244 4 7 20
+ARRAY_PROGRESS 245 4 7 21
+ARRAY_PROGRESS 246 4 7 22
+ARRAY_PROGRESS 247 4 7 23
+ARRAY_PROGRESS 248 4 7 24
+ARRAY_PROGRESS 249 4 7 25
+ARRAY_PROGRESS 250 4 7 26
+ARRAY_PROGRESS 251 4 7 27
+ARRAY_PROGRESS 252 4 7 28
+ARRAY_PROGRESS 253 4 7 29
+ARRAY_PROGRESS 254 4 7 30
+ARRAY_PROGRESS 255 4 7 31
+ARRAY_PROGRESS 256 4 8 0
+ARRAY_PROGRESS 257 4 8 1
+ARRAY_PROGRESS 258 4 8 2
+ARRAY_PROGRESS 259 4 8 3
+ARRAY_PROGRESS 260 4 8 4
+ARRAY_PROGRESS 261 4 8 5
+ARRAY_PROGRESS 262 4 8 6
+ARRAY_PROGRESS 263 4 8 7
+ARRAY_PROGRESS 264 4 8 8
+ARRAY_PROGRESS 265 4 8 9
+ARRAY_PROGRESS 266 4 8 10
+ARRAY_PROGRESS 267 4 8 11
+ARRAY_PROGRESS 268 4 8 12
+ARRAY_PROGRESS 269 4 8 13
+ARRAY_PROGRESS 270 4 8 14
+ARRAY_PROGRESS 271 4 8 15
+ARRAY_PROGRESS 272 4 8 16
+ARRAY_PROGRESS 273 4 8 17
+ARRAY_PROGRESS 274 4 8 18
+ARRAY_PROGRESS 275 4 8 19
+ARRAY_PROGRESS 276 4 8 20
+ARRAY_PROGRESS 277 4 8 21
+ARRAY_PROGRESS 278 4 8 22
+ARRAY_PROGRESS 279 4 8 23
+ARRAY_PROGRESS 280 4 8 24
+ARRAY_PROGRESS 281 4 8 25
+ARRAY_PROGRESS 282 4 8 26
+ARRAY_PROGRESS 283 4 8 27
+ARRAY_PROGRESS 284 4 8 28
+ARRAY_PROGRESS 285 4 8 29
+ARRAY_PROGRESS 286 4 8 30
+ARRAY_PROGRESS 287 4 8 31
+ARRAY_PROGRESS 288 4 9 0
+ARRAY_PROGRESS 289 4 9 1
+ARRAY_PROGRESS 290 4 9 2
+ARRAY_PROGRESS 291 4 9 3
+ARRAY_PROGRESS 292 4 9 4
+ARRAY_PROGRESS 293 4 9 5
+ARRAY_PROGRESS 294 4 9 6
+ARRAY_PROGRESS 295 4 9 7
+ARRAY_PROGRESS 296 4 9 8
+ARRAY_PROGRESS 297 4 9 9
+ARRAY_PROGRESS 298 4 9 10
+ARRAY_PROGRESS 299 4 9 11
+ARRAY_PROGRESS 300 4 9 12
+ARRAY_PROGRESS 301 4 9 13
+ARRAY_PROGRESS 302 4 9 14
+ARRAY_PROGRESS 303 4 9 15
+ARRAY_PROGRESS 304 4 9 16
+ARRAY_PROGRESS 305 4 9 17
+ARRAY_PROGRESS 306 4 9 18
+ARRAY_PROGRESS 307 4 9 19
+ARRAY_PROGRESS 308 4 9 20
+ARRAY_PROGRESS 309 4 9 21
+ARRAY_PROGRESS 310 4 9 22
+ARRAY_PROGRESS 311 4 9 23
+ARRAY_PROGRESS 312 4 9 24
+ARRAY_PROGRESS 313 4 9 25
+ARRAY_PROGRESS 314 4 9 26
+ARRAY_PROGRESS 315 4 9 27
+ARRAY_PROGRESS 316 4 9 28
+ARRAY_PROGRESS 317 4 9 29
+ARRAY_PROGRESS 318 4 9 30
+ARRAY_PROGRESS 319 4 9 31
+ARRAY_PROGRESS 320 4 10 0
+ARRAY_PROGRESS 321 4 10 1
+ARRAY_PROGRESS 322 4 10 2
+ARRAY_PROGRESS 323 4 10 3
+ARRAY_PROGRESS 324 4 10 4
+ARRAY_PROGRESS 325 4 10 5
+ARRAY_PROGRESS 326 4 10 6
+ARRAY_PROGRESS 327 4 10 7
+ARRAY_PROGRESS 328 4 10 8
+ARRAY_PROGRESS 329 4 10 9
+ARRAY_PROGRESS 330 4 10 10
+ARRAY_PROGRESS 331 4 10 11
+ARRAY_PROGRESS 332 4 10 12
+ARRAY_PROGRESS 333 4 10 13
+ARRAY_PROGRESS 334 4 10 14
+ARRAY_PROGRESS 335 4 10 15
+ARRAY_PROGRESS 336 4 10 16
+ARRAY_PROGRESS 337 4 10 17
+ARRAY_PROGRESS 338 4 10 18
+ARRAY_PROGRESS 339 4 10 19
+ARRAY_PROGRESS 340 4 10 20
+ARRAY_PROGRESS 341 4 10 21
+ARRAY_PROGRESS 342 4 10 22
+ARRAY_PROGRESS 343 4 10 23
+ARRAY_PROGRESS 344 4 10 24
+ARRAY_PROGRESS 345 4 10 25
+ARRAY_PROGRESS 346 4 10 26
+ARRAY_PROGRESS 347 4 10 27
+ARRAY_PROGRESS 348 4 10 28
+ARRAY_PROGRESS 349 4 10 29
+ARRAY_PROGRESS 350 4 10 30
+ARRAY_PROGRESS 351 4 10 31
+ARRAY_PROGRESS 352 4 11 0
+ARRAY_PROGRESS 353 4 11 1
+ARRAY_PROGRESS 354 4 11 2
+ARRAY_PROGRESS 355 4 11 3
+ARRAY_PROGRESS 356 4 11 4
+ARRAY_PROGRESS 357 4 11 5
+ARRAY_PROGRESS 358 4 11 6
+ARRAY_PROGRESS 359 4 11 7
+ARRAY_PROGRESS 360 4 11 8
+ARRAY_PROGRESS 361 4 11 9
+ARRAY_PROGRESS 362 4 11 10
+ARRAY_PROGRESS 363 4 11 11
+ARRAY_PROGRESS 364 4 11 12
+ARRAY_PROGRESS 365 4 11 13
+ARRAY_PROGRESS 366 4 11 14
+ARRAY_PROGRESS 367 4 11 15
+ARRAY_PROGRESS 368 4 11 16
+ARRAY_PROGRESS 369 4 11 17
+ARRAY_PROGRESS 370 4 11 18
+ARRAY_PROGRESS 371 4 11 19
+ARRAY_PROGRESS 372 4 11 20
+ARRAY_PROGRESS 373 4 11 21
+ARRAY_PROGRESS 374 4 11 22
+ARRAY_PROGRESS 375 4 11 23
+ARRAY_PROGRESS 376 4 11 24
+ARRAY_PROGRESS 377 4 11 25
+ARRAY_PROGRESS 378 4 11 26
+ARRAY_PROGRESS 379 4 11 27
+ARRAY_PROGRESS 380 4 11 28
+ARRAY_PROGRESS 381 4 11 29
+ARRAY_PROGRESS 382 4 11 30
+ARRAY_PROGRESS 383 4 11 31
+ARRAY_PROGRESS 384 4 12 0
+ARRAY_PROGRESS 385 4 12 1
+ARRAY_PROGRESS 386 4 12 2
+ARRAY_PROGRESS 387 4 12 3
+ARRAY_PROGRESS 388 4 12 4
+ARRAY_PROGRESS 389 4 12 5
+ARRAY_PROGRESS 390 4 12 6
+ARRAY_PROGRESS 391 4 12 7
+ARRAY_PROGRESS 392 4 12 8
+ARRAY_PROGRESS 393 4 12 9
+ARRAY_PROGRESS 394 4 12 10
+ARRAY_PROGRESS 395 4 12 11
+ARRAY_PROGRESS 396 4 12 12
+ARRAY_PROGRESS 397 4 12 13
+ARRAY_PROGRESS 398 4 12 14
+ARRAY_PROGRESS 399 4 12 15
+ARRAY_PROGRESS 400 4 12 16
+ARRAY_PROGRESS 401 4 12 17
+ARRAY_PROGRESS 402 4 12 18
+ARRAY_PROGRESS 403 4 12 19
+ARRAY_PROGRESS 404 4 12 20
+ARRAY_PROGRESS 405 4 12 21
+ARRAY_PROGRESS 406 4 12 22
+ARRAY_PROGRESS 407 4 12 23
+ARRAY_PROGRESS 408 4 12 24
+ARRAY_PROGRESS 409 4 12 25
+ARRAY_PROGRESS 410 4 12 26
+ARRAY_PROGRESS 411 4 12 27
+ARRAY_PROGRESS 412 4 12 28
+ARRAY_PROGRESS 413 4 12 29
+ARRAY_PROGRESS 414 4 12 30
+ARRAY_PROGRESS 415 4 12 31
+ARRAY_PROGRESS 416 4 13 0
+ARRAY_PROGRESS 417 4 13 1
+ARRAY_PROGRESS 418 4 13 2
+ARRAY_PROGRESS 419 4 13 3
+ARRAY_PROGRESS 420 4 13 4
+ARRAY_PROGRESS 421 4 13 5
+ARRAY_PROGRESS 422 4 13 6
+ARRAY_PROGRESS 423 4 13 7
+ARRAY_PROGRESS 424 4 13 8
+ARRAY_PROGRESS 425 4 13 9
+ARRAY_PROGRESS 426 4 13 10
+ARRAY_PROGRESS 427 4 13 11
+ARRAY_PROGRESS 428 4 13 12
+ARRAY_PROGRESS 429 4 13 13
+ARRAY_PROGRESS 430 4 13 14
+ARRAY_PROGRESS 431 4 13 15
+ARRAY_PROGRESS 432 4 13 16
+ARRAY_PROGRESS 433 4 13 17
+ARRAY_PROGRESS 434 4 13 18
+ARRAY_PROGRESS 435 4 13 19
+ARRAY_PROGRESS 436 4 13 20
+ARRAY_PROGRESS 437 4 13 21
+ARRAY_PROGRESS 438 4 13 22
+ARRAY_PROGRESS 439 4 13 23
+ARRAY_PROGRESS 440 4 13 24
+ARRAY_PROGRESS 441 4 13 25
+ARRAY_PROGRESS 442 4 13 26
+ARRAY_PROGRESS 443 4 13 27
+ARRAY_PROGRESS 444 4 13 28
+ARRAY_PROGRESS 445 4 13 29
+ARRAY_PROGRESS 446 4 13 30
+ARRAY_PROGRESS 447 4 13 31
+ARRAY_PROGRESS 448 4 14 0
+ARRAY_PROGRESS 449 4 14 1
+ARRAY_PROGRESS 450 4 14 2
+ARRAY_PROGRESS 451 4 14 3
+ARRAY_PROGRESS 452 4 14 4
+ARRAY_PROGRESS 453 4 14 5
+ARRAY_PROGRESS 454 4 14 6
+ARRAY_PROGRESS 455 4 14 7
+ARRAY_PROGRESS 456 4 14 8
+ARRAY_PROGRESS 457 4 14 9
+ARRAY_PROGRESS 458 4 14 10
+ARRAY_PROGRESS 459 4 14 11
+ARRAY_PROGRESS 460 4 14 12
+ARRAY_PROGRESS 461 4 14 13
+ARRAY_PROGRESS 462 4 14 14
+ARRAY_PROGRESS 463 4 14 15
+ARRAY_PROGRESS 464 4 14 16
+ARRAY_PROGRESS 465 4 14 17
+ARRAY_PROGRESS 466 4 14 18
+ARRAY_PROGRESS 467 4 14 19
+ARRAY_PROGRESS 468 4 14 20
+ARRAY_PROGRESS 469 4 14 21
+ARRAY_PROGRESS 470 4 14 22
+ARRAY_PROGRESS 471 4 14 23
+ARRAY_PROGRESS 472 4 14 24
+ARRAY_PROGRESS 473 4 14 25
+ARRAY_PROGRESS 474 4 14 26
+ARRAY_PROGRESS 475 4 14 27
+ARRAY_PROGRESS 476 4 14 28
+ARRAY_PROGRESS 477 4 14 29
+ARRAY_PROGRESS 478 4 14 30
+ARRAY_PROGRESS 479 4 14 31
+ARRAY_PROGRESS 480 4 15 0
+ARRAY_PROGRESS 481 4 15 1
+ARRAY_PROGRESS 482 4 15 2
+ARRAY_PROGRESS 483 4 15 3
+ARRAY_PROGRESS 484 4 15 4
+ARRAY_PROGRESS 485 4 15 5
+ARRAY_PROGRESS 486 4 15 6
+ARRAY_PROGRESS 487 4 15 7
+ARRAY_PROGRESS 488 4 15 8
+ARRAY_PROGRESS 489 4 15 9
+ARRAY_PROGRESS 490 4 15 10
+ARRAY_PROGRESS 491 4 15 11
+ARRAY_PROGRESS 492 4 15 12
+ARRAY_PROGRESS 493 4 15 13
+ARRAY_PROGRESS 494 4 15 14
+ARRAY_PROGRESS 495 4 15 15
+ARRAY_PROGRESS 496 4 15 16
+ARRAY_PROGRESS 497 4 15 17
+ARRAY_PROGRESS 498 4 15 18
+ARRAY_PROGRESS 499 4 15 19
+ARRAY_PROGRESS 500 4 15 20
+ARRAY_PROGRESS 501 4 15 21
+ARRAY_PROGRESS 502 4 15 22
+ARRAY_PROGRESS 503 4 15 23
+ARRAY_PROGRESS 504 4 15 24
+ARRAY_PROGRESS 505 4 15 25
+ARRAY_PROGRESS 506 4 15 26
+ARRAY_PROGRESS 507 4 15 27
+ARRAY_PROGRESS 508 4 15 28
+ARRAY_PROGRESS 509 4 15 29
+ARRAY_PROGRESS 510 4 15 30
+ARRAY_PROGRESS 511 4 15 31
+ARRAY_PROGRESS 512 4 16 0
+ARRAY_PROGRESS 513 4 16 1
+ARRAY_PROGRESS 514 4 16 2
+ARRAY_PROGRESS 515 4 16 3
+ARRAY_PROGRESS 516 4 16 4
+ARRAY_PROGRESS 517 4 16 5
+ARRAY_PROGRESS 518 4 16 6
+ARRAY_PROGRESS 519 4 16 7
+ARRAY_PROGRESS 520 4 16 8
+ARRAY_PROGRESS 521 4 16 9
+ARRAY_PROGRESS 522 4 16 10
+ARRAY_PROGRESS 523 4 16 11
+ARRAY_PROGRESS 524 4 16 12
+ARRAY_PROGRESS 525 4 16 13
+ARRAY_PROGRESS 526 4 16 14
+ARRAY_PROGRESS 527 4 16 15
+ARRAY_PROGRESS 528 4 16 16
+ARRAY_PROGRESS 529 4 16 17
+ARRAY_PROGRESS 530 4 16 18
+ARRAY_PROGRESS 531 4 16 19
+ARRAY_PROGRESS 532 4 16 20
+ARRAY_PROGRESS 533 4 16 21
+ARRAY_PROGRESS 534 4 16 22
+ARRAY_PROGRESS 535 4 16 23
+ARRAY_PROGRESS 536 4 16 24
+ARRAY_PROGRESS 537 4 16 25
+ARRAY_PROGRESS 538 4 16 26
+ARRAY_PROGRESS 539 4 16 27
+ARRAY_PROGRESS 540 4 16 28
+ARRAY_PROGRESS 541 4 16 29
+ARRAY_PROGRESS 542 4 16 30
+ARRAY_PROGRESS 543 4 16 31
+ARRAY_PROGRESS 544 4 17 0
+ARRAY_PROGRESS 545 4 17 1
+ARRAY_PROGRESS 546 4 17 2
+ARRAY_PROGRESS 547 4 17 3
+ARRAY_PROGRESS 548 4 17 4
+ARRAY_PROGRESS 549 4 17 5
+ARRAY_PROGRESS 550 4 17 6
+ARRAY_PROGRESS 551 4 17 7
+ARRAY_PROGRESS 552 4 17 8
+ARRAY_PROGRESS 553 4 17 9
+ARRAY_PROGRESS 554 4 17 10
+ARRAY_PROGRESS 555 4 17 11
+ARRAY_PROGRESS 556 4 17 12
+ARRAY_PROGRESS 557 4 17 13
+ARRAY_PROGRESS 558 4 17 14
+ARRAY_PROGRESS 559 4 17 15
+ARRAY_PROGRESS 560 4 17 16
+ARRAY_PROGRESS 561 4 17 17
+ARRAY_PROGRESS 562 4 17 18
+ARRAY_PROGRESS 563 4 17 19
+ARRAY_PROGRESS 564 4 17 20
+ARRAY_PROGRESS 565 4 17 21
+ARRAY_PROGRESS 566 4 17 22
+ARRAY_PROGRESS 567 4 17 23
+ARRAY_PROGRESS 568 4 17 24
+ARRAY_PROGRESS 569 4 17 25
+ARRAY_PROGRESS 570 4 17 26
+ARRAY_PROGRESS 571 4 17 27
+ARRAY_PROGRESS 572 4 17 28
+ARRAY_PROGRESS 573 4 17 29
+ARRAY_PROGRESS 574 4 17 30
+ARRAY_PROGRESS 575 4 17 31
+ARRAY_PROGRESS 576 4 18 0
+ARRAY_PROGRESS 577 4 18 1
+ARRAY_PROGRESS 578 4 18 2
+ARRAY_PROGRESS 579 4 18 3
+ARRAY_PROGRESS 580 4 18 4
+ARRAY_PROGRESS 581 4 18 5
+ARRAY_PROGRESS 582 4 18 6
+ARRAY_PROGRESS 583 4 18 7
+ARRAY_PROGRESS 584 4 18 8
+ARRAY_PROGRESS 585 4 18 9
+ARRAY_PROGRESS 586 4 18 10
+ARRAY_PROGRESS 587 4 18 11
+ARRAY_PROGRESS 588 4 18 12
+ARRAY_PROGRESS 589 4 18 13
+ARRAY_PROGRESS 590 4 18 14
+ARRAY_PROGRESS 591 4 18 15
+ARRAY_PROGRESS 592 4 18 16
+ARRAY_PROGRESS 593 4 18 17
+ARRAY_PROGRESS 594 4 18 18
+ARRAY_PROGRESS 595 4 18 19
+ARRAY_PROGRESS 596 4 18 20
+ARRAY_PROGRESS 597 4 18 21
+ARRAY_PROGRESS 598 4 18 22
+ARRAY_PROGRESS 599 4 18 23
+ARRAY_PROGRESS 600 4 18 24
+ARRAY_PROGRESS 601 4 18 25
+ARRAY_PROGRESS 602 4 18 26
+ARRAY_PROGRESS 603 4 18 27
+ARRAY_PROGRESS 604 4 18 28
+ARRAY_PROGRESS 605 4 18 29
+ARRAY_PROGRESS 606 4 18 30
+ARRAY_PROGRESS 607 4 18 31
+ARRAY_PROGRESS 608 4 19 0
+ARRAY_PROGRESS 609 4 19 1
+ARRAY_PROGRESS 610 4 19 2
+ARRAY_PROGRESS 611 4 19 3
+ARRAY_PROGRESS 612 4 19 4
+ARRAY_PROGRESS 613 4 19 5
+ARRAY_PROGRESS 614 4 19 6
+ARRAY_PROGRESS 615 4 19 7
+ARRAY_PROGRESS 616 4 19 8
+ARRAY_PROGRESS 617 4 19 9
+ARRAY_PROGRESS 618 4 19 10
+ARRAY_PROGRESS 619 4 19 11
+ARRAY_PROGRESS 620 4 19 12
+ARRAY_PROGRESS 621 4 19 13
+ARRAY_PROGRESS 622 4 19 14
+ARRAY_PROGRESS 623 4 19 15
+ARRAY_PROGRESS 624 4 19 16
+ARRAY_PROGRESS 625 4 19 17
+ARRAY_PROGRESS 626 4 19 18
+ARRAY_PROGRESS 627 4 19 19
+ARRAY_PROGRESS 628 4 19 20
+ARRAY_PROGRESS 629 4 19 21
+ARRAY_PROGRESS 630 4 19 22
+ARRAY_PROGRESS 631 4 19 23
+ARRAY_PROGRESS 632 4 19 24
+ARRAY_PROGRESS 633 4 19 25
+ARRAY_PROGRESS 634 4 19 26
+ARRAY_PROGRESS 635 4 19 27
+ARRAY_PROGRESS 636 4 19 28
+ARRAY_PROGRESS 637 4 19 29
+ARRAY_PROGRESS 638 4 19 30
+ARRAY_PROGRESS 639 4 19 31
+ARRAY_PROGRESS 640 4 20 0
+ARRAY_PROGRESS 641 4 20 1
+ARRAY_PROGRESS 642 4 20 2
+ARRAY_PROGRESS 643 4 20 3
+ARRAY_PROGRESS 644 4 20 4
+ARRAY_PROGRESS 645 4 20 5
+ARRAY_PROGRESS 646 4 20 6
+ARRAY_PROGRESS 647 4 20 7
+ARRAY_PROGRESS 648 4 20 8
+ARRAY_PROGRESS 649 4 20 9
+ARRAY_PROGRESS 650 4 20 10
+ARRAY_PROGRESS 651 4 20 11
+ARRAY_PROGRESS 652 4 20 12
+ARRAY_PROGRESS 653 4 20 13
+ARRAY_PROGRESS 654 4 20 14
+ARRAY_PROGRESS 655 4 20 15
+ARRAY_PROGRESS 656 4 20 16
+ARRAY_PROGRESS 657 4 20 17
+ARRAY_PROGRESS 658 4 20 18
+ARRAY_PROGRESS 659 4 20 19
+ARRAY_PROGRESS 660 4 20 20
+ARRAY_PROGRESS 661 4 20 21
+ARRAY_PROGRESS 662 4 20 22
+ARRAY_PROGRESS 663 4 20 23
+ARRAY_PROGRESS 664 4 20 24
+ARRAY_PROGRESS 665 4 20 25
+ARRAY_PROGRESS 666 4 20 26
+ARRAY_PROGRESS 667 4 20 27
+ARRAY_PROGRESS 668 4 20 28
+ARRAY_PROGRESS 669 4 20 29
+ARRAY_PROGRESS 670 4 20 30
+ARRAY_PROGRESS 671 4 20 31
+ARRAY_PROGRESS 672 4 21 0
+ARRAY_PROGRESS 673 4 21 1
+ARRAY_PROGRESS 674 4 21 2
+ARRAY_PROGRESS 675 4 21 3
+ARRAY_PROGRESS 676 4 21 4
+ARRAY_PROGRESS 677 4 21 5
+ARRAY_PROGRESS 678 4 21 6
+ARRAY_PROGRESS 679 4 21 7
+ARRAY_PROGRESS 680 4 21 8
+ARRAY_PROGRESS 681 4 21 9
+ARRAY_PROGRESS 682 4 21 10
+ARRAY_PROGRESS 683 4 21 11
+ARRAY_PROGRESS 684 4 21 12
+ARRAY_PROGRESS 685 4 21 13
+ARRAY_PROGRESS 686 4 21 14
+ARRAY_PROGRESS 687 4 21 15
+ARRAY_PROGRESS 688 4 21 16
+ARRAY_PROGRESS 689 4 21 17
+ARRAY_PROGRESS 690 4 21 18
+ARRAY_PROGRESS 691 4 21 19
+ARRAY_PROGRESS 692 4 21 20
+ARRAY_PROGRESS 693 4 21 21
+ARRAY_PROGRESS 694 4 21 22
+ARRAY_PROGRESS 695 4 21 23
+ARRAY_PROGRESS 696 4 21 24
+ARRAY_PROGRESS 697 4 21 25
+ARRAY_PROGRESS 698 4 21 26
+ARRAY_PROGRESS 699 4 21 27
+ARRAY_PROGRESS 700 4 21 28
+ARRAY_PROGRESS 701 4 21 29
+ARRAY_PROGRESS 702 4 21 30
+ARRAY_PROGRESS 703 4 21 31
+ARRAY_PROGRESS 704 4 22 0
+ARRAY_PROGRESS 705 4 22 1
+ARRAY_PROGRESS 706 4 22 2
+ARRAY_PROGRESS 707 4 22 3
+ARRAY_PROGRESS 708 4 22 4
+ARRAY_PROGRESS 709 4 22 5
+ARRAY_PROGRESS 710 4 22 6
+ARRAY_PROGRESS 711 4 22 7
+ARRAY_PROGRESS 712 4 22 8
+ARRAY_PROGRESS 713 4 22 9
+ARRAY_PROGRESS 714 4 22 10
+ARRAY_PROGRESS 715 4 22 11
+ARRAY_PROGRESS 716 4 22 12
+ARRAY_PROGRESS 717 4 22 13
+ARRAY_PROGRESS 718 4 22 14
+ARRAY_PROGRESS 719 4 22 15
+ARRAY_PROGRESS 720 4 22 16
+ARRAY_PROGRESS 721 4 22 17
+ARRAY_PROGRESS 722 4 22 18
+ARRAY_PROGRESS 723 4 22 19
+ARRAY_PROGRESS 724 4 22 20
+ARRAY_PROGRESS 725 4 22 21
+ARRAY_PROGRESS 726 4 22 22
+ARRAY_PROGRESS 727 4 22 23
+ARRAY_PROGRESS 728 4 22 24
+ARRAY_PROGRESS 729 4 22 25
+ARRAY_PROGRESS 730 4 22 26
+ARRAY_PROGRESS 731 4 22 27
+ARRAY_PROGRESS 732 4 22 28
+ARRAY_PROGRESS 733 4 22 29
+ARRAY_PROGRESS 734 4 22 30
+ARRAY_PROGRESS 735 4 22 31
+ARRAY_PROGRESS 736 4 23 0
+ARRAY_PROGRESS 737 4 23 1
+ARRAY_PROGRESS 738 4 23 2
+ARRAY_PROGRESS 739 4 23 3
+ARRAY_PROGRESS 740 4 23 4
+ARRAY_PROGRESS 741 4 23 5
+ARRAY_PROGRESS 742 4 23 6
+ARRAY_PROGRESS 743 4 23 7
+ARRAY_PROGRESS 744 4 23 8
+ARRAY_PROGRESS 745 4 23 9
+ARRAY_PROGRESS 746 4 23 10
+ARRAY_PROGRESS 747 4 23 11
+ARRAY_PROGRESS 748 4 23 12
+ARRAY_PROGRESS 749 4 23 13
+ARRAY_PROGRESS 750 4 23 14
+ARRAY_PROGRESS 751 4 23 15
+ARRAY_PROGRESS 752 4 23 16
+ARRAY_PROGRESS 753 4 23 17
+ARRAY_PROGRESS 754 4 23 18
+ARRAY_PROGRESS 755 4 23 19
+ARRAY_PROGRESS 756 4 23 20
+ARRAY_PROGRESS 757 4 23 21
+ARRAY_PROGRESS 758 4 23 22
+ARRAY_PROGRESS 759 4 23 23
+ARRAY_PROGRESS 760 4 23 24
+ARRAY_PROGRESS 761 4 23 25
+ARRAY_PROGRESS 762 4 23 26
+ARRAY_PROGRESS 763 4 23 27
+ARRAY_PROGRESS 764 4 23 28
+ARRAY_PROGRESS 765 4 23 29
+ARRAY_PROGRESS 766 4 23 30
+ARRAY_PROGRESS 767 4 23 31
+ARRAY_PROGRESS 768 4 24 0
+ARRAY_PROGRESS 769 4 24 1
+ARRAY_PROGRESS 770 4 24 2
+ARRAY_PROGRESS 771 4 24 3
+ARRAY_PROGRESS 772 4 24 4
+ARRAY_PROGRESS 773 4 24 5
+ARRAY_PROGRESS 774 4 24 6
+ARRAY_PROGRESS 775 4 24 7
+ARRAY_PROGRESS 776 4 24 8
+ARRAY_PROGRESS 777 4 24 9
+ARRAY_PROGRESS 778 4 24 10
+ARRAY_PROGRESS 779 4 24 11
+ARRAY_PROGRESS 780 4 24 12
+ARRAY_PROGRESS 781 4 24 13
+ARRAY_PROGRESS 782 4 24 14
+ARRAY_PROGRESS 783 4 24 15
+ARRAY_PROGRESS 784 4 24 16
+ARRAY_PROGRESS 785 4 24 17
+ARRAY_PROGRESS 786 4 24 18
+ARRAY_PROGRESS 787 4 24 19
+ARRAY_PROGRESS 788 4 24 20
+ARRAY_PROGRESS 789 4 24 21
+ARRAY_PROGRESS 790 4 24 22
+ARRAY_PROGRESS 791 4 24 23
+ARRAY_PROGRESS 792 4 24 24
+ARRAY_PROGRESS 793 4 24 25
+ARRAY_PROGRESS 794 4 24 26
+ARRAY_PROGRESS 795 4 24 27
+ARRAY_PROGRESS 796 4 24 28
+ARRAY_PROGRESS 797 4 24 29
+ARRAY_PROGRESS 798 4 24 30
+ARRAY_PROGRESS 799 4 24 31
+ARRAY_PROGRESS 800 4 25 0
+ARRAY_PROGRESS 801 4 25 1
+ARRAY_PROGRESS 802 4 25 2
+ARRAY_PROGRESS 803 4 25 3
+ARRAY_PROGRESS 804 4 25 4
+ARRAY_PROGRESS 805 4 25 5
+ARRAY_PROGRESS 806 4 25 6
+ARRAY_PROGRESS 807 4 25 7
+ARRAY_PROGRESS 808 4 25 8
+ARRAY_PROGRESS 809 4 25 9
+ARRAY_PROGRESS 810 4 25 10
+ARRAY_PROGRESS 811 4 25 11
+ARRAY_PROGRESS 812 4 25 12
+ARRAY_PROGRESS 813 4 25 13
+ARRAY_PROGRESS 814 4 25 14
+ARRAY_PROGRESS 815 4 25 15
+ARRAY_PROGRESS 816 4 25 16
+ARRAY_PROGRESS 817 4 25 17
+ARRAY_PROGRESS 818 4 25 18
+ARRAY_PROGRESS 819 4 25 19
+ARRAY_PROGRESS 820 4 25 20
+ARRAY_PROGRESS 821 4 25 21
+ARRAY_PROGRESS 822 4 25 22
+ARRAY_PROGRESS 823 4 25 23
+ARRAY_PROGRESS 824 4 25 24
+ARRAY_PROGRESS 825 4 25 25
+ARRAY_PROGRESS 826 4 25 26
+ARRAY_PROGRESS 827 4 25 27
+ARRAY_PROGRESS 828 4 25 28
+ARRAY_PROGRESS 829 4 25 29
+ARRAY_PROGRESS 830 4 25 30
+ARRAY_PROGRESS 831 4 25 31
+ARRAY_PROGRESS 832 4 26 0
+ARRAY_PROGRESS 833 4 26 1
+ARRAY_PROGRESS 834 4 26 2
+ARRAY_PROGRESS 835 4 26 3
+ARRAY_PROGRESS 836 4 26 4
+ARRAY_PROGRESS 837 4 26 5
+ARRAY_PROGRESS 838 4 26 6
+ARRAY_PROGRESS 839 4 26 7
+ARRAY_PROGRESS 840 4 26 8
+ARRAY_PROGRESS 841 4 26 9
+ARRAY_PROGRESS 842 4 26 10
+ARRAY_PROGRESS 843 4 26 11
+ARRAY_PROGRESS 844 4 26 12
+ARRAY_PROGRESS 845 4 26 13
+ARRAY_PROGRESS 846 4 26 14
+ARRAY_PROGRESS 847 4 26 15
+ARRAY_PROGRESS 848 4 26 16
+ARRAY_PROGRESS 849 4 26 17
+ARRAY_PROGRESS 850 4 26 18
+ARRAY_PROGRESS 851 4 26 19
+ARRAY_PROGRESS 852 4 26 20
+ARRAY_PROGRESS 853 4 26 21
+ARRAY_PROGRESS 854 4 26 22
+ARRAY_PROGRESS 855 4 26 23
+ARRAY_PROGRESS 856 4 26 24
+ARRAY_PROGRESS 857 4 26 25
+ARRAY_PROGRESS 858 4 26 26
+ARRAY_PROGRESS 859 4 26 27
+ARRAY_PROGRESS 860 4 26 28
+ARRAY_PROGRESS 861 4 26 29
+ARRAY_PROGRESS 862 4 26 30
+ARRAY_PROGRESS 863 4 26 31
+ARRAY_PROGRESS 864 4 27 0
+ARRAY_PROGRESS 865 4 27 1
+ARRAY_PROGRESS 866 4 27 2
+ARRAY_PROGRESS 867 4 27 3
+ARRAY_PROGRESS 868 4 27 4
+ARRAY_PROGRESS 869 4 27 5
+ARRAY_PROGRESS 870 4 27 6
+ARRAY_PROGRESS 871 4 27 7
+ARRAY_PROGRESS 872 4 27 8
+ARRAY_PROGRESS 873 4 27 9
+ARRAY_PROGRESS 874 4 27 10
+ARRAY_PROGRESS 875 4 27 11
+ARRAY_PROGRESS 876 4 27 12
+ARRAY_PROGRESS 877 4 27 13
+ARRAY_PROGRESS 878 4 27 14
+ARRAY_PROGRESS 879 4 27 15
+ARRAY_PROGRESS 880 4 27 16
+ARRAY_PROGRESS 881 4 27 17
+ARRAY_PROGRESS 882 4 27 18
+ARRAY_PROGRESS 883 4 27 19
+ARRAY_PROGRESS 884 4 27 20
+ARRAY_PROGRESS 885 4 27 21
+ARRAY_PROGRESS 886 4 27 22
+ARRAY_PROGRESS 887 4 27 23
+ARRAY_PROGRESS 888 4 27 24
+ARRAY_PROGRESS 889 4 27 25
+ARRAY_PROGRESS 890 4 27 26
+ARRAY_PROGRESS 891 4 27 27
+ARRAY_PROGRESS 892 4 27 28
+ARRAY_PROGRESS 893 4 27 29
+ARRAY_PROGRESS 894 4 27 30
+ARRAY_PROGRESS 895 4 27 31
+ARRAY_PROGRESS 896 4 28 0
+ARRAY_PROGRESS 897 4 28 1
+ARRAY_PROGRESS 898 4 28 2
+ARRAY_PROGRESS 899 4 28 3
+ARRAY_PROGRESS 900 4 28 4
+ARRAY_PROGRESS 901 4 28 5
+ARRAY_PROGRESS 902 4 28 6
+ARRAY_PROGRESS 903 4 28 7
+ARRAY_PROGRESS 904 4 28 8
+ARRAY_PROGRESS 905 4 28 9
+ARRAY_PROGRESS 906 4 28 10
+ARRAY_PROGRESS 907 4 28 11
+ARRAY_PROGRESS 908 4 28 12
+ARRAY_PROGRESS 909 4 28 13
+ARRAY_PROGRESS 910 4 28 14
+ARRAY_PROGRESS 911 4 28 15
+ARRAY_PROGRESS 912 4 28 16
+ARRAY_PROGRESS 913 4 28 17
+ARRAY_PROGRESS 914 4 28 18
+ARRAY_PROGRESS 915 4 28 19
+ARRAY_PROGRESS 916 4 28 20
+ARRAY_PROGRESS 917 4 28 21
+ARRAY_PROGRESS 918 4 28 22
+ARRAY_PROGRESS 919 4 28 23
+ARRAY_PROGRESS 920 4 28 24
+ARRAY_PROGRESS 921 4 28 25
+ARRAY_PROGRESS 922 4 28 26
+ARRAY_PROGRESS 923 4 28 27
+ARRAY_PROGRESS 924 4 28 28
+ARRAY_PROGRESS 925 4 28 29
+ARRAY_PROGRESS 926 4 28 30
+ARRAY_PROGRESS 927 4 28 31
+ARRAY_PROGRESS 928 4 29 0
+ARRAY_PROGRESS 929 4 29 1
+ARRAY_PROGRESS 930 4 29 2
+ARRAY_PROGRESS 931 4 29 3
+ARRAY_PROGRESS 932 4 29 4
+ARRAY_PROGRESS 933 4 29 5
+ARRAY_PROGRESS 934 4 29 6
+ARRAY_PROGRESS 935 4 29 7
+ARRAY_PROGRESS 936 4 29 8
+ARRAY_PROGRESS 937 4 29 9
+ARRAY_PROGRESS 938 4 29 10
+ARRAY_PROGRESS 939 4 29 11
+ARRAY_PROGRESS 940 4 29 12
+ARRAY_PROGRESS 941 4 29 13
+ARRAY_PROGRESS 942 4 29 14
+ARRAY_PROGRESS 943 4 29 15
+ARRAY_PROGRESS 944 4 29 16
+ARRAY_PROGRESS 945 4 29 17
+ARRAY_PROGRESS 946 4 29 18
+ARRAY_PROGRESS 947 4 29 19
+ARRAY_PROGRESS 948 4 29 20
+ARRAY_PROGRESS 949 4 29 21
+ARRAY_PROGRESS 950 4 29 22
+ARRAY_PROGRESS 951 4 29 23
+ARRAY_PROGRESS 952 4 29 24
+ARRAY_PROGRESS 953 4 29 25
+ARRAY_PROGRESS 954 4 29 26
+ARRAY_PROGRESS 955 4 29 27
+ARRAY_PROGRESS 956 4 29 28
+ARRAY_PROGRESS 957 4 29 29
+ARRAY_PROGRESS 958 4 29 30
+ARRAY_PROGRESS 959 4 29 31
+ARRAY_PROGRESS 960 4 30 0
+ARRAY_PROGRESS 961 4 30 1
+ARRAY_PROGRESS 962 4 30 2
+ARRAY_PROGRESS 963 4 30 3
+ARRAY_PROGRESS 964 4 30 4
+ARRAY_PROGRESS 965 4 30 5
+ARRAY_PROGRESS 966 4 30 6
+ARRAY_PROGRESS 967 4 30 7
+ARRAY_PROGRESS 968 4 30 8
+ARRAY_PROGRESS 969 4 30 9
+ARRAY_PROGRESS 970 4 30 10
+ARRAY_PROGRESS 971 4 30 11
+ARRAY_PROGRESS 972 4 30 12
+ARRAY_PROGRESS 973 4 30 13
+ARRAY_PROGRESS 974 4 30 14
+ARRAY_PROGRESS 975 4 30 15
+ARRAY_PROGRESS 976 4 30 16
+ARRAY_PROGRESS 977 4 30 17
+ARRAY_PROGRESS 978 4 30 18
+ARRAY_PROGRESS 979 4 30 19
+ARRAY_PROGRESS 980 4 30 20
+ARRAY_PROGRESS 981 4 30 21
+ARRAY_PROGRESS 982 4 30 22
+ARRAY_PROGRESS 983 4 30 23
+ARRAY_PROGRESS 984 4 30 24
+ARRAY_PROGRESS 985 4 30 25
+ARRAY_PROGRESS 986 4 30 26
+ARRAY_PROGRESS 987 4 30 27
+ARRAY_PROGRESS 988 4 30 28
+ARRAY_PROGRESS 989 4 30 29
+ARRAY_PROGRESS 990 4 30 30
+ARRAY_PROGRESS 991 4 30 31
+ARRAY_PROGRESS 992 4 31 0
+ARRAY_PROGRESS 993 5 31 1
+ARRAY_PROGRESS 994 5 31 2
+ARRAY_PROGRESS 995 5 31 3
+ARRAY_PROGRESS 996 5 31 4
+ARRAY_PROGRESS 997 5 31 5
+ARRAY_PROGRESS 998 5 31 6
+ARRAY_PROGRESS 999 5 31 7
+ARRAY_PROGRESS 1000 5 31 8
+ARRAY_PROGRESS 1001 5 31 9
+ARRAY_PROGRESS 1002 5 31 10
+ARRAY_PROGRESS 1003 5 31 11
+ARRAY_PROGRESS 1004 5 31 12
+ARRAY_PROGRESS 1005 5 31 13
+ARRAY_PROGRESS 1006 5 31 14
+ARRAY_PROGRESS 1007 5 31 15
+ARRAY_PROGRESS 1008 5 31 16
+ARRAY_PROGRESS 1009 5 31 17
+ARRAY_PROGRESS 1010 5 31 18
+ARRAY_PROGRESS 1011 5 31 19
+ARRAY_PROGRESS 1012 5 31 20
+ARRAY_PROGRESS 1013 5 31 21
+ARRAY_PROGRESS 1014 5 31 22
+ARRAY_PROGRESS 1015 5 31 23
+ARRAY_PROGRESS 1016 5 31 24
+ARRAY_PROGRESS 1017 5 31 25
+ARRAY_PROGRESS 1018 5 31 26
+ARRAY_PROGRESS 1019 5 31 27
+ARRAY_PROGRESS 1020 5 31 28
+ARRAY_PROGRESS 1021 5 31 29
+ARRAY_PROGRESS 1022 5 31 30
+ARRAY_PROGRESS 1023 6 31 31
+MAC_PROGRAM_RESULT 0 0 reset 0 51.870748
+ARRAY_PROGRAM_DETAIL 0 0 reset 288 0 0 51.870748
+MAC_PROGRAM_RESULT 0 1 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 0 1 reset 1 1 0 33.163265
+MAC_PROGRAM_RESULT 0 2 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 0 2 reset 254 1 0 33.163265
+MAC_PROGRAM_RESULT 0 3 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 0 3 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 0 4 reset 1 32.738095
+ARRAY_PROGRAM_DETAIL 0 4 reset 0 1 0 32.738095
+MAC_PROGRAM_RESULT 0 5 reset 1 32.738095
+ARRAY_PROGRAM_DETAIL 0 5 reset 0 1 0 32.738095
+MAC_PROGRAM_RESULT 0 6 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 0 6 reset 0 1 0 31.037415
+MAC_PROGRAM_RESULT 0 7 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 0 7 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 0 8 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 0 8 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 0 9 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 0 9 reset 1 1 0 33.163265
+MAC_PROGRAM_RESULT 0 10 reset 1 32.312925
+ARRAY_PROGRAM_DETAIL 0 10 reset 2 1 0 32.312925
+MAC_PROGRAM_RESULT 0 11 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 0 11 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 0 12 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 0 12 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 0 13 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 0 13 reset 4 1 0 31.037415
+MAC_PROGRAM_RESULT 0 14 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 0 14 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 0 15 reset 1 29.336735
+ARRAY_PROGRAM_DETAIL 0 15 reset 0 1 0 29.336735
+MAC_PROGRAM_RESULT 0 16 reset 1 32.738095
+ARRAY_PROGRAM_DETAIL 0 16 reset 0 1 0 32.738095
+MAC_PROGRAM_RESULT 0 17 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 0 17 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 0 18 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 0 18 reset 8 1 0 33.163265
+MAC_PROGRAM_RESULT 0 19 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 0 19 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 0 20 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 0 20 reset 1 1 0 28.486395
+MAC_PROGRAM_RESULT 0 21 reset 1 32.312925
+ARRAY_PROGRAM_DETAIL 0 21 reset 0 1 0 32.312925
+MAC_PROGRAM_RESULT 0 22 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 0 22 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 0 23 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 0 23 reset 0 1 0 31.037415
+MAC_PROGRAM_RESULT 0 24 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 0 24 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 0 25 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 0 25 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 0 26 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 0 26 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 0 27 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 0 27 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 0 28 reset 1 26.785714
+ARRAY_PROGRAM_DETAIL 0 28 reset 0 1 0 26.785714
+MAC_PROGRAM_RESULT 0 29 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 0 29 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 0 30 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 0 30 reset 19 1 0 33.163265
+MAC_PROGRAM_RESULT 0 31 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 0 31 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 1 0 reset 0 38.690476
+ARRAY_PROGRAM_DETAIL 1 0 reset 288 0 0 38.690476
+MAC_PROGRAM_RESULT 1 1 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 1 1 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 1 2 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 1 2 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 1 3 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 1 3 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 1 4 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 1 4 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 1 5 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 1 5 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 1 6 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 1 6 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 1 7 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 1 7 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 1 8 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 1 8 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 1 9 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 1 9 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 1 10 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 1 10 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 1 11 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 1 11 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 1 12 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 1 12 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 1 13 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 1 13 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 1 14 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 1 14 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 1 15 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 1 15 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 1 16 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 1 16 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 1 17 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 1 17 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 1 18 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 1 18 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 1 19 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 1 19 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 1 20 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 1 20 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 1 21 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 1 21 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 1 22 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 1 22 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 1 23 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 1 23 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 1 24 reset 1 26.785714
+ARRAY_PROGRAM_DETAIL 1 24 reset 0 1 0 26.785714
+MAC_PROGRAM_RESULT 1 25 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 1 25 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 1 26 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 1 26 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 1 27 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 1 27 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 1 28 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 1 28 reset 5 1 0 30.612245
+MAC_PROGRAM_RESULT 1 29 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 1 29 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 1 30 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 1 30 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 1 31 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 1 31 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 2 0 reset 0 39.965986
+ARRAY_PROGRAM_DETAIL 2 0 reset 288 0 0 39.965986
+MAC_PROGRAM_RESULT 2 1 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 2 1 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 2 2 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 2 2 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 2 3 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 2 3 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 2 4 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 2 4 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 2 5 reset 1 32.738095
+ARRAY_PROGRAM_DETAIL 2 5 reset 0 1 0 32.738095
+MAC_PROGRAM_RESULT 2 6 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 2 6 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 2 7 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 2 7 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 2 8 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 2 8 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 2 9 reset 1 33.588435
+ARRAY_PROGRAM_DETAIL 2 9 reset 52 1 0 33.588435
+MAC_PROGRAM_RESULT 2 10 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 2 10 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 2 11 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 2 11 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 2 12 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 2 12 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 2 13 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 2 13 reset 0 1 0 33.163265
+MAC_PROGRAM_RESULT 2 14 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 2 14 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 2 15 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 2 15 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 2 16 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 2 16 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 2 17 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 2 17 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 2 18 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 2 18 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 2 19 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 2 19 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 2 20 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 2 20 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 2 21 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 2 21 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 2 22 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 2 22 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 2 23 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 2 23 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 2 24 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 2 24 reset 0 1 0 27.636054
+MAC_PROGRAM_RESULT 2 25 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 2 25 reset 0 1 0 31.037415
+MAC_PROGRAM_RESULT 2 26 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 2 26 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 2 27 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 2 27 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 2 28 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 2 28 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 2 29 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 2 29 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 2 30 reset 1 29.761905
+ARRAY_PROGRAM_DETAIL 2 30 reset 0 1 0 29.761905
+MAC_PROGRAM_RESULT 2 31 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 2 31 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 3 0 reset 0 37.414966
+ARRAY_PROGRAM_DETAIL 3 0 reset 288 0 0 37.414966
+MAC_PROGRAM_RESULT 3 1 reset 1 32.312925
+ARRAY_PROGRAM_DETAIL 3 1 reset 16 1 0 32.312925
+MAC_PROGRAM_RESULT 3 2 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 3 2 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 3 3 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 3 3 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 3 4 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 3 4 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 3 5 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 3 5 reset 0 1 0 27.636054
+MAC_PROGRAM_RESULT 3 6 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 3 6 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 3 7 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 3 7 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 3 8 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 3 8 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 3 9 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 3 9 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 3 10 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 3 10 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 3 11 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 3 11 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 3 12 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 3 12 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 3 13 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 3 13 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 3 14 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 3 14 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 3 15 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 3 15 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 3 16 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 3 16 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 3 17 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 3 17 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 3 18 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 3 18 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 3 19 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 3 19 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 3 20 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 3 20 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 3 21 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 3 21 reset 0 1 0 27.636054
+MAC_PROGRAM_RESULT 3 22 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 3 22 reset 14 1 0 31.037415
+MAC_PROGRAM_RESULT 3 23 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 3 23 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 3 24 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 3 24 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 3 25 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 3 25 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 3 26 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 3 26 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 3 27 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 3 27 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 3 28 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 3 28 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 3 29 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 3 29 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 3 30 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 3 30 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 3 31 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 3 31 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 4 0 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 4 0 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 4 1 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 4 1 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 4 2 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 4 2 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 4 3 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 4 3 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 4 4 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 4 4 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 4 5 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 4 5 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 4 6 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 4 6 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 4 7 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 4 7 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 4 8 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 4 8 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 4 9 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 4 9 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 4 10 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 4 10 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 4 11 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 4 11 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 4 12 reset 1 26.785714
+ARRAY_PROGRAM_DETAIL 4 12 reset 0 1 0 26.785714
+MAC_PROGRAM_RESULT 4 13 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 4 13 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 4 14 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 4 14 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 4 15 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 4 15 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 4 16 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 4 16 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 4 17 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 4 17 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 4 18 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 4 18 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 4 19 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 4 19 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 4 20 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 4 20 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 4 21 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 4 21 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 4 22 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 4 22 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 4 23 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 4 23 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 4 24 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 4 24 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 4 25 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 4 25 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 4 26 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 4 26 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 4 27 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 4 27 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 4 28 reset 1 29.336735
+ARRAY_PROGRAM_DETAIL 4 28 reset 0 1 0 29.336735
+MAC_PROGRAM_RESULT 4 29 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 4 29 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 4 30 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 4 30 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 4 31 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 4 31 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 5 0 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 5 0 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 5 1 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 1 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 2 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 5 2 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 5 3 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 5 3 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 5 4 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 4 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 5 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 5 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 6 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 6 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 7 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 5 7 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 5 8 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 5 8 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 5 9 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 5 9 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 5 10 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 5 10 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 5 11 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 11 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 12 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 5 12 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 5 13 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 5 13 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 5 14 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 5 14 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 5 15 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 5 15 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 5 16 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 5 16 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 5 17 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 5 17 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 5 18 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 5 18 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 5 19 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 5 19 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 5 20 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 5 20 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 5 21 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 5 21 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 5 22 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 5 22 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 5 23 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 5 23 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 5 24 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 5 24 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 5 25 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 5 25 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 5 26 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 5 26 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 5 27 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 5 27 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 5 28 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 5 28 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 5 29 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 5 29 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 5 30 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 5 30 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 5 31 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 5 31 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 6 0 reset 1 31.037415
+ARRAY_PROGRAM_DETAIL 6 0 reset 0 1 0 31.037415
+MAC_PROGRAM_RESULT 6 1 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 6 1 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 6 2 reset 1 29.336735
+ARRAY_PROGRAM_DETAIL 6 2 reset 0 1 0 29.336735
+MAC_PROGRAM_RESULT 6 3 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 6 3 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 6 4 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 6 4 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 6 5 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 6 5 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 6 6 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 6 6 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 6 7 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 6 7 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 6 8 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 6 8 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 6 9 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 6 9 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 6 10 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 6 10 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 6 11 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 6 11 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 6 12 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 6 12 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 6 13 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 6 13 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 6 14 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 6 14 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 6 15 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 6 15 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 6 16 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 6 16 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 6 17 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 6 17 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 6 18 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 6 18 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 6 19 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 6 19 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 6 20 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 6 20 reset 0 1 0 33.163265
+MAC_PROGRAM_RESULT 6 21 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 6 21 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 6 22 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 6 22 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 6 23 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 6 23 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 6 24 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 6 24 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 6 25 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 6 25 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 6 26 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 6 26 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 6 27 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 6 27 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 6 28 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 6 28 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 6 29 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 6 29 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 6 30 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 6 30 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 6 31 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 6 31 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 7 0 reset 1 31.887755
+ARRAY_PROGRAM_DETAIL 7 0 reset 0 1 0 31.887755
+MAC_PROGRAM_RESULT 7 1 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 7 1 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 7 2 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 7 2 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 7 3 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 7 3 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 7 4 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 7 4 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 7 5 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 7 5 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 7 6 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 7 6 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 7 7 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 7 7 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 7 8 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 7 8 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 7 9 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 7 9 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 7 10 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 7 10 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 7 11 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 7 11 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 7 12 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 7 12 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 7 13 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 7 13 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 7 14 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 7 14 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 7 15 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 7 15 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 7 16 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 7 16 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 7 17 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 7 17 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 7 18 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 7 18 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 7 19 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 7 19 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 7 20 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 7 20 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 7 21 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 7 21 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 7 22 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 7 22 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 7 23 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 7 23 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 7 24 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 7 24 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 7 25 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 7 25 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 7 26 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 7 26 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 7 27 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 7 27 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 7 28 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 7 28 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 7 29 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 7 29 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 7 30 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 7 30 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 7 31 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 7 31 reset 16 1 0 33.163265
+MAC_PROGRAM_RESULT 8 0 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 8 0 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 8 1 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 8 1 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 8 2 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 8 2 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 8 3 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 8 3 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 8 4 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 8 4 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 8 5 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 8 5 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 8 6 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 8 6 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 8 7 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 8 7 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 8 8 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 8 8 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 8 9 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 8 9 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 8 10 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 8 10 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 8 11 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 8 11 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 8 12 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 8 12 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 8 13 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 8 13 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 8 14 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 8 14 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 8 15 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 8 15 reset 0 1 0 27.636054
+MAC_PROGRAM_RESULT 8 16 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 8 16 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 8 17 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 8 17 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 8 18 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 8 18 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 8 19 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 8 19 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 8 20 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 8 20 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 8 21 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 8 21 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 8 22 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 8 22 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 8 23 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 8 23 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 8 24 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 8 24 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 8 25 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 8 25 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 8 26 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 8 26 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 8 27 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 8 27 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 8 28 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 8 28 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 8 29 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 8 29 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 8 30 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 8 30 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 8 31 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 8 31 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 9 0 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 9 0 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 9 1 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 9 1 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 9 2 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 9 2 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 9 3 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 9 3 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 9 4 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 9 4 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 9 5 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 9 5 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 9 6 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 9 6 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 9 7 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 9 7 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 9 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 9 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 9 9 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 9 9 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 9 10 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 9 10 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 9 11 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 9 11 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 9 12 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 9 12 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 9 13 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 9 13 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 9 14 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 9 14 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 9 15 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 9 15 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 9 16 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 9 16 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 9 17 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 9 17 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 9 18 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 9 18 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 9 19 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 9 19 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 9 20 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 9 20 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 9 21 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 9 21 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 9 22 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 9 22 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 9 23 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 9 23 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 9 24 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 9 24 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 9 25 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 9 25 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 9 26 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 9 26 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 9 27 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 9 27 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 9 28 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 9 28 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 9 29 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 9 29 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 9 30 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 9 30 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 9 31 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 9 31 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 10 0 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 10 0 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 10 1 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 10 1 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 10 2 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 10 2 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 10 3 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 10 3 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 10 4 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 10 4 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 10 5 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 10 5 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 10 6 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 10 6 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 10 7 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 10 7 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 10 8 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 10 8 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 10 9 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 10 9 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 10 10 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 10 10 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 10 11 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 10 11 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 10 12 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 10 12 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 10 13 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 10 13 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 10 14 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 10 14 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 10 15 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 10 15 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 10 16 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 10 16 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 10 17 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 10 17 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 10 18 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 10 18 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 10 19 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 10 19 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 10 20 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 10 20 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 10 21 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 10 21 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 10 22 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 10 22 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 10 23 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 10 23 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 10 24 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 10 24 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 10 25 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 10 25 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 10 26 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 10 26 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 10 27 reset 1 29.761905
+ARRAY_PROGRAM_DETAIL 10 27 reset 0 1 0 29.761905
+MAC_PROGRAM_RESULT 10 28 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 10 28 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 10 29 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 10 29 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 10 30 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 10 30 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 10 31 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 10 31 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 11 0 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 11 0 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 11 1 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 11 1 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 11 2 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 11 2 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 11 3 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 3 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 11 4 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 11 4 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 11 5 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 5 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 11 6 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 11 6 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 11 7 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 11 7 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 11 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 11 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 11 9 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 11 9 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 11 10 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 10 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 11 11 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 11 11 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 11 12 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 12 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 11 13 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 11 13 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 11 14 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 11 14 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 11 15 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 11 15 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 11 16 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 11 16 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 11 17 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 11 17 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 11 18 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 11 18 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 11 19 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 11 19 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 11 20 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 11 20 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 11 21 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 11 21 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 11 22 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 11 22 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 11 23 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 23 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 11 24 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 11 24 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 11 25 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 11 25 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 11 26 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 11 26 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 11 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 11 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 11 28 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 11 28 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 11 29 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 11 29 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 11 30 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 11 30 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 11 31 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 11 31 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 12 0 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 12 0 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 12 1 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 12 1 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 12 2 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 12 2 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 12 3 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 12 3 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 12 4 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 4 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 5 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 12 5 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 12 6 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 12 6 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 12 7 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 7 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 12 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 12 9 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 12 9 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 12 10 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 12 10 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 12 11 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 12 11 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 12 12 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 12 12 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 12 13 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 13 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 14 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 12 14 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 12 15 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 15 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 16 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 12 16 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 12 17 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 12 17 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 12 18 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 12 18 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 12 19 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 12 19 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 12 20 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 20 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 21 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 12 21 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 12 22 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 22 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 23 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 23 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 24 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 12 24 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 12 25 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 12 25 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 12 26 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 26 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 27 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 12 27 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 12 28 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 12 28 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 12 29 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 29 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 12 30 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 12 30 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 12 31 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 12 31 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 13 0 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 13 0 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 13 1 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 13 1 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 13 2 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 13 2 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 13 3 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 13 3 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 13 4 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 13 4 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 13 5 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 13 5 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 13 6 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 13 6 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 13 7 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 13 7 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 13 8 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 13 8 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 13 9 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 13 9 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 13 10 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 13 10 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 13 11 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 13 11 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 13 12 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 13 12 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 13 13 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 13 13 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 13 14 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 13 14 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 13 15 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 13 15 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 13 16 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 13 16 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 13 17 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 13 17 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 13 18 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 13 18 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 13 19 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 13 19 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 13 20 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 13 20 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 13 21 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 13 21 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 13 22 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 13 22 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 13 23 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 13 23 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 13 24 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 13 24 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 13 25 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 13 25 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 13 26 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 13 26 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 13 27 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 13 27 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 13 28 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 13 28 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 13 29 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 13 29 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 13 30 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 13 30 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 13 31 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 13 31 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 14 0 reset 1 32.312925
+ARRAY_PROGRAM_DETAIL 14 0 reset 0 1 0 32.312925
+MAC_PROGRAM_RESULT 14 1 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 14 1 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 14 2 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 14 2 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 14 3 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 14 3 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 14 4 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 14 4 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 14 5 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 14 5 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 14 6 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 14 6 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 14 7 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 14 7 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 14 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 14 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 14 9 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 14 9 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 14 10 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 14 10 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 14 11 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 14 11 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 14 12 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 14 12 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 14 13 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 14 13 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 14 14 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 14 14 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 14 15 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 14 15 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 14 16 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 14 16 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 14 17 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 14 17 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 14 18 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 14 18 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 14 19 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 14 19 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 14 20 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 14 20 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 14 21 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 14 21 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 14 22 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 14 22 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 14 23 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 14 23 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 14 24 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 14 24 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 14 25 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 14 25 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 14 26 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 14 26 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 14 27 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 14 27 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 14 28 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 14 28 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 14 29 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 14 29 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 14 30 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 14 30 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 14 31 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 14 31 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 15 0 reset 1 32.738095
+ARRAY_PROGRAM_DETAIL 15 0 reset 0 1 0 32.738095
+MAC_PROGRAM_RESULT 15 1 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 15 1 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 15 2 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 15 2 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 15 3 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 15 3 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 15 4 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 15 4 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 15 5 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 15 5 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 15 6 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 15 6 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 15 7 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 15 7 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 15 8 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 15 8 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 15 9 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 15 9 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 15 10 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 15 10 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 15 11 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 15 11 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 15 12 reset 1 22.534014
+ARRAY_PROGRAM_DETAIL 15 12 reset 0 1 0 22.534014
+MAC_PROGRAM_RESULT 15 13 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 15 13 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 15 14 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 15 14 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 15 15 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 15 15 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 15 16 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 15 16 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 15 17 reset 1 33.163265
+ARRAY_PROGRAM_DETAIL 15 17 reset 21 1 0 33.163265
+MAC_PROGRAM_RESULT 15 18 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 15 18 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 15 19 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 15 19 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 15 20 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 15 20 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 15 21 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 15 21 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 15 22 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 15 22 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 15 23 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 15 23 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 15 24 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 15 24 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 15 25 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 15 25 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 15 26 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 15 26 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 15 27 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 15 27 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 15 28 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 15 28 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 15 29 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 15 29 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 15 30 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 15 30 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 15 31 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 15 31 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 16 0 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 16 0 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 16 1 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 16 1 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 16 2 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 16 2 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 16 3 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 3 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 4 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 16 4 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 16 5 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 16 5 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 16 6 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 16 6 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 16 7 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 7 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 8 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 16 8 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 16 9 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 16 9 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 16 10 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 10 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 11 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 16 11 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 16 12 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 16 12 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 16 13 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 13 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 14 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 16 14 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 16 15 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 15 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 16 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 16 16 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 16 17 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 16 17 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 16 18 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 18 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 19 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 16 19 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 16 20 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 20 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 21 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 21 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 22 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 22 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 23 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 23 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 24 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 16 24 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 16 25 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 16 25 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 16 26 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 16 26 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 16 27 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 16 27 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 16 28 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 16 28 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 16 29 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 16 29 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 16 30 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 16 30 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 16 31 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 16 31 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 17 0 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 17 0 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 17 1 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 17 1 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 17 2 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 17 2 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 17 3 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 17 3 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 17 4 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 17 4 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 17 5 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 17 5 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 17 6 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 17 6 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 17 7 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 17 7 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 17 8 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 17 8 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 17 9 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 17 9 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 17 10 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 17 10 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 17 11 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 17 11 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 17 12 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 17 12 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 17 13 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 17 13 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 17 14 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 17 14 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 17 15 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 17 15 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 17 16 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 17 16 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 17 17 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 17 17 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 17 18 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 17 18 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 17 19 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 17 19 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 17 20 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 17 20 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 17 21 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 17 21 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 17 22 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 17 22 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 17 23 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 17 23 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 17 24 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 17 24 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 17 25 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 17 25 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 17 26 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 17 26 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 17 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 17 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 17 28 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 17 28 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 17 29 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 17 29 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 17 30 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 17 30 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 17 31 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 17 31 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 18 0 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 18 0 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 18 1 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 18 1 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 18 2 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 18 2 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 18 3 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 18 3 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 18 4 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 18 4 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 18 5 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 18 5 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 18 6 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 18 6 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 18 7 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 18 7 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 18 8 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 18 8 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 18 9 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 18 9 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 18 10 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 10 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 11 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 18 11 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 18 12 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 12 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 13 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 18 13 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 18 14 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 18 14 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 18 15 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 18 15 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 18 16 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 18 16 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 18 17 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 18 17 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 18 18 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 18 18 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 18 19 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 19 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 20 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 20 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 21 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 18 21 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 18 22 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 18 22 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 18 23 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 18 23 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 18 24 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 18 24 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 18 25 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 18 25 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 18 26 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 26 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 18 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 18 28 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 18 28 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 18 29 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 29 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 18 30 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 18 30 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 18 31 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 18 31 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 19 0 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 19 0 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 19 1 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 19 1 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 19 2 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 19 2 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 19 3 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 19 3 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 19 4 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 19 4 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 19 5 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 19 5 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 19 6 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 19 6 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 19 7 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 19 7 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 19 8 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 19 8 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 19 9 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 19 9 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 19 10 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 19 10 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 19 11 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 19 11 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 19 12 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 19 12 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 19 13 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 19 13 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 19 14 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 19 14 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 19 15 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 19 15 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 19 16 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 19 16 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 19 17 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 19 17 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 19 18 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 19 18 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 19 19 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 19 19 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 19 20 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 19 20 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 19 21 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 19 21 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 19 22 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 19 22 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 19 23 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 19 23 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 19 24 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 19 24 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 19 25 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 19 25 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 19 26 reset 1 29.761905
+ARRAY_PROGRAM_DETAIL 19 26 reset 0 1 0 29.761905
+MAC_PROGRAM_RESULT 19 27 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 19 27 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 19 28 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 19 28 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 19 29 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 19 29 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 19 30 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 19 30 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 19 31 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 19 31 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 20 0 reset 1 24.659864
+ARRAY_PROGRAM_DETAIL 20 0 reset 0 1 0 24.659864
+MAC_PROGRAM_RESULT 20 1 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 20 1 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 20 2 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 20 2 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 20 3 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 20 3 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 20 4 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 20 4 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 20 5 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 20 5 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 20 6 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 20 6 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 20 7 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 20 7 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 20 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 20 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 20 9 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 20 9 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 20 10 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 20 10 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 20 11 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 20 11 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 20 12 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 20 12 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 20 13 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 20 13 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 20 14 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 20 14 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 20 15 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 20 15 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 20 16 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 20 16 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 20 17 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 20 17 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 20 18 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 20 18 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 20 19 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 20 19 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 20 20 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 20 20 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 20 21 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 20 21 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 20 22 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 20 22 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 20 23 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 20 23 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 20 24 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 20 24 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 20 25 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 20 25 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 20 26 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 20 26 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 20 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 20 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 20 28 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 20 28 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 20 29 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 20 29 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 20 30 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 20 30 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 20 31 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 20 31 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 21 0 reset 1 26.785714
+ARRAY_PROGRAM_DETAIL 21 0 reset 0 1 0 26.785714
+MAC_PROGRAM_RESULT 21 1 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 21 1 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 21 2 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 21 2 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 21 3 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 21 3 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 21 4 reset 1 33.588435
+ARRAY_PROGRAM_DETAIL 21 4 reset 0 1 0 33.588435
+MAC_PROGRAM_RESULT 21 5 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 21 5 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 21 6 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 21 6 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 21 7 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 21 7 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 21 8 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 21 8 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 21 9 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 21 9 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 21 10 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 21 10 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 21 11 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 21 11 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 21 12 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 21 12 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 21 13 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 21 13 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 21 14 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 21 14 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 21 15 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 21 15 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 21 16 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 21 16 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 21 17 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 21 17 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 21 18 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 21 18 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 21 19 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 21 19 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 21 20 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 21 20 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 21 21 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 21 21 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 21 22 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 21 22 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 21 23 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 21 23 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 21 24 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 21 24 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 21 25 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 21 25 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 21 26 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 21 26 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 21 27 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 21 27 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 21 28 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 21 28 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 21 29 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 21 29 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 21 30 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 21 30 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 21 31 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 21 31 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 22 0 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 22 0 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 22 1 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 22 1 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 22 2 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 22 2 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 22 3 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 22 3 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 22 4 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 22 4 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 22 5 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 22 5 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 22 6 reset 1 32.312925
+ARRAY_PROGRAM_DETAIL 22 6 reset 0 1 0 32.312925
+MAC_PROGRAM_RESULT 22 7 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 22 7 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 22 8 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 22 8 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 22 9 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 22 9 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 22 10 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 22 10 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 22 11 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 22 11 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 22 12 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 22 12 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 22 13 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 22 13 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 22 14 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 22 14 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 22 15 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 22 15 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 22 16 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 22 16 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 22 17 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 22 17 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 22 18 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 22 18 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 22 19 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 22 19 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 22 20 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 22 20 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 22 21 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 22 21 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 22 22 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 22 22 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 22 23 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 22 23 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 22 24 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 22 24 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 22 25 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 22 25 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 22 26 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 22 26 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 22 27 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 22 27 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 22 28 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 22 28 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 22 29 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 22 29 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 22 30 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 22 30 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 22 31 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 22 31 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 23 0 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 23 0 reset 26 1 0 27.636054
+MAC_PROGRAM_RESULT 23 1 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 23 1 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 23 2 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 23 2 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 23 3 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 23 3 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 23 4 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 4 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 5 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 23 5 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 23 6 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 6 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 7 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 23 7 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 23 8 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 23 8 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 23 9 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 9 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 10 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 10 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 11 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 23 11 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 23 12 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 12 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 13 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 13 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 14 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 23 14 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 23 15 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 23 15 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 23 16 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 23 16 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 23 17 reset 1 12.329932
+ARRAY_PROGRAM_DETAIL 23 17 reset 0 1 0 12.329932
+MAC_PROGRAM_RESULT 23 18 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 23 18 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 23 19 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 23 19 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 23 20 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 20 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 21 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 23 21 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 23 22 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 23 22 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 23 23 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 23 23 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 23 24 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 23 24 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 23 25 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 23 25 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 23 26 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 23 26 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 23 27 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 23 27 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 23 28 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 23 28 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 23 29 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 23 29 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 23 30 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 23 30 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 23 31 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 23 31 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 24 0 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 24 0 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 24 1 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 24 1 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 24 2 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 24 2 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 24 3 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 3 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 4 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 4 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 5 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 5 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 6 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 24 6 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 24 7 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 24 7 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 24 8 reset 1 9.353741
+ARRAY_PROGRAM_DETAIL 24 8 reset 0 1 0 9.353741
+MAC_PROGRAM_RESULT 24 9 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 9 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 10 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 10 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 11 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 24 11 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 24 12 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 12 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 13 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 24 13 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 24 14 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 14 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 15 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 15 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 16 reset 1 9.778912
+ARRAY_PROGRAM_DETAIL 24 16 reset 0 1 0 9.778912
+MAC_PROGRAM_RESULT 24 17 reset 1 8.503401
+ARRAY_PROGRAM_DETAIL 24 17 reset 0 1 0 8.503401
+MAC_PROGRAM_RESULT 24 18 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 18 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 19 reset 1 9.778912
+ARRAY_PROGRAM_DETAIL 24 19 reset 0 1 0 9.778912
+MAC_PROGRAM_RESULT 24 20 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 20 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 21 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 21 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 22 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 24 22 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 24 23 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 24 23 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 24 24 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 24 24 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 24 25 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 24 25 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 24 26 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 24 26 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 24 27 reset 1 9.353741
+ARRAY_PROGRAM_DETAIL 24 27 reset 0 1 0 9.353741
+MAC_PROGRAM_RESULT 24 28 reset 1 9.778912
+ARRAY_PROGRAM_DETAIL 24 28 reset 0 1 0 9.778912
+MAC_PROGRAM_RESULT 24 29 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 29 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 24 30 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 24 30 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 24 31 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 24 31 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 25 0 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 25 0 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 25 1 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 25 1 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 25 2 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 25 2 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 25 3 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 25 3 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 25 4 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 25 4 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 25 5 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 25 5 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 25 6 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 25 6 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 25 7 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 25 7 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 25 8 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 25 8 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 25 9 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 25 9 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 25 10 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 25 10 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 25 11 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 25 11 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 25 12 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 25 12 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 25 13 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 25 13 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 25 14 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 25 14 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 25 15 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 25 15 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 25 16 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 25 16 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 25 17 reset 1 10.629252
+ARRAY_PROGRAM_DETAIL 25 17 reset 0 1 0 10.629252
+MAC_PROGRAM_RESULT 25 18 reset 1 12.329932
+ARRAY_PROGRAM_DETAIL 25 18 reset 0 1 0 12.329932
+MAC_PROGRAM_RESULT 25 19 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 25 19 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 25 20 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 25 20 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 25 21 reset 1 11.054422
+ARRAY_PROGRAM_DETAIL 25 21 reset 0 1 0 11.054422
+MAC_PROGRAM_RESULT 25 22 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 25 22 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 25 23 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 25 23 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 25 24 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 25 24 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 25 25 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 25 25 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 25 26 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 25 26 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 25 27 reset 1 10.204082
+ARRAY_PROGRAM_DETAIL 25 27 reset 0 1 0 10.204082
+MAC_PROGRAM_RESULT 25 28 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 25 28 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 25 29 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 25 29 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 25 30 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 25 30 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 25 31 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 25 31 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 26 0 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 26 0 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 26 1 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 26 1 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 26 2 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 26 2 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 26 3 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 26 3 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 26 4 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 26 4 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 26 5 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 26 5 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 26 6 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 26 6 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 26 7 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 26 7 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 26 8 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 26 8 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 26 9 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 26 9 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 26 10 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 26 10 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 26 11 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 26 11 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 26 12 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 26 12 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 26 13 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 26 13 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 26 14 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 26 14 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 26 15 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 26 15 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 26 16 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 26 16 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 26 17 reset 1 12.755102
+ARRAY_PROGRAM_DETAIL 26 17 reset 0 1 0 12.755102
+MAC_PROGRAM_RESULT 26 18 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 26 18 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 26 19 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 26 19 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 26 20 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 26 20 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 26 21 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 26 21 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 26 22 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 26 22 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 26 23 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 26 23 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 26 24 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 26 24 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 26 25 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 26 25 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 26 26 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 26 26 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 26 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 26 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 26 28 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 26 28 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 26 29 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 26 29 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 26 30 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 26 30 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 26 31 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 26 31 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 27 0 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 27 0 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 27 1 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 27 1 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 27 2 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 27 2 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 27 3 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 27 3 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 27 4 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 27 4 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 27 5 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 27 5 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 27 6 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 27 6 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 27 7 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 27 7 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 27 8 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 27 8 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 27 9 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 27 9 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 27 10 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 27 10 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 27 11 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 27 11 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 27 12 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 27 12 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 27 13 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 13 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 14 reset 1 11.479592
+ARRAY_PROGRAM_DETAIL 27 14 reset 0 1 0 11.479592
+MAC_PROGRAM_RESULT 27 15 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 27 15 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 27 16 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 16 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 17 reset 1 11.904762
+ARRAY_PROGRAM_DETAIL 27 17 reset 0 1 0 11.904762
+MAC_PROGRAM_RESULT 27 18 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 27 18 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 27 19 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 27 19 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 27 20 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 20 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 21 reset 1 13.605442
+ARRAY_PROGRAM_DETAIL 27 21 reset 0 1 0 13.605442
+MAC_PROGRAM_RESULT 27 22 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 22 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 23 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 23 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 24 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 27 24 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 27 25 reset 1 12.329932
+ARRAY_PROGRAM_DETAIL 27 25 reset 0 1 0 12.329932
+MAC_PROGRAM_RESULT 27 26 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 26 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 27 reset 1 12.329932
+ARRAY_PROGRAM_DETAIL 27 27 reset 0 1 0 12.329932
+MAC_PROGRAM_RESULT 27 28 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 27 28 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 27 29 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 27 29 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 27 30 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 27 30 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 27 31 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 27 31 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 28 0 reset 1 28.911565
+ARRAY_PROGRAM_DETAIL 28 0 reset 0 1 0 28.911565
+MAC_PROGRAM_RESULT 28 1 reset 1 21.258503
+ARRAY_PROGRAM_DETAIL 28 1 reset 0 1 0 21.258503
+MAC_PROGRAM_RESULT 28 2 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 28 2 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 28 3 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 28 3 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 28 4 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 28 4 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 28 5 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 28 5 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 28 6 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 28 6 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 28 7 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 28 7 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 28 8 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 28 8 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 28 9 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 28 9 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 28 10 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 28 10 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 28 11 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 28 11 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 28 12 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 28 12 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 28 13 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 28 13 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 28 14 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 28 14 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 28 15 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 28 15 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 28 16 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 28 16 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 28 17 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 28 17 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 28 18 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 28 18 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 28 19 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 28 19 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 28 20 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 28 20 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 28 21 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 28 21 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 28 22 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 28 22 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 28 23 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 28 23 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 28 24 reset 1 18.707483
+ARRAY_PROGRAM_DETAIL 28 24 reset 0 1 0 18.707483
+MAC_PROGRAM_RESULT 28 25 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 28 25 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 28 26 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 28 26 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 28 27 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 28 27 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 28 28 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 28 28 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 28 29 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 28 29 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 28 30 reset 1 20.408163
+ARRAY_PROGRAM_DETAIL 28 30 reset 0 1 0 20.408163
+MAC_PROGRAM_RESULT 28 31 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 28 31 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 29 0 reset 1 31.462585
+ARRAY_PROGRAM_DETAIL 29 0 reset 0 1 0 31.462585
+MAC_PROGRAM_RESULT 29 1 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 29 1 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 29 2 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 29 2 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 29 3 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 29 3 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 29 4 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 29 4 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 29 5 reset 1 21.683673
+ARRAY_PROGRAM_DETAIL 29 5 reset 0 1 0 21.683673
+MAC_PROGRAM_RESULT 29 6 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 29 6 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 29 7 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 29 7 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 29 8 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 29 8 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 29 9 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 29 9 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 29 10 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 29 10 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 29 11 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 29 11 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 29 12 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 29 12 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 29 13 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 29 13 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 29 14 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 29 14 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 29 15 reset 1 19.982993
+ARRAY_PROGRAM_DETAIL 29 15 reset 0 1 0 19.982993
+MAC_PROGRAM_RESULT 29 16 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 29 16 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 29 17 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 29 17 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 29 18 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 29 18 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 29 19 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 29 19 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 29 20 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 29 20 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 29 21 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 29 21 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 29 22 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 29 22 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 29 23 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 29 23 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 29 24 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 29 24 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 29 25 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 29 25 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 29 26 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 29 26 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 29 27 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 29 27 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 29 28 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 29 28 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 29 29 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 29 29 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 29 30 reset 1 19.557823
+ARRAY_PROGRAM_DETAIL 29 30 reset 0 1 0 19.557823
+MAC_PROGRAM_RESULT 29 31 reset 1 17.857143
+ARRAY_PROGRAM_DETAIL 29 31 reset 0 1 0 17.857143
+MAC_PROGRAM_RESULT 30 0 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 30 0 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 30 1 reset 1 18.282313
+ARRAY_PROGRAM_DETAIL 30 1 reset 0 1 0 18.282313
+MAC_PROGRAM_RESULT 30 2 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 30 2 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 30 3 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 30 3 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 30 4 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 30 4 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 30 5 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 30 5 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 30 6 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 30 6 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 30 7 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 30 7 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 30 8 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 30 8 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 30 9 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 30 9 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 30 10 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 30 10 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 30 11 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 30 11 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 30 12 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 30 12 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 30 13 reset 1 14.880952
+ARRAY_PROGRAM_DETAIL 30 13 reset 0 1 0 14.880952
+MAC_PROGRAM_RESULT 30 14 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 30 14 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 30 15 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 30 15 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 30 16 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 30 16 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 30 17 reset 1 13.180272
+ARRAY_PROGRAM_DETAIL 30 17 reset 0 1 0 13.180272
+MAC_PROGRAM_RESULT 30 18 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 30 18 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 30 19 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 30 19 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 30 20 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 30 20 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 30 21 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 30 21 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 30 22 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 30 22 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 30 23 reset 1 17.006803
+ARRAY_PROGRAM_DETAIL 30 23 reset 0 1 0 17.006803
+MAC_PROGRAM_RESULT 30 24 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 30 24 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 30 25 reset 1 14.030612
+ARRAY_PROGRAM_DETAIL 30 25 reset 0 1 0 14.030612
+MAC_PROGRAM_RESULT 30 26 reset 1 15.731293
+ARRAY_PROGRAM_DETAIL 30 26 reset 0 1 0 15.731293
+MAC_PROGRAM_RESULT 30 27 reset 1 14.455782
+ARRAY_PROGRAM_DETAIL 30 27 reset 0 1 0 14.455782
+MAC_PROGRAM_RESULT 30 28 reset 1 15.306122
+ARRAY_PROGRAM_DETAIL 30 28 reset 0 1 0 15.306122
+MAC_PROGRAM_RESULT 30 29 reset 1 16.156463
+ARRAY_PROGRAM_DETAIL 30 29 reset 0 1 0 16.156463
+MAC_PROGRAM_RESULT 30 30 reset 1 17.431973
+ARRAY_PROGRAM_DETAIL 30 30 reset 0 1 0 17.431973
+MAC_PROGRAM_RESULT 30 31 reset 1 16.581633
+ARRAY_PROGRAM_DETAIL 30 31 reset 0 1 0 16.581633
+MAC_PROGRAM_RESULT 31 0 reset 0 41.666667
+ARRAY_PROGRAM_DETAIL 31 0 reset 288 0 0 41.666667
+MAC_PROGRAM_RESULT 31 1 reset 1 28.486395
+ARRAY_PROGRAM_DETAIL 31 1 reset 0 1 0 28.486395
+MAC_PROGRAM_RESULT 31 2 reset 1 28.061224
+ARRAY_PROGRAM_DETAIL 31 2 reset 0 1 0 28.061224
+MAC_PROGRAM_RESULT 31 3 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 31 3 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 31 4 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 31 4 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 31 5 reset 1 27.636054
+ARRAY_PROGRAM_DETAIL 31 5 reset 0 1 0 27.636054
+MAC_PROGRAM_RESULT 31 6 reset 1 25.935374
+ARRAY_PROGRAM_DETAIL 31 6 reset 0 1 0 25.935374
+MAC_PROGRAM_RESULT 31 7 reset 1 25.510204
+ARRAY_PROGRAM_DETAIL 31 7 reset 0 1 0 25.510204
+MAC_PROGRAM_RESULT 31 8 reset 1 22.108844
+ARRAY_PROGRAM_DETAIL 31 8 reset 0 1 0 22.108844
+MAC_PROGRAM_RESULT 31 9 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 31 9 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 31 10 reset 1 27.210884
+ARRAY_PROGRAM_DETAIL 31 10 reset 0 1 0 27.210884
+MAC_PROGRAM_RESULT 31 11 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 31 11 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 31 12 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 31 12 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 31 13 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 31 13 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 31 14 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 31 14 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 31 15 reset 1 26.360544
+ARRAY_PROGRAM_DETAIL 31 15 reset 0 1 0 26.360544
+MAC_PROGRAM_RESULT 31 16 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 31 16 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 31 17 reset 1 19.132653
+ARRAY_PROGRAM_DETAIL 31 17 reset 0 1 0 19.132653
+MAC_PROGRAM_RESULT 31 18 reset 1 24.234694
+ARRAY_PROGRAM_DETAIL 31 18 reset 0 1 0 24.234694
+MAC_PROGRAM_RESULT 31 19 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 31 19 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 31 20 reset 1 30.187075
+ARRAY_PROGRAM_DETAIL 31 20 reset 0 1 0 30.187075
+MAC_PROGRAM_RESULT 31 21 reset 1 22.959184
+ARRAY_PROGRAM_DETAIL 31 21 reset 0 1 0 22.959184
+MAC_PROGRAM_RESULT 31 22 reset 1 23.809524
+ARRAY_PROGRAM_DETAIL 31 22 reset 0 1 0 23.809524
+MAC_PROGRAM_RESULT 31 23 reset 1 30.612245
+ARRAY_PROGRAM_DETAIL 31 23 reset 0 1 0 30.612245
+MAC_PROGRAM_RESULT 31 24 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 31 24 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 31 25 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 31 25 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 31 26 reset 1 25.085034
+ARRAY_PROGRAM_DETAIL 31 26 reset 0 1 0 25.085034
+MAC_PROGRAM_RESULT 31 27 reset 1 20.833333
+ARRAY_PROGRAM_DETAIL 31 27 reset 0 1 0 20.833333
+MAC_PROGRAM_RESULT 31 28 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 31 28 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 31 29 reset 1 23.384354
+ARRAY_PROGRAM_DETAIL 31 29 reset 0 1 0 23.384354
+MAC_PROGRAM_RESULT 31 30 reset 0 83.758503
+ARRAY_PROGRAM_DETAIL 31 30 reset 288 0 0 83.758503
+MAC_PROGRAM_RESULT 31 31 reset 0 39.540816
+ARRAY_PROGRAM_DETAIL 31 31 reset 288 0 0 39.540816
+ARRAY_PROGRAM_SUMMARY reset 1024 7 2456
+## set outcome [catch {
+##  hold_cpu $iswb
+##  if {$action eq "hold"} { puts "HELD"; flush stdout } else {
+##   if {(([expr 0x$h0]>>36)&1)!=1} { error "ADC not healthy; initialize the bench first" }
+##   if {$iswb} { clock_profile 10; wb_profile } else { clock_profile 2; scan_profile }
+##   switch $action {
+##    read { scan_capture $row $col 0 2400 read }
+##    set - reset { scan_program $row $col $action }
+##    cycle {
+##     scan_capture $row $col 0 2400 read
+##     for {set n 0} {$n<$cycles} {incr n} {
+##      scan_program $row $col set
+##      set reset_outcome [scan_program $row $col reset]
+##      if {![dict get $reset_outcome target_met]} {
+##       puts "EVENT Cycle stopped: RESET ramp exhausted without a confirmed target"; flush stdout
+##       break
+##      }
+##     }
+##    }
+##    column { for {set r 0} {$r<32} {incr r} { scan_capture $r $col 0 2400 read } }
+##    array {
+##     for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { scan_capture $r $c 0 2400 read } }
+##    }
+##    array_set { scan_array_program set 0 1024 }
+##    array_reset { scan_array_program reset 0 1024 }
+##    diagnostic_reset_setrails {
+##     scan_capture $row $col 0 2400 before_reset_setrails
+##     hold_cpu; dac 2 $resetv; dac 3 $resetwl; power_mask 0
+##     scan_capture $row $col 0 $hold reset_setrails_pulse 1 1
+##     hold_cpu; dac 2 0.5; dac 3 2.5; power_mask 0
+##     scan_capture $row $col 0 2400 after_reset_setrails
+##    }
+##     scan_mac { scan_mac }
+##    wb_read - wb_set - wb_reset { wb_capture $row $col [string range $action 3 end] }
+##    wb_cycle {
+##     for {set n 0} {$n<$cycles} {incr n} {
+##      wb_capture $row $col read; wb_capture $row $col set; wb_capture $row $col read
+##      wb_capture $row $col reset; wb_capture $row $col read
+##     }
+##    }
+##    wb_column { for {set r 0} {$r<32} {incr r} { wb_capture $r $col read } }
+##    wb_array { for {set r 0} {$r<32} {incr r} { for {set c 0} {$c<32} {incr c} { wb_capture $r $c read } } }
+##   }
+##    if {!$iswb && $action ni {scan_mac array_set array_reset}} { collect_trace }
+##  }
+## } message options]
+## set restoring 1
+EVENT clock_mhz=2
+## set cleanup [catch {
+##  hold_cpu
+##  if {$action ne "hold"} { clock_profile 2; scan_profile }
+## } cleanup_message]
+## if {$cleanup} { puts "RESTORE_FAILED $cleanup_message"; flush stdout }
+## close_i2c_bridge
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/11672
+## if {$outcome} { error $message }
+## if {$cleanup} { error "Read-profile restoration failed: $cleanup_message" }
+## puts "JOB_COMPLETE $action";
+JOB_COMPLETE array_reset
+## flush stdout
+## exit
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 23 13:18:58 2026...

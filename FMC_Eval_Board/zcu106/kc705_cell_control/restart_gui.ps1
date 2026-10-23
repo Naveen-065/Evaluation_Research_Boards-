@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 $benchRoot = $PSScriptRoot
 $benchUri = 'http://127.0.0.1:8771/api/status'
-$expectedRevision = 'fpga-program-ramp-fast3-measured-v3'
+$expectedRevision = 'fpga-array-scheduler-resetpath-v4.2'
 $benchState = $null
 try { $benchState = Invoke-RestMethod $benchUri } catch { }
 if ($null -ne $benchState -and $benchState.api_revision -eq $expectedRevision) {
@@ -26,7 +26,7 @@ $manifestBefore = [System.IO.File]::ReadAllText($manifestPath)
 $utf8 = New-Object System.Text.UTF8Encoding $false
 $maintenance = $manifestBefore | ConvertFrom-Json
 $maintenance.ready = $false
-$maintenance.reason = 'GUI/API maintenance: activating measured three-point FPGA ramp support.'
+$maintenance.reason = 'GUI/API maintenance: activating the FPGA-owned 1Kbit scheduler and reliable RESET policy.'
 [System.IO.File]::WriteAllText($manifestPath, ($maintenance | ConvertTo-Json -Depth 30), $utf8)
 if ($null -ne $benchState -and (Invoke-RestMethod $benchUri).busy) {
     [System.IO.File]::WriteAllText($manifestPath, $manifestBefore, $utf8)

@@ -35,8 +35,8 @@ From this directory:
 ```
 
 The deployed image SHA-256 is
-`b1344941f1effc4a0fbf4314291f5f6567be2208c4d4bcdc8fc4cea792e36fcf`.
-The routed build passed with WNS `+0.447 ns`, WHS `+0.010 ns`, no timing
+`ba7f5afee7dc5134828004ad48114ef9f2079b28b83de17650288d9cffe04bfb`.
+The routed build passed with WNS `+0.348 ns`, WHS `+0.010 ns`, no timing
 violations and no DRC errors.
 
 ## Rebuild the FPGA image
@@ -87,7 +87,7 @@ python -u kc705_cell_control/gui/server.py --port 8771
 ```
 
 Open `http://127.0.0.1:8771/`. The API must report revision
-`fpga-program-ramp-fast3-measured-v3` and a ready deployment before a hardware
+`fpga-array-scheduler-resetpath-v4.2` and a ready deployment before a hardware
 operation is accepted.
 
 ## Reproduce the HRS/LRS distribution
@@ -117,34 +117,25 @@ target; the plotted value is explicitly a descriptive 90%-of-observed-response
 proxy, not a RESET transition voltage. Hollow markers are individual cells.
 The underlying per-cell values and method summary are stored beside the PNG.
 
-## Measured three-point full-array ramp
+## FPGA-owned reliable full-array scheduler
 
-Normal programming now uses FPGA command 11 with three data-derived rail pairs:
+FPGA commands 12/13 now own all 1024 cell visits and their result RAM. SET uses
+the measured three-point grid `(VCC, WL) = (2.30, 0.44), (2.30, 1.09),
+(2.30, 1.75) V`. RESET uses the complete capped 96-point grid, not the failed
+three-point proxy. Hardware A/B testing established that both operations use
+DAC2/DAC3; the scan packet's `OP_SET=0` bit selects RESET polarity.
 
-- SET: `(VCC, WL) = (2.30, 0.44), (2.30, 1.09), (2.30, 1.75) V`.
-- RESET: `(2.30, 0.94), (2.80, 1.83), (3.00, 2.88) V`.
+For RESET, each cell receives a 1.2-ms sweep followed, only when needed, by
+2.4-ms and 6.0-ms sweeps. Both rails remain at or below 3.0 V. Every compound
+step restores the 0.5-V/2.5-V read profile and every Caravel scan packet still
+gets its required reset/READY sequence. Ten consecutive reads are required to
+confirm the state. A cell that remains above the measured 34.256-uA HRS/LRS
+separator is recorded as a failure and the scheduler continues safely.
 
-Command 9 keeps the original 96-step ramp as a diagnostic fallback. On the
-attached 1Kbit array, SET job `82f9e6aae8bf433695ba00f20ff4f6b7` completed
-in 450.84 s and 1019/1024 cells met the >=35-uA target. It used 176 pulses total
-and was 8.72x faster end-to-end than the earlier 96-step SET job. RESET job
-`c4756ed4f9044d8f9f0649b0d206d2cb` completed in 313.06 s, but 0/1024 cells met
-the <=5-uA HRS target after all three pulses. The scheduler is fast and SET is
-effective; these capped RESET pairs are not an effective HRS recipe.
-
-Reproduce the analysis with:
-
-```powershell
-python kc705_cell_control/analysis/analyze_fast3_ramp.py `
-  --output results/fast3_ramp_1kbit
-```
-
-The compact per-cell CSV, summary JSON, and raw Tcl/Vivado text logs are in
-`results/fast3_ramp_1kbit/`. The values are commanded DAC targets and nominal,
-uncalibrated current estimates; the rails were not independently measured
-during these jobs. End-to-end operation is interactive-minute scale rather
-than real-time because Vivado/JTAG, reset/READY, reads, MAC readback and cleanup
-still dominate the millisecond-scale FPGA ramp.
+The full-array SET/RESET hardware jobs and per-cell results are preserved in
+`results/array_set_reset_validation.json` and the referenced run JSON files.
+All current values are nominal, uncalibrated estimates; the rails were not
+independently measured during these jobs.
 
 ## Regression tests
 

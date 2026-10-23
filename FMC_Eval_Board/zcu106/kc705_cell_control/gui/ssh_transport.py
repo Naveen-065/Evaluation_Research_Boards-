@@ -1,4 +1,5 @@
 """Bounded SSH startup retries. Never replay a command after an uncertain launch."""
+import os
 import re
 import subprocess
 import time
@@ -56,7 +57,8 @@ class RemoteRun:
             self.last_lines = []
             self.process = subprocess.Popen(
                 self.command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                text=True, encoding="utf-8", errors="replace")
+                text=True, encoding="utf-8", errors="replace",
+                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
             for line in self.process.stdout:
                 self.log.write(line)
                 self.log.flush()

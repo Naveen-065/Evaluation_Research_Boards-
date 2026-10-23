@@ -33,7 +33,7 @@ LOCAL_VIVADO=os.environ.get("SENSEEVAL_VIVADO", "C:/Xilinx/Vivado/2022.2/bin/viv
 LOCK=threading.RLock()
 STATE={"busy":False,"job":None,"history":[],"jobs":[],"message":"Check connection to begin."}
 HEATMAP={}
-API_REVISION="fpga-program-ramp-fast3-measured-v3"
+API_REVISION="fpga-array-scheduler-resetpath-v4.2"
 
 def cache_heatmap(result):
     if result.get("kind")!="scan" or result.get("clipped") or result.get("operation","").endswith("_pulse"):
@@ -142,6 +142,34 @@ def worker(job):
                             mac.setdefault("program_failures",[]).append({
                                 "row":int(r),"col":int(c),"operation":op,
                                 "last_current_ua":float(current)})
+                if line.startswith("ARRAY_PROGRESS "):
+                    _,completed,failures,r,c=line.split()
+                    with LOCK:
+                        job["array_progress"]={"completed":int(completed),"failures":int(failures),
+                            "row":int(r),"col":int(c)}
+                        STATE["message"]=(f'FPGA array scheduler: {completed} cells complete; '
+                            f'{failures} failed; active r{r}/c{c}')
+                if line.startswith("ARRAY_PROGRAM_DETAIL "):
+                    _,r,c,op,pulses,met,clipped,current=line.split()
+                    r,c,pulses,met,clipped=int(r),int(c),int(pulses),bool(int(met)),bool(int(clipped))
+                    current=float(current); packet=(r<<10)|(c<<5)|r
+                    channels=[]
+                    for index,path in enumerate(("READ / R9","RESET / R11","SET / R10","AUX4","AUX5")):
+                        channels.append({"channel":index+1,"path":path,"baseline_code":None,
+                            "active_code":None,"clipped":False,"adc_diff_mv":None,
+                            "delta_adc_mv":None,"estimated_current_ua":None,
+                            "delta_current_ua":current if index==2 else None})
+                    save_result(job,{"kind":"scan","time":now(),"row":r,"col":c,
+                        "operation":f"array_{op}_{'met' if met else 'limit'}__p{pulses}",
+                        "packet":f"0x{packet:04X}","baseline_samples":None,"active_samples":None,
+                        "channels":channels,"calibrated":False,"nominal_gain":7,"shunt_ohms":56,
+                        "clipped":False,"program_pulse_clipped":clipped,"target_met":met,
+                        "fpga_array_scheduler":True})
+                if line.startswith("ARRAY_PROGRAM_SUMMARY "):
+                    _,op,completed,failures,pulses=line.split()
+                    with LOCK:
+                        job["array_program"]={"operation":op,"completed":int(completed),
+                            "failures":int(failures),"total_pulses":int(pulses)}
                 if line.startswith("MAC_PROGRAM_SUMMARY "):
                     _,attempts,failures=line.split()
                     with LOCK:
@@ -184,7 +212,7 @@ def worker(job):
                     require_recovery(job,"SSH disconnected without confirmed cleanup; inspect the previous run before another operation.")
             if code or errors: raise RuntimeError("; ".join(errors[-3:]) or remote.failure_message())
             if not complete and p["mode"]!="check": raise RuntimeError("Missing completion/restoration confirmation")
-            if not p["mode"].startswith("wb_") and p["mode"] not in ("check","scan_mac"):
+            if not p["mode"].startswith("wb_") and p["mode"] not in ("check","scan_mac","array_set","array_reset"):
                 result=job["results"][-1]
                 if len(result.get("trace",[]))!=result.get("trace_expected",-1):
                     raise RuntimeError("Measured ADC trace incomplete")

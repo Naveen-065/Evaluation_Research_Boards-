@@ -2,9 +2,8 @@
 # _ramp_until / confirm_reads. No hardware access occurs when sourcing this file.
 # Current uses this PCB's ADC3 / R10: active-minus-idle, 56 ohm, nominal gain 7.
 # Read-stage labels carry actual step rails through the existing API protocol.
-# Three measured min/mean/max points.  The 96-step reference grid remains in
-# the FPGA as command 9; normal programming uses command 11 so a failed cell
-# receives at most three pulses before the caller moves on.
+# SET uses the measured three-point min/mean/max grid. RESET uses the complete
+# 96-point safe grid because the earlier three-point run did not establish HRS.
 proc ramp_grid {op maxv maxwl} {
  if {$op ni {set reset}} { error "Unknown ramp operation" }
  if {$op eq "set"} {
@@ -13,21 +12,30 @@ proc ramp_grid {op maxv maxwl} {
   }
   set grid {{2300 440} {2300 1090} {2300 1750}}
  } else {
-  # Reference RESET ramp, routed on this PCB through dedicated DAC5
-  # VCC_RESET/VDDA2 and DAC4 VCC_WL_RESET. The 3.1/3.5-V reference levels are
-  # deliberately omitted so neither programmed rail exceeds the 3.0-V cap.
+  # Reference RESET ramp. Hardware A/B testing restored the proven Kintex/Zynq
+  # path: DAC2/DAC3 drive the programming rails and OP_SET=0 selects RESET.
+  # The 3.1/3.5-V reference levels are deliberately omitted so neither
+  # programmed rail exceeds the 3.0-V cap.
   if {![string is double -strict $maxv] || $maxv<2.3 || $maxv>3.0 ||
       ![string is double -strict $maxwl] || $maxwl<0.94 || $maxwl>3.0} {
    error "RESET ramp limits require VCC 2.3..3.0 V and WL 0.94..3.0 V"
   }
-  set grid {{2300 940} {2800 1830} {3000 2880}}
+  set vs {2300 2700 3000}
+  set ws {940 1010 1070 1130 1190 1260 1320 1380 1440 1510 1570 1630 1690 1760 1820 1880 1940 2010 2070 2130 2190 2260 2320 2380 2440 2500 2570 2630 2690 2750 2820 2880}
+  set grid {}
+  foreach v $vs {
+   if {$v>round($maxv*1000)} continue
+   foreach w $ws {
+    if {$w<=round($maxwl*1000)} { lappend grid [list $v $w] }
+   }
+  }
  }
  set bounded {}
  foreach pair $grid {
   lassign $pair v w
   if {$v<=round($maxv*1000) && $w<=round($maxwl*1000)} { lappend bounded $pair }
  }
- if {![llength $bounded]} { error "Ramp limits exclude every fast-ramp step" }
+ if {![llength $bounded]} { error "Ramp limits exclude every ramp step" }
  return $bounded
 }
 proc ramp_current {pair r c} {
@@ -44,7 +52,10 @@ proc ramp_current {pair r c} {
  return [expr {($active-$base)/2048.0/(7*56)*1e6}]
 }
 proc ramp_passes {op current} {
- return [expr {$op eq "set" ? $current>=35.0 : $current<=5.0}]
+ # The measured full-array separator is 68.5126108 uS. At the 0.5-V read
+ # bias this is 34.2563054 uA.  The former 5-uA criterion was outside the
+ # observed HRS distribution and falsely marked every RESET as failed.
+ return [expr {$op eq "set" ? $current>=35.0 : $current<=34.2563054}]
 }
 proc ramp_read {r c label} {
  set pair [scan_capture $r $c 0 2400 $label 0]
@@ -74,9 +85,10 @@ proc program_ramp {r c op maxv maxwl} {
                          ($hold<<10)|($c<<5)|$r}]
  # The fabric executes all bounded ramp steps and ten-read confirmation.
  # Thirty seconds is a fault timeout, not an intentional delay.
- # Command 11 is the measured three-point scheduler.  Command 9 intentionally
- # remains the full 96-point fallback for diagnostic use.
- lassign [command 11 $payload 30000] h0 h1
+ # SET uses command 11 (three points). RESET uses command 9 (all 96 bounded
+ # points) because the three-point proxy was not a reliable transition grid.
+ set fpga_op [expr {$op eq "set" ? 11 : 9}]
+ lassign [command $fpga_op $payload [expr {$op eq "set" ? 30000 : 180000}]] h0 h1
  set a [expr 0x$h0]; set b [expr 0x$h1]
  if {($b>>224)!=0x53435232} { error "Invalid FPGA ramp result" }
  set pulses [expr {($b>>216)&255}]
@@ -84,7 +96,8 @@ proc program_ramp {r c op maxv maxwl} {
  set pulse_clipped [expr {($b>>214)&1}]
  set last_index [expr {($b>>207)&127}]
  set confirmations [expr {($b>>203)&15}]
- if {$pulses<1 || $pulses>3 || $last_index>2 || ($met && $confirmations!=10)} {
+ set max_pulses [llength [ramp_grid $op $maxv $maxwl]]
+ if {$pulses<1 || $pulses>$max_pulses || $last_index>=$max_pulses || ($met && $confirmations!=10)} {
   error "Invalid FPGA ramp summary: pulses=$pulses met=$met last_index=$last_index confirmations=$confirmations"
  }
  set currents {}
@@ -105,6 +118,56 @@ proc program_ramp {r c op maxv maxwl} {
  }
  return [dict create pair [list $h0 $h1] pulses $pulses target_met $met \
          pulse_clipped $pulse_clipped last_index $last_index currents $currents]
+}
+proc scan_array_program {op start count} {
+ global hold
+ if {$op ni {set reset} || ![string is integer -strict $start] ||
+     ![string is integer -strict $count] || $start<0 || $count<1 ||
+     $start+$count>1024} { error "Invalid FPGA array-program range" }
+ set setop [expr {$op eq "set"}]
+ set reliable [expr {$op eq "reset"}]
+ # Two additional complete RESET sweeps (three total) maximize transition
+ # probability while retaining the characterized 3.0-V hard ceiling. Fabric
+ # escalates the default hold from 1.2 ms to 2.4 ms and then 6.0 ms.
+ set retry_limit [expr {$reliable ? 2 : 0}]
+ set payload [expr {($setop<<57)|($reliable<<56)|($start<<46)|
+                    (($count-1)<<36)|($hold<<21)|($retry_limit<<19)}]
+ puts "EVENT FPGA array scheduler: [string toupper $op] cells $start..[expr {$start+$count-1}], reliable=$reliable, max_sweeps=[expr {$retry_limit+1}]"; flush stdout
+ lassign [command 12 $payload 28800000] h0 h1
+ set b [expr 0x$h1]
+ if {($b>>224)!=0x41525232} { error "Invalid FPGA array-program summary" }
+ set completed [expr {($b>>213)&0x7ff}]
+ set failures [expr {($b>>202)&0x7ff}]
+ set total_pulses [expr {($b>>183)&0x7ffff}]
+ set reported_start [expr {($b>>161)&0x3ff}]
+ set reported_end [expr {($b>>151)&0x3ff}]
+ if {$completed!=$count || $reported_start!=$start || $reported_end!=$start+$count-1 || $failures>$completed} {
+  error "Invalid FPGA array-program counts/range: completed=$completed failures=$failures range=$reported_start..$reported_end"
+ }
+ set scale [expr {(16384.0/48000.0)/2048.0/392.0*1e6}]
+ for {set page 0} {$page*14<$count} {incr page} {
+  lassign [command 13 $page] p0 p1
+  set x [expr 0x$p0]; set y [expr 0x$p1]
+  if {($y>>224)!=0x41524732 || (($x>>16)&0xffff)!=$page*14} {
+   error "Invalid FPGA array result page $page"
+  }
+  for {set k 0} {$k<14 && $page*14+$k<$count} {incr k} {
+   set word [expr {$k<7 ? (($x>>(32+32*$k))&0xffffffff) : (($y>>(32*($k-7)))&0xffffffff)}]
+   set raw [expr {$word&0xffff}]
+   if {$raw&0x8000} { set raw [expr {$raw-0x10000}] }
+   set pulses [expr {($word>>16)&0x3ff}]
+   set met [expr {($word>>26)&1}]
+   set clipped [expr {($word>>27)&1}]
+   set index [expr {$start+$page*14+$k}]
+   set r [expr {$index>>5}]; set c [expr {$index&31}]
+   set current [expr {$raw*$scale}]
+   puts "MAC_PROGRAM_RESULT $r $c $op $met [format %.6f $current]"
+   puts "ARRAY_PROGRAM_DETAIL $r $c $op $pulses $met $clipped [format %.6f $current]"
+  }
+  flush stdout
+ }
+ puts "ARRAY_PROGRAM_SUMMARY $op $completed $failures $total_pulses"; flush stdout
+ return [dict create operation $op completed $completed failures $failures total_pulses $total_pulses]
 }
 proc ramp_confirm {r c op suffix last_step} {
  set readings {}

@@ -222,14 +222,15 @@ function render(s) {
 }
 function modeChanged() {
   const mode=$("operationInput").value,wb=mode.startsWith("wb_"),mac=mode==="scan_mac";
+  const programming=["set","reset","cycle","array_set","array_reset"].includes(mode);
   if(wb&&!previousMode.startsWith("wb_")){$("rowInput").value=0;$("colInput").value=31;}
   if(!wb&&previousMode.startsWith("wb_")){$("rowInput").value=0;$("colInput").value=0;}
   previousMode=mode;
-  $("pulseSettings").hidden=wb||mac||!["set","reset","cycle"].includes(mode);
+  $("pulseSettings").hidden=wb||mac||!programming;
   $("macSettings").hidden=!mac;
   $("cycleField").hidden=!mode.includes("cycle");
   $("wbNote").hidden=!wb;highlight();
-  $("rampNote").hidden=wb||mac||!["set","reset","cycle"].includes(mode);
+  $("rampNote").hidden=wb||mac||!programming;
 }
 function parseMatrix(text) {
   const lines=text.trim().split(/\r?\n/).filter(line=>line.trim());

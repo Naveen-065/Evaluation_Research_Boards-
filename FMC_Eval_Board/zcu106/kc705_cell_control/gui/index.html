@@ -48,6 +48,8 @@
               <option value="read">Read</option><option value="column">Read column</option>
               <option value="array">Read array</option><option value="set">Set</option>
               <option value="reset">Reset</option><option value="cycle">Cycle</option>
+              <option value="array_set">SET full 1Kbit array</option>
+              <option value="array_reset">RESET full 1Kbit array</option>
               <option value="scan_mac">Matrix MAC</option>
             </optgroup>
             <optgroup label="Wishbone / memory controller">
@@ -91,7 +93,7 @@
           <a class="export-btn" href="/api/export.csv">Export CSV</a>
         </div>
         <p id="commandNote" aria-live="polite">Connecting…</p>
-        <p id="rampNote" class="warning" hidden>SET ramps DAC2/DAC3 until ≥35 µA. RESET ramps dedicated DAC5/DAC4 through the reference grid up to 3.0 V VCC and its WL ceiling, targeting ≤5 µA. A crossing requires 10 confirmation reads.</p>
+        <p id="rampNote" class="warning" hidden>SET uses the measured three-point DAC2/DAC3 ramp until ≥35 µA. RESET keeps the proven DAC2/DAC3 path with OP_SET=0, uses the complete 96-point grid, never exceeds 3.0 V, and targets ≤34.256 µA. Full-array RESET retries at 2.4 ms and 6.0 ms after the initial 1.2 ms sweep. A crossing requires 10 confirmation reads.</p>
         <p id="rampResult" class="warning" aria-live="polite" hidden></p>
         <p id="wbNote" class="warning" hidden>WB returns raw TDC counts. See the validation report for measured SET/RESET response; conductance is not calibrated.</p>
       </form>
