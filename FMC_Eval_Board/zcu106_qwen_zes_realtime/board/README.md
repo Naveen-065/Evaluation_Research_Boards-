@@ -59,4 +59,29 @@ After cross-building, with SSH enabled on the ZCU106 Linux image:
 The service listens on TCP port 9106. The shipped service binds all interfaces for direct PC-to-board Ethernet use; firewall this port from other networks. The executable itself defaults to `127.0.0.1` unless `--bind` is supplied.
 Each accepted client has a 30-second receive/send timeout so a stalled peer cannot hold the single-client relay indefinitely. The service runs as the unprivileged `nobody` account; use a dedicated unprivileged account instead if the target image does not provide `nobody`.
 
+## SD boot recovery over JTAG
+
+The ZCU106 card slot is PS SD1 through a voltage-level translator, so the
+correct boot mode is `SD1_LS` (`0xE`), not SD0 (`0x3`) or ordinary SD1
+(`0x5`). If SW6 remains in JTAG mode, the following one-shot override selects
+SD1_LS for the current power cycle and issues a system reset:
+
+```powershell
+& 'C:\Xilinx\Vitis\2022.2\bin\xsdb.bat' .\scripts\boot_sd1_ls_once.tcl
+```
+
+This reset also resets the PL. Re-run the FPGA programming and initialization
+scripts before operating the FMC board. Inspect the boot registers without
+changing hardware state with:
+
+```powershell
+& 'C:\Xilinx\Vitis\2022.2\bin\xsdb.bat' .\scripts\read_boot_status.tcl
+```
+
+`SD1_PRESENT_STATE` bit 16 reports card insertion. A fatal
+`CSU_BOOTROM_ERROR` ending in `0x3B` means BootROM could not read the selected
+boot device; verify that the card contains a FAT32 boot partition with a valid
+`BOOT.BIN`, then reseat or re-image it. For persistent SD boot, set the board's
+physical boot-mode switch to the documented SD setting and power-cycle it.
+
 See [PROTOCOL.md](PROTOCOL.md) for exact binary framing. The PC client should keep one TCP connection open and pipeline work at 1 KiB block granularity, matching the Qwen tensor-file EDAC pipeline.
