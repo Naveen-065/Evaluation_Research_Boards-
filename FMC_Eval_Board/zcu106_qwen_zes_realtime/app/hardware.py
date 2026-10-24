@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import csv
+import math
 import os
 import re
+import signal
 import socket
 import subprocess
 import time
@@ -259,7 +261,9 @@ class _HardwareFileLease:
 class BitmapToolRunner:
     """Launch the new-folder bitmap Tcl tools without consulting old hashes."""
 
-    def __init__(self, app_dir: Path):
+    DEFAULT_NO_PROGRESS_TIMEOUT_SECONDS = 300.0
+
+    def __init__(self, app_dir: Path, no_progress_timeout_seconds: float | None = None):
         self.app_dir = app_dir.resolve()
         self.project_root = self.app_dir.parent
         self.tools = self.project_root / "fpga" / "tools"
@@ -268,6 +272,16 @@ class BitmapToolRunner:
             "1", "true", "yes", "on"
         }
         self.lease_file = self.project_root / "runtime" / "zcu106_hardware.lease"
+        configured_timeout = (no_progress_timeout_seconds if no_progress_timeout_seconds is not None
+                              else os.environ.get("BITMAP_NO_PROGRESS_TIMEOUT_SECONDS",
+                                                  self.DEFAULT_NO_PROGRESS_TIMEOUT_SECONDS))
+        try:
+            self.no_progress_timeout_seconds = float(configured_timeout)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("BITMAP_NO_PROGRESS_TIMEOUT_SECONDS must be a positive number") from exc
+        if (not math.isfinite(self.no_progress_timeout_seconds) or
+                self.no_progress_timeout_seconds <= 0):
+            raise ValueError("BITMAP_NO_PROGRESS_TIMEOUT_SECONDS must be a positive finite number")
 
     def capabilities(self) -> dict:
         program = self.tools / "bitmap_program.tcl"
@@ -287,7 +301,49 @@ class BitmapToolRunner:
             "probes_file": str(probes), "probes_file_present": probes.is_file(),
             "requires_bitmap_capable_bitstream": True,
             "legacy_deployment_hash_used": False,
+            "no_progress_timeout_seconds": self.no_progress_timeout_seconds,
         }
+
+    @staticmethod
+    def _terminate_process_tree(process: subprocess.Popen) -> str:
+        """Forcibly stop only ``process`` and the descendants it launched."""
+
+        if process.poll() is not None:
+            return f"pid {process.pid} had already exited"
+        if os.name == "nt":
+            # /T is deliberately rooted at the Popen PID.  Never use an image
+            # name here: another Vivado session may belong to the user.
+            completed = subprocess.run(
+                ["taskkill.exe", "/PID", str(process.pid), "/T", "/F"],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, encoding="utf-8", errors="replace", timeout=20,
+                check=False,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+            detail = completed.stdout.strip()
+            if completed.returncode and process.poll() is None:
+                # The fallback remains scoped to the exact Popen handle.  The
+                # failed taskkill result is retained in the watchdog error.
+                process.kill()
+            try:
+                code = process.wait(timeout=20)
+            except subprocess.TimeoutExpired as exc:
+                raise RuntimeError(
+                    f"taskkill did not stop Vivado pid {process.pid}: {detail or 'no detail'}") from exc
+            return (f"taskkill /PID {process.pid} /T /F exited {completed.returncode}; "
+                    f"Vivado exit={code}; {detail or 'no taskkill output'}")
+
+        # The runner starts a dedicated session on POSIX, so this group is
+        # likewise limited to the launched Vivado tree.
+        try:
+            os.killpg(os.getpgid(process.pid), signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        try:
+            code = process.wait(timeout=20)
+        except subprocess.TimeoutExpired as exc:
+            raise RuntimeError(f"process group {process.pid} did not stop") from exc
+        return f"killed process group {process.pid}; Vivado exit={code}"
 
     @staticmethod
     def row_words(bits: list[int]) -> list[int]:
@@ -330,26 +386,99 @@ class BitmapToolRunner:
                 f"bitmap probe file is missing: {probes}. Build and deploy the bitmap-capable bitstream first")
         command = [self.vivado, "-mode", "batch", "-source", str(script), "-tclargs", *arguments]
         with _HardwareFileLease(self.lease_file):
-            process = subprocess.Popen(command, cwd=self.tools, stdout=subprocess.PIPE,
-                                       stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
+            # Vivado launches hw_server as a descendant on Windows.  That
+            # descendant can inherit a stdout pipe and keep it open after the
+            # Vivado process exits, leaving a Python iterator blocked forever
+            # even though all output artifacts are complete.  A regular file
+            # preserves streaming progress without depending on pipe EOF.
+            capture_path = self.project_root / "runtime" / (
+                f"{script.stem}-{os.getpid()}-{time.time_ns()}.log")
+            capture_path.parent.mkdir(parents=True, exist_ok=True)
             lines, done_seen = [], False
-            assert process.stdout is not None
-            for line in process.stdout:
-                text = line.rstrip()
-                lines.append(text)
-                match = progress_pattern.search(text)
-                if match:
-                    progress({"state": "running", **{key: int(value) for key, value in match.groupdict().items()}})
-                if text.startswith(done_prefix):
-                    done_seen = True
-                if len(lines) > 300:
-                    lines.pop(0)
-            code = process.wait()
+            timed_out = False
+            idle_seconds = 0.0
+            termination_detail = ""
+
+            def consume(stream) -> bool:
+                nonlocal done_seen
+                saw_output = False
+                while True:
+                    line = stream.readline()
+                    if not line:
+                        break
+                    saw_output = True
+                    text = line.rstrip()
+                    lines.append(text)
+                    match = progress_pattern.search(text)
+                    if match:
+                        progress({"state": "running", **{
+                            key: int(value) for key, value in match.groupdict().items()}})
+                    if text.startswith(done_prefix):
+                        done_seen = True
+                    if len(lines) > 300:
+                        lines.pop(0)
+                return saw_output
+
+            try:
+                with capture_path.open("w", encoding="utf-8", errors="replace") as sink:
+                    popen_options = {
+                        "cwd": self.tools,
+                        "stdout": sink,
+                        "stderr": subprocess.STDOUT,
+                    }
+                    if os.name == "nt":
+                        popen_options["creationflags"] = getattr(
+                            subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+                    else:
+                        popen_options["start_new_session"] = True
+                    process = subprocess.Popen(command, **popen_options)
+                    last_activity = time.monotonic()
+                    with capture_path.open("r", encoding="utf-8", errors="replace") as source:
+                        while process.poll() is None:
+                            if consume(source):
+                                last_activity = time.monotonic()
+                            idle_seconds = time.monotonic() - last_activity
+                            if idle_seconds >= self.no_progress_timeout_seconds:
+                                timed_out = True
+                                try:
+                                    termination_detail = self._terminate_process_tree(process)
+                                except Exception as exc:  # retain evidence even if OS termination reports trouble
+                                    termination_detail = f"process-tree termination error: {exc}"
+                                    if process.poll() is None:
+                                        process.kill()
+                                        process.wait(timeout=20)
+                                break
+                            time.sleep(0.1)
+                        code = process.wait(timeout=20) if timed_out else process.wait()
+                        consume(source)
+            except Exception:
+                # A launch failure has no useful Vivado evidence.  Runtime or
+                # watchdog failures retain the complete capture below.
+                if "process" not in locals():
+                    try:
+                        capture_path.unlink()
+                    except OSError:
+                        pass
+                raise
+        if timed_out:
+            detail = "\n".join(lines[-12:]) or "(no Vivado output captured)"
+            raise RuntimeError(
+                "bitmap tool no-progress watchdog expired after "
+                f"{idle_seconds:.1f}s (limit {self.no_progress_timeout_seconds:g}s). "
+                f"{termination_detail}. No hardware-restore Vivado session was started; "
+                "confirm recovery state before another hardware command.\n"
+                f"Evidence log: {capture_path}\nLast output:\n{detail}")
         if code or not done_seen:
             detail = "\n".join(lines[-12:])
             hint = (" The bitmap-capable bitstream is required before this tool can run."
                     if "Bitmap-capable" in detail or "signature" in detail.lower() else "")
-            raise RuntimeError(f"bitmap tool failed (exit {code}).{hint}\n{detail}")
+            raise RuntimeError(
+                f"bitmap tool failed (exit {code}).{hint}\n"
+                f"Evidence log: {capture_path}\n{detail}")
+        try:
+            capture_path.unlink()
+        except OSError:
+            pass
         return lines, code
 
     def program(self, parity_bits: list[int], job_dir: Path, progress: Callable[[dict], None]) -> dict:

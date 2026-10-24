@@ -29,6 +29,9 @@ function protectionBusy(busy) {
 }
 function renderProtection(p) {
   state.protection = p;
+  if (p.initialized && ["reference", "board"].includes(p.edac_mode)) {
+    $("edacMode").value = p.edac_mode;
+  }
   const real = p.runtime?.real_model;
   $("tensorName").textContent = p.tensor?.name || "—";
   $("tensorName").title = p.tensor ? `${p.tensor.dtype} · ${p.tensor.device} · ${p.tensor.shape?.join("×")}` : "";
@@ -60,13 +63,19 @@ function renderCapabilities(c) {
   $("runtimeBanner").hidden = runtime.real_model;
   $("runtimeBanner").textContent = runtime.real_model ? "" : `${runtime.label}. ${runtime.limitation}`;
   const board = c.edac_modes.board;
-  $("edacChip").textContent = board.available ? "ZES · connected" : "ZES · offline";
+  const targetLabel = board.target_label || board.info?.target_label || "ZES relay host";
+  const executionKind = board.execution_kind || (board.real_board === false ? "vm" : "board");
+  const executionLabel = executionKind === "vm" ? "VM" : "embedded board";
+  $("edacChip").textContent = board.available
+    ? `ZES · ${executionLabel} · connected · ${targetLabel}`
+    : `ZES · ${executionLabel} · offline`;
   setClass($("edacChip"), board.available ? "good" : "warning");
+  $("boardEdacOption").textContent = `${targetLabel} · vendor ZES1 · ${executionLabel}`;
   $("boardEdacOption").disabled = !board.available;
   if (!board.available && $("edacMode").value === "board") $("edacMode").value = "reference";
   $("relayDetail").textContent = board.available
-    ? `${board.info.protocol} · ${board.info.vendor_version || "connected"}`
-    : (board.info?.error || "Not configured");
+    ? `${targetLabel} · ${executionLabel} execution · ${board.info.protocol} · ${board.info.vendor_version || "connected"}`
+    : `${targetLabel} · ${executionLabel} execution · ${board.info?.error || "Not configured"}`;
   const hw = c.hardware;
   const fpgaLocked = hw.tools_ready && !hw.exclusive_mode;
   $("fpgaChip").textContent = hw.configured

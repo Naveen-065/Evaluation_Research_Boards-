@@ -242,6 +242,14 @@ class InferenceService:
         host = os.environ.get("ZES_EDAC_HOST", "").strip()
         port = int(os.environ.get("ZES_EDAC_PORT", "9106"))
         threshold = int(os.environ.get("ZES_EDAC_THRESHOLD", "3"))
+        self.zes_target_label = (
+            os.environ.get("ZES_EDAC_TARGET_LABEL", "").strip() or "ZES relay host"
+        )
+        self.zes_execution_kind = (
+            os.environ.get("ZES_EDAC_EXECUTION_KIND", "").strip().lower() or "board"
+        )
+        if self.zes_execution_kind not in {"board", "vm"}:
+            raise ValueError("ZES_EDAC_EXECUTION_KIND must be board or vm")
         self.board_client = ZesTcpClient(host, port) if host else None
         self.protection = TensorProtection(self.runtime, self.board_client, threshold)
         self.sessions: dict[str, Session] = {}
@@ -397,6 +405,7 @@ class InferenceService:
         board = self.board_client.safe_info() if self.board_client else {
             "available": False, "protocol": "ZES1/v1", "port": 9106,
             "error": "Set ZES_EDAC_HOST to the isolated ZCU106 Ethernet address."}
+        real_board = self.zes_execution_kind == "board"
         return {
             "runtime": self.runtime.info.public(),
             "protection": self.protection.public(),
@@ -410,8 +419,16 @@ class InferenceService:
             "edac_modes": {
                 "reference": {"available": True, "real_board": False,
                               "note": "transparent single-bit correction mock"},
-                "board": {"available": bool(board.get("available")), "real_board": True,
-                          "info": board},
+                "board": {"available": bool(board.get("available")),
+                          "real_board": real_board,
+                          "execution_kind": self.zes_execution_kind,
+                          "vendor_backend": True,
+                          "target_label": self.zes_target_label,
+                          "info": board | {
+                              "target_label": self.zes_target_label,
+                              "execution_kind": self.zes_execution_kind,
+                              "real_board": real_board,
+                          }},
             },
             "hardware": self.hardware_summary(),
             "hardware_modes": {

@@ -28,7 +28,8 @@ module tb_bitmap_scheduler;
 
  cell_control_engine #(
   .RESET_SYS(100), .POST_CYCLES(128), .READY_FALLBACK_CYCLES(40),
-  .WATCHDOG_CYCLES(2000000), .DAC_SETTLE_CYCLES(20),
+  .WATCHDOG_CYCLES(2000000), .INNER_TIMEOUT_CYCLES(500000),
+  .INNER_ABORT_TIMEOUT_CYCLES(100), .DAC_SETTLE_CYCLES(20),
   .WB_ZERO(30), .WB_ONE(90), .WB_HIGH(50), .WB_END(50)
  ) dut (
   .clk(clk), .feedback_clk(fb), .ready_i(ready), .reset_i(!rst),
@@ -234,6 +235,35 @@ module tb_bitmap_scheduler;
           schedule_count,schedule_order[0],schedule_order[1],schedule_order[2],schedule_order[3],
           schedule_order[4],schedule_order[5],schedule_order[6],schedule_order[7]);
 
+  // A mid-packet DAC interlock loss used to consume the core command toggle,
+  // clear done and leave op15 waiting forever.  The wrapper must now issue a
+  // reset-only op4, count that cell as failed, and preserve SET-before-RESET
+  // ordering for all remaining cells.
+  schedule_count=0; capture_schedule=1;
+  command(15,(58'd1<<57)|(58'd2<<37)|(58'd40<<22)|(58'd2<<20));
+  fork
+   begin
+    wait(dut.bitmap_mode && dut.array_index==2 && dut.wrapper_state==7 &&
+         dut.core.state==1);
+    @(negedge clk); dac_ok=0;
+    repeat(4) @(posedge clk);
+    @(negedge clk); dac_ok=1;
+   end
+   begin
+    completed();
+   end
+  join
+  capture_schedule=0;
+  if(r0[10] || r1[255:224]!=32'h42504432 ||
+     r1[223:213]!=3 || r1[212:202]!=1 ||
+     r1[118:108]!=2 || r1[107:97]!=1 ||
+     r1[96:86]!=1 || r1[85:75]!=0)
+   $fatal(1,"interlock-loss recovery did not skip one failed SET cell %h/%h",r0,r1);
+  if(schedule_count!=3 || schedule_order[0]!=0 || schedule_order[1]!=2 ||
+     schedule_order[2]!=1)
+   $fatal(1,"interlock-loss recovery changed phase order: count=%0d order=%0d,%0d,%0d",
+          schedule_count,schedule_order[0],schedule_order[1],schedule_order[2]);
+
   // Degenerate ranges must also terminate: an all-SET range finishes without
   // entering RESET phase, while an all-RESET range crosses the empty SET phase.
   k=reset_edges;
@@ -320,7 +350,7 @@ module tb_bitmap_scheduler;
      !page_word1[29] || page_word1[28] || !page_word1[26])
    $fatal(1,"op13 page-boundary target decode failed %h/%h",page_word0,page_word1);
 
-  $display("PASS disabled-interlock BMP2/op4/direct-WR_WAIT-abort, bitmap load/readback, fail-closed launch, two-phase SET-then-RESET scheduler, full patterns/abort, page boundary, packet reset cadence, op12/13 compatibility");
+  $display("PASS disabled-interlock BMP2/op4/direct-WR_WAIT-abort, bitmap load/readback, fail-closed launch, two-phase SET-then-RESET scheduler, per-cell interlock recovery, full patterns/abort, page boundary, packet reset cadence, op12/13 compatibility");
   $finish;
  end
 

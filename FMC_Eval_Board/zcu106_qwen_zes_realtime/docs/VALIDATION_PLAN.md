@@ -95,21 +95,28 @@ No layer may be labelled `real` in the GUI until its corresponding gate passes.
   `r17c31`; the other 63 coordinate-aligned classifications were stable. Read
   order is not the dominant failure mechanism.
 - **Two-phase physical-parity gate:** the deployed `b69c7ac...` image has
-  passed simulation, implementation, safe deployment, and full initialization,
-  but no new full parity program plus independent read has been accepted for
-  it. Physical check/repair remains blocked until exact parity SHA-256 equality.
-- **A53 / vendor ZS-EDAC:** the Linux/AArch64 relay is cross-built, but runtime
-  deployment and vendor-codec tests remain pending because no board Linux/SSH
-  IP is reachable.
+  passed simulation, implementation, safe deployment, and full initialization.
+  The latest independent read, job `e157bd40d31a4ff8a924831734c166ef`,
+  completed all 1,024 cells after an interrupted parity-program attempt and
+  found 313 mismatches in the 576 assigned cells. Physical check/repair remains
+  blocked until exact parity SHA-256 equality.
+- **VM / vendor ZS-EDAC:** the pinned Linux/AArch64 relay runs in the local
+  Ubuntu VM through `qemu-aarch64`; live ZES1 `INFO` reports vendor `1.3.0` and
+  1024/72 geometry. An exact one-bit fault is detected and repaired back to the
+  baseline SHA. Capabilities report `execution_kind=vm`, never `real_board`.
+- **A53 / vendor ZS-EDAC:** board execution remains pending because SD boot
+  stops in BootROM and no board Linux/SSH IP is reachable.
 
 ## Current-host blockers that must remain visible
 
 - The local Qwen CPU runtime is usable after the bundled model download and
   hash check; no NVIDIA GPU is detected, so generation latency is CPU-bound.
-- The Ethernet interface has link but no reachable ZCU106 Linux/SSH neighbour.
+- The Ethernet interface has link but no reachable ZCU106 Linux/SSH neighbour;
+  the verified VM relay is a software-plane substitute, not an A53 claim.
 - The existing hardware route is Windows Vivado/JTAG/VIO, not PS-to-PL AXI.
 
-These block an end-to-end vendor-ZS-plus-physical-parity claim, but not real
-Qwen inference on the PC, web/protocol validation, FPGA build and simulation,
-or measured PL/ReRAM reads over the existing Vivado/JTAG/VIO route.
+These block an end-to-end board-A53-plus-physical-parity claim, but not real
+Qwen inference on the PC, the VM-hosted vendor ZS path, web/protocol validation,
+FPGA build and simulation, or measured PL/ReRAM reads over the existing
+Vivado/JTAG/VIO route.
 

@@ -48,7 +48,7 @@ The native test substitutes a clearly identified open test stub for the propriet
 make test-native
 ```
 
-## Deploy from Windows
+## Deploy directly to ZCU106 Linux from Windows
 
 After cross-building, with SSH enabled on the ZCU106 Linux image:
 
@@ -58,6 +58,54 @@ After cross-building, with SSH enabled on the ZCU106 Linux image:
 
 The service listens on TCP port 9106. The shipped service binds all interfaces for direct PC-to-board Ethernet use; firewall this port from other networks. The executable itself defaults to `127.0.0.1` unless `--bind` is supplied.
 Each accepted client has a 30-second receive/send timeout so a stalled peer cannot hold the single-client relay indefinitely. The service runs as the unprivileged `nobody` account; use a dedicated unprivileged account instead if the target image does not provide `nobody`.
+
+## Deploy to the local VirtualBox VM
+
+When ZCU106 Linux is unavailable, the same pinned AArch64 relay can run in the
+local x86-64 Ubuntu VM through the kernel's `qemu-aarch64` binfmt handler. Start
+the `Ubuntu-20.04-MPSoC-OS` VM and run:
+
+```powershell
+.\scripts\deploy_virtualbox.ps1
+```
+
+The script prompts once for the VM's `root` credential. It never writes the
+password to disk, places it on a command line, or prints it: PowerShell passes
+the credential in memory through VirtualBox's local COM API, then immediately
+zeros the temporary unmanaged password buffer. A credential can also be
+supplied without changing that behavior:
+
+```powershell
+$credential = Get-Credential -UserName root
+.\scripts\deploy_virtualbox.ps1 -Credential $credential
+```
+
+The deployment is idempotent. It verifies the VM is running with NAT adapter
+1, pins the relay SHA-256, installs/enables `qemu-aarch64` binfmt when needed,
+copies only changed relay/service files, atomically renames a verified staged
+relay over the running executable, enables the systemd service, and
+ensures a `127.0.0.1:9106 -> guest:9106` NAT rule. It then verifies the guest
+hash, binfmt execution, systemd state, listener, and a live ZES1 `INFO`
+response reporting the expected 1024-byte data and 72-byte parity geometry.
+
+Use `-VerifyOnly` for a read-only end-to-end check, or `-WhatIf` for local/VM
+preflight without requesting a credential or changing guest state:
+
+```powershell
+.\scripts\deploy_virtualbox.ps1 -VerifyOnly
+.\scripts\deploy_virtualbox.ps1 -WhatIf
+```
+
+After verification, point the PC service at the forwarded endpoint:
+
+```powershell
+..\app\run.ps1 -Port 8780 -ExclusiveHardware -ZesHost 127.0.0.1 `
+  -ZesTargetLabel 'Ubuntu VM · qemu-aarch64' -ZesExecutionKind vm
+```
+
+This VM fallback executes the licensed vendor library through emulation. The
+AI model, web GUI, error injection, and orchestration still run on Windows;
+this does not claim that EDAC is executing on the ZCU106 A53.
 
 ## SD boot recovery over JTAG
 

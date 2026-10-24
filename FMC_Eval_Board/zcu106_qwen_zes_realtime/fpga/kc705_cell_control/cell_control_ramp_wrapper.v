@@ -29,6 +29,8 @@ module cell_control_engine #(
  parameter RESET_SYS=2400000, POST_CYCLES=128,
  parameter READY_FALLBACK_CYCLES=2000,
  parameter [63:0] WATCHDOG_CYCLES=64'd12000000000,
+ parameter integer INNER_TIMEOUT_CYCLES=400000000,
+ parameter integer INNER_ABORT_TIMEOUT_CYCLES=2000,
  parameter WB_ZERO=200000, WB_ONE=800000, WB_HIGH=500000, WB_END=500000,
  parameter CLOCK_MISSING=2000, DAC_SETTLE_CYCLES=200000
 )(
@@ -43,7 +45,8 @@ module cell_control_engine #(
 );
  localparam WR_READY=0, WR_WAIT=1, WR_STEP=2, WR_CONFIRM=3, WR_ABORT=4,
             WR_ADVANCE=5, WR_PAGE=6, WR_ARRAY_PRE=7,
-            WR_ARRAY_CONFIRM=8, WR_ARRAY_PAGE=9, WR_BITMAP_NEXT=10;
+            WR_ARRAY_CONFIRM=8, WR_ARRAY_PAGE=9, WR_BITMAP_NEXT=10,
+            WR_CELL_ABORT=11;
  localparam signed [39:0] SET_THRESHOLD=40'sd1348731;
  localparam signed [39:0] RESET_THRESHOLD=40'sd192676;
  // 68.5126 uS measured best HRS/LRS separator at the 0.5-V read bias.
@@ -101,10 +104,20 @@ module cell_control_engine #(
  reg [9:0] bitmap_scan_index=0;
  reg [10:0] bitmap_set_targets=0, bitmap_reset_targets=0;
  reg [10:0] bitmap_set_failures=0, bitmap_reset_failures=0;
+ reg [31:0] inner_wait_cycles=0;
+ reg [9:0] recovery_pulses=0;
  wire [255:0] inner_result0, inner_result1;
  wire inner_interface_enable;
  wire inner_complete=inner_result0[15]==inner_command[63] &&
                      inner_result0[9] && !inner_result0[8];
+ // If the DAC interlock disappears during a packet, cell_control_core releases
+ // the pins, consumes the command toggle and clears done.  Without this test
+ // the wrapper can wait forever for a completion that can no longer occur.
+ wire inner_abandoned=inner_result0[15]==inner_command[63] &&
+                      !inner_result0[9] && !inner_result0[8];
+ wire inner_wait_state=wrapper_state==WR_ARRAY_PRE ||
+                       wrapper_state==WR_ARRAY_CONFIRM ||
+                       wrapper_state==WR_STEP || wrapper_state==WR_CONFIRM;
 
  cell_control_core #(
   .RESET_SYS(RESET_SYS),.POST_CYCLES(POST_CYCLES),.WATCHDOG_CYCLES(WATCHDOG_CYCLES),
@@ -195,6 +208,7 @@ module cell_control_engine #(
   input set_operation; input [6:0] index;
   input [14:0] pulse_hold; input [4:0] row, col;
   begin
+   inner_wait_cycles<=0;
    inner_command<={~inner_command[63],1'b1,4'd8,set_operation,
                    ramp_vcc_code(set_operation,ramp_fast,index),
                    ramp_wl_code(set_operation,ramp_fast,index),
@@ -203,7 +217,22 @@ module cell_control_engine #(
  endtask
  task issue_read;
   input [4:0] row, col;
-  begin inner_command<={~inner_command[63],1'b1,4'd1,1'b0,32'd0,15'd2400,col,row}; end
+  begin
+   inner_wait_cycles<=0;
+   inner_command<={~inner_command[63],1'b1,4'd1,1'b0,32'd0,15'd2400,col,row};
+  end
+ endtask
+ task recover_bitmap_cell;
+  input [9:0] pulse_count;
+  begin
+   // Operation 4 has priority inside the core even while an ordinary packet
+   // is busy and cannot launch a programming pulse.  It therefore provides a
+   // deterministic safe boundary before the failed physical cell is skipped.
+   recovery_pulses<=pulse_count;
+   inner_wait_cycles<=0;
+   inner_command<={~inner_command[63],1'b1,4'd4,58'd0};
+   wrapper_state<=WR_CELL_ABORT;
+  end
  endtask
  task finish_array_cell;
   input cell_met; input signed [15:0] current_code; input [9:0] pulse_count;
@@ -383,6 +412,14 @@ module cell_control_engine #(
    array_active<=0; array_result<=0; array_view<=0;
    bitmap_mode<=0;
    inner_command<={~inner_command[63],command[62:0]}; wrapper_state<=WR_ABORT;
+  end else if(bitmap_mode && inner_wait_state && !inner_complete &&
+              (inner_abandoned || inner_wait_cycles>=INNER_TIMEOUT_CYCLES-1)) begin
+   // A transient interlock loss can abandon an inner command without a done
+   // response; any other wedged packet is bounded here as well.  Count the
+   // attempted pulse conservatively when timing out in WR_STEP, then move on
+   // after the reset-only abort completes.
+   recover_bitmap_cell(array_retry_pulses+ramp_pulses+
+                       (wrapper_state==WR_STEP ? 10'd1 : 10'd0));
   end else case(wrapper_state)
    WR_READY: if(command[63]!=host_seen) begin
     host_seen<=command[63]; ramp_view<=0; array_view<=0;
@@ -588,11 +625,29 @@ module cell_control_engine #(
      end
     end else bitmap_scan_index<=bitmap_scan_index+1'b1;
    end
+   WR_CELL_ABORT: begin
+    if(inner_complete) begin
+     inner_wait_cycles<=0;
+     finish_array_cell(1'b0,16'sd0,recovery_pulses);
+    end else if(inner_wait_cycles>=INNER_ABORT_TIMEOUT_CYCLES-1) begin
+     // This should be unreachable because op4 is accepted independent of the
+     // DAC interlock.  Still return a tagged controller fault rather than
+     // leaving the VIO host blocked indefinitely.
+     saved0<=0; saved1<=0; saved0[10]<=1; saved0[14:11]<=4'd9;
+     saved1[255:224]<=32'h424D4532; saved1[39:32]<=8'd8;
+     array_active<=0; array_result<=0; have_result<=1;
+     wrapper_state<=WR_READY;
+    end else inner_wait_cycles<=inner_wait_cycles+1'b1;
+   end
    WR_ARRAY_PRE: if(inner_complete) begin
     saved0<=inner_result0; saved1<=inner_result1;
     if(inner_result0[10] || inner_result0[37]) begin
-     saved0[10]<=1; saved0[14:11]<=4'd1; array_active<=0;
-     have_result<=1; wrapper_state<=WR_READY;
+     if(bitmap_mode)
+      recover_bitmap_cell(array_retry_pulses+ramp_pulses);
+     else begin
+      saved0[10]<=1; saved0[14:11]<=4'd1; array_active<=0;
+      have_result<=1; wrapper_state<=WR_READY;
+     end
     end else if(array_initial_pass) begin
      ramp_confirm_count<=0; issue_read(ramp_row,ramp_col);
      wrapper_state<=WR_ARRAY_CONFIRM;
@@ -604,8 +659,12 @@ module cell_control_engine #(
    WR_ARRAY_CONFIRM: if(inner_complete) begin
     saved0<=inner_result0; saved1<=inner_result1;
     if(inner_result0[10] || inner_result0[37]) begin
-     saved0[10]<=1; saved0[14:11]<=4'd1; array_active<=0;
-     have_result<=1; wrapper_state<=WR_READY;
+     if(bitmap_mode)
+      recover_bitmap_cell(array_retry_pulses+ramp_pulses);
+     else begin
+      saved0[10]<=1; saved0[14:11]<=4'd1; array_active<=0;
+      have_result<=1; wrapper_state<=WR_READY;
+     end
     end else if(array_initial_pass && ramp_confirm_count==9) begin
      finish_array_cell(1'b1,ramp_current_compact,8'd0);
     end else if(array_initial_pass) begin
@@ -626,9 +685,13 @@ module cell_control_engine #(
     ramp_current_code[ramp_index]<=ramp_delta>>>14;
     ramp_pulses<=ramp_pulses+1'b1;
     if(inner_result0[10] || inner_result0[37]) begin
-     saved0[10]<=1; saved0[14:11]<=4'd1;
-     if(array_active) array_active<=0;
-     have_result<=1; wrapper_state<=WR_READY;
+     if(bitmap_mode)
+      recover_bitmap_cell(array_retry_pulses+ramp_pulses+1'b1);
+     else begin
+      saved0[10]<=1; saved0[14:11]<=4'd1;
+      if(array_active) array_active<=0;
+      have_result<=1; wrapper_state<=WR_READY;
+     end
     end else if(ramp_pass) begin
      ramp_confirm_count<=0; issue_read(ramp_row,ramp_col); wrapper_state<=WR_CONFIRM;
     end else if(ramp_index<(ramp_fast ? 2 : 95)) begin
@@ -641,9 +704,13 @@ module cell_control_engine #(
    WR_CONFIRM: if(inner_complete) begin
     saved0<=inner_result0; saved1<=inner_result1;
     if(inner_result0[10] || inner_result0[37]) begin
-     saved0[10]<=1; saved0[14:11]<=4'd1;
-     if(array_active) array_active<=0;
-     have_result<=1; wrapper_state<=WR_READY;
+     if(bitmap_mode)
+      recover_bitmap_cell(array_retry_pulses+ramp_pulses);
+     else begin
+      saved0[10]<=1; saved0[14:11]<=4'd1;
+      if(array_active) array_active<=0;
+      have_result<=1; wrapper_state<=WR_READY;
+     end
     end else if(ramp_pass && ramp_confirm_count==9) begin
      if(array_active) complete_array_sweep(1'b1,ramp_current_compact,ramp_pulses);
      else begin
@@ -661,5 +728,8 @@ module cell_control_engine #(
    end
    default: wrapper_state<=WR_READY;
   endcase
+  if(bitmap_mode && inner_wait_state && !inner_complete && !inner_abandoned &&
+     inner_wait_cycles<INNER_TIMEOUT_CYCLES-1)
+   inner_wait_cycles<=inner_wait_cycles+1'b1;
  end
 endmodule

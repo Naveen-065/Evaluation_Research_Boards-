@@ -14,6 +14,7 @@
 
 set here [file dirname [file normalize [info script]]]
 set fpga_root [file normalize [file join $here ..]]
+source [file join $here bitmap_handshake.tcl]
 if {$argc < 2 || $argc > 6} {
  error "bitmap.hex output_prefix ?start count hold_clocks reset_retries?"
 }
@@ -96,6 +97,7 @@ proc scan_command {op payload {timeout_ms 6000}} {
  commit_hw_vio $command_probe
  set deadline [expr {[clock milliseconds]+$timeout_ms}]
  set last_completed -1
+ set completion_samples 0
  while {1} {
   lassign [scan_status] h0 h1
   set s [expr 0x$h0]
@@ -111,7 +113,17 @@ proc scan_command {op payload {timeout_ms 6000}} {
     set last_completed $completed
    }
   }
-  if {(($s>>15)&1)==$toggle && ($s&512) && !($s&256)} { break }
+  # Do not accept the READY bit in isolation.  result0/result1 are wide,
+  # combinational VIO probes and one hardware refresh can catch a transition-
+  # torn frame.  The op15 BPD2 signature makes the completion record
+  # self-consistent; requiring it twice also rejects a one-refresh status
+  # decode glitch without changing the FPGA protocol or bitmap timing.
+  if {[bitmap_response_complete $op $toggle $s $q]} {
+   incr completion_samples
+   if {$completion_samples>=2} { break }
+  } else {
+   set completion_samples 0
+  }
   if {[clock milliseconds]>$deadline} {
    error "Controller timeout op=$op state=[expr {$s&255}] status=$h0/$h1"
   }

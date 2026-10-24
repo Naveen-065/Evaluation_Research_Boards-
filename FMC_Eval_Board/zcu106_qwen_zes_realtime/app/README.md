@@ -15,7 +15,9 @@ control plane. The browser UI is served only on loopback.
   verifies the UI, streaming, BER, EDAC, and hardware orchestration only.
 - `reference` EDAC is a transparent single-bit-correction mock. `board` EDAC
   talks to the AArch64 relay over the persistent binary `ZES1/v1` protocol; it
-  is never silently emulated.
+  is never silently emulated. The relay can execute on the embedded board or
+  under AArch64 emulation in an Ubuntu VM; capabilities report this separately
+  as `execution_kind` and set `real_board` true only for embedded execution.
 - The protected object is one 1 KiB tensor view, not the complete Qwen model.
 
 ## Start
@@ -39,9 +41,12 @@ Optional environment variables:
 | `QWEN_MODEL_PATH` | Local Qwen model directory with `config.json` | demo fallback |
 | `ZES_EDAC_HOST` | ZCU106 Linux relay IP on the isolated Ethernet link | board EDAC disabled |
 | `ZES_EDAC_PORT` | Binary relay port | `9106` |
+| `ZES_EDAC_TARGET_LABEL` | Truthful UI label for the relay execution target, e.g. `Ubuntu VM · qemu-aarch64`; prefer `run.ps1 -ZesTargetLabel ...` | `ZES relay host` |
+| `ZES_EDAC_EXECUTION_KIND` | Relay execution target: `board` or `vm`; prefer `run.ps1 -ZesExecutionKind vm` for the VM deployment | `board` |
 | `ZES_EDAC_THRESHOLD` | Default vendor decoder threshold, 1 through 8192 | `3` |
 | `SENSEEVAL_URL` | Legacy service used only for conflict checks and the optional row probe | `http://127.0.0.1:8771` |
 | `BITMAP_VIVADO` | Vivado batch launcher | `C:/Xilinx/Vivado/2022.2/bin/vivado.bat` |
+| `BITMAP_NO_PROGRESS_TIMEOUT_SECONDS` | Stop the exact launched Vivado process tree when its bitmap tool produces no output or progress for this long | `300` |
 | `RERAM_FAILED_CELLS` | Semicolon-separated known-failed physical coordinates, e.g. `2,7;9,11` | empty |
 | `RERAM_EXCLUSIVE_HARDWARE` | Enables direct Vivado control only after the legacy port 8771 service is stopped; prefer `run.ps1 -ExclusiveHardware` | disabled |
 
@@ -84,6 +89,10 @@ app was explicitly started with `-ExclusiveHardware`. A process-wide file lease
 also prevents two copies of this app from launching Vivado simultaneously.
 Programming and readback are serialized in the app; direct readback cannot be
 cancelled mid-run because the Tcl tool must restore the safe read profile.
+The external no-progress watchdog is intentionally longer than a legitimate
+single-cell programming interval. If it expires, the failed tool log remains
+under `../runtime/`; the app kills only that tool's process tree and does not
+start a competing Vivado session to restore hardware.
 On restart, the app restores the newest complete 1Kbit hardware read plus its
 matching parity snapshot as display-only historical evidence.  It validates
 all 1,024 unique physical coordinates and the 72-byte snapshot hash before
@@ -92,6 +101,11 @@ live tensor is initialized and produces that exact encoded-parity SHA.
 
 The ZES relay protocol has no authentication or encryption. Keep port 9106 on
 the isolated board link or protect it with a firewall/VPN.
+
+For the VirtualBox deployment, start the host app with
+`-ZesExecutionKind vm`. The `board` EDAC mode name remains stable for API
+compatibility because it selects the vendor ZES1 backend; inspect
+`edac_modes.board.execution_kind` to distinguish `vm` from `board` execution.
 
 ## HTTP API
 

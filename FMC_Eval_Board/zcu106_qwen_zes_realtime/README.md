@@ -29,7 +29,14 @@ cd FMC_Eval_Board\zcu106_qwen_zes_realtime\app
 Open <http://127.0.0.1:8780/>.  `run.ps1` prefers the project `.venv` and the
 local `models/Qwen3-0.6B` directory when the complete weight file is present.
 Pass `-ModelPath` to select another local Transformers-compatible Qwen model,
-or `-ZesHost <board-ip>` after the A53 Linux relay is reachable.
+or `-ZesHost <board-ip>` after the A53 Linux relay is reachable. For the
+verified VirtualBox fallback, first run `board/scripts/deploy_virtualbox.ps1`,
+then launch:
+
+```powershell
+.\run.ps1 -ExclusiveHardware -ZesHost 127.0.0.1 `
+  -ZesTargetLabel 'Ubuntu VM · qemu-aarch64' -ZesExecutionKind vm
+```
 
 For physical program/read commands, first stop the legacy service on port 8771
 and then launch `run.ps1 -ExclusiveHardware`.  Direct mode refuses to start a
@@ -42,8 +49,8 @@ The GUI exposes:
 
 - realtime token streaming and an exact BER control for one live 1,024-byte
   model-tensor view;
-- explicit host-reference or real board ZS-EDAC backends, with no silent
-  substitution;
+- explicit host-reference or vendor ZS-EDAC backends, with truthful embedded
+  board versus VM execution metadata and no silent substitution;
 - independent check and SHA-verified repair actions;
 - direct FPGA programming/read jobs for the 1 Kbit ReRAM array; and
 - a compact physical 32 x 32 memory map.  Every assigned parity cell displays
@@ -111,24 +118,25 @@ are in [docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md) and
 
 ## Hardware boundary
 
-The current Windows host reaches the PL through Vivado/JTAG/VIO.  The Ethernet
-interface has link but no reachable ZCU106 Linux/SSH endpoint, so the A53 relay
-can be cross-built and inspected here but cannot be started on the board until
-an A53 Linux image and board IP are available.  The GUI keeps that backend
-offline and uses an explicitly labelled reference codec when requested; it
-does not claim an end-to-end vendor EDAC result while the relay is unavailable.
+The current Windows host reaches the PL through Vivado/JTAG/VIO. The ZCU106 SD
+boot stops in BootROM, so there is still no reachable board Linux/SSH endpoint.
+The same pinned AArch64 relay is deployed instead in the local Ubuntu VM through
+`qemu-aarch64` binfmt, with loopback-only NAT forwarding. The GUI reports that
+backend as vendor ZES with `execution_kind=vm` and `real_board=false`; it does
+not claim that EDAC is executing on the ZCU106 A53.
 
 ## Current verified evidence
 
-The following results were captured on the attached system on 2026-10-23 and
+The following results were captured on the attached system through 2026-10-24 and
 keep the PC, PL, and A53 claims separate:
 
 | Plane | Result | Interpretation |
 |---|---|---|
-| PC / Qwen | Real local Qwen SSE completed with `Hardware ready.` | Confirms local model loading, generation, and streaming on the PC |
+| PC / Qwen | Real local Qwen SSE completed with `VM EDAC FPGA demo verified.` | Confirms local model loading, generation, and streaming on the PC |
 | PC / reference EDAC | A one-bit injection was detected and the repair restored the exact baseline SHA-256 | Confirms the application data path with the labelled reference codec; it is not a vendor-library result |
 | ZCU106 PL / ReRAM | Two-phase bitstream `b69c7ac2eebb9b1f2afea506ea099246f906dc68c03248fb9a204d5e9791368c` is physically deployed, superseding the interleaved `541cfd...` image and the earlier `164b...` development image; safe reset hold and full initialization passed | Confirms the deployed `BMP2` protocol, SET-then-RESET implementation, HPC0/Si5351 setup, DAC/ADC startup, return clocks, and full controller startup over Vivado/JTAG/VIO; it does not prove a successfully stored parity record |
-| ZCU106 A53 / vendor EDAC | Relay is cross-built but not runtime deployed | No reachable ZCU106 Linux/SSH IP is available, so no end-to-end vendor ZS-EDAC result is claimed |
+| Ubuntu VM / vendor EDAC | Pinned AArch64 relay `v1.3.0` runs through `qemu-aarch64` binfmt and a loopback-only VirtualBox forward; an exact one-bit injection returned decoder result `1` and repair restored the baseline SHA-256 | Confirms the real vendor ZES backend end to end, but truthfully reports execution kind `vm`, not ZCU106 A53 |
+| ZCU106 A53 / Linux | SD boot still stops in BootROM with `CSU_BOOTROM_ERROR=0x80003B3B` | The VM substitutes only for the unavailable A53 software plane; it does not claim that Linux or EDAC is running on the board CPU |
 
 The hash-pinned deployment receipt records the two-phase image, probes SHA-256
 `d49d9992d961bab1d451e8594ee4f4a9d253aa847a6015373a647e7dbeb24e70`,
@@ -139,6 +147,14 @@ and zero DRC errors or critical warnings.  The subsequent full initialization
 verified the HPC0 mux, 2 MHz Si5351/PLLA configuration, DAC and ADC startup,
 all ten return-clock windows, and ended in `FULL_CONTROL_STARTUP_PASS` with the
 CPU held until an operation.
+
+The latest independent full-array read job
+`e157bd40d31a4ff8a924831734c166ef` completed 1,024/1,024 physical cells but
+found 313 mismatches in the 576 parity locations. Its reconstructed SHA-256
+did not match the vendor-encoded parity, so the GUI retains it as physical
+evidence and blocks it from check/repair. The working VM demo therefore uses
+the vendor relay's host-memory encoded copy; it never substitutes the failed
+physical readback silently.
 
 Full-array read job `b3e0224dd8534231a213553bcdb9c4aa` completed all 1,024
 physical cells and classified 24 as LRS and 1,000 as HRS.  This was a baseline

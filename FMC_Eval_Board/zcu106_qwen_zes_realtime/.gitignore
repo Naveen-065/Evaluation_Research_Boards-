@@ -19,6 +19,8 @@ fpga/vivado_project/
 fpga/**/*.jou
 fpga/**/*.log
 fpga/**/*.str
+vivado.jou
+vivado.log
 
 # The ZES binary/header package is supplied under a confidential third-party
 # licence.  Keep a local copy for board builds, but never publish it by accident.

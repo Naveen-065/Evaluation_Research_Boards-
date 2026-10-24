@@ -66,6 +66,38 @@ class RelayFixture:
         self.listener.close()
 
 
+class ExpiringRelayFixture:
+    """Serve one INFO per connection, like the relay after its idle timeout."""
+
+    def __init__(self):
+        self.listener = socket.socket()
+        self.listener.bind(("127.0.0.1", 0))
+        self.listener.listen(2)
+        self.port = self.listener.getsockname()[1]
+        self.accepts = 0
+        self.first_closed = threading.Event()
+        self.thread = threading.Thread(target=self.run, daemon=True)
+        self.thread.start()
+
+    def run(self):
+        for index in range(2):
+            connection, _ = self.listener.accept()
+            self.accepts += 1
+            with connection:
+                header = receive_exact(connection, 16)
+                magic, version, opcode, flags, length, request_id = HEADER.unpack(header)
+                receive_exact(connection, length)
+                body = struct.pack("!II", 1024, 72) + b"fixture-v1"
+                response = HEADER.pack(magic, version, opcode | 0x80, flags,
+                                       4 + len(body), request_id) + struct.pack("!I", 0) + body
+                connection.sendall(response)
+            if index == 0:
+                self.first_closed.set()
+
+    def close(self):
+        self.listener.close()
+
+
 class ZesTcpTests(unittest.TestCase):
     def test_persistent_info_encode_check_repair(self):
         relay = RelayFixture()
@@ -88,6 +120,17 @@ class ZesTcpTests(unittest.TestCase):
         for invalid in (0, 8193, False):
             with self.assertRaisesRegex(ValueError, "1 to 8192"):
                 client.check_repair(bytes(1024), bytes(72), invalid)
+
+    def test_reconnects_once_when_idle_persistent_socket_was_closed(self):
+        relay = ExpiringRelayFixture()
+        client = ZesTcpClient("127.0.0.1", relay.port, timeout=2)
+        try:
+            self.assertEqual(client.info()["vendor_version"], "fixture-v1")
+            self.assertTrue(relay.first_closed.wait(1))
+            self.assertEqual(client.info()["vendor_version"], "fixture-v1")
+            self.assertEqual(relay.accepts, 2)
+        finally:
+            client.close(); relay.close()
 
 
 if __name__ == "__main__":

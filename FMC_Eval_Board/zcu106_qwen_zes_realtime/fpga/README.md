@@ -15,6 +15,12 @@ initialization; `output/deployment_receipt.json` is the deployment authority.
 No full parity program plus independent read has yet been accepted on this
 image, so deployment status must not be interpreted as physical-parity success.
 
+The active RTL source also contains a later, simulation-verified per-cell
+watchdog for a mid-packet `dac_ready` loss: it issues op4, records that cell as
+failed, and continues without changing SET-before-RESET order. That source
+change post-dates the deployed hash above and is **not** present in the active
+FPGA until a new full build and hash-pinned deployment are completed.
+
 `baseline/zcu106_artifacts_2026-10-23/` also preserves the previously deployed
 known-good `.bit`, `.ltx`, `.dcp`, and implementation reports. Its bitstream
 SHA-256 is `ba7f5afee7dc5134828004ad48114ef9f2079b28b83de17650288d9cffe04bfb`.
@@ -112,9 +118,11 @@ powershell -ExecutionPolicy Bypass -File .\tools\build_bitstream.ps1
 
 Simulation checks fail-closed launch, all-word load/readback, all-zero/all-one/
 alternating 1024-bit images with a non-wrapping full-count launch and safe
-abort, exact SET-then-RESET ordering over a mixed range, reset/READY packet
-cadence, op13 paging across the physical 13/14 page boundary, and op12/op13 compatibility. The runner
-requires exact PASS markers because XSim 2022.2 can return zero after `$fatal`.
+abort, exact SET-then-RESET ordering over a mixed range, recovery after a
+deliberate mid-packet DAC-interlock loss, reset/READY packet cadence, op13
+paging across the physical 13/14 page boundary, and op12/op13 compatibility.
+The runner requires exact PASS markers because XSim 2022.2 can return zero
+after `$fatal`.
 
 The build script runs the full ZCU106 implementation and creates
 `output/artifact_manifest.json` with SHA-256 for the bitstream, probes,

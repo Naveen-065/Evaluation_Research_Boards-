@@ -185,19 +185,22 @@ A zero-write forward/reverse/deterministic-random diagnostic on physical rows
 assigned cell at `r17c31` crossed the fixed current separator; the other 63
 coordinate-aligned classifications, including every tested spare cell, were
 stable. This rules out acquisition order as the dominant cause and points to
-cell/programming or half-select disturbance. No full parity program plus
-independent read has yet been performed with the deployed two-phase image, so
-physical EDAC remains blocked by the exact-SHA gate.
+cell/programming or half-select disturbance. On the deployed two-phase image,
+a parity-program attempt later stopped after 27 cells; independent full read
+job `e157bd40d31a4ff8a924831734c166ef` nevertheless completed all 1,024 cells
+and found 313 assigned-cell mismatches. Physical EDAC therefore remains blocked
+by the exact-SHA gate.
 
-On the PC, the real local Qwen runtime streamed `Hardware ready.` through SSE.
-A separate one-bit test using the explicitly labelled reference codec reported
-the fault as detected and restored the exact protected-block SHA-256 after
-repair.  That test validates the PC integration path but does not exercise the
-proprietary ZS-EDAC implementation.
+On the PC, the real local Qwen runtime streamed `VM EDAC FPGA demo verified.`
+through SSE. The pinned Linux/AArch64 relay now runs in the local Ubuntu VM via
+`qemu-aarch64` binfmt and VirtualBox loopback NAT. A one-bit live-tensor fault
+returned vendor decoder result `1` (`detected-correctable`), proposed the exact
+baseline bytes, and repair restored the protected-block SHA-256. The API and
+GUI report this truthfully as `execution_kind=vm`, `real_board=false`.
 
-The A53 relay has been cross-built for Linux/AArch64, but it has not been
-runtime-deployed because this host has no reachable ZCU106 Linux/SSH IP.  Until
-that endpoint exists and the real vendor tests pass, the supported measured
-path is PC-to-PL over Vivado/JTAG/VIO and the GUI must retain its offline A53
-label.
+The ZCU106 A53 path is still unavailable: SD boot stops in BootROM with
+`CSU_BOOTROM_ERROR=0x80003B3B`, so there is no board Linux/SSH endpoint. The VM
+proves the real vendor-codec integration but does not claim that ZS-EDAC is
+executing on the board CPU. PC-to-PL hardware evidence continues over
+Vivado/JTAG/VIO, and physical parity remains gated independently by exact SHA.
 

@@ -250,6 +250,33 @@ class ServiceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "1 to 8192"):
                 self.service.protection.check(invalid)
 
+    def test_capabilities_expose_vm_as_vendor_backend_not_real_board(self):
+        label = "Ubuntu VM · qemu-aarch64"
+        with patch.dict(os.environ, {
+                "ZES_EDAC_TARGET_LABEL": label,
+                "ZES_EDAC_EXECUTION_KIND": "vm"}):
+            service = InferenceService(Path(self.temp.name), FakeHardware())
+        board = service.capabilities()["edac_modes"]["board"]
+        self.assertEqual(board["target_label"], label)
+        self.assertEqual(board["info"]["target_label"], label)
+        self.assertEqual(board["execution_kind"], "vm")
+        self.assertEqual(board["info"]["execution_kind"], "vm")
+        self.assertFalse(board["real_board"])
+        self.assertFalse(board["info"]["real_board"])
+        self.assertTrue(board["vendor_backend"])
+
+    def test_capabilities_default_to_real_board_for_backward_compatibility(self):
+        with patch.dict(os.environ, {"ZES_EDAC_EXECUTION_KIND": ""}):
+            service = InferenceService(Path(self.temp.name), FakeHardware())
+        board = service.capabilities()["edac_modes"]["board"]
+        self.assertEqual(board["execution_kind"], "board")
+        self.assertTrue(board["real_board"])
+
+    def test_invalid_zes_execution_kind_is_rejected(self):
+        with patch.dict(os.environ, {"ZES_EDAC_EXECUTION_KIND": "cloud"}):
+            with self.assertRaisesRegex(ValueError, "must be board or vm"):
+                InferenceService(Path(self.temp.name), FakeHardware())
+
     def test_direct_hardware_is_fail_closed_without_exclusive_mode(self):
         self.service.initialize_protection("reference")
         bits = self.service.protection.parity_snapshot()["bits"]

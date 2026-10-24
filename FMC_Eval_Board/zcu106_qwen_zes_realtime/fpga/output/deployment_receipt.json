@@ -7,7 +7,7 @@
   "bitstream_sha256": "b69c7ac2eebb9b1f2afea506ea099246f906dc68c03248fb9a204d5e9791368c",
   "probes": "C:/Users/SER7/Documents/GitHub/Evaluation_Research_Boards-/FMC_Eval_Board/zcu106_qwen_zes_realtime/fpga/zcu106_cell_control/build/zcu106_adc_capture.ltx",
   "probes_sha256": "d49d9992d961bab1d451e8594ee4f4a9d253aa847a6015373a647e7dbeb24e70",
-  "programmed_utc": "2026-10-24T09:54:16Z",
+  "programmed_utc": "2026-10-24T14:12:26Z",
   "post_program_state": "adc_off_dac_reset_caravel_reset_held_no_array_pulse",
   "caravel_reset_drive": "asserted_low_by_fpga_op4"
 }

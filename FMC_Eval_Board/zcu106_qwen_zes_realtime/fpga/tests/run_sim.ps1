@@ -57,7 +57,7 @@ try {
 
     Invoke-SimulationAndRequirePass `
         -Snapshot "tb_bitmap_scheduler_sim" `
-        -PassMarker "PASS disabled-interlock BMP2/op4/direct-WR_WAIT-abort, bitmap load/readback, fail-closed launch, two-phase SET-then-RESET scheduler, full patterns/abort, page boundary, packet reset cadence, op12/13 compatibility" `
+        -PassMarker "PASS disabled-interlock BMP2/op4/direct-WR_WAIT-abort, bitmap load/readback, fail-closed launch, two-phase SET-then-RESET scheduler, per-cell interlock recovery, full patterns/abort, page boundary, packet reset cadence, op12/13 compatibility" `
         -Label "bitmap"
 
     & $xelab tb_control -s tb_control_regression --debug typical

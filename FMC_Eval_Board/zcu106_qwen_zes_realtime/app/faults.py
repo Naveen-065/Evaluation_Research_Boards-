@@ -180,21 +180,30 @@ class ZesTcpClient:
         with self._lock:
             self._request_id = (self._request_id + 1) & 0xFFFFFFFF
             request_id = self._request_id
-            try:
-                connection = self._connect()
-                connection.sendall(self.HEADER.pack(self.MAGIC, self.VERSION, opcode, 0,
-                                                    len(payload), request_id) + payload)
-                header = self._receive_exact(connection, self.HEADER.size)
-                magic, version, response_opcode, flags, length, response_id = self.HEADER.unpack(header)
-                if (magic, version, response_opcode, flags, response_id) != (
-                        self.MAGIC, self.VERSION, opcode | 0x80, 0, request_id):
-                    raise RuntimeError("ZES relay response header mismatch")
-                if not 4 <= length <= 4096:
-                    raise RuntimeError("ZES relay response length is invalid")
-                response = self._receive_exact(connection, length)
-            except (OSError, RuntimeError):
-                self.close()
-                raise
+            frame = self.HEADER.pack(self.MAGIC, self.VERSION, opcode, 0,
+                                     len(payload), request_id) + payload
+            for attempt in range(2):
+                try:
+                    connection = self._connect()
+                    connection.sendall(frame)
+                    header = self._receive_exact(connection, self.HEADER.size)
+                    magic, version, response_opcode, flags, length, response_id = self.HEADER.unpack(header)
+                    if (magic, version, response_opcode, flags, response_id) != (
+                            self.MAGIC, self.VERSION, opcode | 0x80, 0, request_id):
+                        raise RuntimeError("ZES relay response header mismatch")
+                    if not 4 <= length <= 4096:
+                        raise RuntimeError("ZES relay response length is invalid")
+                    response = self._receive_exact(connection, length)
+                    break
+                except (OSError, RuntimeError):
+                    # The relay deliberately expires idle client sessions.  A
+                    # cached TCP socket can therefore look healthy until the
+                    # next request.  All protocol operations are pure, so one
+                    # reconnect/retry is safe even if the disconnect happened
+                    # after the relay received the frame.
+                    self.close()
+                    if attempt == 1:
+                        raise
             status = struct.unpack("!I", response[:4])[0]
             if status:
                 raise RuntimeError(f"ZES relay rejected opcode 0x{opcode:02X} with status {status}")
