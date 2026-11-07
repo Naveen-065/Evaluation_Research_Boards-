@@ -1,0 +1,9 @@
+sequence,category,operation,pwm,voltage_v,issued,pre_median_uA,post_median_uA,post_min_uA,post_max_uA,delta_uA,reset_side_count,tdc_pass,tdc_nonzero_count,tdc_last,shunt_path,shunt_baseline_mean,shunt_baseline_min,shunt_baseline_max,shunt_active_min,shunt_active_max,shunt_clip,analog_confirmed,sentinel_max_drift_uA,interpretation
+1,max_pwm_reference,RESET,0xF0,2.5,yes,39.344012,37.610528,36.015294,37.849779,-1.733484,0,1,4,0x0007532F,ADC2/R11_RESET,2445.639893,2418,2475,2354,2670,0,1,0.437036,Partial correct-direction movement; RESET threshold not reached
+2,max_pwm_voltage_skew,RESET,0xF0,2.6,yes,35.606438,34.644526,33.268641,35.184654,-0.961912,1,1,4,0x0007C615,ADC2/R11_RESET,2910.108398,2876,2948,2815,3129,0,1,0.175462,Small correct-direction movement; only one of five reads crossed threshold
+3,max_pwm_voltage_skew,RESET,0xF0,2.7,yes,34.456516,36.829455,36.535938,37.363450,2.372939,0,1,4,0x0007832B,ADC2/R11_RESET,3613.772949,3572,3657,3520,3793,0,1,0.282105,Wrong-direction current increase; stop voltage skew
+4,max_pwm_voltage_skew,RESET,0xF0,2.8,no,,,,,,,,,,,,,,,,,,,Cancelled after 2.7 V direction reversal and limited ADC headroom
+5,max_pwm_voltage_skew,RESET,0xF0,2.9,no,,,,,,,,,,,,,,,,,,,Cancelled after 2.7 V direction reversal and limited ADC headroom
+6,max_pwm_voltage_skew,RESET,0xF0,3.0,no,,,,,,,,,,,,,,,,,,,Cancelled after 2.7 V direction reversal and limited ADC headroom
+7,related_wrong_direction,RESET,0x80,2.5,yes,26.665867,29.128862,28.804948,29.362947,2.462995,5,1,4,0x00075328,ADC2/R11_RESET,2445.556396,2419,2475,2354,2672,0,1,0.244915,Wrong-direction increase while remaining below RESET threshold
+8,related_wrong_direction,RESET,0x10,2.9,yes,42.966528,67.157886,66.470183,67.534995,24.191358,0,1,4,0x0007402E,ADC2/R11_RESET,4095.000000,4095,4095,4095,4095,1,0,0.618586,Large wrong-direction increase with saturated baseline and active windows
