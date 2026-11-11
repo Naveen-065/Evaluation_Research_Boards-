@@ -1,0 +1,11 @@
+10 MHz FPGA-to-ADC input-clock simulation
+
+Run 2026-10-19T09:44:52.332568+00:00; 12 ngspice cases.
+All cases retain P driven0..1.8V and N actively drivenlow; no FPGA settings changed.
+R165 fitted cases: differential plateau peak-to-peak spans 0.802 to 1.458V.
+Nominal25ohm/1ns case and removed-R165 comparison are plotted in input_clock_comparison.png.
+Driver resistance and slew are sensitivity assumptions, not calibrated DRIVE24 behavior.
+The ADC sample-clock arrives through D8/D9,C61/C60,U14pins58/59.
+R165 only loads this incoming clock; it does not terminate returned LCLK,ADCLK or OUT1..5.
+This model cannot establish the measured waveform, converter operation, data capture, or hardware safety.
+See results.json for all assumptions and limitations and results.csv for metrics.

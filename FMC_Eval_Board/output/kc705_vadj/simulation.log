@@ -1,0 +1,120 @@
+#-----------------------------------------------------------
+# xsim v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sun Oct 18 17:22:03 2026
+# Process ID         : 11604
+# Current directory  : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_vadj_sim
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/vadj_test/xsim_script.tcl}
+# Log file           : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_vadj_sim/xsim.log
+# Journal file       : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_vadj_sim\xsim.jou
+# Running On         : DESKTOP-CVDV1JP
+# Platform           : Windows 11
+# Operating System   : 26200
+# Processor Detail   : AMD Ryzen 5 5600U with Radeon Graphics         
+# CPU Frequency      : 2296 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 7330 MB
+# Swap memory        : 11811 MB
+# Total Virtual      : 19141 MB
+# Available Virtual  : 4915 MB
+#-----------------------------------------------------------
+source xsim.dir/vadj_test/xsim_script.tcl
+# xsim {vadj_test} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS 50100000: startup emits no bus transaction
+PASS 50100000: startup bus released
+PASS 135209000: slave received expected byte
+PASS 225344000: slave received expected byte
+PASS 330494000: slave received expected byte
+PASS 430644000: master ACK/NACK read byte
+PASS 520779000: master ACK/NACK read byte
+PASS 540908000: completion error code
+PASS 540908000: error flag consistent
+PASS 540908000: read bytes packed least significant byte first
+PASS 540908000: only payload bytes counted as ACKed writes
+PASS 540908000: combined read has repeated START and one STOP
+PASS 590908000: unchanged token does not retrigger
+PASS 676019000: slave received expected byte
+PASS 766154000: slave received expected byte
+PASS 856289000: slave received expected byte
+PASS 946424000: slave received expected byte
+PASS 1036559000: slave received expected byte
+PASS 1126694000: slave received expected byte
+PASS 1216829000: slave received expected byte
+PASS 1306964000: slave received expected byte
+PASS 1397099000: slave received expected byte
+PASS 1427243000: completion error code
+PASS 1427243000: error flag consistent
+PASS 1427243000: all eight payload writes ACKed
+PASS 1512354000: slave received expected byte
+PASS 1542498000: completion error code
+PASS 1542498000: error flag consistent
+PASS 1542498000: address NACK does not count data ACKs
+PASS 1627609000: slave received expected byte
+PASS 1717744000: slave received expected byte
+PASS 1747888000: completion error code
+PASS 1747888000: error flag consistent
+PASS 1832999000: slave received expected byte
+PASS 1923134000: slave received expected byte
+PASS 2028284000: slave received expected byte
+PASS 2058428000: completion error code
+PASS 2058428000: error flag consistent
+PASS 2153534000: slave received expected byte
+PASS 2243669000: slave received expected byte
+PASS 2273813000: completion error code
+PASS 2273813000: error flag consistent
+PASS 2273813000: clock stretch completes with released bus
+PASS 2333918000: completion error code
+PASS 2333918000: error flag consistent
+PASS 2333918000: SCL timeout releases both master drivers
+PASS 2355123000: completion error code
+PASS 2355123000: error flag consistent
+PASS 2355123000: bus-busy failure never drives lines
+PASS 2355123000: busy bus produces no START
+PASS 2356233000: completion error code
+PASS 2356233000: error flag consistent
+PASS 2356233000: invalid length produces no START
+PASS 2406235000: token zero never executes
+PASS 2491344000: slave received expected byte
+PASS 2581479000: slave received expected byte
+PASS 2686629000: slave received expected byte
+PASS 2786779000: master ACK/NACK read byte
+PASS 2876914000: master ACK/NACK read byte
+PASS 2897043000: completion error code
+PASS 2897043000: error flag consistent
+PASS 2897043000: VOUT_COMMAND word uses little-endian 0x2800
+PASS 2982154000: slave received expected byte
+PASS 3072289000: slave received expected byte
+PASS 3162424000: slave received expected byte
+PASS 3192568000: completion error code
+PASS 3192568000: error flag consistent
+PASS 3192568000: PAGE write 00 03 ACK count
+PASS 3277679000: slave received expected byte
+PASS 3367814000: slave received expected byte
+PASS 3457949000: slave received expected byte
+PASS 3548084000: slave received expected byte
+PASS 3578228000: completion error code
+PASS 3578228000: error flag consistent
+PASS 3578228000: word write 21 cd 1c ACK count
+PASS 3663339000: slave received expected byte
+PASS 3753474000: slave received expected byte
+PASS 3858624000: slave received expected byte
+PASS 3958774000: master ACK/NACK read byte
+PASS 4048909000: master ACK/NACK read byte
+PASS 4139044000: master ACK/NACK read byte
+PASS 4229179000: master ACK/NACK read byte
+PASS 4319314000: master ACK/NACK read byte
+PASS 4409449000: master ACK/NACK read byte
+PASS 4499584000: master ACK/NACK read byte
+PASS 4589719000: master ACK/NACK read byte
+PASS 4609848000: completion error code
+PASS 4609848000: error flag consistent
+PASS 4609848000: all eight read bytes packed in order
+ALL TESTS PASSED
+$finish called at time : 4609847500 ps : File "C:/Users/fpga.DESKTOP-CVDV1JP/kc705_vadj_sim/tb_kc705_vadj_bridge.v" Line 262
+exit
+INFO: [Common 17-206] Exiting xsim at Sun Oct 18 17:22:05 2026...

@@ -1,0 +1,16 @@
+SCAN_READ_TEST_PASS: LSB-first 18 cycles, OP_SET=0, bounded hold, ADC sums, ADC/clock/READY fault aborts, idle isolation
+tb_scan_read.v:50: $finish called at 568237500 (1ps)
+DAC0 = 0.500031 V (decoded SPI model)
+DAC1 = 2.500000 V (decoded SPI model)
+DAC2 = 0.500031 V (decoded SPI model)
+DAC3 = 2.500000 V (decoded SPI model)
+DAC5 = 2.300034 V (decoded SPI model)
+DAC9 = 0.899963 V (decoded SPI model)
+DAC10 = 0.899963 V (decoded SPI model)
+DAC11 = 0.599976 V (decoded SPI model)
+DAC12 = 1.599960 V (decoded SPI model)
+DAC13 = 0.999985 V (decoded SPI model)
+DAC14 = 3.300018 V (decoded SPI model)
+DAC15 = 1.800003 V (decoded SPI model)
+DAC81416_PCB_SCAN_SIM_PASS
+tb_dac_scan.v:107: $finish called at 13475282500 (1ps)

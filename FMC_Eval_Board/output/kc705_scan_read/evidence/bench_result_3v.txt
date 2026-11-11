@@ -1,0 +1,11 @@
+2026-10-20 bench result
+VDDA1 DAC14 target 3.0 V; physical voltage not independently measured.
+VCCD2 target 1.8 V; FMC port properties unchanged.
+ADC startup and all 10 return-clock windows passed: 10 MSPS / 60 MHz bit clock.
+Si5351 CLK0/1 2 MHz configuration and PLLA lock verified.
+Caravel CPU released via FT232H; READY handshake completed.
+Two r0/c0 scan captures completed, each with 640 baseline and 12001 active samples.
+ADC2/R10 SET path returns code 0 in both windows, so valid cell current is unavailable.
+UI HTTP check/read and CSV export verified at http://127.0.0.1:8770.
+No SET/RESET programming operation performed. Gain 7 and shunts 56 ohms are assumed for displayed current estimates.
+Await R10.2, R10.3, R46.2, R47.2 DC measurements to PCB ground.

@@ -1,0 +1,10 @@
+ADC_SPI_WRITE address=12 data=4333
+ADC_SPI_WRITE address=03 data=0002
+ADC_SPI_WRITE address=01 data=0010
+ADC_SPI_WRITE address=e3 data=0060
+ADC_SPI_WRITE address=c7 data=8001
+ADC_SPI_WRITE address=de data=01c0
+ADC_SPI_WRITE address=42 data=8001
+ADC_SPI_WRITE address=25 data=0000
+ADS5282_10MSPS_INTERNAL94_SIM_PASS
+tb_ads5282_control.v:57: $finish called at 11203072500 (1ps)

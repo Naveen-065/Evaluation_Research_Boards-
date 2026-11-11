@@ -1,0 +1,11 @@
+DAC81416 REF load-pulse equivalent
+* Published values used: 2.5 V reference, 0.1 ohm output impedance.
+* 5 mA, 5 ns pulse is a sensitivity stimulus, not a claimed DAC load waveform.
+.options reltol=1e-7 abstol=1e-13 vntol=1e-10 plotwinsize=0
+Videal ideal 0 2.5
+Rout ideal ref 0.1
+Iload ref 0 PULSE(0 5m 1u 1n 1n 5n 2u)
+* no external REF capacitor
+.tran 0.02n 1.02u
+.save time v(ref)
+.end

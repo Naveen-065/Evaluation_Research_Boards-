@@ -1,0 +1,75 @@
+{
+  "time": "2026-10-20T06:05:11.220684+00:00",
+  "row": 0,
+  "col": 0,
+  "packet": "0x0000",
+  "baseline_samples": 640,
+  "active_samples": 12001,
+  "adc_rate_hz": 10000000,
+  "scan_clock_hz": 2000000,
+  "shunt_ohms": 56,
+  "nominal_gain": 7,
+  "calibrated": false,
+  "clipped": true,
+  "channels": [
+    {
+      "channel": 1,
+      "path": "READ / R9",
+      "baseline_code": 2037.2953125,
+      "active_code": 2037.600449962503,
+      "rail_clipped": false,
+      "adc_diff_mv": -5.077905291746565,
+      "delta_adc_mv": 0.1489929016128544,
+      "estimated_current_ua": -12.953840029965727,
+      "delta_current_ua": 0.38008393268585305
+    },
+    {
+      "channel": 2,
+      "path": "RESET / R11",
+      "baseline_code": 0.0,
+      "active_code": 0.0,
+      "rail_clipped": true,
+      "adc_diff_mv": -1000.0,
+      "delta_adc_mv": 0.0,
+      "estimated_current_ua": null,
+      "delta_current_ua": null
+    },
+    {
+      "channel": 3,
+      "path": "SET / R10",
+      "baseline_code": 2031.7203125,
+      "active_code": 2052.5042913090574,
+      "rail_clipped": false,
+      "adc_diff_mv": 2.1993609907506873,
+      "delta_adc_mv": 10.148427152860018,
+      "estimated_current_ua": 5.610614772323182,
+      "delta_current_ua": 25.888844777704126
+    },
+    {
+      "channel": 4,
+      "path": "ADC4",
+      "baseline_code": 2043.9171875,
+      "active_code": 2043.9186734438797,
+      "rail_clipped": false,
+      "adc_diff_mv": -1.9928352324806164,
+      "delta_adc_mv": 0.000725558535030757,
+      "estimated_current_ua": null,
+      "delta_current_ua": null
+    },
+    {
+      "channel": 5,
+      "path": "ADC5",
+      "baseline_code": 1989.3484375,
+      "active_code": 1989.4078826764437,
+      "rail_clipped": false,
+      "adc_diff_mv": -28.609432286892723,
+      "delta_adc_mv": 0.0290259650603808,
+      "estimated_current_ua": null,
+      "delta_current_ua": null
+    }
+  ],
+  "raw_result0": "00136d5f0013f5cb0013d74d000000000013e53d2ee102800000003f00000200",
+  "raw_result1": "534352310a3e3fe2fe0001fe016c4d44017648ac0177db28000000000175207b",
+  "source_log": "read_cell_20261020_140423.log",
+  "mapping_revision": "2026-10-20 PCB-verified ADC2=RESET, ADC3=SET"
+}

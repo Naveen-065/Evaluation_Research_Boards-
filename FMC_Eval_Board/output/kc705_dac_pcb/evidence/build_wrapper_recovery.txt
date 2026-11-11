@@ -1,0 +1,1 @@
+Confirmed successful child synthesis; restored missing wrapper completion marker after SSH/WMI error.

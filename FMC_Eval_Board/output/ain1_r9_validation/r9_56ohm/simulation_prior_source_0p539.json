@@ -1,0 +1,286 @@
+{
+  "user_confirmed_R9_ohms": 56,
+  "R31_fitted_value_confirmed": false,
+  "assumed_load_ohms": 3300,
+  "assumed_Caravel_removed": true,
+  "source_voltage_V": 0.539,
+  "source_voltage_basis": "Earlier meter reading, not remeasured after shunt replacement",
+  "results": [
+    {
+      "R31_ohms": 100,
+      "gain": 61.0,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.5486364719904648,
+      "ideal_ADC_code": 3171.607494636472,
+      "ideal_ADC_increment": 1123.607494636472,
+      "ngspice_ADC_increment": 1123.662312476361,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5031207750279079,
+          "v(amp1_n)": 1.502257636710055,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.0008631383178527852,
+          "ideal_ADC_code_from_model": 2049.7677072749625
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.7774519520087457,
+          "v(amp1_n)": 1.2279255751770448,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.5495263768317009,
+          "ideal_ADC_code_from_model": 3173.4300197513235
+        }
+      }
+    },
+    {
+      "R31_ohms": 150,
+      "gain": 41.0,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.36875566150178785,
+      "ideal_ADC_code": 2803.2115947556613,
+      "ideal_ADC_increment": 755.2115947556615,
+      "ngspice_ADC_increment": 755.2483940295874,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5030207810460965,
+          "v(amp1_n)": 1.502357630697067,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.0006631503490295287,
+          "ideal_ADC_code_from_model": 2049.3581319148125
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.6874071541605227,
+          "v(amp1_n)": 1.3179703739142337,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.369436780246289,
+          "ideal_ADC_code_from_model": 2804.6065259444
+        }
+      }
+    },
+    {
+      "R31_ohms": 470,
+      "gain": 13.76595744680851,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.12381157913422769,
+      "ideal_ADC_code": 2301.566114066898,
+      "ideal_ADC_increment": 253.5661140668983,
+      "ngspice_ADC_increment": 253.4813010072994,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5029082869298511,
+          "v(amp1_n)": 1.5024701201647515,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.0004381667650996679,
+          "ideal_ADC_code_from_model": 2048.897365534924
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.564792931269762,
+          "v(amp1_n)": 1.4405845979971919,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.12420833327257008,
+          "ideal_ADC_code_from_model": 2302.3786665422235
+        }
+      }
+    },
+    {
+      "R31_ohms": 1000,
+      "gain": 7.0,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.06295828367103695,
+      "ideal_ADC_code": 2176.9385649582837,
+      "ideal_ADC_increment": 128.93856495828368,
+      "ngspice_ADC_increment": 128.84754711648293,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5028744614578162,
+          "v(amp1_n)": 1.5025039456329954,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.00037051582482083845,
+          "ideal_ADC_code_from_model": 2048.758816409233
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.5343309433798196,
+          "v(amp1_n)": 1.4710465861895285,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.06328435719029102,
+          "ideal_ADC_code_from_model": 2177.606363525716
+        }
+      }
+    },
+    {
+      "R31_ohms": 2000,
+      "gain": 4.0,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.0359761620977354,
+      "ideal_ADC_code": 2121.6791799761622,
+      "ideal_ADC_increment": 73.6791799761621,
+      "ngspice_ADC_increment": 73.58535445472899,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5028594784218636,
+          "v(amp1_n)": 1.502518928677658,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.00034054974420572037,
+          "ideal_ADC_code_from_model": 2048.6974458761333
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.520824214148995,
+          "v(amp1_n)": 1.484553315549941,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.03627089859905386,
+          "ideal_ADC_code_from_model": 2122.2828003308623
+        }
+      }
+    },
+    {
+      "R31_ohms": 6040,
+      "gain": 1.9933774834437086,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.017928517866586682,
+      "ideal_ADC_code": 2084.7176045907695,
+      "ideal_ADC_increment": 36.717604590769525,
+      "ngspice_ADC_increment": 36.62198549140021,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5028494421862355,
+          "v(amp1_n)": 1.5025289649086053,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.0003204772776301823,
+          "ideal_ADC_code_from_model": 2048.6563374645866
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.5117899179637262,
+          "v(amp1_n)": 1.4935876118328733,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.01820230613085294,
+          "ideal_ADC_code_from_model": 2085.278322955987
+        }
+      }
+    },
+    {
+      "R31_ohms": 10000,
+      "gain": 1.6,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.01439046483909416,
+      "ideal_ADC_code": 2077.471671990465,
+      "ideal_ADC_increment": 29.47167199046484,
+      "ngspice_ADC_increment": 29.3756883173578,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.5028474822730744,
+          "v(amp1_n)": 1.5025309248340812,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.00031655743899317024,
+          "ideal_ADC_code_from_model": 2048.648309635058
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.5100188425337229,
+          "v(amp1_n)": 1.4953586872835198,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.014660155250203033,
+          "ideal_ADC_code_from_model": 2078.023997952416
+        }
+      }
+    },
+    {
+      "R31_ohms": null,
+      "gain": 1.000000006,
+      "ideal_current_A": 0.00016060786650774734,
+      "ideal_shunt_drop_V": 0.00899404052443385,
+      "ideal_ADC_signal_V": 0.008994040578398093,
+      "ideal_ADC_code": 2066.4197951045594,
+      "ideal_ADC_increment": 18.419795104559295,
+      "ngspice_ADC_increment": 18.32334067845386,
+      "runs": {
+        "unloaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5390000006491316,
+          "v(inp)": 0.5390000010713188,
+          "v(inn)": 0.5390000025495768,
+          "v(amp1_p)": 1.502844465811595,
+          "v(amp1_n)": 1.5025339412841063,
+          "shunt_drop_V": -6.491315263090769e-10,
+          "adc_diff_V": 0.00031052452748858705,
+          "ideal_ADC_code_from_model": 2048.6359542322966
+        },
+        "loaded": {
+          "v(dac0)": 0.539,
+          "v(vcc_read)": 0.5300059601492566,
+          "v(inp)": 0.539000001071319,
+          "v(inn)": 0.5300059620639073,
+          "v(amp1_p)": 1.5073174990291773,
+          "v(amp1_n)": 1.4980600308110374,
+          "shunt_drop_V": 0.00899403985074343,
+          "adc_diff_V": 0.009257468218139886,
+          "ideal_ADC_code_from_model": 2066.9592949107505
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "ADC conversion is ideal static 12-bit / 2 Vpp; actual ADC offset and noise not modeled.",
+    "TI INA851 preliminary macro-model; simulation does not establish fitted gain or ADC bit alignment."
+  ]
+}

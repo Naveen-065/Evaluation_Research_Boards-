@@ -1,0 +1,2 @@
+ADC_WORD_SNAPSHOT_100_PACKETS_COHERENT_PASS
+tb_word_snapshot.v:34: $finish called at 10266264 (1ps)

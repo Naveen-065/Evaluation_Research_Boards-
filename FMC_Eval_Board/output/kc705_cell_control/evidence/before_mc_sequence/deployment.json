@@ -1,0 +1,411 @@
+{
+  "ready": true,
+  "reason": "Corrected WB image loaded; retesting functional WB results.",
+  "vdda1_target_v": 3.0,
+  "vccd2_target_v": 1.8,
+  "fmc_vadj_v": 1.8,
+  "fmc_properties_unchanged": true,
+  "setup_slack_ns": 0.36,
+  "hold_slack_ns": 0.059,
+  "calibrated": false,
+  "hashes": {
+    "build/kc705_adc_capture.bit": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c",
+    "build/kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96",
+    "firmware/gui_wb_mode.bin": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef"
+  },
+  "hardware_tests": {
+    "read": {
+      "executed": true,
+      "job_id": "1d459bef65974cf2a031d92658cbfe91",
+      "parameters": {
+        "mode": "read",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "read",
+          "set_path": 17.02614224364054
+        }
+      ],
+      "tdc": []
+    },
+    "set": {
+      "executed": true,
+      "job_id": "dd4c6d52f00e4e09b1c38cfbf616ad46",
+      "parameters": {
+        "mode": "set",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 3,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "before_set",
+          "set_path": 14.30274173576158
+        },
+        {
+          "operation": "set_pulse",
+          "set_path": 57.016414981094705
+        },
+        {
+          "operation": "after_set",
+          "set_path": 49.28001593779237
+        }
+      ],
+      "tdc": []
+    },
+    "reset": {
+      "executed": true,
+      "job_id": "d66f25357c54475ab3585b99f90408eb",
+      "parameters": {
+        "mode": "reset",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 3,
+        "reset_wl": 2.88,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 3,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "before_reset",
+          "set_path": 48.68024548638823
+        },
+        {
+          "operation": "reset_pulse",
+          "set_path": 16.846384781712228
+        },
+        {
+          "operation": "after_reset",
+          "set_path": 17.085510511440678
+        }
+      ],
+      "tdc": []
+    },
+    "cycle": {
+      "executed": true,
+      "job_id": "0f2daeea7cae4e8bbbc0c4559d296730",
+      "parameters": {
+        "mode": "cycle",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 6,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "before_set",
+          "set_path": 48.04630368620175
+        },
+        {
+          "operation": "set_pulse",
+          "set_path": 57.53199751620015
+        },
+        {
+          "operation": "after_set",
+          "set_path": 49.39218755748358
+        },
+        {
+          "operation": "before_reset",
+          "set_path": 48.596602754002
+        },
+        {
+          "operation": "reset_pulse",
+          "set_path": 14.651074502660721
+        },
+        {
+          "operation": "after_reset",
+          "set_path": 48.80825499348603
+        }
+      ],
+      "tdc": []
+    },
+    "column": {
+      "executed": true,
+      "job_id": "0854d63ae8204503b1923e2373ec3475",
+      "parameters": {
+        "mode": "column",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 32,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [],
+      "tdc": []
+    },
+    "array": {
+      "executed": true,
+      "job_id": "3c48d19f06b3446bbc8a58b409cd6e7c",
+      "parameters": {
+        "mode": "array",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 1024,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [],
+      "tdc": []
+    },
+    "wb_read": {
+      "executed": true,
+      "job_id": "c1701cc7754a4cafb6dce07c0fc1c297",
+      "parameters": {
+        "mode": "wb_read",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": false,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "read",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        }
+      ]
+    },
+    "wb_set": {
+      "executed": true,
+      "job_id": "37ab9c761db64a8f861df132d1395c0d",
+      "parameters": {
+        "mode": "wb_set",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": false,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "set",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        }
+      ]
+    },
+    "wb_reset": {
+      "executed": true,
+      "job_id": "977b07261caa4bacb31a92b44e605ffe",
+      "parameters": {
+        "mode": "wb_reset",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": false,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "reset",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        }
+      ]
+    },
+    "wb_cycle": {
+      "executed": true,
+      "job_id": "59c714bb26714f96832a9b1c9957c842",
+      "parameters": {
+        "mode": "wb_cycle",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "capture_count": 5,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": false,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "read",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        },
+        {
+          "operation": "set",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        },
+        {
+          "operation": "read",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        },
+        {
+          "operation": "reset",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        },
+        {
+          "operation": "read",
+          "selected": "0x00000000",
+          "coarse": 0,
+          "fine": 0,
+          "extra": 0,
+          "matching_column": false
+        }
+      ]
+    }
+  },
+  "trace_enabled": true,
+  "validation_note": "Scan read/column/array and SET response verified. r0/c0 RESET at 3.0 V / WL 2.88 V reduced 48.68 to 17.09 \u00b5A. Wishbone commands complete but return zero TDC data: cell results remain unverified.",
+  "wb_tm_held_low": true,
+  "final_read_job": "1d459bef65974cf2a031d92658cbfe91",
+  "final_read_uA_nominal": 17.02614224364054,
+  "gui_browser_errors": [],
+  "pending_hardware_measurements": {},
+  "source_hashes": {
+    "kc705_adc_test.v": "623daa18db5a12b628dd6a905900e7745b8653a94cac4ff0a6b3fc66d62f8a23",
+    "cell_control_engine.v": "e554e5320704551734053cadc9730e659a830af007afc310e9b687a76a335ddf",
+    "control.tcl": "d6ab78a2f93df81457f9094262e5dd8d5f2c2a91106a744dc7c2f1e22fe1dceb",
+    "initialize.tcl": "11d86bddd047323232a26e1496f4b5c78323167401a4575687fcd4050654a3a7",
+    "gui/index.html": "4215abe1cd41ba6b407ac201e091c647e6e8911cd40644af903598a940d8638d",
+    "gui/app.js": "84a2bec9433bb321ca195f6bf9cee352175a5c23cb29ecafb5e7301337b4a547",
+    "gui/server.py": "31a1d97bfa496f89cc9cd91e5e67091e7c528bc30d16d9e72086430e5f0da1b6",
+    "model.py": "429a8c2b66b898a34d12a0c811b5b06a71a22cd38a80dc4231de32e0672ea93a",
+    "gui/styles.css": "382ddf70d4e3c2de5ba345fe15a33c9fa5f531e2a818008eaa988502faf923ef"
+  },
+  "manual_measurements": {
+    "profile": "scan idle",
+    "source": "User DMM readings",
+    "reported_at": "2026-10-20T08:28:01.285899+00:00",
+    "NT7_pad2_IREF_V": 0.933,
+    "NT11_pad2_DC_BIAS_V": 0.998,
+    "targets_V": {
+      "NT7_pad2_IREF": 0.9,
+      "NT11_pad2_DC_BIAS": 1.0,
+      "NT8_pad2_VCOMP": 0.9,
+      "NT9_pad2_BIAS_COMP2": 0.6,
+      "NT10_pad2_VBIAS": 1.6
+    },
+    "NT8_pad2_VCOMP_V": 0.937,
+    "NT9_pad2_BIAS_COMP2_V": 0.637,
+    "NT10_pad2_VBIAS_V": 1.63
+  },
+  "frontend": "Evaluation reference layout, single logarithmic Read Trace and pulse-voltage subplot",
+  "programmed_at": "2026-10-20T09:03:58.883058+00:00",
+  "wb_se_held_low": true,
+  "wb_power_mask": "0x01CC"
+}

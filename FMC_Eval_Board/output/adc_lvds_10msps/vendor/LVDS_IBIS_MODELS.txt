@@ -1,0 +1,1012 @@
+ 1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IBIS models for LVDS buffers in ADS528x and 
+AFE5805 
+ 
+ 
+ 
+Texas Instruments 
+Dec 9, 2007 
+  
+     TEXAS 
+INSTRUMENTS 
+ 
+ 
+ 
+ 2
+How to use the models: 
+ 
+1. Choose the LVDS drive current setting. The various current settings are 3.5 mA 
+(default), 0.5 mA, 1.5 mA, 2.5 mA, 4.5 mA, 5.5 mA, 6.5 mA, 7.5 mA. The 
+selected setting can be chosen in HSPICE through the keyword MODEL. For 
+example, the 3.5 mA drive is chosen as MODEL = "lvds_obuf_3.5". Although models 
+have been provided for all these current settings, it is recommended that current 
+settings lower than 1.5 mA not be used.  
+2. Choose the LVDS internal termination setting. The various internal 
+termination settings are "None" (default), 260 Ohm, 150 Ohm, 94 Ohm, 125 Ohm, 
+80 Ohm, 66 Ohm and 55 Ohm. Once chosen, the appropriate termination should 
+be added as a resistor of the corresponding value between the positive and 
+negative outputs of the IBIS model for the LVDS buffer. 
+3. Choose the package. These IBIS models can be used for the any of the following 
+devices – ADS5281IPFP (80-pin TQFP), ADS528xIRGC (64-pin QFN) or 
+AFE5805ZCF (135-ball BGA). The values of R_pkg, L_pkg and C_pkg for all 
+these three package options are indicated in the IBIS model files. 
+4. Choose the IBIS file for use in simulation. There are three ibis files – 
+lvds_100.ibs, lvds_75.ibs and lvds_50.ibs. These correspond to the three values of 
+loading (100, 75 and 50 Ohm) for which the models have been developed. To 
+determine which one is to be used in a simulation, compute the effective resistive 
+loading on the LVDS buffer. For example, if an internal termination setting of 
+260 Ohm is used, and the termination at the receiver is 100 Ohm, then the 
+effective resistive loading is 260 Ohm in parallel with 100 Ohm, which is 72.2 
+Ohm. Choose the file that corresponds to the loading closest to the computed 
+value ( 72.2 Ohm). So for this case, choose the file lvds_75.ibs. If the internal 
+termination was set to “None” and a 100 Ohm termination was used at the 
+receiver, then the model of choice would have been in lvds_100.ibs.   
+ 
+The syntax for instantiating the buffers in HSPICE, with the output terminals as LOUTP, 
+LOUTM and input terminals as HI, LO is as follows:  
+BoutputP puP pdP      LOUTP     HI     FILE = "lvds_75.ibs"     MODEL = "lvds_obuf_3.5" TYP=typ POWER=ON 
+BUFFER = OUTPUT RAMP_RWF = 1 RAMP_FWF = 1 INTERPOL=2 
+BoutputM puM pdM      LOUTM     LO     FILE = "lvds_75.ibs"     MODEL = "lvds_obuf_3.5" TYP=typ POWER=ON 
+BUFFER = OUTPUT RAMP_RWF = 1 RAMP_FWF = 1  INTERPOL=2 
+ 
+In the above statements, puP, pdP and puM, pdM are the internal pull-up and pull-down 
+nodes of the P and M respectively. 
+ 
+To further include an internal termination of 260 Ohm, add the following line: 
+RTERM LOUTP LOUTM 260 
+ 
+Note: HI and LO are complementary inputs to the buffer and have logic levels of 0V (for 
+low) and 1.8V (for high). In HSPICE, they could be defined as follows: 
+ 
+VLO LO 0 PULSE(0 1.8 1e-10 1e-10 1e-10 9e-09 20e-09) 
+VHI HI 0 PULSE(1.8 0 1e-10 1e-10 1e-10 9e-09 20e-09) 
+ 3
+Method of modelling the LVDS buffer through IBIS 
+ 
+Since the LVDS buffer has differential inputs and outputs, some additional considerations 
+are involved while modeling it through IBIS. 
+ 
+LVDS buffer architecture 
+The structure of the LVDS buffer is shown in Figure 1. HI and LO refer to the differential 
+input to the buffer. Voltage levels of 0 Volts and 1.8 Volts correspond to logic levels of 
+‘0’ and ‘1’ at HI and LO. LOUTP and LOUTM are the differential output of the buffer. 
+The buffer consists of two current sources (one NMOS and one PMOS) and a set of four 
+switches to change the direction of the current flowing into the external load.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+While the NMOS current source is a constant current source (its value set by one of the 
+four current mode settings), the PMOS current source is controlled through a feedback 
+loop as shown in Figure 2. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 2. Controlling the PMOS current source  
+Figure 1. LVDS buffer architecture  
+LVDD = 1.8 Volts
+LVDD = 1.8 Volts
+ 4
+The PMOS current source is controlled so as to maintain the output common mode 
+voltage of the buffer equal to a reference voltage of 1.2 Volts.  
+Pulldown and Pullup V-I tables 
+Since the LVDS buffer does not have a tristate, the power and ground clamp data are 
+merged into the pullup and pulldown tables. The switches are controlled using HI and LO 
+and the voltage at LOUTP is swept from –VDD to 2*VDD. The setup for the pulldown 
+data is as shown in Figure 3. A load resistor connects LOUTM to the common mode 
+voltage of VBG=1.2 Volts. In Figure 3, this resistor is shown to be 50 Ohm, which 
+corresponds to a differential loading of 100 Ohm between LOUTP and LOUTM. The 
+models generated with this loading therefore comprise the file lvds_100.ibs. Similarly, 
+models in files lvds_50.ibs and lvds_75.ibs are generated with resistors (as in Figure 3) of 
+25 Ohm and 37.5 Ohm respectively. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The pullup data is generated by the method shown in Figure 4. Here again, the resistor on 
+LOUTM is 50 Ohm, indicating that this is for the models in file lvds_100.ibs. 
+ 
+Figure 3. Voltage sweep for Pulldown table  
+Figure 4. Voltage sweep for Pullup table  
+LVDD = 1.8 Volts
+LVDD = 1.8 Volts
+ 5
+Generating the V-t table 
+ 
+The V-t tables are generated using the setup shown in Figure 5.  
+ 
+Figure 5. Generation of V-t table 
+LVDS buffer 
+LVDD = 1.8 Volts
+ 6
+Comparison of IBIS model with the actual circuit 
+The IBIS models were generated and compared with the actual circuit through SPICE 
+simulations. Figure 6 shows the simulation environment for the actual LVDS buffer, 
+while Figure 7 shows the identical environment used for the IBIS model. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 8 shows a comparison of the SPICE simulation results obtained from the IBIS 
+model with those from the actual circuit. These waveforms correspond to the difference 
+between the voltages on nodes LOUTP_RECEIVER and LOUTM_RECEIVER. The 
+delay of the transmission line was set to 100 ps. 
+Figure 6. Simulation environment for the actual circuit of the LVDS buffer  
+Figure 7. Simulation environment for the IBIS model of the LVDS buffer  
+260 
+Ohm
+260 
+Ohm
+lvds_75.ibs
+ 7
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+As can be observed, there is a close match between the actual circuit and its IBIS model. 
+Figure 8. Comparison of simulation results 
+Green Waveform– LOUTP_RECEIVER-LOUTM_RECEIVER (Actual circuit) 
+Pink Waveform– LOUTP_RECEIVER-LOUTM_RECEIVER (IBIS model) 
+ 8
+MODEL SUMMARY 
+ 
+Modeling conditions: 
+ 
+Condition typ/ min/ max 
+LVDD 1.8 V/ 1.65 V/ 1.95 V 
+VBG (Common mode 
+reference) 
+1.2 V/ 1.1 V/ 1.3 V 
+Junction temperature (Tj) 25/ 125/ -40 (degree C) 
+Process setting nominal/ weak/ strong 
+ 
+Package Characteristics: 
+ 
+ADS5281IPFP – 80-pin, TQFP package 
+Characteristics typ/ min/ max 
+R_pkg: 0.5 / NA / NA 
+L_pkg 5 nH/ NA/ NA 
+C_pkg 2 pF/ NA / NA 
+ 
+ADS5281IRGC, ADS5282IRGC – 64-pin, QFN package 
+Characteristics typ/ min/ max 
+R_pkg: 0.5 / NA / NA 
+L_pkg 2 nH/ NA/ NA 
+C_pkg 0.3 pF/ NA / NA 
+ 
+AFE5805ZCF – 135-ball, BGA package 
+Characteristics typ/ min/ max 
+R_pkg: 0.3 / NA / NA 
+L_pkg 5 nH/ NA/ NA 
+C_pkg 1 pF/ NA / NA 
+ 
+Quality Verification: 
+ 
+The created IBIS models are verified as follows: 
+1. Visual check of each characteristics using the s2iplt tool 
+2. Syntax check by IBISCHK4 
+3. Behavior of IBIS models and actual circuit compared using SPICE 
+ 
+IMPORTANT
+NOTICE
+Texas
+Instruments
+Incorporated
+and
+its
+subsidiaries
+(TI)
+reserve
+the
+right
+to
+make
+corrections,
+modifications,
+enhancements,
+improvements,
+and
+other
+changes
+to
+its
+products
+and
+services
+at
+any
+time
+and
+to
+discontinue
+any
+product
+or
+service
+without
+notice.
+Customers
+should
+obtain
+the
+latest
+relevant
+information
+before
+placing
+orders
+and
+should
+verify
+that
+such
+information
+is
+current
+and
+complete.
+All
+products
+are
+sold
+subject
+to
+TI
+’
+s
+terms
+and
+conditions
+of
+sale
+supplied
+at
+the
+time
+of
+order
+acknowledgment.
+TI
+warrants
+performance
+of
+its
+hardware
+products
+to
+the
+specifications
+applicable
+at
+the
+time
+of
+sale
+in
+accordance
+with
+TI
+’
+s
+standard
+warranty.
+Testing
+and
+other
+quality
+control
+techniques
+are
+used
+to
+the
+extent
+TI
+deems
+necessary
+to
+support
+this
+warranty.
+Except
+where
+mandated
+by
+government
+requirements,
+testing
+of
+all
+parameters
+of
+each
+product
+is
+not
+necessarily
+performed.
+TI
+assumes
+no
+liability
+for
+applications
+assistance
+or
+customer
+product
+design.
+Customers
+are
+responsible
+for
+their
+products
+and
+applications
+using
+TI
+components.
+To
+minimize
+the
+risks
+associated
+with
+customer
+products
+and
+applications,
+customers
+should
+provide
+adequate
+design
+and
+operating
+safeguards.
+TI
+does
+not
+warrant
+or
+represent
+that
+any
+license,
+either
+express
+or
+implied,
+is
+granted
+under
+any
+TI
+patent
+right,
+copyright,
+mask
+work
+right,
+or
+other
+TI
+intellectual
+property
+right
+relating
+to
+any
+combination,
+machine,
+or
+process
+in
+which
+TI
+products
+or
+services
+are
+used.
+Information
+published
+by
+TI
+regarding
+third-party
+products
+or
+services
+does
+not
+constitute
+a
+license
+from
+TI
+to
+use
+such
+products
+or
+services
+or
+a
+warranty
+or
+endorsement
+thereof.
+Use
+of
+such
+information
+may
+require
+a
+license
+from
+a
+third
+party
+under
+the
+patents
+or
+other
+intellectual
+property
+of
+the
+third
+party,
+or
+a
+license
+from
+TI
+under
+the
+patents
+or
+other
+intellectual
+property
+of
+TI.
+Reproduction
+of
+TI
+information
+in
+TI
+data
+books
+or
+data
+sheets
+is
+permissible
+only
+if
+reproduction
+is
+without
+alteration
+and
+is
+accompanied
+by
+all
+associated
+warranties,
+conditions,
+limitations,
+and
+notices.
+Reproduction
+of
+this
+information
+with
+alteration
+is
+an
+unfair
+and
+deceptive
+business
+practice.
+TI
+is
+not
+responsible
+or
+liable
+for
+such
+altered
+documentation.
+Information
+of
+third
+parties
+may
+be
+subject
+to
+additional
+restrictions.
+Resale
+of
+TI
+products
+or
+services
+with
+statements
+different
+from
+or
+beyond
+the
+parameters
+stated
+by
+TI
+for
+that
+product
+or
+service
+voids
+all
+express
+and
+any
+implied
+warranties
+for
+the
+associated
+TI
+product
+or
+service
+and
+is
+an
+unfair
+and
+deceptive
+business
+practice.
+TI
+is
+not
+responsible
+or
+liable
+for
+any
+such
+statements.
+TI
+products
+are
+not
+authorized
+for
+use
+in
+safety-critical
+applications
+(such
+as
+life
+support)
+where
+a
+failure
+of
+the
+TI
+product
+would
+reasonably
+be
+expected
+to
+cause
+severe
+personal
+injury
+or
+death,
+unless
+officers
+of
+the
+parties
+have
+executed
+an
+agreement
+specifically
+governing
+such
+use.
+Buyers
+represent
+that
+they
+have
+all
+necessary
+expertise
+in
+the
+safety
+and
+regulatory
+ramifications
+of
+their
+applications,
+and
+acknowledge
+and
+agree
+that
+they
+are
+solely
+responsible
+for
+all
+legal,
+regulatory
+and
+safety-related
+requirements
+concerning
+their
+products
+and
+any
+use
+of
+TI
+products
+in
+such
+safety-critical
+applications,
+notwithstanding
+any
+applications-related
+information
+or
+support
+that
+may
+be
+provided
+by
+TI.
+Further,
+Buyers
+must
+fully
+indemnify
+TI
+and
+its
+representatives
+against
+any
+damages
+arising
+out
+of
+the
+use
+of
+TI
+products
+in
+such
+safety-critical
+applications.
+TI
+products
+are
+neither
+designed
+nor
+intended
+for
+use
+in
+military/aerospace
+applications
+or
+environments
+unless
+the
+TI
+products
+are
+specifically
+designated
+by
+TI
+as
+military-grade
+or
+"enhanced
+plastic."
+Only
+products
+designated
+by
+TI
+as
+military-grade
+meet
+military
+specifications.
+Buyers
+acknowledge
+and
+agree
+that
+any
+such
+use
+of
+TI
+products
+which
+TI
+has
+not
+designated
+as
+military-grade
+is
+solely
+at
+the
+Buyer's
+risk,
+and
+that
+they
+are
+solely
+responsible
+for
+compliance
+with
+all
+legal
+and
+regulatory
+requirements
+in
+connection
+with
+such
+use.
+TI
+products
+are
+neither
+designed
+nor
+intended
+for
+use
+in
+automotive
+applications
+or
+environments
+unless
+the
+specific
+TI
+products
+are
+designated
+by
+TI
+as
+compliant
+with
+ISO/TS
+16949
+requirements.
+Buyers
+acknowledge
+and
+agree
+that,
+if
+they
+use
+any
+non-designated
+products
+in
+automotive
+applications,
+TI
+will
+not
+be
+responsible
+for
+any
+failure
+to
+meet
+such
+requirements.
+Following
+are
+URLs
+where
+you
+can
+obtain
+information
+on
+other
+Texas
+Instruments
+products
+and
+application
+solutions:
+Products
+Applications
+Amplifiers
+amplifier.ti.com
+Audio
+www.ti.com/audio
+Data
+Converters
+dataconverter.ti.com
+Automotive
+www.ti.com/automotive
+DSP
+dsp.ti.com
+Broadband
+www.ti.com/broadband
+Interface
+interface.ti.com
+Digital
+Control
+www.ti.com/digitalcontrol
+Logic
+logic.ti.com
+Military
+www.ti.com/military
+Power
+Mgmt
+power.ti.com
+Optical
+Networking
+www.ti.com/opticalnetwork
+Microcontrollers
+microcontroller.ti.com
+Security
+www.ti.com/security
+RFID
+www.ti-rfid.com
+Telephony
+www.ti.com/telephony
+Low
+Power
+www.ti.com/lpw
+Video
+&
+Imaging
+www.ti.com/video
+Wireless
+Wireless
+www.ti.com/wireless
+Mailing
+Address:
+Texas
+Instruments,
+Post
+Office
+Box
+655303,
+Dallas,
+Texas
+75265
+Copyright
+©
+2007,
+Texas
+Instruments
+Incorporated

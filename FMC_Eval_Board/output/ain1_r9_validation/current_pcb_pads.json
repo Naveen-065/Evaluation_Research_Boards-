@@ -1,0 +1,7818 @@
+[
+  {
+    "ref": "R56",
+    "value": "10K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 86.525,
+    "y_mm": 133.98
+  },
+  {
+    "ref": "R56",
+    "value": "10K",
+    "pad": "2",
+    "net": "Net-(U18-EN)",
+    "x_mm": 88.35,
+    "y_mm": 133.98
+  },
+  {
+    "ref": "H2",
+    "value": "MICROMOD-Standoff",
+    "pad": "",
+    "net": "",
+    "x_mm": 83.75,
+    "y_mm": 90.4625
+  },
+  {
+    "ref": "C23",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 74.649999,
+    "y_mm": 70.9875
+  },
+  {
+    "ref": "C23",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 72.750001,
+    "y_mm": 70.9875
+  },
+  {
+    "ref": "R61",
+    "value": "0",
+    "pad": "1",
+    "net": "/Caravel_M.2/vddio",
+    "x_mm": 75.4,
+    "y_mm": 75.9125
+  },
+  {
+    "ref": "R61",
+    "value": "0",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 75.4,
+    "y_mm": 74.0875
+  },
+  {
+    "ref": "R27",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/~{MEM_WP}",
+    "x_mm": 101.775,
+    "y_mm": 73.625
+  },
+  {
+    "ref": "R27",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 101.775,
+    "y_mm": 71.8
+  },
+  {
+    "ref": "R50",
+    "value": "10K",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 64.545895,
+    "y_mm": 125.480602
+  },
+  {
+    "ref": "R50",
+    "value": "10K",
+    "pad": "2",
+    "net": "FPGA_nADCRST",
+    "x_mm": 64.545901,
+    "y_mm": 127.305604
+  },
+  {
+    "ref": "C13",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.429998,
+    "y_mm": 83.512499
+  },
+  {
+    "ref": "C13",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 70.53,
+    "y_mm": 83.512499
+  },
+  {
+    "ref": "R60",
+    "value": "10K",
+    "pad": "1",
+    "net": "Net-(J9-PadH40)",
+    "x_mm": 50.2875,
+    "y_mm": 145.3
+  },
+  {
+    "ref": "R60",
+    "value": "10K",
+    "pad": "2",
+    "net": "unconnected-(R60-Pad2)",
+    "x_mm": 52.1125,
+    "y_mm": 145.3
+  },
+  {
+    "ref": "NT22",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C14",
+    "x_mm": 104.3035,
+    "y_mm": 109.5944
+  },
+  {
+    "ref": "NT22",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "vdda1",
+    "x_mm": 105.9535,
+    "y_mm": 109.5944
+  },
+  {
+    "ref": "NT16",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C04",
+    "x_mm": 91.103498,
+    "y_mm": 112.5944
+  },
+  {
+    "ref": "NT16",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VCC_WL_RESET",
+    "x_mm": 89.453502,
+    "y_mm": 112.5944
+  },
+  {
+    "ref": "C10",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.424999,
+    "y_mm": 85.55
+  },
+  {
+    "ref": "C10",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "/Caravel_M.2/VCCCORE",
+    "x_mm": 70.525001,
+    "y_mm": 85.55
+  },
+  {
+    "ref": "C60",
+    "value": "C_0201_0603Metric",
+    "pad": "",
+    "net": "",
+    "x_mm": 67.9196,
+    "y_mm": 129.9104
+  },
+  {
+    "ref": "C60",
+    "value": "C_0201_0603Metric",
+    "pad": "",
+    "net": "",
+    "x_mm": 67.9196,
+    "y_mm": 129.2204
+  },
+  {
+    "ref": "C60",
+    "value": "C_0201_0603Metric",
+    "pad": "1",
+    "net": "FPGA_MCLKIN_C_N",
+    "x_mm": 67.919599,
+    "y_mm": 129.885401
+  },
+  {
+    "ref": "C60",
+    "value": "C_0201_0603Metric",
+    "pad": "2",
+    "net": "FPGA_MCLKIN_N",
+    "x_mm": 67.919601,
+    "y_mm": 129.245399
+  },
+  {
+    "ref": "R24",
+    "value": "1K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 99.9625,
+    "y_mm": 101.8625
+  },
+  {
+    "ref": "R24",
+    "value": "1K",
+    "pad": "2",
+    "net": "Net-(D4-A)",
+    "x_mm": 98.1375,
+    "y_mm": 101.8625
+  },
+  {
+    "ref": "C54",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+1V8A",
+    "x_mm": 51.6,
+    "y_mm": 123.962501
+  },
+  {
+    "ref": "C54",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 51.6,
+    "y_mm": 125.862499
+  },
+  {
+    "ref": "NT23",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C15",
+    "x_mm": 104.3035,
+    "y_mm": 108.0944
+  },
+  {
+    "ref": "NT23",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VCCD2",
+    "x_mm": 105.9535,
+    "y_mm": 108.0944
+  },
+  {
+    "ref": "R29",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_SCK",
+    "x_mm": 102.475,
+    "y_mm": 85.1875
+  },
+  {
+    "ref": "R29",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 102.475,
+    "y_mm": 87.0125
+  },
+  {
+    "ref": "Y1",
+    "value": "12MHz",
+    "pad": "1",
+    "net": "Net-(U5-XCSI)",
+    "x_mm": 68.5,
+    "y_mm": 75.8125
+  },
+  {
+    "ref": "Y1",
+    "value": "12MHz",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 67.3,
+    "y_mm": 75.8125
+  },
+  {
+    "ref": "Y1",
+    "value": "12MHz",
+    "pad": "3",
+    "net": "Net-(U5-XCSO)",
+    "x_mm": 66.1,
+    "y_mm": 75.8125
+  },
+  {
+    "ref": "R33",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN1_P",
+    "x_mm": 82.950702,
+    "y_mm": 115.3588
+  },
+  {
+    "ref": "R33",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U10-IN+)",
+    "x_mm": 81.1257,
+    "y_mm": 115.358802
+  },
+  {
+    "ref": "R30",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/~{MEM_HOLD}",
+    "x_mm": 104.475,
+    "y_mm": 85.1875
+  },
+  {
+    "ref": "R30",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 104.475,
+    "y_mm": 87.0125
+  },
+  {
+    "ref": "R59",
+    "value": "10K",
+    "pad": "1",
+    "net": "unconnected-(R59-Pad1)",
+    "x_mm": 48.3375,
+    "y_mm": 150.75
+  },
+  {
+    "ref": "R59",
+    "value": "10K",
+    "pad": "2",
+    "net": "Net-(J9-PadG39)",
+    "x_mm": 50.1625,
+    "y_mm": 150.75
+  },
+  {
+    "ref": "R3",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_TO1",
+    "x_mm": 94.175,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R3",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 94.175,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "R2",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_TO2",
+    "x_mm": 96.15,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R2",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 96.15,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "C27",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 74.25,
+    "y_mm": 92.3
+  },
+  {
+    "ref": "C27",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 76.15,
+    "y_mm": 92.3
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_CSB",
+    "x_mm": 106.59,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "2",
+    "net": "/Caravel_M.2/Caravel_D1",
+    "x_mm": 104.05,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "3",
+    "net": "/Caravel_M.2/~{MEM_WP}",
+    "x_mm": 101.510001,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "4",
+    "net": "/Caravel_M.2/~{MEM_HOLD}",
+    "x_mm": 98.97,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "5",
+    "net": "/Caravel_M.2/Caravel_SCK",
+    "x_mm": 96.43,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "J5",
+    "value": "Conn_01x06_Pin",
+    "pad": "6",
+    "net": "/Caravel_M.2/Caravel_D0",
+    "x_mm": 93.89,
+    "y_mm": 93.3625
+  },
+  {
+    "ref": "R39",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U11-OUT+)",
+    "x_mm": 55.872201,
+    "y_mm": 122.4725
+  },
+  {
+    "ref": "R39",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP3_P",
+    "x_mm": 55.872199,
+    "y_mm": 120.6475
+  },
+  {
+    "ref": "C8",
+    "value": "CL10C4R7BB8NNNC",
+    "pad": "1",
+    "net": "/DAC/12VPWR",
+    "x_mm": 84.512101,
+    "y_mm": 126.080697
+  },
+  {
+    "ref": "C8",
+    "value": "CL10C4R7BB8NNNC",
+    "pad": "2",
+    "net": "Net-(U2-FB)",
+    "x_mm": 84.512101,
+    "y_mm": 124.355695
+  },
+  {
+    "ref": "J6",
+    "value": "Conn_02x02_Odd_Even",
+    "pad": "1",
+    "net": "AIN4_P",
+    "x_mm": 43.275,
+    "y_mm": 138.5
+  },
+  {
+    "ref": "J6",
+    "value": "Conn_02x02_Odd_Even",
+    "pad": "2",
+    "net": "AIN5_P",
+    "x_mm": 45.275,
+    "y_mm": 138.5
+  },
+  {
+    "ref": "J6",
+    "value": "Conn_02x02_Odd_Even",
+    "pad": "3",
+    "net": "AIN4_N",
+    "x_mm": 43.275,
+    "y_mm": 140.5
+  },
+  {
+    "ref": "J6",
+    "value": "Conn_02x02_Odd_Even",
+    "pad": "4",
+    "net": "AIN5_N",
+    "x_mm": 45.275,
+    "y_mm": 140.5
+  },
+  {
+    "ref": "R18",
+    "value": "12K 1%",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 64.4,
+    "y_mm": 75.35
+  },
+  {
+    "ref": "R18",
+    "value": "12K 1%",
+    "pad": "2",
+    "net": "Net-(U5-REF)",
+    "x_mm": 64.4,
+    "y_mm": 77.175
+  },
+  {
+    "ref": "R12",
+    "value": "MCT06030C1804FP500",
+    "pad": "1",
+    "net": "/DAC/12VPWR",
+    "x_mm": 82.278799,
+    "y_mm": 122.805199
+  },
+  {
+    "ref": "R12",
+    "value": "MCT06030C1804FP500",
+    "pad": "2",
+    "net": "Net-(U2-FB)",
+    "x_mm": 84.103803,
+    "y_mm": 122.805193
+  },
+  {
+    "ref": "C30",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 61.999999,
+    "y_mm": 71.062499
+  },
+  {
+    "ref": "C30",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 60.100001,
+    "y_mm": 71.062499
+  },
+  {
+    "ref": "R10",
+    "value": "470R",
+    "pad": "1",
+    "net": "AQ1_C02",
+    "x_mm": 80.215,
+    "y_mm": 106.0475
+  },
+  {
+    "ref": "R10",
+    "value": "470R",
+    "pad": "2",
+    "net": "AIN2_P",
+    "x_mm": 82.12,
+    "y_mm": 106.4925
+  },
+  {
+    "ref": "R10",
+    "value": "470R",
+    "pad": "3",
+    "net": "AIN2_N",
+    "x_mm": 79.58,
+    "y_mm": 99.6325
+  },
+  {
+    "ref": "R10",
+    "value": "470R",
+    "pad": "4",
+    "net": "VCC_SET",
+    "x_mm": 81.485,
+    "y_mm": 100.0775
+  },
+  {
+    "ref": "R49",
+    "value": "10K",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 66.908098,
+    "y_mm": 125.504103
+  },
+  {
+    "ref": "R49",
+    "value": "10K",
+    "pad": "2",
+    "net": "FPGA_nCS",
+    "x_mm": 66.908104,
+    "y_mm": 127.329105
+  },
+  {
+    "ref": "NT15",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C03",
+    "x_mm": 91.103498,
+    "y_mm": 111.0944
+  },
+  {
+    "ref": "NT15",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VCC_WL_SET",
+    "x_mm": 89.453502,
+    "y_mm": 111.0944
+  },
+  {
+    "ref": "R42",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN3_P",
+    "x_mm": 61.7355,
+    "y_mm": 114.45
+  },
+  {
+    "ref": "R42",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U13-IN+)",
+    "x_mm": 63.5605,
+    "y_mm": 114.45
+  },
+  {
+    "ref": "R28",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_D0",
+    "x_mm": 100.45,
+    "y_mm": 85.1875
+  },
+  {
+    "ref": "R28",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 100.45,
+    "y_mm": 87.0125
+  },
+  {
+    "ref": "R22",
+    "value": "10K",
+    "pad": "1",
+    "net": "Net-(J3-CC1)",
+    "x_mm": 52.4375,
+    "y_mm": 72.9125
+  },
+  {
+    "ref": "R22",
+    "value": "10K",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 54.2625,
+    "y_mm": 72.9125
+  },
+  {
+    "ref": "C3",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 101.928498,
+    "y_mm": 104.969399
+  },
+  {
+    "ref": "C3",
+    "value": "100nF",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 101.928502,
+    "y_mm": 107.919401
+  },
+  {
+    "ref": "NT19",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C11",
+    "x_mm": 104.3035,
+    "y_mm": 114.0944
+  },
+  {
+    "ref": "NT19",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "BIAS_COMP2",
+    "x_mm": 105.9535,
+    "y_mm": 114.0944
+  },
+  {
+    "ref": "C4",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 97.049998,
+    "y_mm": 104.969399
+  },
+  {
+    "ref": "C4",
+    "value": "100nF",
+    "pad": "2",
+    "net": "+5V",
+    "x_mm": 97.050002,
+    "y_mm": 107.919401
+  },
+  {
+    "ref": "NT25",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "3V3FMC",
+    "x_mm": 52.972199,
+    "y_mm": 156.6672
+  },
+  {
+    "ref": "NT25",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 54.622201,
+    "y_mm": 156.6672
+  },
+  {
+    "ref": "C51",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+3V3A",
+    "x_mm": 51.6,
+    "y_mm": 132.262501
+  },
+  {
+    "ref": "C51",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 51.6,
+    "y_mm": 134.162499
+  },
+  {
+    "ref": "R15",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/~{FTDI_RST}",
+    "x_mm": 63.529999,
+    "y_mm": 89.449999
+  },
+  {
+    "ref": "R15",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 63.529999,
+    "y_mm": 91.274999
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_CSB",
+    "x_mm": 105.055,
+    "y_mm": 75.925
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "2",
+    "net": "/Caravel_M.2/Caravel_D1",
+    "x_mm": 103.785,
+    "y_mm": 75.925
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "3",
+    "net": "/Caravel_M.2/~{MEM_WP}",
+    "x_mm": 102.515,
+    "y_mm": 75.925
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "4",
+    "net": "GND",
+    "x_mm": 101.245,
+    "y_mm": 75.925
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "5",
+    "net": "/Caravel_M.2/Caravel_D0",
+    "x_mm": 101.245,
+    "y_mm": 83.1
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "6",
+    "net": "/Caravel_M.2/Caravel_SCK",
+    "x_mm": 102.515,
+    "y_mm": 83.1
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "7",
+    "net": "/Caravel_M.2/~{MEM_HOLD}",
+    "x_mm": 103.785,
+    "y_mm": 83.1
+  },
+  {
+    "ref": "U8",
+    "value": "W25Q32FVSS",
+    "pad": "8",
+    "net": "+3V3",
+    "x_mm": 105.055,
+    "y_mm": 83.1
+  },
+  {
+    "ref": "C32",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 106.475,
+    "y_mm": 85.150001
+  },
+  {
+    "ref": "C32",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 106.475,
+    "y_mm": 87.049999
+  },
+  {
+    "ref": "R31",
+    "value": "1K",
+    "pad": "1",
+    "net": "/ADC/C1RGP",
+    "x_mm": 82.950703,
+    "y_mm": 117.465005
+  },
+  {
+    "ref": "R31",
+    "value": "1K",
+    "pad": "2",
+    "net": "/ADC/C1RGN",
+    "x_mm": 81.125701,
+    "y_mm": 117.465007
+  },
+  {
+    "ref": "R7",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_nLDAC",
+    "x_mm": 98.15,
+    "y_mm": 119.775
+  },
+  {
+    "ref": "R7",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 98.15,
+    "y_mm": 121.775
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "1",
+    "net": "Net-(U10-IN-)",
+    "x_mm": 78.829599,
+    "y_mm": 117.971001
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "2",
+    "net": "/ADC/C1RGN",
+    "x_mm": 78.829603,
+    "y_mm": 117.471
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "3",
+    "net": "/ADC/C1RGP",
+    "x_mm": 78.829603,
+    "y_mm": 116.971
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "4",
+    "net": "Net-(U10-IN+)",
+    "x_mm": 78.829603,
+    "y_mm": 116.470997
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "5",
+    "net": "GND",
+    "x_mm": 78.131804,
+    "y_mm": 115.773204
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "6",
+    "net": "unconnected-(U10-FDA_IN+_FLOAT-Pad6)",
+    "x_mm": 77.631803,
+    "y_mm": 115.7732
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "7",
+    "net": "-3VA",
+    "x_mm": 77.131803,
+    "y_mm": 115.7732
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "8",
+    "net": "unconnected-(U10-NC-Pad8)",
+    "x_mm": 76.6318,
+    "y_mm": 115.7732
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "9",
+    "net": "unconnected-(U10-G02-_FLOAT-Pad9)",
+    "x_mm": 75.934007,
+    "y_mm": 116.470999
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "10",
+    "net": "Net-(U10-OUT-)",
+    "x_mm": 75.934003,
+    "y_mm": 116.971
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "11",
+    "net": "Net-(U10-OUT+)",
+    "x_mm": 75.934003,
+    "y_mm": 117.471
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "12",
+    "net": "unconnected-(U10-G02+_FLOAT-Pad12)",
+    "x_mm": 75.934003,
+    "y_mm": 117.971003
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "13",
+    "net": "ADCVCM",
+    "x_mm": 76.631802,
+    "y_mm": 118.668796
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "14",
+    "net": "+12V",
+    "x_mm": 77.131803,
+    "y_mm": 118.6688
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "15",
+    "net": "unconnected-(U10-FDA_IN-_FLOAT-Pad15)",
+    "x_mm": 77.631803,
+    "y_mm": 118.6688
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "16",
+    "net": "+3V3A",
+    "x_mm": 78.131806,
+    "y_mm": 118.6688
+  },
+  {
+    "ref": "U10",
+    "value": "INA851RGTR",
+    "pad": "17",
+    "net": "-3VA",
+    "x_mm": 77.381803,
+    "y_mm": 117.221
+  },
+  {
+    "ref": "U7",
+    "value": "AMS1117-1.8",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 60.65,
+    "y_mm": 68.712499
+  },
+  {
+    "ref": "U7",
+    "value": "AMS1117-1.8",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 62.95,
+    "y_mm": 68.712498
+  },
+  {
+    "ref": "U7",
+    "value": "AMS1117-1.8",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 62.95,
+    "y_mm": 62.4125
+  },
+  {
+    "ref": "U7",
+    "value": "AMS1117-1.8",
+    "pad": "3",
+    "net": "+5V",
+    "x_mm": 65.25,
+    "y_mm": 68.712499
+  },
+  {
+    "ref": "R37",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U10-OUT+)",
+    "x_mm": 73.984503,
+    "y_mm": 118.531797
+  },
+  {
+    "ref": "R37",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP1_P",
+    "x_mm": 72.159501,
+    "y_mm": 118.531799
+  },
+  {
+    "ref": "C24",
+    "value": "18pF",
+    "pad": "1",
+    "net": "/Caravel_M.2/XTAL_XB",
+    "x_mm": 67.57,
+    "y_mm": 98.705
+  },
+  {
+    "ref": "C24",
+    "value": "18pF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 67.57,
+    "y_mm": 96.805002
+  },
+  {
+    "ref": "R8",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_nCS",
+    "x_mm": 90.25,
+    "y_mm": 119.7694
+  },
+  {
+    "ref": "R8",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 90.25,
+    "y_mm": 121.7694
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 65.21,
+    "y_mm": 80.8925
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 63.97,
+    "y_mm": 80.8925
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 62.73,
+    "y_mm": 80.8925
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 61.49,
+    "y_mm": 80.8925
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 60.25,
+    "y_mm": 80.8925
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 65.21,
+    "y_mm": 82.1325
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 63.97,
+    "y_mm": 82.1325
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 61.49,
+    "y_mm": 82.1325
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 60.25,
+    "y_mm": 82.1325
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 62.73,
+    "y_mm": 82.132501
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 65.21,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 63.969999,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 62.73,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 61.490001,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 60.25,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 62.73,
+    "y_mm": 84.612499
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 65.21,
+    "y_mm": 84.6125
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 63.97,
+    "y_mm": 84.6125
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 61.49,
+    "y_mm": 84.6125
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 60.25,
+    "y_mm": 84.6125
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 65.21,
+    "y_mm": 85.8525
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 63.97,
+    "y_mm": 85.8525
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 62.73,
+    "y_mm": 85.8525
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 61.49,
+    "y_mm": 85.8525
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "",
+    "net": "",
+    "x_mm": 60.25,
+    "y_mm": 85.8525
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "1",
+    "net": "Net-(U5-XCSI)",
+    "x_mm": 65.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "2",
+    "net": "Net-(U5-XCSO)",
+    "x_mm": 64.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "3",
+    "net": "+3V3",
+    "x_mm": 64.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "4",
+    "net": "GND",
+    "x_mm": 63.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "5",
+    "net": "Net-(U5-REF)",
+    "x_mm": 63.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "6",
+    "net": "/Caravel_M.2/FTDI_D-",
+    "x_mm": 62.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "7",
+    "net": "/Caravel_M.2/FTDI_D+",
+    "x_mm": 62.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "8",
+    "net": "+3V3",
+    "x_mm": 61.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "9",
+    "net": "GND",
+    "x_mm": 61.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "10",
+    "net": "GND",
+    "x_mm": 60.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "11",
+    "net": "GND",
+    "x_mm": 60.48,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "12",
+    "net": "+3V3",
+    "x_mm": 59.98,
+    "y_mm": 79.4975
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "13",
+    "net": "/Caravel_M.2/USB_SCK_TXD",
+    "x_mm": 58.855,
+    "y_mm": 80.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "14",
+    "net": "/Caravel_M.2/USB_SO_RXD",
+    "x_mm": 58.855,
+    "y_mm": 81.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "15",
+    "net": "/Caravel_M.2/USB_SI",
+    "x_mm": 58.855,
+    "y_mm": 81.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "16",
+    "net": "/Caravel_M.2/USB_CS1",
+    "x_mm": 58.855,
+    "y_mm": 82.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "17",
+    "net": "/Caravel_M.2/ADBUS4",
+    "x_mm": 58.855,
+    "y_mm": 82.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "18",
+    "net": "/Caravel_M.2/ADBUS5",
+    "x_mm": 58.855,
+    "y_mm": 83.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "19",
+    "net": "/Caravel_M.2/ADBUS6",
+    "x_mm": 58.855,
+    "y_mm": 83.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "20",
+    "net": "/Caravel_M.2/ADBUS7",
+    "x_mm": 58.855,
+    "y_mm": 84.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "21",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 58.855,
+    "y_mm": 84.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "22",
+    "net": "GND",
+    "x_mm": 58.855,
+    "y_mm": 85.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "23",
+    "net": "GND",
+    "x_mm": 58.855,
+    "y_mm": 85.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "24",
+    "net": "+3V3",
+    "x_mm": 58.855,
+    "y_mm": 86.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "25",
+    "net": "/Caravel_M.2/ACBUS1",
+    "x_mm": 59.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "26",
+    "net": "/Caravel_M.2/ACBUS2",
+    "x_mm": 60.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "27",
+    "net": "/Caravel_M.2/ACBUS3",
+    "x_mm": 60.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "28",
+    "net": "/Caravel_M.2/ACBUS4",
+    "x_mm": 61.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "29",
+    "net": "/Caravel_M.2/ACBUS5",
+    "x_mm": 61.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "30",
+    "net": "/Caravel_M.2/ACBUS6",
+    "x_mm": 62.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "31",
+    "net": "/Caravel_M.2/ACBUS7",
+    "x_mm": 62.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "32",
+    "net": "unconnected-(U5-ACBUS8-Pad32)",
+    "x_mm": 63.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "33",
+    "net": "unconnected-(U5-ACBUS9-Pad33)",
+    "x_mm": 63.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "34",
+    "net": "/Caravel_M.2/~{FTDI_RST}",
+    "x_mm": 64.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "35",
+    "net": "GND",
+    "x_mm": 64.98,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "36",
+    "net": "GND",
+    "x_mm": 65.48,
+    "y_mm": 87.2475
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "37",
+    "net": "/Caravel_M.2/VCCA",
+    "x_mm": 66.605,
+    "y_mm": 86.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "38",
+    "net": "/Caravel_M.2/VCCCORE",
+    "x_mm": 66.605,
+    "y_mm": 85.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "39",
+    "net": "+3V3",
+    "x_mm": 66.605,
+    "y_mm": 85.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "40",
+    "net": "+3V3",
+    "x_mm": 66.605,
+    "y_mm": 84.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 66.605,
+    "y_mm": 84.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "42",
+    "net": "GND",
+    "x_mm": 66.605,
+    "y_mm": 83.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "43",
+    "net": "FTEEDATA",
+    "x_mm": 66.605,
+    "y_mm": 83.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "44",
+    "net": "FTEECLKI",
+    "x_mm": 66.605,
+    "y_mm": 82.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "45",
+    "net": "~{FTEECS}",
+    "x_mm": 66.605,
+    "y_mm": 82.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "46",
+    "net": "+3V3",
+    "x_mm": 66.605,
+    "y_mm": 81.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "47",
+    "net": "GND",
+    "x_mm": 66.605,
+    "y_mm": 81.1225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "48",
+    "net": "GND",
+    "x_mm": 66.605,
+    "y_mm": 80.6225
+  },
+  {
+    "ref": "U5",
+    "value": "FT232H",
+    "pad": "49",
+    "net": "GND",
+    "x_mm": 62.73,
+    "y_mm": 83.3725
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "1",
+    "net": "FPGA_TX",
+    "x_mm": 99.65,
+    "y_mm": 135.75
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 99.65,
+    "y_mm": 136.4
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "3",
+    "net": "FPGA_RX",
+    "x_mm": 99.65,
+    "y_mm": 137.05
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "4",
+    "net": "SCAN_SE",
+    "x_mm": 99.65,
+    "y_mm": 137.7
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "5",
+    "net": "SCAN_TM",
+    "x_mm": 99.65,
+    "y_mm": 138.35
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "6",
+    "net": "SCAN_CC",
+    "x_mm": 99.65,
+    "y_mm": 139.0
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "7",
+    "net": "SCAN_SI",
+    "x_mm": 99.65,
+    "y_mm": 139.65
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "8",
+    "net": "READY_I",
+    "x_mm": 99.65,
+    "y_mm": 140.3
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "9",
+    "net": "RESET_B",
+    "x_mm": 99.65,
+    "y_mm": 140.95
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "10",
+    "net": "FPGA_LOE",
+    "x_mm": 99.65,
+    "y_mm": 141.6
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "11",
+    "net": "GND",
+    "x_mm": 105.375,
+    "y_mm": 141.6
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "12",
+    "net": "/Caravel_M.2/ACBUS1",
+    "x_mm": 105.375,
+    "y_mm": 140.95
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "13",
+    "net": "/Caravel_M.2/USB_SI",
+    "x_mm": 105.375,
+    "y_mm": 140.3
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "14",
+    "net": "mprj_io[22]",
+    "x_mm": 105.375,
+    "y_mm": 139.65
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "15",
+    "net": "mprj_io[35]",
+    "x_mm": 105.375,
+    "y_mm": 139.0
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "16",
+    "net": "mprj_io[36]",
+    "x_mm": 105.375,
+    "y_mm": 138.35
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "17",
+    "net": "mprj_io[21]",
+    "x_mm": 105.375,
+    "y_mm": 137.7
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "18",
+    "net": "mprj_io[6]_ser_tx",
+    "x_mm": 105.375,
+    "y_mm": 137.05
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "19",
+    "net": "+3V3",
+    "x_mm": 105.375,
+    "y_mm": 136.4
+  },
+  {
+    "ref": "U17",
+    "value": "TXS0108EPW",
+    "pad": "20",
+    "net": "mprj_io[5]_ser_rx",
+    "x_mm": 105.375,
+    "y_mm": 135.75
+  },
+  {
+    "ref": "R57",
+    "value": "10K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 88.6,
+    "y_mm": 142.3925
+  },
+  {
+    "ref": "R57",
+    "value": "10K",
+    "pad": "2",
+    "net": "SI5351_SDA",
+    "x_mm": 88.6,
+    "y_mm": 140.5675
+  },
+  {
+    "ref": "R64",
+    "value": "10K",
+    "pad": "1",
+    "net": "FTEEDATA",
+    "x_mm": 62.7,
+    "y_mm": 94.3125
+  },
+  {
+    "ref": "R64",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 62.7,
+    "y_mm": 96.1375
+  },
+  {
+    "ref": "R35",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN2_P",
+    "x_mm": 59.120201,
+    "y_mm": 130.979601
+  },
+  {
+    "ref": "R35",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U11-IN+)",
+    "x_mm": 59.120199,
+    "y_mm": 129.154601
+  },
+  {
+    "ref": "SW1",
+    "value": "434133025816",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 88.7,
+    "y_mm": 96.4625
+  },
+  {
+    "ref": "SW1",
+    "value": "434133025816",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 88.7,
+    "y_mm": 92.3125
+  },
+  {
+    "ref": "SW1",
+    "value": "434133025816",
+    "pad": "2",
+    "net": "/Caravel_M.2/ACBUS1",
+    "x_mm": 90.85,
+    "y_mm": 96.4625
+  },
+  {
+    "ref": "SW1",
+    "value": "434133025816",
+    "pad": "2",
+    "net": "/Caravel_M.2/ACBUS1",
+    "x_mm": 90.85,
+    "y_mm": 92.3375
+  },
+  {
+    "ref": "R20",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(D3-A)",
+    "x_mm": 58.379999,
+    "y_mm": 94.299999
+  },
+  {
+    "ref": "R20",
+    "value": "150",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 58.380001,
+    "y_mm": 96.124999
+  },
+  {
+    "ref": "C45",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 79.649997,
+    "y_mm": 133.013799
+  },
+  {
+    "ref": "C45",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3A",
+    "x_mm": 77.750003,
+    "y_mm": 133.013801
+  },
+  {
+    "ref": "C14",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.429994,
+    "y_mm": 81.462498
+  },
+  {
+    "ref": "C14",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 70.530004,
+    "y_mm": 81.4625
+  },
+  {
+    "ref": "C48",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 51.6,
+    "y_mm": 128.512501
+  },
+  {
+    "ref": "C48",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 51.6,
+    "y_mm": 130.412499
+  },
+  {
+    "ref": "L1",
+    "value": "MLZ1608N100LT000",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 84.283502,
+    "y_mm": 127.746798
+  },
+  {
+    "ref": "L1",
+    "value": "MLZ1608N100LT000",
+    "pad": "2",
+    "net": "Net-(D1-A)",
+    "x_mm": 84.2835,
+    "y_mm": 129.496794
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "",
+    "net": "",
+    "x_mm": 69.127,
+    "y_mm": 134.9756
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "",
+    "net": "",
+    "x_mm": 69.127,
+    "y_mm": 137.0956
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "",
+    "net": "",
+    "x_mm": 71.247,
+    "y_mm": 134.9756
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "",
+    "net": "",
+    "x_mm": 71.247,
+    "y_mm": 137.0956
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "1",
+    "net": "AMP1_P",
+    "x_mm": 65.7495,
+    "y_mm": 132.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "2",
+    "net": "AMP1_N",
+    "x_mm": 65.7495,
+    "y_mm": 132.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "3",
+    "net": "GND",
+    "x_mm": 65.7495,
+    "y_mm": 133.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "4",
+    "net": "AMP2_P",
+    "x_mm": 65.7495,
+    "y_mm": 133.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "5",
+    "net": "AMP2_N",
+    "x_mm": 65.7495,
+    "y_mm": 134.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "6",
+    "net": "GND",
+    "x_mm": 65.7495,
+    "y_mm": 134.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "7",
+    "net": "AMP3_P",
+    "x_mm": 65.7495,
+    "y_mm": 135.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "8",
+    "net": "AMP3_N",
+    "x_mm": 65.7495,
+    "y_mm": 135.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "9",
+    "net": "GND",
+    "x_mm": 65.7495,
+    "y_mm": 136.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "10",
+    "net": "AIN4_P",
+    "x_mm": 65.7495,
+    "y_mm": 136.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "11",
+    "net": "AIN4_N",
+    "x_mm": 65.7495,
+    "y_mm": 137.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "12",
+    "net": "GND",
+    "x_mm": 65.7495,
+    "y_mm": 137.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "13",
+    "net": "ADC_PD",
+    "x_mm": 65.7495,
+    "y_mm": 138.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "14",
+    "net": "GND",
+    "x_mm": 65.7495,
+    "y_mm": 138.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "15",
+    "net": "OUT1_P",
+    "x_mm": 65.7495,
+    "y_mm": 139.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "16",
+    "net": "OUT1_N",
+    "x_mm": 65.7495,
+    "y_mm": 139.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "17",
+    "net": "OUT2_P",
+    "x_mm": 66.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "18",
+    "net": "OUT2_N",
+    "x_mm": 66.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "19",
+    "net": "OUT3_P",
+    "x_mm": 67.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "20",
+    "net": "OUT3_N",
+    "x_mm": 67.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "21",
+    "net": "OUT4_P",
+    "x_mm": 68.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "22",
+    "net": "OUT4_N",
+    "x_mm": 68.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "23",
+    "net": "ADCLK_P",
+    "x_mm": 69.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "24",
+    "net": "ADCLK_N",
+    "x_mm": 69.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "25",
+    "net": "LCLK_P",
+    "x_mm": 70.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "26",
+    "net": "LCLK_N",
+    "x_mm": 70.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "27",
+    "net": "OUT5_P",
+    "x_mm": 71.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "28",
+    "net": "OUT5_N",
+    "x_mm": 71.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "29",
+    "net": "OUT6_P",
+    "x_mm": 72.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "30",
+    "net": "OUT6_N",
+    "x_mm": 72.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "31",
+    "net": "OUT7_P",
+    "x_mm": 73.437,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "32",
+    "net": "OUT7_N",
+    "x_mm": 73.937,
+    "y_mm": 140.4731
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "33",
+    "net": "OUT8_P",
+    "x_mm": 74.6245,
+    "y_mm": 139.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "34",
+    "net": "OUT8_N",
+    "x_mm": 74.6245,
+    "y_mm": 139.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "35",
+    "net": "+1V8A",
+    "x_mm": 74.6245,
+    "y_mm": 138.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "36",
+    "net": "GND",
+    "x_mm": 74.6245,
+    "y_mm": 138.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "37",
+    "net": "GND",
+    "x_mm": 74.6245,
+    "y_mm": 137.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "38",
+    "net": "AIN5_P",
+    "x_mm": 74.6245,
+    "y_mm": 137.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "39",
+    "net": "AIN5_N",
+    "x_mm": 74.6245,
+    "y_mm": 136.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "40",
+    "net": "GND",
+    "x_mm": 74.6245,
+    "y_mm": 136.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "41",
+    "net": "AIN6_P",
+    "x_mm": 74.6245,
+    "y_mm": 135.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "42",
+    "net": "AIN6_N",
+    "x_mm": 74.6245,
+    "y_mm": 135.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "43",
+    "net": "GND",
+    "x_mm": 74.6245,
+    "y_mm": 134.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "44",
+    "net": "AIN7_P",
+    "x_mm": 74.6245,
+    "y_mm": 134.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "45",
+    "net": "AIN7_N",
+    "x_mm": 74.6245,
+    "y_mm": 133.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "46",
+    "net": "GND",
+    "x_mm": 74.6245,
+    "y_mm": 133.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "47",
+    "net": "AIN8_P",
+    "x_mm": 74.6245,
+    "y_mm": 132.7856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "48",
+    "net": "AIN8_N",
+    "x_mm": 74.6245,
+    "y_mm": 132.2856
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "49",
+    "net": "+3V3A",
+    "x_mm": 73.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "50",
+    "net": "+3V3A",
+    "x_mm": 73.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "51",
+    "net": "ISET",
+    "x_mm": 72.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "52",
+    "net": "unconnected-(U14-TP-Pad52)",
+    "x_mm": 72.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "53",
+    "net": "ADCVCM",
+    "x_mm": 71.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "54",
+    "net": "REFB",
+    "x_mm": 71.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "55",
+    "net": "REFT",
+    "x_mm": 70.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "56",
+    "net": "INT{slash}~{EXT}",
+    "x_mm": 70.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "57",
+    "net": "+3V3A",
+    "x_mm": 69.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "58",
+    "net": "FPGA_MCLKIN_C_P",
+    "x_mm": 69.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "59",
+    "net": "FPGA_MCLKIN_C_N",
+    "x_mm": 68.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "60",
+    "net": "+3V3A",
+    "x_mm": 68.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "61",
+    "net": "FPGA_nCS",
+    "x_mm": 67.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "62",
+    "net": "FPGA_SDATA",
+    "x_mm": 67.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "63",
+    "net": "FPGA_SCK",
+    "x_mm": 66.937,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "64",
+    "net": "FPGA_nADCRST",
+    "x_mm": 66.437,
+    "y_mm": 131.5981
+  },
+  {
+    "ref": "U14",
+    "value": "ADS5282IRGCR",
+    "pad": "EP",
+    "net": "GND",
+    "x_mm": 70.187,
+    "y_mm": 136.0356
+  },
+  {
+    "ref": "J2",
+    "value": "Conn_01x04_Pin",
+    "pad": "1",
+    "net": "/Caravel_M.2/ADBUS4",
+    "x_mm": 53.2,
+    "y_mm": 76.9025
+  },
+  {
+    "ref": "J2",
+    "value": "Conn_01x04_Pin",
+    "pad": "2",
+    "net": "/Caravel_M.2/ADBUS5",
+    "x_mm": 53.2,
+    "y_mm": 79.442501
+  },
+  {
+    "ref": "J2",
+    "value": "Conn_01x04_Pin",
+    "pad": "3",
+    "net": "/Caravel_M.2/ADBUS6",
+    "x_mm": 53.200001,
+    "y_mm": 81.9825
+  },
+  {
+    "ref": "J2",
+    "value": "Conn_01x04_Pin",
+    "pad": "4",
+    "net": "/Caravel_M.2/ADBUS7",
+    "x_mm": 53.199999,
+    "y_mm": 84.522501
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A1",
+    "net": "GND",
+    "x_mm": 56.099998,
+    "y_mm": 67.910001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A4",
+    "net": "VBUS",
+    "x_mm": 55.249999,
+    "y_mm": 67.909997
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A5",
+    "net": "Net-(J3-CC1)",
+    "x_mm": 54.399998,
+    "y_mm": 67.910001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A6",
+    "net": "/Caravel_M.2/FTDI_D+",
+    "x_mm": 53.549998,
+    "y_mm": 67.910001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A7",
+    "net": "/Caravel_M.2/FTDI_D-",
+    "x_mm": 52.7,
+    "y_mm": 67.910002
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A8",
+    "net": "unconnected-(J3-SBU1-PadA8)",
+    "x_mm": 51.849998,
+    "y_mm": 67.910001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A9",
+    "net": "VBUS",
+    "x_mm": 50.999999,
+    "y_mm": 67.909999
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "A12",
+    "net": "GND",
+    "x_mm": 50.150001,
+    "y_mm": 67.910002
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B1",
+    "net": "GND",
+    "x_mm": 50.149999,
+    "y_mm": 66.559999
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B4",
+    "net": "VBUS",
+    "x_mm": 50.999999,
+    "y_mm": 66.560005
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B5",
+    "net": "Net-(J3-CC2)",
+    "x_mm": 51.849997,
+    "y_mm": 66.560005
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B6",
+    "net": "/Caravel_M.2/FTDI_D+",
+    "x_mm": 52.699998,
+    "y_mm": 66.560003
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B7",
+    "net": "/Caravel_M.2/FTDI_D-",
+    "x_mm": 53.549995,
+    "y_mm": 66.559999
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B8",
+    "net": "unconnected-(J3-SBU2-PadB8)",
+    "x_mm": 54.400001,
+    "y_mm": 66.560004
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B9",
+    "net": "VBUS",
+    "x_mm": 55.249994,
+    "y_mm": 66.560001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "B12",
+    "net": "GND",
+    "x_mm": 56.099999,
+    "y_mm": 66.560003
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "SH",
+    "net": "GND",
+    "x_mm": 57.45,
+    "y_mm": 63.550001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "SH",
+    "net": "GND",
+    "x_mm": 57.449996,
+    "y_mm": 66.930001
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "SH",
+    "net": "GND",
+    "x_mm": 48.8,
+    "y_mm": 66.93
+  },
+  {
+    "ref": "J3",
+    "value": "USB_C_Receptacle_USB2.0_16P",
+    "pad": "SH",
+    "net": "GND",
+    "x_mm": 48.799996,
+    "y_mm": 63.550003
+  },
+  {
+    "ref": "C38",
+    "value": "4.7uF",
+    "pad": "1",
+    "net": "Net-(U12-CPOUT)",
+    "x_mm": 52.1572,
+    "y_mm": 117.1558
+  },
+  {
+    "ref": "C38",
+    "value": "4.7uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 54.0572,
+    "y_mm": 117.1558
+  },
+  {
+    "ref": "C26",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 70.849999,
+    "y_mm": 70.9875
+  },
+  {
+    "ref": "C26",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 68.950001,
+    "y_mm": 70.9875
+  },
+  {
+    "ref": "C2",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 89.6035,
+    "y_mm": 107.5944
+  },
+  {
+    "ref": "C2",
+    "value": "100nF",
+    "pad": "2",
+    "net": "+5V",
+    "x_mm": 92.5535,
+    "y_mm": 107.5944
+  },
+  {
+    "ref": "NT18",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C10",
+    "x_mm": 104.3035,
+    "y_mm": 115.5944
+  },
+  {
+    "ref": "NT18",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VCOMP",
+    "x_mm": 105.9535,
+    "y_mm": 115.5944
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "1",
+    "net": "Net-(U13-IN-)",
+    "x_mm": 65.663,
+    "y_mm": 111.746599
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "2",
+    "net": "/ADC/C3RGN",
+    "x_mm": 65.663,
+    "y_mm": 112.2466
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "3",
+    "net": "/ADC/C3RGP",
+    "x_mm": 65.663,
+    "y_mm": 112.7466
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "4",
+    "net": "Net-(U13-IN+)",
+    "x_mm": 65.663,
+    "y_mm": 113.246601
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "5",
+    "net": "GND",
+    "x_mm": 66.360799,
+    "y_mm": 113.9444
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "6",
+    "net": "unconnected-(U13-FDA_IN+_FLOAT-Pad6)",
+    "x_mm": 66.8608,
+    "y_mm": 113.9444
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "7",
+    "net": "-3VA",
+    "x_mm": 67.3608,
+    "y_mm": 113.9444
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "8",
+    "net": "unconnected-(U13-NC-Pad8)",
+    "x_mm": 67.860801,
+    "y_mm": 113.9444
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "9",
+    "net": "unconnected-(U13-G02-_FLOAT-Pad9)",
+    "x_mm": 68.5586,
+    "y_mm": 113.246601
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "10",
+    "net": "Net-(U13-OUT-)",
+    "x_mm": 68.5586,
+    "y_mm": 112.7466
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "11",
+    "net": "Net-(U13-OUT+)",
+    "x_mm": 68.5586,
+    "y_mm": 112.2466
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "12",
+    "net": "unconnected-(U13-G02+_FLOAT-Pad12)",
+    "x_mm": 68.5586,
+    "y_mm": 111.746599
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "13",
+    "net": "ADCVCM",
+    "x_mm": 67.860801,
+    "y_mm": 111.0488
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "14",
+    "net": "+12V",
+    "x_mm": 67.3608,
+    "y_mm": 111.0488
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "15",
+    "net": "unconnected-(U13-FDA_IN-_FLOAT-Pad15)",
+    "x_mm": 66.8608,
+    "y_mm": 111.0488
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "16",
+    "net": "+3V3A",
+    "x_mm": 66.360799,
+    "y_mm": 111.0488
+  },
+  {
+    "ref": "U13",
+    "value": "INA851RGTR",
+    "pad": "17",
+    "net": "-3VA",
+    "x_mm": 67.1108,
+    "y_mm": 112.4966
+  },
+  {
+    "ref": "R43",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN3_N",
+    "x_mm": 61.7355,
+    "y_mm": 109.971402
+  },
+  {
+    "ref": "R43",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U13-IN-)",
+    "x_mm": 63.5605,
+    "y_mm": 109.971398
+  },
+  {
+    "ref": "C18",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 70.530002,
+    "y_mm": 75.3125
+  },
+  {
+    "ref": "C18",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 72.429998,
+    "y_mm": 75.312498
+  },
+  {
+    "ref": "R23",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_CSB",
+    "x_mm": 105.775,
+    "y_mm": 73.625
+  },
+  {
+    "ref": "R23",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 105.775,
+    "y_mm": 71.8
+  },
+  {
+    "ref": "C22",
+    "value": "18pF",
+    "pad": "1",
+    "net": "/Caravel_M.2/XTAL_XA",
+    "x_mm": 67.57,
+    "y_mm": 95.254999
+  },
+  {
+    "ref": "C22",
+    "value": "18pF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 67.57,
+    "y_mm": 93.355001
+  },
+  {
+    "ref": "J1",
+    "value": "Conn_01x02_Pin",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 55.3,
+    "y_mm": 100.4125
+  },
+  {
+    "ref": "J1",
+    "value": "Conn_01x02_Pin",
+    "pad": "2",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 55.3,
+    "y_mm": 102.9525
+  },
+  {
+    "ref": "C25",
+    "value": "10uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 77.75,
+    "y_mm": 92.3
+  },
+  {
+    "ref": "C25",
+    "value": "10uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 79.65,
+    "y_mm": 92.3
+  },
+  {
+    "ref": "R53",
+    "value": "10K",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 84.55,
+    "y_mm": 142.3925
+  },
+  {
+    "ref": "R53",
+    "value": "10K",
+    "pad": "2",
+    "net": "FPGA_SDA",
+    "x_mm": 84.55,
+    "y_mm": 140.5675
+  },
+  {
+    "ref": "R54",
+    "value": "10K",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 86.6,
+    "y_mm": 142.3925
+  },
+  {
+    "ref": "R54",
+    "value": "10K",
+    "pad": "2",
+    "net": "FPGA_SCL",
+    "x_mm": 86.6,
+    "y_mm": 140.5675
+  },
+  {
+    "ref": "C53",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 79.624997,
+    "y_mm": 138.774999
+  },
+  {
+    "ref": "C53",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 77.725003,
+    "y_mm": 138.775001
+  },
+  {
+    "ref": "C1",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 88.186998,
+    "y_mm": 116.763801
+  },
+  {
+    "ref": "C1",
+    "value": "100nF",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 91.137002,
+    "y_mm": 116.763799
+  },
+  {
+    "ref": "C52",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 51.6,
+    "y_mm": 120.162501
+  },
+  {
+    "ref": "C52",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 51.6,
+    "y_mm": 122.062499
+  },
+  {
+    "ref": "NT17",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C09",
+    "x_mm": 104.3285,
+    "y_mm": 117.0944
+  },
+  {
+    "ref": "NT17",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "IREF",
+    "x_mm": 105.9785,
+    "y_mm": 117.0944
+  },
+  {
+    "ref": "C29",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 83.349999,
+    "y_mm": 95.7125
+  },
+  {
+    "ref": "C29",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 81.450001,
+    "y_mm": 95.7125
+  },
+  {
+    "ref": "R17",
+    "value": "1K",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 56.0875,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "R17",
+    "value": "1K",
+    "pad": "2",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 57.9125,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "NT21",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C13",
+    "x_mm": 104.3035,
+    "y_mm": 111.0944
+  },
+  {
+    "ref": "NT21",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "DC_BIAS",
+    "x_mm": 105.9535,
+    "y_mm": 111.0944
+  },
+  {
+    "ref": "C33",
+    "value": "1uF",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 107.4,
+    "y_mm": 80.350001
+  },
+  {
+    "ref": "C33",
+    "value": "1uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 107.4,
+    "y_mm": 82.249999
+  },
+  {
+    "ref": "C21",
+    "value": "10uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 42.400001,
+    "y_mm": 69.7125
+  },
+  {
+    "ref": "C21",
+    "value": "10uF",
+    "pad": "2",
+    "net": "+5V",
+    "x_mm": 44.299999,
+    "y_mm": 69.7125
+  },
+  {
+    "ref": "Y2",
+    "value": "FA-238 25.0000MB-C3",
+    "pad": "1",
+    "net": "/Caravel_M.2/XTAL_XA",
+    "x_mm": 69.85,
+    "y_mm": 94.3
+  },
+  {
+    "ref": "Y2",
+    "value": "FA-238 25.0000MB-C3",
+    "pad": "2",
+    "net": "unconnected-(Y2-G-Pad2)_1",
+    "x_mm": 69.85,
+    "y_mm": 97.2
+  },
+  {
+    "ref": "Y2",
+    "value": "FA-238 25.0000MB-C3",
+    "pad": "3",
+    "net": "/Caravel_M.2/XTAL_XB",
+    "x_mm": 72.15,
+    "y_mm": 97.2
+  },
+  {
+    "ref": "Y2",
+    "value": "FA-238 25.0000MB-C3",
+    "pad": "4",
+    "net": "unconnected-(Y2-G-Pad2)",
+    "x_mm": 72.15,
+    "y_mm": 94.3
+  },
+  {
+    "ref": "U6",
+    "value": "AMS1117-3.3",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 69.5,
+    "y_mm": 68.6625
+  },
+  {
+    "ref": "U6",
+    "value": "AMS1117-3.3",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 71.8,
+    "y_mm": 68.662499
+  },
+  {
+    "ref": "U6",
+    "value": "AMS1117-3.3",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 71.8,
+    "y_mm": 62.362501
+  },
+  {
+    "ref": "U6",
+    "value": "AMS1117-3.3",
+    "pad": "3",
+    "net": "+5V",
+    "x_mm": 74.1,
+    "y_mm": 68.6625
+  },
+  {
+    "ref": "C9",
+    "value": "GRM188R61E475KE11D",
+    "pad": "1",
+    "net": "/DAC/12VPWR",
+    "x_mm": 79.889299,
+    "y_mm": 124.457295
+  },
+  {
+    "ref": "C9",
+    "value": "GRM188R61E475KE11D",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 79.889303,
+    "y_mm": 126.182297
+  },
+  {
+    "ref": "R6",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_nRST",
+    "x_mm": 100.15,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R6",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 100.15,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "R165",
+    "value": "R_0402_1005Metric",
+    "pad": "1",
+    "net": "FPGA_MCLKIN_N",
+    "x_mm": 89.7616,
+    "y_mm": 152.4762
+  },
+  {
+    "ref": "R165",
+    "value": "R_0402_1005Metric",
+    "pad": "2",
+    "net": "FPGA_MCLKIN_P",
+    "x_mm": 90.7816,
+    "y_mm": 152.4762
+  },
+  {
+    "ref": "C47",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 74.299999,
+    "y_mm": 125.475005
+  },
+  {
+    "ref": "C47",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "ADCVCM",
+    "x_mm": 74.300001,
+    "y_mm": 127.374995
+  },
+  {
+    "ref": "D2",
+    "value": "RED",
+    "pad": "1",
+    "net": "/Caravel_M.2/ACBUS2",
+    "x_mm": 55.93,
+    "y_mm": 89.7625
+  },
+  {
+    "ref": "D2",
+    "value": "RED",
+    "pad": "2",
+    "net": "Net-(D2-A)",
+    "x_mm": 55.93,
+    "y_mm": 92.562498
+  },
+  {
+    "ref": "R26",
+    "value": "10K",
+    "pad": "1",
+    "net": "/Caravel_M.2/Caravel_D1",
+    "x_mm": 103.775,
+    "y_mm": 73.625
+  },
+  {
+    "ref": "R26",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 103.775,
+    "y_mm": 71.8
+  },
+  {
+    "ref": "D4",
+    "value": "RED",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 93.6,
+    "y_mm": 101.8525
+  },
+  {
+    "ref": "D4",
+    "value": "RED",
+    "pad": "2",
+    "net": "Net-(D4-A)",
+    "x_mm": 96.4,
+    "y_mm": 101.8525
+  },
+  {
+    "ref": "R55",
+    "value": "10K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 58.3375,
+    "y_mm": 156.65
+  },
+  {
+    "ref": "R55",
+    "value": "10K",
+    "pad": "2",
+    "net": "Net-(J9-PadC32)",
+    "x_mm": 60.1625,
+    "y_mm": 156.65
+  },
+  {
+    "ref": "R52",
+    "value": "10K",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 95.25,
+    "y_mm": 141.625
+  },
+  {
+    "ref": "R52",
+    "value": "10K",
+    "pad": "2",
+    "net": "FPGA_LOE",
+    "x_mm": 97.075,
+    "y_mm": 141.625
+  },
+  {
+    "ref": "C31",
+    "value": "0.01uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 107.4,
+    "y_mm": 76.850001
+  },
+  {
+    "ref": "C31",
+    "value": "0.01uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 107.4,
+    "y_mm": 78.749999
+  },
+  {
+    "ref": "R48",
+    "value": "56.2k",
+    "pad": "1",
+    "net": "ISET",
+    "x_mm": 76.300001,
+    "y_mm": 127.3125
+  },
+  {
+    "ref": "R48",
+    "value": "56.2k",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 76.299999,
+    "y_mm": 125.4875
+  },
+  {
+    "ref": "C55",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 107.75,
+    "y_mm": 134.550001
+  },
+  {
+    "ref": "C55",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 107.75,
+    "y_mm": 136.449999
+  },
+  {
+    "ref": "R4",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_TO0",
+    "x_mm": 92.2,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R4",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 92.2,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "R62",
+    "value": "10K",
+    "pad": "1",
+    "net": "+1V8",
+    "x_mm": 70.4107,
+    "y_mm": 122.656602
+  },
+  {
+    "ref": "R62",
+    "value": "10K",
+    "pad": "2",
+    "net": "INT{slash}~{EXT}",
+    "x_mm": 72.2357,
+    "y_mm": 122.656598
+  },
+  {
+    "ref": "NT14",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C01",
+    "x_mm": 91.103498,
+    "y_mm": 109.5944
+  },
+  {
+    "ref": "NT14",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VCC_WL_READ",
+    "x_mm": 89.453502,
+    "y_mm": 109.5944
+  },
+  {
+    "ref": "R44",
+    "value": "143k",
+    "pad": "1",
+    "net": "-3VA",
+    "x_mm": 56.5067,
+    "y_mm": 114.5396
+  },
+  {
+    "ref": "R44",
+    "value": "143k",
+    "pad": "2",
+    "net": "Net-(U12-VFB)",
+    "x_mm": 58.3317,
+    "y_mm": 114.5396
+  },
+  {
+    "ref": "U20",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 91.483,
+    "y_mm": 130.0185
+  },
+  {
+    "ref": "U20",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "2",
+    "net": "/Caravel_M.2/SI5351_CLK1_RAW",
+    "x_mm": 91.483,
+    "y_mm": 130.6685
+  },
+  {
+    "ref": "U20",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "3",
+    "net": "GND",
+    "x_mm": 91.483,
+    "y_mm": 131.3185
+  },
+  {
+    "ref": "U20",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "4",
+    "net": "SI5351_CLK1_1V8",
+    "x_mm": 93.683,
+    "y_mm": 131.3185
+  },
+  {
+    "ref": "U20",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "5",
+    "net": "+1V8",
+    "x_mm": 93.683,
+    "y_mm": 130.0185
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 85.6458,
+    "y_mm": 137.045
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 85.6458,
+    "y_mm": 137.545
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "3",
+    "net": "FPGA_SCL",
+    "x_mm": 85.6458,
+    "y_mm": 138.045
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "4",
+    "net": "FPGA_SDA",
+    "x_mm": 85.6458,
+    "y_mm": 138.545
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "5",
+    "net": "SI5351_SDA",
+    "x_mm": 88.4458,
+    "y_mm": 138.545
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "6",
+    "net": "SI5351_SCL",
+    "x_mm": 88.4458,
+    "y_mm": 138.045
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "7",
+    "net": "+3V3",
+    "x_mm": 88.4458,
+    "y_mm": 137.545
+  },
+  {
+    "ref": "U18",
+    "value": "VSSOP-8_2.3x2mm_P0.5mm",
+    "pad": "8",
+    "net": "Net-(U18-EN)",
+    "x_mm": 88.4458,
+    "y_mm": 137.045
+  },
+  {
+    "ref": "C36",
+    "value": "1uF",
+    "pad": "1",
+    "net": "Net-(U12-C+)",
+    "x_mm": 55.3322,
+    "y_mm": 111.9234
+  },
+  {
+    "ref": "C36",
+    "value": "1uF",
+    "pad": "2",
+    "net": "Net-(U12-C-)",
+    "x_mm": 57.2322,
+    "y_mm": 111.9234
+  },
+  {
+    "ref": "C49",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "+3V3A",
+    "x_mm": 77.75,
+    "y_mm": 130.8802
+  },
+  {
+    "ref": "C49",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 79.65,
+    "y_mm": 130.8802
+  },
+  {
+    "ref": "R38",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U10-OUT-)",
+    "x_mm": 73.9845,
+    "y_mm": 116.525202
+  },
+  {
+    "ref": "R38",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP1_N",
+    "x_mm": 72.1595,
+    "y_mm": 116.525206
+  },
+  {
+    "ref": "C5",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 94.649998,
+    "y_mm": 104.969399
+  },
+  {
+    "ref": "C5",
+    "value": "100nF",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 94.650002,
+    "y_mm": 107.919401
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "1",
+    "net": "Net-(U11-IN-)",
+    "x_mm": 56.2222,
+    "y_mm": 127.148399
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "2",
+    "net": "/ADC/C2RGN",
+    "x_mm": 56.7222,
+    "y_mm": 127.1484
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "3",
+    "net": "/ADC/C2RGP",
+    "x_mm": 57.2222,
+    "y_mm": 127.1484
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "4",
+    "net": "Net-(U11-IN+)",
+    "x_mm": 57.722202,
+    "y_mm": 127.148401
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "5",
+    "net": "GND",
+    "x_mm": 58.419999,
+    "y_mm": 126.4506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "6",
+    "net": "unconnected-(U11-FDA_IN+_FLOAT-Pad6)",
+    "x_mm": 58.42,
+    "y_mm": 125.9506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "7",
+    "net": "-3VA",
+    "x_mm": 58.42,
+    "y_mm": 125.4506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "8",
+    "net": "unconnected-(U11-NC-Pad8)",
+    "x_mm": 58.420001,
+    "y_mm": 124.950598
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "9",
+    "net": "unconnected-(U11-G02-_FLOAT-Pad9)",
+    "x_mm": 57.7222,
+    "y_mm": 124.252801
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "10",
+    "net": "Net-(U11-OUT-)",
+    "x_mm": 57.2222,
+    "y_mm": 124.2528
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "11",
+    "net": "Net-(U11-OUT+)",
+    "x_mm": 56.7222,
+    "y_mm": 124.2528
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "12",
+    "net": "unconnected-(U11-G02+_FLOAT-Pad12)",
+    "x_mm": 56.222198,
+    "y_mm": 124.252799
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "13",
+    "net": "ADCVCM",
+    "x_mm": 55.524401,
+    "y_mm": 124.9506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "14",
+    "net": "+12V",
+    "x_mm": 55.5244,
+    "y_mm": 125.4506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "15",
+    "net": "unconnected-(U11-FDA_IN-_FLOAT-Pad15)",
+    "x_mm": 55.5244,
+    "y_mm": 125.9506
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "16",
+    "net": "+3V3A",
+    "x_mm": 55.524399,
+    "y_mm": 126.450602
+  },
+  {
+    "ref": "U11",
+    "value": "INA851RGTR",
+    "pad": "17",
+    "net": "-3VA",
+    "x_mm": 56.9722,
+    "y_mm": 125.7006
+  },
+  {
+    "ref": "R5",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_nCLR",
+    "x_mm": 102.15,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R5",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 102.15,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "U3",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "1",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 60.162501,
+    "y_mm": 76.4625
+  },
+  {
+    "ref": "U3",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "2",
+    "net": "/Caravel_M.2/USB_SCK_TXD",
+    "x_mm": 60.812501,
+    "y_mm": 76.462499
+  },
+  {
+    "ref": "U3",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "3",
+    "net": "GND",
+    "x_mm": 61.462501,
+    "y_mm": 76.4625
+  },
+  {
+    "ref": "U3",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "4",
+    "net": "/Caravel_M.2/mprj_io[5]_ser_rx",
+    "x_mm": 61.462501,
+    "y_mm": 74.2625
+  },
+  {
+    "ref": "U3",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "5",
+    "net": "+3V3",
+    "x_mm": 60.162501,
+    "y_mm": 74.2625
+  },
+  {
+    "ref": "R46",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U13-OUT+)",
+    "x_mm": 70.6763,
+    "y_mm": 111.5942
+  },
+  {
+    "ref": "R46",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP2_P",
+    "x_mm": 72.5013,
+    "y_mm": 111.5942
+  },
+  {
+    "ref": "R21",
+    "value": "10K",
+    "pad": "1",
+    "net": "Net-(J3-CC2)",
+    "x_mm": 52.4375,
+    "y_mm": 70.9125
+  },
+  {
+    "ref": "R21",
+    "value": "10K",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 54.2625,
+    "y_mm": 70.9125
+  },
+  {
+    "ref": "C28",
+    "value": "10uF",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 65.799999,
+    "y_mm": 71.062499
+  },
+  {
+    "ref": "C28",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 63.900001,
+    "y_mm": 71.062499
+  },
+  {
+    "ref": "R11",
+    "value": "470R",
+    "pad": "1",
+    "net": "AQ1_C05",
+    "x_mm": 85.065,
+    "y_mm": 106.0475
+  },
+  {
+    "ref": "R11",
+    "value": "470R",
+    "pad": "2",
+    "net": "AIN3_P",
+    "x_mm": 86.97,
+    "y_mm": 106.4925
+  },
+  {
+    "ref": "R11",
+    "value": "470R",
+    "pad": "3",
+    "net": "AIN3_N",
+    "x_mm": 84.43,
+    "y_mm": 99.6325
+  },
+  {
+    "ref": "R11",
+    "value": "470R",
+    "pad": "4",
+    "net": "VCC_RESET",
+    "x_mm": 86.335,
+    "y_mm": 100.0775
+  },
+  {
+    "ref": "C16",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.409989,
+    "y_mm": 77.362497
+  },
+  {
+    "ref": "C16",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 70.509999,
+    "y_mm": 77.362499
+  },
+  {
+    "ref": "R1",
+    "value": "10k",
+    "pad": "1",
+    "net": "AQ1_ALM",
+    "x_mm": 104.15,
+    "y_mm": 119.7125
+  },
+  {
+    "ref": "R1",
+    "value": "10k",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 104.15,
+    "y_mm": 121.5375
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "1",
+    "net": "OUT6_P",
+    "x_mm": 44.96,
+    "y_mm": 97.8625
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "2",
+    "net": "OUT6_N",
+    "x_mm": 47.5,
+    "y_mm": 97.8625
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "3",
+    "net": "OUT7_P",
+    "x_mm": 44.96,
+    "y_mm": 100.4025
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "4",
+    "net": "OUT7_N",
+    "x_mm": 47.5,
+    "y_mm": 100.4025
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "5",
+    "net": "OUT8_P",
+    "x_mm": 44.96,
+    "y_mm": 102.9425
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "6",
+    "net": "OUT8_N",
+    "x_mm": 47.5,
+    "y_mm": 102.9425
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "7",
+    "net": "GND",
+    "x_mm": 44.96,
+    "y_mm": 105.4825
+  },
+  {
+    "ref": "J8",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "8",
+    "net": "GND",
+    "x_mm": 47.5,
+    "y_mm": 105.4825
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 75.1,
+    "y_mm": 94.2125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "2",
+    "net": "/Caravel_M.2/XTAL_XA",
+    "x_mm": 75.1,
+    "y_mm": 94.7125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "3",
+    "net": "/Caravel_M.2/XTAL_XB",
+    "x_mm": 75.1,
+    "y_mm": 95.2125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "4",
+    "net": "SI5351_SDA",
+    "x_mm": 75.1,
+    "y_mm": 95.7125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "5",
+    "net": "SI5351_SCL",
+    "x_mm": 75.1,
+    "y_mm": 96.2125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "6",
+    "net": "unconnected-(Y3-CLK2-Pad6)",
+    "x_mm": 79.3,
+    "y_mm": 96.2125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "7",
+    "net": "+3V3",
+    "x_mm": 79.3,
+    "y_mm": 95.7125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "8",
+    "net": "GND",
+    "x_mm": 79.3,
+    "y_mm": 95.2125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "9",
+    "net": "/Caravel_M.2/SI5351_CLK1_RAW",
+    "x_mm": 79.3,
+    "y_mm": 94.7125
+  },
+  {
+    "ref": "Y3",
+    "value": "Si5351A-B-GT",
+    "pad": "10",
+    "net": "/Caravel_M.2/SI5351_CLK0_RAW",
+    "x_mm": 79.3,
+    "y_mm": 94.2125
+  },
+  {
+    "ref": "C58",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 91.4,
+    "y_mm": 138.929999
+  },
+  {
+    "ref": "C58",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 91.4,
+    "y_mm": 137.030001
+  },
+  {
+    "ref": "R51",
+    "value": "10K",
+    "pad": "1",
+    "net": "ADC_PD",
+    "x_mm": 60.137501,
+    "y_mm": 138.974999
+  },
+  {
+    "ref": "R51",
+    "value": "10K",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 58.312499,
+    "y_mm": 138.975001
+  },
+  {
+    "ref": "D5",
+    "value": "RED",
+    "pad": "1",
+    "net": "/Caravel_M.2/gpio",
+    "x_mm": 93.6,
+    "y_mm": 98.0125
+  },
+  {
+    "ref": "D5",
+    "value": "RED",
+    "pad": "2",
+    "net": "Net-(D5-A)",
+    "x_mm": 96.4,
+    "y_mm": 98.0125
+  },
+  {
+    "ref": "R63",
+    "value": "10K",
+    "pad": "1",
+    "net": "~{FTEECS}",
+    "x_mm": 60.675,
+    "y_mm": 94.3125
+  },
+  {
+    "ref": "R63",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 60.675,
+    "y_mm": 96.1375
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "",
+    "net": "",
+    "x_mm": 97.749698,
+    "y_mm": 70.235006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "",
+    "net": "",
+    "x_mm": 77.7497,
+    "y_mm": 70.235002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "1",
+    "net": "vccd2",
+    "x_mm": 78.499698,
+    "y_mm": 64.960006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "2",
+    "net": "unconnected-(U9-P2-Pad2)",
+    "x_mm": 78.749699,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "3",
+    "net": "/Caravel_M.2/vddio",
+    "x_mm": 78.999701,
+    "y_mm": 64.960007
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "4",
+    "net": "unconnected-(U9-P4-Pad4)",
+    "x_mm": 79.249696,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "5",
+    "net": "+3V3",
+    "x_mm": 79.499698,
+    "y_mm": 64.960008
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "6",
+    "net": "unconnected-(U9-P6-Pad6)",
+    "x_mm": 79.749698,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "7",
+    "net": "/Caravel_M.2/ACBUS1",
+    "x_mm": 79.999697,
+    "y_mm": 64.96
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "8",
+    "net": "unconnected-(U9-P8-Pad8)",
+    "x_mm": 80.249698,
+    "y_mm": 72.510005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "9",
+    "net": "/Caravel_M.2/xclk",
+    "x_mm": 80.499699,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "10",
+    "net": "unconnected-(U9-P10-Pad10)",
+    "x_mm": 80.749701,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "11",
+    "net": "/Caravel_M.2/Caravel_CSB",
+    "x_mm": 80.999695,
+    "y_mm": 64.96
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "12",
+    "net": "GND",
+    "x_mm": 81.249697,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "13",
+    "net": "vdda2",
+    "x_mm": 81.499703,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "14",
+    "net": "+1V8",
+    "x_mm": 81.749699,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "15",
+    "net": "+1V8",
+    "x_mm": 81.999701,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "16",
+    "net": "/Caravel_M.2/vddio",
+    "x_mm": 82.249698,
+    "y_mm": 72.510003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "17",
+    "net": "/Caravel_M.2/Caravel_D0",
+    "x_mm": 82.499701,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "18",
+    "net": "GND",
+    "x_mm": 82.749696,
+    "y_mm": 72.510003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "19",
+    "net": "/Caravel_M.2/Caravel_D1",
+    "x_mm": 82.9997,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "20",
+    "net": "/Caravel_M.2/mprj_io[37]",
+    "x_mm": 83.249699,
+    "y_mm": 72.510001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "21",
+    "net": "/Caravel_M.2/gpio",
+    "x_mm": 83.499696,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "22",
+    "net": "mprj_io[36]",
+    "x_mm": 83.749697,
+    "y_mm": 72.510005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "23",
+    "net": "/Caravel_M.2/Caravel_SCK",
+    "x_mm": 83.999697,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "32",
+    "net": "mprj_io[35]",
+    "x_mm": 86.249701,
+    "y_mm": 72.510008
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "33",
+    "net": "vdda1",
+    "x_mm": 86.499696,
+    "y_mm": 64.96001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "34",
+    "net": "mprj_io[34]",
+    "x_mm": 86.749701,
+    "y_mm": 72.510006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "35",
+    "net": "+1V8",
+    "x_mm": 86.999697,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "36",
+    "net": "mprj_io[33]",
+    "x_mm": 87.249701,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "37",
+    "net": "GND",
+    "x_mm": 87.499702,
+    "y_mm": 64.960003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "38",
+    "net": "mprj_io[32]",
+    "x_mm": 87.749698,
+    "y_mm": 72.510006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "39",
+    "net": "unconnected-(U9-P31-Pad39)",
+    "x_mm": 87.999702,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "40",
+    "net": "mprj_io[31]",
+    "x_mm": 88.2497,
+    "y_mm": 72.510006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "41",
+    "net": "unconnected-(U9-P33-Pad41)",
+    "x_mm": 88.499693,
+    "y_mm": 64.960003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "42",
+    "net": "mprj_io[30]",
+    "x_mm": 88.7497,
+    "y_mm": 72.510001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "43",
+    "net": "unconnected-(U9-P35-Pad43)",
+    "x_mm": 88.999701,
+    "y_mm": 64.96
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "44",
+    "net": "mprj_io[29]",
+    "x_mm": 89.249701,
+    "y_mm": 72.510001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "45",
+    "net": "unconnected-(U9-P37-Pad45)",
+    "x_mm": 89.499697,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "46",
+    "net": "mprj_io[28]",
+    "x_mm": 89.749702,
+    "y_mm": 72.510003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "47",
+    "net": "unconnected-(U9-P39-Pad47)",
+    "x_mm": 89.999698,
+    "y_mm": 64.960006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "48",
+    "net": "mprj_io[27]",
+    "x_mm": 90.249702,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "49",
+    "net": "/Caravel_M.2/mprj_io[0]",
+    "x_mm": 90.4997,
+    "y_mm": 64.960009
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "50",
+    "net": "mprj_io[26]",
+    "x_mm": 90.749696,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "51",
+    "net": "/Caravel_M.2/USB_SI",
+    "x_mm": 90.999699,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "52",
+    "net": "mprj_io[25]",
+    "x_mm": 91.249699,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "53",
+    "net": "/Caravel_M.2/USB_SO_RXD",
+    "x_mm": 91.499697,
+    "y_mm": 64.960002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "54",
+    "net": "/Caravel_M.2/mprj_io[24]",
+    "x_mm": 91.749699,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "55",
+    "net": "/Caravel_M.2/USB_CS1",
+    "x_mm": 91.999698,
+    "y_mm": 64.96
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "56",
+    "net": "/Caravel_M.2/mprj_io[23]",
+    "x_mm": 92.249699,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "57",
+    "net": "/Caravel_M.2/USB_SCK_TXD",
+    "x_mm": 92.499699,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "58",
+    "net": "mprj_io[22]",
+    "x_mm": 92.749701,
+    "y_mm": 72.510007
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "59",
+    "net": "mprj_io[5]_ser_rx",
+    "x_mm": 92.999701,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "60",
+    "net": "mprj_io[21]",
+    "x_mm": 93.249699,
+    "y_mm": 72.510006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "61",
+    "net": "mprj_io[6]_ser_tx",
+    "x_mm": 93.499699,
+    "y_mm": 64.960007
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "62",
+    "net": "/Caravel_M.2/mprj_io[20]",
+    "x_mm": 93.749701,
+    "y_mm": 72.510005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "63",
+    "net": "/Caravel_M.2/mprj_io[7]",
+    "x_mm": 93.999703,
+    "y_mm": 64.960003
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "64",
+    "net": "/Caravel_M.2/mprj_io[19]",
+    "x_mm": 94.249697,
+    "y_mm": 72.510005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "65",
+    "net": "/Caravel_M.2/mprj_io[8]",
+    "x_mm": 94.499698,
+    "y_mm": 64.960006
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "66",
+    "net": "/Caravel_M.2/mprj_io[18]",
+    "x_mm": 94.749698,
+    "y_mm": 72.510005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "67",
+    "net": "/Caravel_M.2/mprj_io[9]",
+    "x_mm": 94.999699,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "68",
+    "net": "/Caravel_M.2/mprj_io[17]",
+    "x_mm": 95.249695,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "69",
+    "net": "/Caravel_M.2/mprj_io[10]",
+    "x_mm": 95.499702,
+    "y_mm": 64.960005
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "70",
+    "net": "/Caravel_M.2/mprj_io[16]",
+    "x_mm": 95.749698,
+    "y_mm": 72.510009
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "71",
+    "net": "/Caravel_M.2/mprj_io[11]",
+    "x_mm": 95.999701,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "72",
+    "net": "/Caravel_M.2/mprj_io[15]",
+    "x_mm": 96.2497,
+    "y_mm": 72.510002
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "73",
+    "net": "/Caravel_M.2/mprj_io[12]",
+    "x_mm": 96.499702,
+    "y_mm": 64.960001
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "74",
+    "net": "/Caravel_M.2/mprj_io[14]",
+    "x_mm": 96.749699,
+    "y_mm": 72.510004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "75",
+    "net": "/Caravel_M.2/mprj_io[13]",
+    "x_mm": 96.999696,
+    "y_mm": 64.960004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "A1",
+    "net": "GND",
+    "x_mm": 77.399697,
+    "y_mm": 65.735004
+  },
+  {
+    "ref": "U9",
+    "value": "M.2-CONNECTOR-E",
+    "pad": "A2",
+    "net": "GND",
+    "x_mm": 98.099697,
+    "y_mm": 65.735
+  },
+  {
+    "ref": "C61",
+    "value": "C_0201_0603Metric",
+    "pad": "",
+    "net": "",
+    "x_mm": 68.7578,
+    "y_mm": 129.9358
+  },
+  {
+    "ref": "C61",
+    "value": "C_0201_0603Metric",
+    "pad": "",
+    "net": "",
+    "x_mm": 68.7578,
+    "y_mm": 129.2458
+  },
+  {
+    "ref": "C61",
+    "value": "C_0201_0603Metric",
+    "pad": "1",
+    "net": "FPGA_MCLKIN_C_P",
+    "x_mm": 68.757799,
+    "y_mm": 129.910801
+  },
+  {
+    "ref": "C61",
+    "value": "C_0201_0603Metric",
+    "pad": "2",
+    "net": "FPGA_MCLKIN_P",
+    "x_mm": 68.757801,
+    "y_mm": 129.270799
+  },
+  {
+    "ref": "C6",
+    "value": "100nF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 99.428498,
+    "y_mm": 104.969399
+  },
+  {
+    "ref": "C6",
+    "value": "100nF",
+    "pad": "2",
+    "net": "Net-(U1-REFCMP)",
+    "x_mm": 99.428502,
+    "y_mm": 107.919401
+  },
+  {
+    "ref": "R25",
+    "value": "1K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 100.0125,
+    "y_mm": 97.9625
+  },
+  {
+    "ref": "R25",
+    "value": "1K",
+    "pad": "2",
+    "net": "Net-(D5-A)",
+    "x_mm": 98.1875,
+    "y_mm": 97.9625
+  },
+  {
+    "ref": "R34",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN1_N",
+    "x_mm": 82.950701,
+    "y_mm": 119.4462
+  },
+  {
+    "ref": "R34",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U10-IN-)",
+    "x_mm": 81.125699,
+    "y_mm": 119.446202
+  },
+  {
+    "ref": "U15",
+    "value": "AMS1117-3.3",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 49.250001,
+    "y_mm": 133.6375
+  },
+  {
+    "ref": "U15",
+    "value": "AMS1117-3.3",
+    "pad": "2",
+    "net": "+3V3A",
+    "x_mm": 49.25,
+    "y_mm": 131.3375
+  },
+  {
+    "ref": "U15",
+    "value": "AMS1117-3.3",
+    "pad": "2",
+    "net": "+3V3A",
+    "x_mm": 42.950002,
+    "y_mm": 131.3375
+  },
+  {
+    "ref": "U15",
+    "value": "AMS1117-3.3",
+    "pad": "3",
+    "net": "+5V",
+    "x_mm": 49.250001,
+    "y_mm": 129.0375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "",
+    "net": "",
+    "x_mm": 97.0375,
+    "y_mm": 112.675
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "",
+    "net": "",
+    "x_mm": 97.0375,
+    "y_mm": 114.125
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "",
+    "net": "",
+    "x_mm": 98.4875,
+    "y_mm": 112.675
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "",
+    "net": "",
+    "x_mm": 98.4875,
+    "y_mm": 114.125
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "1",
+    "net": "AQ1_C00",
+    "x_mm": 94.825,
+    "y_mm": 111.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "2",
+    "net": "AQ1_C01",
+    "x_mm": 94.825,
+    "y_mm": 111.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "3",
+    "net": "AQ1_C02",
+    "x_mm": 94.825,
+    "y_mm": 112.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "4",
+    "net": "AQ1_C03",
+    "x_mm": 94.825,
+    "y_mm": 112.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "5",
+    "net": "AQ1_C04",
+    "x_mm": 94.825,
+    "y_mm": 113.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "6",
+    "net": "AQ1_C05",
+    "x_mm": 94.825,
+    "y_mm": 113.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "7",
+    "net": "AQ1_C06",
+    "x_mm": 94.825,
+    "y_mm": 114.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "8",
+    "net": "AQ1_C07",
+    "x_mm": 94.825,
+    "y_mm": 114.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "9",
+    "net": "+1V8A",
+    "x_mm": 94.825,
+    "y_mm": 115.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "10",
+    "net": "GND",
+    "x_mm": 94.825,
+    "y_mm": 115.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "11",
+    "net": "unconnected-(U1-SDO-Pad11)",
+    "x_mm": 95.5125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "12",
+    "net": "AQ1_SCK",
+    "x_mm": 96.0125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "13",
+    "net": "AQ1_MOSI",
+    "x_mm": 96.5125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "14",
+    "net": "AQ1_nCS",
+    "x_mm": 97.0125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "15",
+    "net": "AQ1_TO0",
+    "x_mm": 97.5125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "16",
+    "net": "AQ1_TO1",
+    "x_mm": 98.0125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "17",
+    "net": "AQ1_TO2",
+    "x_mm": 98.5125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "18",
+    "net": "AQ1_nLDAC",
+    "x_mm": 99.0125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "19",
+    "net": "AQ1_nRST",
+    "x_mm": 99.5125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "20",
+    "net": "AQ1_nCLR",
+    "x_mm": 100.0125,
+    "y_mm": 116.3375
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "21",
+    "net": "AQ1_ALM",
+    "x_mm": 100.7,
+    "y_mm": 115.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "22",
+    "net": "AQ1_TEMPOUT",
+    "x_mm": 100.7,
+    "y_mm": 115.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "23",
+    "net": "AQ1_C08",
+    "x_mm": 100.7,
+    "y_mm": 114.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "24",
+    "net": "AQ1_C09",
+    "x_mm": 100.7,
+    "y_mm": 114.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "25",
+    "net": "AQ1_C10",
+    "x_mm": 100.7,
+    "y_mm": 113.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "26",
+    "net": "AQ1_C11",
+    "x_mm": 100.7,
+    "y_mm": 113.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "27",
+    "net": "AQ1_C12",
+    "x_mm": 100.7,
+    "y_mm": 112.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "28",
+    "net": "AQ1_C13",
+    "x_mm": 100.7,
+    "y_mm": 112.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "29",
+    "net": "AQ1_C14",
+    "x_mm": 100.7,
+    "y_mm": 111.65
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "30",
+    "net": "AQ1_C15",
+    "x_mm": 100.7,
+    "y_mm": 111.15
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "31",
+    "net": "+12V",
+    "x_mm": 100.0125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "32",
+    "net": "GND",
+    "x_mm": 99.5125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "33",
+    "net": "unconnected-(U1-REF-Pad33)",
+    "x_mm": 99.0125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "34",
+    "net": "Net-(U1-REFCMP)",
+    "x_mm": 98.5125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "35",
+    "net": "GND",
+    "x_mm": 98.0125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "36",
+    "net": "GND",
+    "x_mm": 97.5125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "37",
+    "net": "+5V",
+    "x_mm": 97.0125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "38",
+    "net": "+5V",
+    "x_mm": 96.5125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "39",
+    "net": "GND",
+    "x_mm": 96.0125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "40",
+    "net": "+12V",
+    "x_mm": 95.5125,
+    "y_mm": 110.4625
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 96.5625,
+    "y_mm": 112.2
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 96.5625,
+    "y_mm": 113.4
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 96.5625,
+    "y_mm": 114.6
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 97.7625,
+    "y_mm": 112.2
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 97.7625,
+    "y_mm": 113.4
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 97.7625,
+    "y_mm": 113.4
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 97.7625,
+    "y_mm": 113.4
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 97.7625,
+    "y_mm": 114.6
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 98.9625,
+    "y_mm": 112.2
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 98.9625,
+    "y_mm": 113.4
+  },
+  {
+    "ref": "U1",
+    "value": "DAC81416RHAT",
+    "pad": "41",
+    "net": "GND",
+    "x_mm": 98.9625,
+    "y_mm": 114.6
+  },
+  {
+    "ref": "R65",
+    "value": "10K",
+    "pad": "1",
+    "net": "FTEECLKI",
+    "x_mm": 64.725,
+    "y_mm": 94.3125
+  },
+  {
+    "ref": "R65",
+    "value": "10K",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 64.725,
+    "y_mm": 96.1375
+  },
+  {
+    "ref": "R45",
+    "value": "100k",
+    "pad": "1",
+    "net": "Net-(U12-VFB)",
+    "x_mm": 58.331701,
+    "y_mm": 116.571599
+  },
+  {
+    "ref": "R45",
+    "value": "100k",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 56.506699,
+    "y_mm": 116.571601
+  },
+  {
+    "ref": "R9",
+    "value": "470R",
+    "pad": "1",
+    "net": "AQ1_C00",
+    "x_mm": 75.365,
+    "y_mm": 106.0475
+  },
+  {
+    "ref": "R9",
+    "value": "470R",
+    "pad": "2",
+    "net": "AIN1_P",
+    "x_mm": 77.27,
+    "y_mm": 106.4925
+  },
+  {
+    "ref": "R9",
+    "value": "470R",
+    "pad": "3",
+    "net": "AIN1_N",
+    "x_mm": 74.73,
+    "y_mm": 99.6325
+  },
+  {
+    "ref": "R9",
+    "value": "470R",
+    "pad": "4",
+    "net": "VCC_READ",
+    "x_mm": 76.635,
+    "y_mm": 100.0775
+  },
+  {
+    "ref": "C57",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 83.25,
+    "y_mm": 137.030001
+  },
+  {
+    "ref": "C57",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 83.25,
+    "y_mm": 138.929999
+  },
+  {
+    "ref": "R19",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(D2-A)",
+    "x_mm": 55.93,
+    "y_mm": 94.299999
+  },
+  {
+    "ref": "R19",
+    "value": "150",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 55.93,
+    "y_mm": 96.124999
+  },
+  {
+    "ref": "C37",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "-3VA",
+    "x_mm": 67.346999,
+    "y_mm": 115.673405
+  },
+  {
+    "ref": "C37",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 67.347001,
+    "y_mm": 117.573395
+  },
+  {
+    "ref": "R13",
+    "value": "ERA-3AEB2053V",
+    "pad": "1",
+    "net": "Net-(U2-FB)",
+    "x_mm": 85.860199,
+    "y_mm": 122.805199
+  },
+  {
+    "ref": "R13",
+    "value": "ERA-3AEB2053V",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 87.685203,
+    "y_mm": 122.805193
+  },
+  {
+    "ref": "NT20",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "AQ1_C12",
+    "x_mm": 104.3035,
+    "y_mm": 112.5944
+  },
+  {
+    "ref": "NT20",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "VBIAS",
+    "x_mm": 105.9535,
+    "y_mm": 112.5944
+  },
+  {
+    "ref": "C34",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "-3VA",
+    "x_mm": 77.136007,
+    "y_mm": 114.046192
+  },
+  {
+    "ref": "C34",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 77.136005,
+    "y_mm": 112.146206
+  },
+  {
+    "ref": "U16",
+    "value": "AMS1117-1.8",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 49.250001,
+    "y_mm": 125.3125
+  },
+  {
+    "ref": "U16",
+    "value": "AMS1117-1.8",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 49.25,
+    "y_mm": 123.0125
+  },
+  {
+    "ref": "U16",
+    "value": "AMS1117-1.8",
+    "pad": "2",
+    "net": "+1V8A",
+    "x_mm": 42.950002,
+    "y_mm": 123.0125
+  },
+  {
+    "ref": "U16",
+    "value": "AMS1117-1.8",
+    "pad": "3",
+    "net": "+5V",
+    "x_mm": 49.250001,
+    "y_mm": 120.7125
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "",
+    "net": "",
+    "x_mm": 53.4518,
+    "y_mm": 113.8358
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "",
+    "net": "",
+    "x_mm": 53.4518,
+    "y_mm": 114.6358
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 52.5018,
+    "y_mm": 113.4858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 52.5018,
+    "y_mm": 113.9858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "3",
+    "net": "Net-(U12-CPOUT)",
+    "x_mm": 52.5018,
+    "y_mm": 114.4858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "4",
+    "net": "-3VA",
+    "x_mm": 52.5018,
+    "y_mm": 114.9858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "5",
+    "net": "Net-(U12-VFB)",
+    "x_mm": 54.4018,
+    "y_mm": 114.9858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "6",
+    "net": "+5V",
+    "x_mm": 54.4018,
+    "y_mm": 114.4858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "7",
+    "net": "Net-(U12-C-)",
+    "x_mm": 54.4018,
+    "y_mm": 113.9858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "8",
+    "net": "Net-(U12-C+)",
+    "x_mm": 54.4018,
+    "y_mm": 113.4858
+  },
+  {
+    "ref": "U12",
+    "value": "LM27761",
+    "pad": "9",
+    "net": "GND",
+    "x_mm": 53.4518,
+    "y_mm": 114.2358
+  },
+  {
+    "ref": "U4",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "1",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 56.0,
+    "y_mm": 75.0125
+  },
+  {
+    "ref": "U4",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "2",
+    "net": "/Caravel_M.2/mprj_io[6]_ser_tx",
+    "x_mm": 56.0,
+    "y_mm": 75.6625
+  },
+  {
+    "ref": "U4",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "3",
+    "net": "GND",
+    "x_mm": 56.0,
+    "y_mm": 76.3125
+  },
+  {
+    "ref": "U4",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "4",
+    "net": "/Caravel_M.2/USB_SO_RXD",
+    "x_mm": 58.2,
+    "y_mm": 76.3125
+  },
+  {
+    "ref": "U4",
+    "value": "SN74LVC1G125DCKR",
+    "pad": "5",
+    "net": "+3V3",
+    "x_mm": 58.2,
+    "y_mm": 75.0125
+  },
+  {
+    "ref": "C15",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.429994,
+    "y_mm": 79.412498
+  },
+  {
+    "ref": "C15",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 70.530004,
+    "y_mm": 79.4125
+  },
+  {
+    "ref": "D3",
+    "value": "RED",
+    "pad": "1",
+    "net": "/Caravel_M.2/ACBUS3",
+    "x_mm": 58.38,
+    "y_mm": 89.7625
+  },
+  {
+    "ref": "D3",
+    "value": "RED",
+    "pad": "2",
+    "net": "Net-(D3-A)",
+    "x_mm": 58.38,
+    "y_mm": 92.562498
+  },
+  {
+    "ref": "R32",
+    "value": "1K",
+    "pad": "1",
+    "net": "/ADC/C2RGP",
+    "x_mm": 56.939,
+    "y_mm": 130.981499
+  },
+  {
+    "ref": "R32",
+    "value": "1K",
+    "pad": "2",
+    "net": "/ADC/C2RGN",
+    "x_mm": 56.938998,
+    "y_mm": 129.156499
+  },
+  {
+    "ref": "C17",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 55.530002,
+    "y_mm": 87.712499
+  },
+  {
+    "ref": "C17",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3",
+    "x_mm": 57.43,
+    "y_mm": 87.712499
+  },
+  {
+    "ref": "C7",
+    "value": "GRM188R61E475KE11D",
+    "pad": "1",
+    "net": "+5V",
+    "x_mm": 86.85,
+    "y_mm": 125.65
+  },
+  {
+    "ref": "C7",
+    "value": "GRM188R61E475KE11D",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 88.575002,
+    "y_mm": 125.649992
+  },
+  {
+    "ref": "C11",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.424999,
+    "y_mm": 87.6
+  },
+  {
+    "ref": "C11",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "/Caravel_M.2/VCCA",
+    "x_mm": 70.525001,
+    "y_mm": 87.6
+  },
+  {
+    "ref": "R40",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U11-OUT-)",
+    "x_mm": 57.853402,
+    "y_mm": 122.472502
+  },
+  {
+    "ref": "R40",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP3_N",
+    "x_mm": 57.8534,
+    "y_mm": 120.647502
+  },
+  {
+    "ref": "C56",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 95.175,
+    "y_mm": 136.375
+  },
+  {
+    "ref": "C56",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+1V8",
+    "x_mm": 97.075,
+    "y_mm": 136.375
+  },
+  {
+    "ref": "R36",
+    "value": "150",
+    "pad": "1",
+    "net": "AIN2_N",
+    "x_mm": 54.757402,
+    "y_mm": 130.9815
+  },
+  {
+    "ref": "R36",
+    "value": "150",
+    "pad": "2",
+    "net": "Net-(U11-IN-)",
+    "x_mm": 54.7574,
+    "y_mm": 129.1565
+  },
+  {
+    "ref": "R47",
+    "value": "150",
+    "pad": "1",
+    "net": "Net-(U13-OUT-)",
+    "x_mm": 70.6763,
+    "y_mm": 113.5754
+  },
+  {
+    "ref": "R47",
+    "value": "150",
+    "pad": "2",
+    "net": "AMP2_N",
+    "x_mm": 72.5013,
+    "y_mm": 113.5754
+  },
+  {
+    "ref": "C59",
+    "value": "1uF",
+    "pad": "1",
+    "net": "mprj_io[25]",
+    "x_mm": 94.725,
+    "y_mm": 77.900001
+  },
+  {
+    "ref": "C59",
+    "value": "1uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 94.725,
+    "y_mm": 79.799999
+  },
+  {
+    "ref": "R58",
+    "value": "10K",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 90.6,
+    "y_mm": 142.3925
+  },
+  {
+    "ref": "R58",
+    "value": "10K",
+    "pad": "2",
+    "net": "SI5351_SCL",
+    "x_mm": 90.6,
+    "y_mm": 140.5675
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "1",
+    "net": "AIN6_P",
+    "x_mm": 45.1,
+    "y_mm": 76.4125
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "2",
+    "net": "AIN6_N",
+    "x_mm": 47.64,
+    "y_mm": 76.4125
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "3",
+    "net": "AIN7_P",
+    "x_mm": 45.1,
+    "y_mm": 78.9525
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "4",
+    "net": "AIN7_N",
+    "x_mm": 47.64,
+    "y_mm": 78.9525
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "5",
+    "net": "AIN8_P",
+    "x_mm": 45.1,
+    "y_mm": 81.4925
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "6",
+    "net": "AIN8_N",
+    "x_mm": 47.64,
+    "y_mm": 81.4925
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "7",
+    "net": "GND",
+    "x_mm": 45.1,
+    "y_mm": 84.0325
+  },
+  {
+    "ref": "J7",
+    "value": "Conn_02x04_Odd_Even",
+    "pad": "8",
+    "net": "GND",
+    "x_mm": 47.64,
+    "y_mm": 84.0325
+  },
+  {
+    "ref": "C40",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 72.249999,
+    "y_mm": 125.450005
+  },
+  {
+    "ref": "C40",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "REFB",
+    "x_mm": 72.250001,
+    "y_mm": 127.349995
+  },
+  {
+    "ref": "C35",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "-3VA",
+    "x_mm": 60.103808,
+    "y_mm": 125.446203
+  },
+  {
+    "ref": "C35",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 62.003794,
+    "y_mm": 125.446199
+  },
+  {
+    "ref": "C39",
+    "value": "10uF",
+    "pad": "1",
+    "net": "-3VA",
+    "x_mm": 50.262402,
+    "y_mm": 115.387998
+  },
+  {
+    "ref": "C39",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 50.262398,
+    "y_mm": 113.488002
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "1",
+    "net": "U19P1",
+    "x_mm": 67.85,
+    "y_mm": 89.625
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 67.85,
+    "y_mm": 90.575
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "3",
+    "net": "FTEEDATA",
+    "x_mm": 67.85,
+    "y_mm": 91.525
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "4",
+    "net": "FTEECLKI",
+    "x_mm": 70.55,
+    "y_mm": 91.525
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "5",
+    "net": "~{FTEECS}",
+    "x_mm": 70.55,
+    "y_mm": 90.575
+  },
+  {
+    "ref": "U19",
+    "value": "93LCxxBxxOT",
+    "pad": "6",
+    "net": "+3V3",
+    "x_mm": 70.55,
+    "y_mm": 89.625
+  },
+  {
+    "ref": "U2",
+    "value": "TPS61040DDC",
+    "pad": "1",
+    "net": "Net-(D1-A)",
+    "x_mm": 85.866902,
+    "y_mm": 129.733696
+  },
+  {
+    "ref": "U2",
+    "value": "TPS61040DDC",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 86.816901,
+    "y_mm": 129.733696
+  },
+  {
+    "ref": "U2",
+    "value": "TPS61040DDC",
+    "pad": "3",
+    "net": "Net-(U2-FB)",
+    "x_mm": 87.7669,
+    "y_mm": 129.733696
+  },
+  {
+    "ref": "U2",
+    "value": "TPS61040DDC",
+    "pad": "4",
+    "net": "+5V",
+    "x_mm": 87.7669,
+    "y_mm": 127.458696
+  },
+  {
+    "ref": "U2",
+    "value": "TPS61040DDC",
+    "pad": "5",
+    "net": "+5V",
+    "x_mm": 85.866902,
+    "y_mm": 127.458696
+  },
+  {
+    "ref": "C44",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 70.224999,
+    "y_mm": 125.450005
+  },
+  {
+    "ref": "C44",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "REFT",
+    "x_mm": 70.225001,
+    "y_mm": 127.349995
+  },
+  {
+    "ref": "R41",
+    "value": "1K",
+    "pad": "1",
+    "net": "/ADC/C3RGP",
+    "x_mm": 61.7355,
+    "y_mm": 112.175
+  },
+  {
+    "ref": "R41",
+    "value": "1K",
+    "pad": "2",
+    "net": "/ADC/C3RGN",
+    "x_mm": 63.5605,
+    "y_mm": 112.175
+  },
+  {
+    "ref": "D1",
+    "value": "MBR0530",
+    "pad": "1",
+    "net": "/DAC/12VPWR",
+    "x_mm": 82.276901,
+    "y_mm": 124.431797
+  },
+  {
+    "ref": "D1",
+    "value": "MBR0530",
+    "pad": "2",
+    "net": "Net-(D1-A)",
+    "x_mm": 82.276903,
+    "y_mm": 127.731795
+  },
+  {
+    "ref": "C12",
+    "value": "0.01uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 65.53,
+    "y_mm": 91.312498
+  },
+  {
+    "ref": "C12",
+    "value": "0.01uF",
+    "pad": "2",
+    "net": "/Caravel_M.2/~{FTDI_RST}",
+    "x_mm": 65.53,
+    "y_mm": 89.4125
+  },
+  {
+    "ref": "R16",
+    "value": "1K",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 56.0875,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "R16",
+    "value": "1K",
+    "pad": "2",
+    "net": "/Caravel_M.2/ACBUS0",
+    "x_mm": 57.9125,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "NT11",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "DC_BIAS",
+    "x_mm": 94.75,
+    "y_mm": 79.5875
+  },
+  {
+    "ref": "NT11",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[25]",
+    "x_mm": 94.75,
+    "y_mm": 77.9375
+  },
+  {
+    "ref": "NT2",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_WL_READ",
+    "x_mm": 93.2,
+    "y_mm": 79.6125
+  },
+  {
+    "ref": "NT2",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[26]",
+    "x_mm": 93.2,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "NT8",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCOMP",
+    "x_mm": 83.9,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT8",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[32]",
+    "x_mm": 83.9,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "C19",
+    "value": "0.01uF",
+    "pad": "1",
+    "net": "VBUS",
+    "x_mm": 51.0,
+    "y_mm": 64.4
+  },
+  {
+    "ref": "C19",
+    "value": "0.01uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 51.0,
+    "y_mm": 62.500002
+  },
+  {
+    "ref": "NT5",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_WL_RESET",
+    "x_mm": 90.1,
+    "y_mm": 79.6125
+  },
+  {
+    "ref": "NT5",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[28]",
+    "x_mm": 90.1,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "C41",
+    "value": "10uF",
+    "pad": "1",
+    "net": "REFB",
+    "x_mm": 72.250001,
+    "y_mm": 127.349995
+  },
+  {
+    "ref": "C41",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 72.249999,
+    "y_mm": 125.450005
+  },
+  {
+    "ref": "R14",
+    "value": "ERJ-8GEY0R00V",
+    "pad": "1",
+    "net": "/DAC/12VPWR",
+    "x_mm": 79.940101,
+    "y_mm": 124.455595
+  },
+  {
+    "ref": "R14",
+    "value": "ERJ-8GEY0R00V",
+    "pad": "2",
+    "net": "+12V",
+    "x_mm": 79.940101,
+    "y_mm": 127.555597
+  },
+  {
+    "ref": "C42",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "REFT",
+    "x_mm": 70.225002,
+    "y_mm": 129.077303
+  },
+  {
+    "ref": "C42",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "REFB",
+    "x_mm": 72.125,
+    "y_mm": 129.077303
+  },
+  {
+    "ref": "NT13",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCCD2",
+    "x_mm": 97.85,
+    "y_mm": 79.6125
+  },
+  {
+    "ref": "NT13",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "vccd2",
+    "x_mm": 97.85,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "",
+    "net": "",
+    "x_mm": 102.225003,
+    "y_mm": 150.554999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "",
+    "net": "",
+    "x_mm": 47.845,
+    "y_mm": 147.505004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C1",
+    "net": "",
+    "x_mm": 99.799998,
+    "y_mm": 153.730001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C2",
+    "net": "",
+    "x_mm": 98.530001,
+    "y_mm": 153.730004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C3",
+    "net": "",
+    "x_mm": 97.26,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C4",
+    "net": "",
+    "x_mm": 95.989997,
+    "y_mm": 153.730005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C5",
+    "net": "",
+    "x_mm": 94.719997,
+    "y_mm": 153.729999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C6",
+    "net": "",
+    "x_mm": 93.450002,
+    "y_mm": 153.729999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C7",
+    "net": "",
+    "x_mm": 92.180002,
+    "y_mm": 153.730005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C8",
+    "net": "",
+    "x_mm": 90.910003,
+    "y_mm": 153.729997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C9",
+    "net": "",
+    "x_mm": 89.640002,
+    "y_mm": 153.729995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C10",
+    "net": "OUT4_P",
+    "x_mm": 88.370004,
+    "y_mm": 153.730004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C11",
+    "net": "OUT4_N",
+    "x_mm": 87.1,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C12",
+    "net": "unconnected-(J9-PadC12)",
+    "x_mm": 85.829996,
+    "y_mm": 153.730004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C13",
+    "net": "unconnected-(J9-PadC13)",
+    "x_mm": 84.559999,
+    "y_mm": 153.729997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C14",
+    "net": "FPGA_RX",
+    "x_mm": 83.29,
+    "y_mm": 153.729994
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C15",
+    "net": "FPGA_TX",
+    "x_mm": 82.020005,
+    "y_mm": 153.730003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C16",
+    "net": "unconnected-(J9-PadC16)",
+    "x_mm": 80.749996,
+    "y_mm": 153.730002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C17",
+    "net": "unconnected-(J9-PadC17)",
+    "x_mm": 79.479998,
+    "y_mm": 153.730005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C18",
+    "net": "SCAN_SI",
+    "x_mm": 78.21,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C19",
+    "net": "SCAN_CC",
+    "x_mm": 76.939998,
+    "y_mm": 153.730001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C20",
+    "net": "unconnected-(J9-PadC20)",
+    "x_mm": 75.67,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C21",
+    "net": "unconnected-(J9-PadC21)",
+    "x_mm": 74.394995,
+    "y_mm": 153.730004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C22",
+    "net": "unconnected-(J9-PadC22)",
+    "x_mm": 73.129999,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C23",
+    "net": "unconnected-(J9-PadC23)",
+    "x_mm": 71.86,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C24",
+    "net": "unconnected-(J9-PadC24)",
+    "x_mm": 70.59,
+    "y_mm": 153.729993
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C25",
+    "net": "unconnected-(J9-PadC25)",
+    "x_mm": 69.320006,
+    "y_mm": 153.729997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C26",
+    "net": "unconnected-(J9-PadC26)",
+    "x_mm": 68.050002,
+    "y_mm": 153.729995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C27",
+    "net": "unconnected-(J9-PadC27)",
+    "x_mm": 66.780005,
+    "y_mm": 153.730002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C28",
+    "net": "unconnected-(J9-PadC28)",
+    "x_mm": 65.510001,
+    "y_mm": 153.730003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C29",
+    "net": "unconnected-(J9-PadC29)",
+    "x_mm": 64.240002,
+    "y_mm": 153.729993
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C30",
+    "net": "FPGA_SCL",
+    "x_mm": 62.97,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C31",
+    "net": "FPGA_SDA",
+    "x_mm": 61.700002,
+    "y_mm": 153.730002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C32",
+    "net": "Net-(J9-PadC32)",
+    "x_mm": 60.430001,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C33",
+    "net": "unconnected-(J9-PadC33)",
+    "x_mm": 59.160001,
+    "y_mm": 153.730004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C34",
+    "net": "GND",
+    "x_mm": 57.889999,
+    "y_mm": 153.729996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C35",
+    "net": "unconnected-(J9-PadC35)",
+    "x_mm": 56.62,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C36",
+    "net": "unconnected-(J9-PadC36)",
+    "x_mm": 55.35,
+    "y_mm": 153.73
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C37",
+    "net": "unconnected-(J9-PadC37)",
+    "x_mm": 54.079997,
+    "y_mm": 153.729999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C38",
+    "net": "unconnected-(J9-PadC38)",
+    "x_mm": 52.810001,
+    "y_mm": 153.730001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C39",
+    "net": "3V3FMC",
+    "x_mm": 51.539999,
+    "y_mm": 153.729996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "C40",
+    "net": "unconnected-(J9-PadC40)",
+    "x_mm": 50.269995,
+    "y_mm": 153.729997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D1",
+    "net": "",
+    "x_mm": 99.8,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D2",
+    "net": "",
+    "x_mm": 98.529999,
+    "y_mm": 152.459996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D3",
+    "net": "",
+    "x_mm": 97.26,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D4",
+    "net": "",
+    "x_mm": 95.989999,
+    "y_mm": 152.459999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D5",
+    "net": "",
+    "x_mm": 94.720002,
+    "y_mm": 152.459995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D6",
+    "net": "",
+    "x_mm": 93.450003,
+    "y_mm": 152.460003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D7",
+    "net": "",
+    "x_mm": 92.18,
+    "y_mm": 152.459997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D8",
+    "net": "FPGA_MCLKIN_P",
+    "x_mm": 90.91,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D9",
+    "net": "FPGA_MCLKIN_N",
+    "x_mm": 89.640002,
+    "y_mm": 152.459996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D10",
+    "net": "unconnected-(J9-PadD10)",
+    "x_mm": 88.370002,
+    "y_mm": 152.459995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D11",
+    "net": "OUT5_P",
+    "x_mm": 87.099995,
+    "y_mm": 152.459997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D12",
+    "net": "OUT5_N",
+    "x_mm": 85.830003,
+    "y_mm": 152.459997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D13",
+    "net": "unconnected-(J9-PadD13)",
+    "x_mm": 84.56,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D14",
+    "net": "READY_I",
+    "x_mm": 83.289998,
+    "y_mm": 152.460003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D15",
+    "net": "RESET_B",
+    "x_mm": 82.019998,
+    "y_mm": 152.459997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D16",
+    "net": "unconnected-(J9-PadD16)",
+    "x_mm": 80.749995,
+    "y_mm": 152.459996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D17",
+    "net": "SCAN_SE",
+    "x_mm": 79.479998,
+    "y_mm": 152.459996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D18",
+    "net": "SCAN_TM",
+    "x_mm": 78.21,
+    "y_mm": 152.460001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D19",
+    "net": "unconnected-(J9-PadD19)",
+    "x_mm": 76.945004,
+    "y_mm": 152.459996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D20",
+    "net": "unconnected-(J9-PadD20)",
+    "x_mm": 75.67,
+    "y_mm": 152.459999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D21",
+    "net": "unconnected-(J9-PadD21)",
+    "x_mm": 74.400004,
+    "y_mm": 152.460001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D22",
+    "net": "GND",
+    "x_mm": 73.13,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D23",
+    "net": "unconnected-(J9-PadD23)",
+    "x_mm": 71.859999,
+    "y_mm": 152.459998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D24",
+    "net": "unconnected-(J9-PadD24)",
+    "x_mm": 70.589997,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D25",
+    "net": "GND",
+    "x_mm": 69.319998,
+    "y_mm": 152.460004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D26",
+    "net": "unconnected-(J9-PadD26)",
+    "x_mm": 68.05,
+    "y_mm": 152.460001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D27",
+    "net": "unconnected-(J9-PadD27)",
+    "x_mm": 66.779997,
+    "y_mm": 152.460004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D28",
+    "net": "GND",
+    "x_mm": 65.51,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D29",
+    "net": "unconnected-(J9-PadD29)",
+    "x_mm": 64.239996,
+    "y_mm": 152.460006
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D30",
+    "net": "R62A",
+    "x_mm": 62.97,
+    "y_mm": 152.460003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D31",
+    "net": "R62B",
+    "x_mm": 61.699995,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D32",
+    "net": "unconnected-(J9-PadD32)",
+    "x_mm": 60.430003,
+    "y_mm": 152.459994
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D33",
+    "net": "unconnected-(J9-PadD33)",
+    "x_mm": 59.16,
+    "y_mm": 152.459998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D34",
+    "net": "unconnected-(J9-PadD34)",
+    "x_mm": 57.889999,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D35",
+    "net": "unconnected-(J9-PadD35)",
+    "x_mm": 56.620003,
+    "y_mm": 152.459998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D36",
+    "net": "",
+    "x_mm": 55.349996,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D37",
+    "net": "GND",
+    "x_mm": 54.080002,
+    "y_mm": 152.459998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D38",
+    "net": "",
+    "x_mm": 52.810001,
+    "y_mm": 152.459994
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D39",
+    "net": "GND",
+    "x_mm": 51.539998,
+    "y_mm": 152.46
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "D40",
+    "net": "/FMC Slot/+3V3_VIO",
+    "x_mm": 50.270003,
+    "y_mm": 152.460002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G1",
+    "net": "GND",
+    "x_mm": 99.799997,
+    "y_mm": 148.649998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G2",
+    "net": "",
+    "x_mm": 98.530002,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G3",
+    "net": "",
+    "x_mm": 97.259999,
+    "y_mm": 148.650006
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G4",
+    "net": "",
+    "x_mm": 95.989998,
+    "y_mm": 148.650002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G5",
+    "net": "",
+    "x_mm": 94.720004,
+    "y_mm": 148.649998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G6",
+    "net": "LCLK_P",
+    "x_mm": 93.449997,
+    "y_mm": 148.650002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G7",
+    "net": "LCLK_N",
+    "x_mm": 92.174999,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G8",
+    "net": "GND",
+    "x_mm": 90.91,
+    "y_mm": 148.650002
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G9",
+    "net": "OUT2_P",
+    "x_mm": 89.639997,
+    "y_mm": 148.650006
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G10",
+    "net": "OUT2_N",
+    "x_mm": 88.370005,
+    "y_mm": 148.649998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G11",
+    "net": "unconnected-(J9-PadG11)",
+    "x_mm": 87.1,
+    "y_mm": 148.649997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G12",
+    "net": "AQ1_SCK",
+    "x_mm": 85.830004,
+    "y_mm": 148.649994
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G13",
+    "net": "AQ1_MOSI",
+    "x_mm": 84.56,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G14",
+    "net": "unconnected-(J9-PadG14)",
+    "x_mm": 83.290003,
+    "y_mm": 148.649996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G15",
+    "net": "FPGA_SCK",
+    "x_mm": 82.02,
+    "y_mm": 148.649999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G16",
+    "net": "FPGA_SDATA",
+    "x_mm": 80.750002,
+    "y_mm": 148.649996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G17",
+    "net": "unconnected-(J9-PadG17)",
+    "x_mm": 79.480003,
+    "y_mm": 148.649998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G18",
+    "net": "ADC_PD",
+    "x_mm": 78.205005,
+    "y_mm": 148.650001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G19",
+    "net": "FPGA_LOE",
+    "x_mm": 76.94,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G20",
+    "net": "unconnected-(J9-PadG20)",
+    "x_mm": 75.669996,
+    "y_mm": 148.649999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G21",
+    "net": "unconnected-(J9-PadG21)",
+    "x_mm": 74.4,
+    "y_mm": 148.650001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G22",
+    "net": "unconnected-(J9-PadG22)",
+    "x_mm": 73.13,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G23",
+    "net": "unconnected-(J9-PadG23)",
+    "x_mm": 71.86,
+    "y_mm": 148.649999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G24",
+    "net": "unconnected-(J9-PadG24)",
+    "x_mm": 70.590002,
+    "y_mm": 148.650004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G25",
+    "net": "unconnected-(J9-PadG25)",
+    "x_mm": 69.324995,
+    "y_mm": 148.649999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G26",
+    "net": "unconnected-(J9-PadG26)",
+    "x_mm": 68.050002,
+    "y_mm": 148.650003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G27",
+    "net": "unconnected-(J9-PadG27)",
+    "x_mm": 66.780002,
+    "y_mm": 148.649997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G28",
+    "net": "unconnected-(J9-PadG28)",
+    "x_mm": 65.51,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G29",
+    "net": "unconnected-(J9-PadG29)",
+    "x_mm": 64.239997,
+    "y_mm": 148.650003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G30",
+    "net": "unconnected-(J9-PadG30)",
+    "x_mm": 62.970005,
+    "y_mm": 148.650003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G31",
+    "net": "unconnected-(J9-PadG31)",
+    "x_mm": 61.699998,
+    "y_mm": 148.650005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G32",
+    "net": "unconnected-(J9-PadG32)",
+    "x_mm": 60.429998,
+    "y_mm": 148.650004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G33",
+    "net": "unconnected-(J9-PadG33)",
+    "x_mm": 59.16,
+    "y_mm": 148.649998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G34",
+    "net": "unconnected-(J9-PadG34)",
+    "x_mm": 57.89,
+    "y_mm": 148.650003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G35",
+    "net": "unconnected-(J9-PadG35)",
+    "x_mm": 56.619997,
+    "y_mm": 148.649997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G36",
+    "net": "unconnected-(J9-PadG36)",
+    "x_mm": 55.349998,
+    "y_mm": 148.650005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G37",
+    "net": "unconnected-(J9-PadG37)",
+    "x_mm": 54.080001,
+    "y_mm": 148.650001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G38",
+    "net": "unconnected-(J9-PadG38)",
+    "x_mm": 52.81,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G39",
+    "net": "Net-(J9-PadG39)",
+    "x_mm": 51.540001,
+    "y_mm": 148.650004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "G40",
+    "net": "unconnected-(J9-PadG40)",
+    "x_mm": 50.27,
+    "y_mm": 148.65
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H1",
+    "net": "",
+    "x_mm": 99.800005,
+    "y_mm": 147.380003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H2",
+    "net": "GND",
+    "x_mm": 98.530001,
+    "y_mm": 147.380004
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H3",
+    "net": "",
+    "x_mm": 97.259999,
+    "y_mm": 147.379999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H4",
+    "net": "ADCLK_P",
+    "x_mm": 95.990003,
+    "y_mm": 147.380001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H5",
+    "net": "ADCLK_N",
+    "x_mm": 94.72,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H6",
+    "net": "",
+    "x_mm": 93.45,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H7",
+    "net": "OUT1_P",
+    "x_mm": 92.174995,
+    "y_mm": 147.379997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H8",
+    "net": "OUT1_N",
+    "x_mm": 90.909999,
+    "y_mm": 147.379996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H9",
+    "net": "",
+    "x_mm": 89.639999,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H10",
+    "net": "OUT3_P",
+    "x_mm": 88.369998,
+    "y_mm": 147.379998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H11",
+    "net": "OUT3_N",
+    "x_mm": 87.1,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H12",
+    "net": "unconnected-(J9-PadH12)",
+    "x_mm": 85.829998,
+    "y_mm": 147.380007
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H13",
+    "net": "AQ1_nCS",
+    "x_mm": 84.559999,
+    "y_mm": 147.379997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H14",
+    "net": "AQ1_nLDAC",
+    "x_mm": 83.289995,
+    "y_mm": 147.379998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H15",
+    "net": "unconnected-(J9-PadH15)",
+    "x_mm": 82.019998,
+    "y_mm": 147.380005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H16",
+    "net": "FPGA_nCS",
+    "x_mm": 80.749994,
+    "y_mm": 147.380003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H17",
+    "net": "FPGA_nADCRST",
+    "x_mm": 79.48,
+    "y_mm": 147.380007
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H18",
+    "net": "unconnected-(J9-PadH18)",
+    "x_mm": 78.205004,
+    "y_mm": 147.379999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H19",
+    "net": "SI5351_CLK1_1V8",
+    "x_mm": 76.940001,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H20",
+    "net": "AQ1_nRST",
+    "x_mm": 75.669995,
+    "y_mm": 147.379997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H21",
+    "net": "unconnected-(J9-PadH21)",
+    "x_mm": 74.4,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H22",
+    "net": "unconnected-(J9-PadH22)",
+    "x_mm": 73.130002,
+    "y_mm": 147.379999
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H23",
+    "net": "unconnected-(J9-PadH23)",
+    "x_mm": 71.86,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H24",
+    "net": "unconnected-(J9-PadH24)",
+    "x_mm": 70.590002,
+    "y_mm": 147.379995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H25",
+    "net": "unconnected-(J9-PadH25)",
+    "x_mm": 69.320004,
+    "y_mm": 147.379998
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H26",
+    "net": "unconnected-(J9-PadH26)",
+    "x_mm": 68.049995,
+    "y_mm": 147.379997
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H27",
+    "net": "unconnected-(J9-PadH27)",
+    "x_mm": 66.78,
+    "y_mm": 147.380006
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H28",
+    "net": "unconnected-(J9-PadH28)",
+    "x_mm": 65.510001,
+    "y_mm": 147.380003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H29",
+    "net": "unconnected-(J9-PadH29)",
+    "x_mm": 64.240004,
+    "y_mm": 147.379996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H30",
+    "net": "unconnected-(J9-PadH30)",
+    "x_mm": 62.97,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H31",
+    "net": "unconnected-(J9-PadH31)",
+    "x_mm": 61.699996,
+    "y_mm": 147.379996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H32",
+    "net": "unconnected-(J9-PadH32)",
+    "x_mm": 60.429998,
+    "y_mm": 147.380005
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H33",
+    "net": "unconnected-(J9-PadH33)",
+    "x_mm": 59.159997,
+    "y_mm": 147.380003
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H34",
+    "net": "unconnected-(J9-PadH34)",
+    "x_mm": 57.889998,
+    "y_mm": 147.379995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H35",
+    "net": "unconnected-(J9-PadH35)",
+    "x_mm": 56.619998,
+    "y_mm": 147.380001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H36",
+    "net": "unconnected-(J9-PadH36)",
+    "x_mm": 55.350003,
+    "y_mm": 147.380001
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H37",
+    "net": "unconnected-(J9-PadH37)",
+    "x_mm": 54.080003,
+    "y_mm": 147.379995
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H38",
+    "net": "unconnected-(J9-PadH38)",
+    "x_mm": 52.81,
+    "y_mm": 147.38
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H39",
+    "net": "unconnected-(J9-PadH39)",
+    "x_mm": 51.539999,
+    "y_mm": 147.379996
+  },
+  {
+    "ref": "J9",
+    "value": "ASP-134604-01",
+    "pad": "H40",
+    "net": "Net-(J9-PadH40)",
+    "x_mm": 50.270002,
+    "y_mm": 147.379999
+  },
+  {
+    "ref": "R62",
+    "value": "1K",
+    "pad": "1",
+    "net": "U19P1",
+    "x_mm": 67.8,
+    "y_mm": 89.5625
+  },
+  {
+    "ref": "R62",
+    "value": "1K",
+    "pad": "2",
+    "net": "FTEEDATA",
+    "x_mm": 67.8,
+    "y_mm": 91.3875
+  },
+  {
+    "ref": "C20",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 55.45,
+    "y_mm": 64.4
+  },
+  {
+    "ref": "C20",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+5V",
+    "x_mm": 55.45,
+    "y_mm": 62.500002
+  },
+  {
+    "ref": "NT12",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "+3V3",
+    "x_mm": 96.3,
+    "y_mm": 79.5875
+  },
+  {
+    "ref": "NT12",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "vdda1",
+    "x_mm": 96.3,
+    "y_mm": 77.9375
+  },
+  {
+    "ref": "NT10",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VBIAS",
+    "x_mm": 88.55,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT10",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[29]",
+    "x_mm": 88.55,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "C46",
+    "value": "10uF",
+    "pad": "1",
+    "net": "REFT",
+    "x_mm": 70.225001,
+    "y_mm": 127.349995
+  },
+  {
+    "ref": "C46",
+    "value": "10uF",
+    "pad": "2",
+    "net": "GND",
+    "x_mm": 70.224999,
+    "y_mm": 125.450005
+  },
+  {
+    "ref": "NT9",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "BIAS_COMP2",
+    "x_mm": 85.45,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT9",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[31]",
+    "x_mm": 85.45,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "C50",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 79.65,
+    "y_mm": 130.8802
+  },
+  {
+    "ref": "C50",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3A",
+    "x_mm": 77.75,
+    "y_mm": 130.8802
+  },
+  {
+    "ref": "NT6",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_RESET",
+    "x_mm": 79.25,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT6",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "vdda2",
+    "x_mm": 79.25,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "NT24",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "/Caravel_M.2/SI5351_CLK0_RAW",
+    "x_mm": 77.7,
+    "y_mm": 79.5875
+  },
+  {
+    "ref": "NT24",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "/Caravel_M.2/xclk",
+    "x_mm": 77.7,
+    "y_mm": 77.9375
+  },
+  {
+    "ref": "NT7",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "IREF",
+    "x_mm": 80.8,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT7",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[34]",
+    "x_mm": 80.8,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "NT1",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_READ",
+    "x_mm": 82.35,
+    "y_mm": 79.625
+  },
+  {
+    "ref": "NT1",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[33]",
+    "x_mm": 82.35,
+    "y_mm": 77.975
+  },
+  {
+    "ref": "NT4",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_WL_SET",
+    "x_mm": 87.0,
+    "y_mm": 79.6125
+  },
+  {
+    "ref": "NT4",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[30]",
+    "x_mm": 87.0,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "FB1",
+    "value": "600R/0.5A",
+    "pad": "1",
+    "net": "VBUS",
+    "x_mm": 53.2,
+    "y_mm": 64.462501
+  },
+  {
+    "ref": "FB1",
+    "value": "600R/0.5A",
+    "pad": "2",
+    "net": "+5V",
+    "x_mm": 53.2,
+    "y_mm": 62.337501
+  },
+  {
+    "ref": "R63",
+    "value": "ERJ-8GEY0R00V",
+    "pad": "1",
+    "net": "R62A",
+    "x_mm": 44.145204,
+    "y_mm": 158.598204
+  },
+  {
+    "ref": "R63",
+    "value": "ERJ-8GEY0R00V",
+    "pad": "2",
+    "net": "R62B",
+    "x_mm": 44.145196,
+    "y_mm": 155.498196
+  },
+  {
+    "ref": "NT3",
+    "value": "NetTie_2",
+    "pad": "1",
+    "net": "VCC_SET",
+    "x_mm": 91.65,
+    "y_mm": 79.6125
+  },
+  {
+    "ref": "NT3",
+    "value": "NetTie_2",
+    "pad": "2",
+    "net": "mprj_io[27]",
+    "x_mm": 91.65,
+    "y_mm": 77.9625
+  },
+  {
+    "ref": "C43",
+    "value": "0.1uF",
+    "pad": "1",
+    "net": "GND",
+    "x_mm": 79.65,
+    "y_mm": 133.0138
+  },
+  {
+    "ref": "C43",
+    "value": "0.1uF",
+    "pad": "2",
+    "net": "+3V3A",
+    "x_mm": 77.75,
+    "y_mm": 133.0138
+  }
+]

@@ -35,7 +35,7 @@ if {[llength $targets] == 0} {
     exit 1
 }
 set target [lindex $targets 0]
-# The runtime VIO debug hub is clocked by the 2 MHz bench XCLK.  Keep JTAG
+# The runtime VIO debug hub follows the selected 2/10 MHz Si5351 XCLK. Keep JTAG
 # below that so XSDB traffic is sampled reliably on the AX7020/Digilent link.
 set_property PARAM.FREQUENCY 1000000 $target
 open_hw_target $target
@@ -75,8 +75,8 @@ foreach candidate [get_hw_vios -quiet -of_objects $dev] {
 }
 set reused [expr {$vio ne ""}]
 if {$reused} {
-    # Width alone cannot distinguish this WB-high-Z image from earlier
-    # 64-bit runtime VIO images. Bits 21:19 are 3'b101 only in v9.
+    # Width alone cannot distinguish this permanent-WB image from earlier
+    # 64-bit runtime images. Version 23 publishes 3'b011 in bits 21:19.
     set candidate_inputs [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
     if {[llength $candidate_inputs] != 1 || [catch {refresh_hw_vio $vio}]} {
         set reused 0
@@ -91,7 +91,7 @@ if {$reused} {
             set vio ""
         } else {
             scan $candidate_status %llx candidate_status_value
-            if {[expr {($candidate_status_value >> 19) & 7}] != 5} {
+            if {[expr {($candidate_status_value >> 19) & 7}] != 3} {
                 puts "BITSTREAM_SIGNATURE_MISMATCH=$candidate_status"
                 set reused 0
                 set vio ""
@@ -122,6 +122,11 @@ if {[llength $input_probes] != 1} {
 }
 set command_probe [lindex $output_probes 0]
 set status_probe [lindex $input_probes 0]
+
+# Programming a new image can leave the host-side OUTPUT_VALUE property from
+# the previous VIO core. Read the value actually present in the new core before
+# toggling bit 63, otherwise the first command after programming may be lost.
+refresh_hw_vio $vio
 
 # A command starts when bit 63 changes.  Read the persistent VIO output and
 # invert its trigger bit while preserving the requested payload's lower bits.

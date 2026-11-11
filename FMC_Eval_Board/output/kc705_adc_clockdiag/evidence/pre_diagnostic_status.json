@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-19",
+  "board": "KC705 J2 with CaravelReRAM-SenseEval v1.2F",
+  "bitstream_sha256": "8BA98D07E233863729F4783F8F044DC6A245EBCE26396550B2DED5ABCADEA20F",
+  "programmed_and_startup_verified": true,
+  "fmc_electrical_settings_unchanged": true,
+  "identical_port_settings_count": 41,
+  "vadj_setting_changed": false,
+  "timing_wns_ns": 1.185,
+  "timing_whs_ns": 0.051,
+  "routing_errors": 0,
+  "adc_simulation": "ADC_10MSPS_INTERNAL94_SPI_AND_TIMING_PASS",
+  "adc_spi_frames_transmitted": [
+    "124333",
+    "030002",
+    "010010",
+    "C78001",
+    "DE01C0",
+    "E30060",
+    "428001",
+    "250000"
+  ],
+  "adc_register_readback_verified": false,
+  "adc_fpga_sequencer_completed": true,
+  "adc_nominal_sample_clock_hz": 10000000,
+  "adc_clock_generator_locked_and_enabled": true,
+  "adc_internal_termination_commanded_ohm": 94,
+  "adc_return_clock_verified": false,
+  "adc_capture_result": "ILA reports its LCLK clock stopped, including retry at supported 750 kHz JTAG rate",
+  "adc_output_words_decoded": false,
+  "adc6_routed_to_fmc": false,
+  "dac_scan_profile_restored_and_sequencer_ready": true,
+  "si5351_10mhz_configuration_and_plla_lock_verified": true,
+  "saleae_device_id": "A25E1BAA6577FA4D",
+  "saleae_500msa_capture": "USB ReadTimeout and FIFO overflow in VM",
+  "saleae_voltage_capture": "../saleae_out6_voltage/out6.sal",
+  "saleae_voltage_summary": "../saleae_out6_voltage/summary.json",
+  "saleae_out6p_mean_V": 1.225701713972199,
+  "saleae_out6n_mean_V": 1.132636473298335,
+  "saleae_limitation": "Low-bandwidth single-ended voltage observation only; not a valid LVDS data or clock measurement",
+  "user_reported_ain6p_V": 1.75,
+  "user_reported_ain6n_V": 1.25,
+  "pending_user_measurements": [],
+  "left_running": {
+    "adc_enable": true,
+    "dac_enable": true
+  },
+  "next_diagnosis": "Independent FPGA return-clock counter build in progress, output/kc705_adc_clockdiag; only Saleae available",
+  "adc_rails_user_confirmed": [
+    {
+      "voltage_V": 3.3,
+      "pad": "C45.2"
+    },
+    {
+      "voltage_V": 1.8,
+      "pad": "C53.2"
+    },
+    {
+      "voltage_V": 1.5,
+      "pad": "C47.2"
+    }
+  ],
+  "adc_control_pins_user_confirmed": [
+    {
+      "voltage_V": 1.8,
+      "pad": "R50.2",
+      "net": "FPGA_nADCRST"
+    },
+    {
+      "voltage_V": 0,
+      "pad": "R51.1",
+      "net": "ADC_PD"
+    }
+  ],
+  "physical_sample_clock": {
+    "period_min_s": 9.6E-08,
+    "capture": "../saleae_sample_clock_mixed/sample_clock.sal",
+    "result": "Nominal 10 MHz confirmed; absolute frequency accuracy depends on Saleae timebase",
+    "location": "C61.2, FPGA side",
+    "period_max_s": 1.04E-07,
+    "digital_sample_rate_hz": 250000000,
+    "rising_edges": 1637620,
+    "frequency_hz": 10000035.417398931
+  },
+  "adc_clock_input_bias_user_confirmed": {
+    "C60_pad1_V": 1.5,
+    "C61_pad1_V": 1.5
+  },
+  "physical_adc_side_clock": {
+    "location": "C61.1, ADC side",
+    "digital_sample_rate_hz": 250000000,
+    "limitation": "Measured at capacitor pad, not ADC package; amplitude and signal integrity not verified",
+    "rising_edges": 1965301,
+    "capture": "../saleae_adc_side_clock/sample_clock.sal",
+    "frequency_hz": 10000035.414565964
+  }
+}

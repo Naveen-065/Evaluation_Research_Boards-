@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "ports": 41,
+  "differences": {},
+  "setup_slack_ns": 0.36,
+  "hold_slack_ns": 0.059,
+  "critical_drc": 0,
+  "hashes": {
+    "kc705_adc_capture.bit": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c",
+    "kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96"
+  },
+  "timing_scope": "User-specified constraints; external asynchronous IO is not fully timed."
+}

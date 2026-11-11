@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Current range: R9 56 Ω</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;color:#193046;max-width:1050px;margin:40px auto;padding:0 24px}h1{font-size:28px}h2{font-size:20px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-bottom:1px solid #ccd5de}img{max-width:100%}.note{padding:16px;background:#edf3fa}</style>
+<h1>Current range with R9 = 56 Ω and nominal U10 gain 7</h1>
+<p class="note"><b>Nominal forward range: 0 to 2.55 mA.</b> ngspice reaches the ADC's +1 V differential boundary at
+2.5501 mA. An upper target of 2.3 mA leaves about 10% nominal span headroom.
+This is a simulated sensing range, not a hardware current-limit or accuracy guarantee.</p>
+<img src="current_range.png" alt="ADC code saturates around 2.55 mA for gain7; load voltage decreases with shunt current.">
+<h2>Transfer and resolution</h2><p>VADC,signal = I × 56 × 7 = 392 I (volts for current in amperes).
+The ADC's nominal differential span is −1 to +1 V; zero input is code 2048. The positive half uses about 2048 codes.
+Imax ≈ 1 / 392 = 2.551 mA; one code = (2/4096)/392 = 1.2456 µA.</p>
+<table><tr><th>Current (µA)</th><th>R9 drop (mV)</th><th>U10 ideal signal (mV)</th><th>ADC code, zero offset</th><th>Status</th></tr><tr><td>0</td><td>0.000</td><td>0.000</td><td>2048</td><td>In range</td></tr><tr><td>1</td><td>0.056</td><td>0.392</td><td>2049</td><td>In range</td></tr><tr><td>5</td><td>0.280</td><td>1.960</td><td>2052</td><td>In range</td></tr><tr><td>10</td><td>0.560</td><td>3.920</td><td>2056</td><td>In range</td></tr><tr><td>50</td><td>2.800</td><td>19.600</td><td>2088</td><td>In range</td></tr><tr><td>100</td><td>5.600</td><td>39.200</td><td>2128</td><td>In range</td></tr><tr><td>143</td><td>8.008</td><td>56.056</td><td>2163</td><td>In range</td></tr><tr><td>500</td><td>28.000</td><td>196.000</td><td>2449</td><td>In range</td></tr><tr><td>1000</td><td>56.000</td><td>392.000</td><td>2851</td><td>In range</td></tr><tr><td>2000</td><td>112.000</td><td>784.000</td><td>3654</td><td>In range</td></tr><tr><td>2300</td><td>128.800</td><td>901.600</td><td>3894</td><td>In range</td></tr><tr><td>2500</td><td>140.000</td><td>980.000</td><td>4055</td><td>In range</td></tr><tr><td>2551</td><td>142.856</td><td>999.992</td><td>4095</td><td>In range</td></tr><tr><td>3000</td><td>168.000</td><td>1176.000</td><td>4095</td><td>Clipped</td></tr></table>
+<h2>Small currents and accuracy</h2><p>The last stable 205-sample capture had standard deviation
+1.652 counts. At nominal gain7 this is approximately 2.06 µA RMS;
+three standard deviations correspond to 6.18 µA. These are short-capture noise estimates,
+not guaranteed minimum measurable currents. One-count resolution is not one-count accuracy.</p>
+<p>Zero-offset calibration is needed for small absolute currents. The ADC datasheet's typical ±0.2%FS and
+maximum ±1.25%FS offsets correspond to approximately ±10.2 µA and ±63.8 µA at nominal gain7,
+before including amplifier, shunt and reference errors. Averaging steady DC can reduce uncorrelated random noise,
+but cannot remove systematic offset/gain errors; no averaging improvement was measured here.</p>
+<h2>Load disturbance and actual gain</h2><p>At 2.55 mA the shunt drops approximately 143 mV, leaving about
+0.386 V at the load if the DAC holds 0.529 V. If only 10 mV drop is acceptable, current is limited to 179 µA;
+50 mV allows 893 µA. These load-voltage requirements may be stricter than the ADC range.</p>
+<p>If the actual gain were 6.25, the nominal span limit would instead be 2.857 mA and one count 1.395 µA.
+That gain is included only as sensitivity analysis from the approximate meter ratio; it is not a calibrated gain.
+No FPGA, ADC, DAC or FMC settings were changed for this simulation.</p>
+<h2>Model and evidence</h2><p>TI INA851 preliminary PSpice macro-model in ngspice 46, +12/−3 V supplies,
+1.5 V output common mode, 0/3.3 V clamp rails, 150 Ω input/output series resistors. Ideal static ADS5282 transfer;
+no transistor-level ADC, sampling kickback, real DAC current-limit or system noise simulation. DC only; 10 MSPS does
+not establish flat response to 5 MHz current signals.</p>
+<p><a href="https://www.ti.com/lit/ds/symlink/ina851.pdf">INA851 datasheet</a> ·
+<a href="https://www.ti.com/product/ADS5282">ADS5282 specifications</a> ·
+<a href="summary.json">Summary and assumptions</a> · <a href="nominal_gain7.cir">ngspice netlist</a> ·
+<a href="nominal_gain7.csv">Sweep data</a></p></html>

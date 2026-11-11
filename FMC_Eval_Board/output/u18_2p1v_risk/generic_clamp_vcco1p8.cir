@@ -1,0 +1,14 @@
+Illustrative generic input clamp: bank VCCO=1.8
+* NOT an AMD/Kintex model. No breakdown, latchup, lifetime or thermal behavior.
+* 4k represents a TXS high-state weak pullup; edge accelerators not simulated.
+.options reltol=1e-7 abstol=1e-12 vntol=1e-9
+Vsource source 0 2.1
+Vbank bank 0 1.8
+Rpull source pin 4k
+Dclamp pin bank GENERIC
+.model GENERIC D(IS=1e-12 N=1 RS=5)
+Rleak pin 0 10Meg
+Cpin pin 0 8p
+.dc Vsource 1.8 2.7 .01
+.save v(source) v(pin) i(Vbank) i(Vsource)
+.end

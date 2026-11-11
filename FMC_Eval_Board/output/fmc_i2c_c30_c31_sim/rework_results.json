@@ -1,0 +1,20 @@
+{
+  "change": "Remove R53 and R54; retain R57/R58 and corrected U18",
+  "idle": {
+    "connector_scl_V": 3.299999984443,
+    "connector_sda_V": 3.299999984443,
+    "si5351_scl_side_V": 3.299999966900001,
+    "si5351_sda_side_V": 3.299999966900001,
+    "u18_bias_V": 2.4209646707941355
+  },
+  "one_line_low": {
+    "connector_scl_V": 0.010280042237217889,
+    "connector_sda_V": 3.299999984443,
+    "si5351_scl_side_V": 0.019361927852924527,
+    "si5351_sda_side_V": 3.299999966900001,
+    "u18_bias_V": 2.4209646707941355,
+    "kc705_pullup_current_A": 0.0006999404165452727,
+    "si5351_pullup_current_A": 0.00032806380721470753,
+    "total_low_sink_current_A": 0.0010280042237599803
+  }
+}

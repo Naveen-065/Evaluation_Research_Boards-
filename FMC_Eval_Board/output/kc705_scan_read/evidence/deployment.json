@@ -1,0 +1,110 @@
+{
+  "verified": false,
+  "reason": "R11 repair verified: r0/c0 captured without clipping. SET-path change is about 13.0 uA (nominal gain). Showing the saved post-repair capture; live reads await the corrected backend restart.",
+  "cpu_reset_released": true,
+  "hashes": {
+    "build/kc705_adc_capture.bit": "29e2e252631becdc674c19376ea6e9072367f91e61e3eefe62d024827ebf79d7",
+    "build/kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96",
+    "firmware/scan_read.bin": "f76f13002998d18403ecf2367d9c824067ebec16a4f2e36bf310e8db076f0e77"
+  },
+  "adc_initialized": true,
+  "adc_idle_capture_coherent": true,
+  "adc2_idle_code": 2077.834375,
+  "scan_interface_enabled": true,
+  "first_cell_read_completed": true,
+  "setup_slack_ns": 0.708,
+  "hold_slack_ns": 0.044,
+  "visual_qa": "Unavailable: CUA timed out; headless screenshot policy blocked",
+  "next_steps": [
+    "Reload corrected UI backend to enable live reads; prior automatic review blocked the process restart."
+  ],
+  "vdda1_target_v": 3.0,
+  "vdda1_voltage_measured": false,
+  "measurement_valid": true,
+  "adc2_active_code": 2077.7221666666665,
+  "channel_mapping": {
+    "ADC1": "R9 READ via U10",
+    "ADC2": "R11 RESET via U13 and R46/R47",
+    "ADC3": "R10 SET via U11 and R39/R40"
+  },
+  "repair": "User resoldered loose R11 pad 2; post-repair read pending.",
+  "hardware_verified": true,
+  "calibrated": false,
+  "ui_reload_required": true,
+  "latest_verified_read": {
+    "time": "2026-10-20T06:37:01.236490+00:00",
+    "row": 0,
+    "col": 0,
+    "packet": "0x0000",
+    "baseline_samples": 640,
+    "active_samples": 12000,
+    "adc_rate_hz": 10000000,
+    "scan_clock_hz": 2000000,
+    "shunt_ohms": 56,
+    "nominal_gain": 7,
+    "calibrated": false,
+    "clipped": false,
+    "channels": [
+      {
+        "channel": 1,
+        "path": "READ / R9",
+        "baseline_code": 2037.61875,
+        "active_code": 2037.8780833333333,
+        "rail_clipped": false,
+        "adc_diff_mv": -4.94234212239586,
+        "delta_adc_mv": 0.1266276041665959,
+        "estimated_current_ua": -12.608015618356786,
+        "delta_current_ua": 0.3230296024658059
+      },
+      {
+        "channel": 2,
+        "path": "RESET / R11",
+        "baseline_code": 2077.834375,
+        "active_code": 2077.7221666666665,
+        "rail_clipped": false,
+        "adc_diff_mv": 14.51277669270823,
+        "delta_adc_mv": -0.05478922526047647,
+        "estimated_current_ua": 37.02238952221487,
+        "delta_current_ua": -0.13976843178692977
+      },
+      {
+        "channel": 3,
+        "path": "SET / R10",
+        "baseline_code": 2032.1234375,
+        "active_code": 2042.56625,
+        "rail_clipped": false,
+        "adc_diff_mv": -2.65319824218746,
+        "delta_adc_mv": 5.099029541015709,
+        "estimated_current_ua": -6.768362862723112,
+        "delta_current_ua": 13.007728420958442
+      },
+      {
+        "channel": 4,
+        "path": "ADC4",
+        "baseline_code": 2043.9359375,
+        "active_code": 2043.9373333333333,
+        "rail_clipped": false,
+        "adc_diff_mv": -1.98372395833335,
+        "delta_adc_mv": 0.0006815592448194963,
+        "estimated_current_ua": null,
+        "delta_current_ua": null
+      },
+      {
+        "channel": 5,
+        "path": "ADC5",
+        "baseline_code": 2015.025,
+        "active_code": 2014.9890833333334,
+        "rail_clipped": false,
+        "adc_diff_mv": -16.118611653645807,
+        "delta_adc_mv": -0.017537434895853465,
+        "estimated_current_ua": null,
+        "delta_current_ua": null
+      }
+    ],
+    "raw_result0": "0013ad900013f5d70013d84f00144a960013e60c2ee002800000001f00000200",
+    "raw_result1": "534352310fbe3fe8fee41efe0170f49d017641900176014b017c713a01752589",
+    "source_log": "read_cell_20261020_143610.log",
+    "repair": "R11 pad 2 resoldered",
+    "mapping_revision": "ADC1 READ; ADC2 RESET; ADC3 SET"
+  }
+}

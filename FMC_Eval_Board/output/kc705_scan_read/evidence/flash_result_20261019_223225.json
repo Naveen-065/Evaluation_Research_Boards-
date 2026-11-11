@@ -1,0 +1,10 @@
+{
+  "firmware": "/home/ubuntu-24-04/kc705_scan_read/scan_read.bin",
+  "bytes": 3584,
+  "erased_bytes": 4096,
+  "sha256": "f76f13002998d18403ecf2367d9c824067ebec16a4f2e36bf310e8db076f0e77",
+  "verified": true,
+  "external_clock_bypass": true,
+  "cpu_reset_released": false,
+  "backup": "/home/ubuntu-24-04/kc705_scan_read/evidence/flash_before_blink_20261019_223225.bin"
+}

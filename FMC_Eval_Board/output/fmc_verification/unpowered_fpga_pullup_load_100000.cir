@@ -1,0 +1,12 @@
+Mezzanine 1.8V pullups into an unpowered FPGA bank
+* Eight 4k pullups represented by 500 ohm equivalent. Illustrative load only.
+* Generic clamp diode; no powered-off vendor FPGA model.
+Vmezz source 0 PWL(0 0 1u 0 2u 1.8 0.5 1.8)
+Rpull source pin 500
+Dupper pin bank Dgeneric
+Cbank bank 0 100u
+Rload bank 0 100000
+.model Dgeneric D(IS=1e-12 N=1 RS=5)
+.tran 0.1m 0.5 0 0.1m
+.save time v(bank) v(pin) i(Vmezz)
+.end

@@ -1,0 +1,125 @@
+{
+  "recorded_at_utc": "2026-10-19T16:05:50.533329+00:00",
+  "image_directory": "output/kc705_adc_capture",
+  "bitstream_sha256": "7BEE1A0ED7C6C977C6D4ED08F32199E1E37A7B5EACA5F0B35B940FB9DC72F856",
+  "program_verified": true,
+  "adc_enabled": true,
+  "adc_startup_spi_frames": [
+    "124333",
+    "030002",
+    "010010",
+    "C78001",
+    "DE01C0",
+    "E30060",
+    "428001",
+    "250000"
+  ],
+  "adc_register_readback": false,
+  "sample_rate_hz": 10000000,
+  "return_clock_checks": {
+    "windows": 10,
+    "all_passed": true,
+    "lclk_nominal_hz": 60000000,
+    "adclk_nominal_hz": 10000000,
+    "tolerance": "approximately +/-2 percent in 1 ms counter windows"
+  },
+  "dac_enabled": true,
+  "dac_profile": "PCB-adapted scan startup, internal 2.5 V reference, mask 0x41D0",
+  "dac_startup_frame_count": 21,
+  "dac_register_readback": false,
+  "si5351_registers_match_10mhz_profile": true,
+  "si5351_plla_locked": true,
+  "si5351_status": "0x11",
+  "preserved_port_count": 41,
+  "electrical_configuration_unchanged": true,
+  "vadj_written": false,
+  "build_checks": {
+    "setup_slack_ns": 1.062,
+    "hold_slack_ns": 0.06,
+    "critical_drc_count": 0,
+    "route_error_count": 0,
+    "packet_bus_skew_ns": 0.571,
+    "max_packet_net_delay_ps": 676
+  },
+  "simulation": "100 coherent packets passed the CDC simulation",
+  "capture": {
+    "source_csv": "ads5282_analog_20261019_212705.csv",
+    "ila_clock_hz": 200000000,
+    "ila_samples": 4096,
+    "coherent_packets": 205,
+    "packet_interval_ila_cycles": {
+      "20": 204
+    },
+    "mean_packet_rate_hz": 10000000.0,
+    "all_capture_checks_pass": true,
+    "status_high_throughout_capture": {
+      "run_enable_1": true,
+      "pll_locked_1": true,
+      "adc_clock_running_1": true,
+      "adc_reset_n_1": true,
+      "config_done_1": true,
+      "dac_enable_1": true,
+      "dac_ready_1": true,
+      "ret_adclk_seen_1": true,
+      "ret_lclk_seen_1": true,
+      "ret_adclk_10m_1": true,
+      "ret_lclk_60m_1": true,
+      "ret_window_valid_1": true,
+      "frame_locked_sync[1:1]": true
+    },
+    "packet_changes_without_valid": 0,
+    "channels": {
+      "1": {
+        "raw_unique_words": 10,
+        "candidate_lsb_first_code_min": 2150,
+        "candidate_lsb_first_code_max": 2159,
+        "candidate_lsb_first_code_mean": 2154.243902439024,
+        "candidate_lsb_first_code_stdev": 1.6524997738810672
+      },
+      "2": {
+        "raw_unique_words": 8,
+        "candidate_lsb_first_code_min": 2044,
+        "candidate_lsb_first_code_max": 2052,
+        "candidate_lsb_first_code_mean": 2047.4243902439025,
+        "candidate_lsb_first_code_stdev": 1.4177929409188963
+      },
+      "3": {
+        "raw_unique_words": 7,
+        "candidate_lsb_first_code_min": 2046,
+        "candidate_lsb_first_code_max": 2052,
+        "candidate_lsb_first_code_mean": 2048.487804878049,
+        "candidate_lsb_first_code_stdev": 1.3884884081217241
+      },
+      "4": {
+        "raw_unique_words": 2,
+        "candidate_lsb_first_code_min": 2043,
+        "candidate_lsb_first_code_max": 2044,
+        "candidate_lsb_first_code_mean": 2043.7756097560975,
+        "candidate_lsb_first_code_stdev": 0.41718013177024976
+      },
+      "5": {
+        "raw_unique_words": 7,
+        "candidate_lsb_first_code_min": 1986,
+        "candidate_lsb_first_code_max": 1992,
+        "candidate_lsb_first_code_mean": 1989.4,
+        "candidate_lsb_first_code_stdev": 1.0801987170389913
+      }
+    },
+    "serial_bit_order_validated_by_known_input_or_test_pattern": false,
+    "adc_register_readback": false,
+    "adc6_captured": false,
+    "limitations": [
+      "Only ADC outputs 1-5 are connected to FMC; OUT6 is on J8.",
+      "Bit-reversed candidate codes need a known input or test-pattern validation.",
+      "No voltage or R9/R10/R11 current calibration is claimed.",
+      "Clock counters establish activity/rate, not LVDS eye quality."
+    ]
+  },
+  "saleae_probe_last_confirmed": "CH0 at C61 pad 1; CH1 last confirmed at OUT6N, no later movement assumed",
+  "last_reinitialization_reason": "PCB disconnected to replace R9 with 56 ohms",
+  "R9_user_confirmed_ohms": 56,
+  "Caravel_installed": false,
+  "independent_gain_validation_pending": true,
+  "analog_validation_status": "After connection fix, 8 mV across R9 and approximately 50 mV U10 output reported; FPGA response agrees approximately with output, exact U10 gain and current calibration pending.",
+  "R9_measured_drop_mV": 8.0
+}

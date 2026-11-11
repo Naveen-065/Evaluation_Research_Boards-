@@ -1,0 +1,11 @@
+{
+  "R9_pad2_to_ground_V": 0.529,
+  "R9_pad3_to_ground_V": 0.52,
+  "R9_direct_differential_mV": 4.0,
+  "difference_of_ground_referenced_readings_mV": 9.0,
+  "R31_fitted_ohms": null,
+  "U10_direct_output_differential_mV": 50.0,
+  "note": "Fresh direct R9 reading is 8 mV after loose connection fix. Previously reported U10 output is approximately 50 mV and agrees with the post-fix FPGA voltage response. Exact gain/offset calibration pending.",
+  "prior_readings_before_loose_connection_found": true,
+  "R9_direct_mV_after_connection_fixed": 8.0
+}

@@ -1,0 +1,11 @@
+{
+  "protocol": "ZCU106_BITMAP_READ_V1",
+  "start": 0,
+  "count": 1,
+  "threshold_uA": 34.2563054,
+  "cells": [
+    {"physical_index": 0, "row": 0, "column": 0, "current_uA": 52.480916436, "conductance_uS": 104.961832871, "observed_bit": 1, "observed_state": "LRS"}
+  ],
+  "lrs_count": 1,
+  "hrs_count": 0
+}

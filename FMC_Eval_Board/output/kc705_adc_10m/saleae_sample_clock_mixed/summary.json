@@ -1,0 +1,12 @@
+{
+  "probe_location": "C61 pad 2, FPGA_MCLKIN_P, CH0",
+  "digital_sample_rate_hz": 250000000,
+  "exported_duration_s": 0.163761438,
+  "transitions": 3275240,
+  "rising_edges": 1637620,
+  "frequency_hz": 10000035.417398931,
+  "period_min_s": 9.599999997722541e-08,
+  "period_max_s": 1.0400000000077014e-07,
+  "limitation": "Digital threshold crossing measurement; does not verify analog amplitude or ADC-side clock after C61.",
+  "nominal_10mhz_observed": true
+}

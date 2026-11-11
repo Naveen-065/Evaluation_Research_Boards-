@@ -1,0 +1,12 @@
+# This subtree is a byte-for-byte deployment bundle.  Preserve CRLF exactly,
+# but teach Git's whitespace checker that the CR is part of the line ending.
+* -text whitespace=cr-at-eol,-blank-at-eof
+
+# Deployment artifacts are hash-pinned; Git must preserve their exact bytes.
+fpga/**/*.bit -text
+fpga/**/*.dcp -text
+fpga/**/*.ltx -text -diff whitespace=-trailing-space
+fpga/**/*.rpt -text -diff whitespace=-trailing-space
+fpga/**/*.tsv -text -diff whitespace=-trailing-space
+caravel/*.bin -text
+caravel/*.elf -text

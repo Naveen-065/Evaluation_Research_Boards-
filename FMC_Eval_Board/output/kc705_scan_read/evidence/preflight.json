@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-20",
+  "hardware": {
+    "NT12": "removed",
+    "NT22": "fitted DAC14 to VDDA1",
+    "Caravel": "installed",
+    "temporary_3k3": "removed",
+    "R9_R10_R11_ohms": 56
+  },
+  "tests": {
+    "scan_protocol_simulation": "passed",
+    "dac_spi_supply_sequence": "passed",
+    "decoder_unit_tests": 6
+  },
+  "firmware_sha256": "f76f13002998d18403ecf2367d9c824067ebec16a4f2e36bf310e8db076f0e77",
+  "deployed": false
+}

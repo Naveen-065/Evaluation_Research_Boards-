@@ -1,0 +1,105 @@
+{
+  "validated_at_utc": "2026-10-23T05:19:46.845439+00:00",
+  "hardware": {
+    "carrier": "ZCU106",
+    "connector": "J5/HPC0",
+    "array_shape": [32, 32],
+    "fmc_vadj_v": 1.79625
+  },
+  "image": {
+    "bitstream": "build/zcu106_adc_capture.bit",
+    "sha256": "ba7f5afee7dc5134828004ad48114ef9f2079b28b83de17650288d9cffe04bfb",
+    "api_revision": "fpga-array-scheduler-resetpath-v4.2"
+  },
+  "programming_recipe": {
+    "set_path": "DAC2/DAC3 with scan OP_SET=1",
+    "reset_path": "DAC2/DAC3 with scan OP_SET=0",
+    "set_grid_v": [[2.3, 0.44], [2.3, 1.09], [2.3, 1.75]],
+    "reset_grid": "96 points: VCC 2.3/2.7/3.0 V x WL 0.94..2.88 V",
+    "reset_sweep_hold_ms": [1.2, 2.4, 6.0],
+    "voltage_ceiling_v": 3.0,
+    "confirmation_reads": 10,
+    "set_target_current_ua": 35.0,
+    "reset_target_current_ua": 34.2563054,
+    "scan_packet_rule": "Every packet receives a bounded Caravel reset and READY wait"
+  },
+  "full_array_set": {
+    "job_id": "3049643729fb4425a6a6433f69dabacb",
+    "run_json": "3049643729fb4425a6a6433f69dabacb.json",
+    "duration_s": 246.551,
+    "completed": 1024,
+    "confirmed": 1024,
+    "failures": 0,
+    "total_program_pulses": 4,
+    "current_ua": {
+      "min": 38.265306,
+      "median": 51.445578,
+      "mean": 55.010114,
+      "max": 129.251701
+    }
+  },
+  "full_array_reset_passes": [
+    {
+      "job_id": "08cbce7693ea4d17b447c0746e55e802",
+      "run_json": "08cbce7693ea4d17b447c0746e55e802.json",
+      "duration_s": 805.933,
+      "completed": 1024,
+      "confirmed": 989,
+      "failures": 35,
+      "total_program_pulses": 15539
+    },
+    {
+      "job_id": "2a74d697bfe4400a81a6332ef9b54152",
+      "run_json": "2a74d697bfe4400a81a6332ef9b54152.json",
+      "duration_s": 353.628,
+      "completed": 1024,
+      "confirmed": 1015,
+      "failures": 9,
+      "total_program_pulses": 2886
+    },
+    {
+      "job_id": "80881d174711464388e6fb957ac02bc5",
+      "run_json": "80881d174711464388e6fb957ac02bc5.json",
+      "duration_s": 347.242,
+      "completed": 1024,
+      "confirmed": 1017,
+      "failures": 7,
+      "pass_rate_percent": 99.3164,
+      "total_program_pulses": 2456,
+      "clipped_cells": 0,
+      "current_ua_all": {
+        "min": 8.503401,
+        "median": 17.857143,
+        "mean": 19.263443,
+        "max": 83.758503
+      },
+      "current_ua_confirmed": {
+        "min": 8.503401,
+        "median": 17.857143,
+        "mean": 19.068689,
+        "max": 33.588435
+      }
+    }
+  ],
+  "final_failed_cells": [
+    {"row": 0, "col": 0, "current_ua": 51.870748, "pulses_in_final_pass": 288},
+    {"row": 1, "col": 0, "current_ua": 38.690476, "pulses_in_final_pass": 288},
+    {"row": 2, "col": 0, "current_ua": 39.965986, "pulses_in_final_pass": 288},
+    {"row": 3, "col": 0, "current_ua": 37.414966, "pulses_in_final_pass": 288},
+    {"row": 31, "col": 0, "current_ua": 41.666667, "pulses_in_final_pass": 288},
+    {"row": 31, "col": 30, "current_ua": 83.758503, "pulses_in_final_pass": 288},
+    {"row": 31, "col": 31, "current_ua": 39.540816, "pulses_in_final_pass": 288}
+  ],
+  "implementation_verification": {
+    "python_tests_passed": 19,
+    "tcl_tests_passed": true,
+    "vivado_simulation_passed": true,
+    "wns_ns": 0.348,
+    "whs_ns": 0.010,
+    "failing_timing_endpoints": 0,
+    "unrouted_nets": 0,
+    "array_result_storage": "one 1024x32 RAMB36"
+  },
+  "final_hardware_state": "Safe scan read profile restored; Caravel CPU held",
+  "measurement_note": "Currents are nominal, uncalibrated estimates derived from ADC3/R10 with nominal gain 7 and 56-ohm shunt. Failures are retained as measured errors; no unbounded programming was applied."
+}

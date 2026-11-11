@@ -1,0 +1,44 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: adc lvds lclk source94: finite-compliance behavioral model
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout cm                                         1.2
+stdout q                                           -1
+stdout sn                                     1.36448
+stdout sp                                     1.03552
+stdout spp                                    1.03552
+stdout dp                                     1.03552
+stdout snn                                    1.36448
+stdout dn                                     1.36448
+stdout xp                                     1.03552
+stdout jp                                     1.03552
+stdout yp                                     1.03552
+stdout zp                                     1.03552
+stdout rp                                     1.03552
+stdout xn                                     1.36448
+stdout jn                                     1.36448
+stdout yn                                     1.36448
+stdout zn                                     1.36448
+stdout rn                                     1.36448
+stdout lrxn#branch                        1.36448e-08
+stdout lrxp#branch                        1.03552e-08
+stdout lpkn#branch                        1.36448e-08
+stdout lpkp#branch                        1.03552e-08
+stdout vq#branch                                    0
+stdout vcm#branch                            -2.4e-08
+ Reference value :  0.00000e+00
+ Reference value :  1.42595e-07
+ Reference value :  1.76252e-07
+ Reference value :  2.28750e-07
+ Reference value :  2.84244e-07
+ Reference value :  3.32504e-07
+ Reference value :  3.83936e-07
+ Reference value :  4.39076e-07
+ Reference value :  4.93879e-07
+ Reference value :  5.48136e-07
+ Reference value :  6.01971e-07
+stdout No. of Data Rows : 224809

@@ -1,0 +1,9 @@
+NT25 removed: only verifies the disconnected power topology
+Vcarrier carrier 0 3.3
+Vlocal local 0 3.4
+Rload_carrier carrier 0 1k
+Rload_local local 0 1k
+* No component connects carrier to local. Other PCB paths must be audited.
+.op
+.save v(carrier) v(local) i(Vcarrier) i(Vlocal)
+.end

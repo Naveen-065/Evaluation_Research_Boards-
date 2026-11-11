@@ -1,0 +1,62 @@
+{
+  "id": "1498c092807b446ea0fc11a8953eea09",
+  "parameters": {
+    "mode": "wb_set",
+    "row": 0,
+    "col": 31,
+    "set_v": 2.3,
+    "set_wl": 1.3,
+    "reset_v": 2.7,
+    "reset_wl": 1.5,
+    "hold": 2400,
+    "cycles": 1,
+    "dry_run": false
+  },
+  "state": "completed",
+  "started": "2026-10-20T09:28:01.656706+00:00",
+  "results": [
+    {
+      "kind": "wb",
+      "time": "2026-10-20T09:28:32.133475+00:00",
+      "row": 0,
+      "col": 31,
+      "operation": "set",
+      "packet": "0xC1F2AAFF",
+      "words": [
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x00000000",
+        "0x0007D738",
+        "0x0007D704",
+        "0x0007D704",
+        "0x0007D704"
+      ],
+      "selected": "0x0007D738",
+      "nonzero": true,
+      "matching_column": true,
+      "coarse": 23,
+      "fine": 56,
+      "extra": 0,
+      "transport_verified": true,
+      "cell_state_verified": false,
+      "calibrated": false,
+      "note": "TDC counts are not calibrated conductance. A command echo alone is not a cell-state check.",
+      "job_id": "1498c092807b446ea0fc11a8953eea09"
+    }
+  ],
+  "status": {
+    "adc_healthy": true,
+    "interface_enabled": true,
+    "clock_present": true,
+    "cpu_reset_released": false
+  },
+  "finished": "2026-10-20T09:28:33.668915+00:00"
+}

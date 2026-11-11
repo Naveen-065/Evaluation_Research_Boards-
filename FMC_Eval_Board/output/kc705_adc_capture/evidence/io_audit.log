@@ -1,0 +1,165 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 19 19:45:59 2026
+# Process ID         : 4704
+# Current directory  : C:/Users/fpga.DESKTOP-CVDV1JP
+# Command line       : vivado.exe -mode batch -source C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_capture\audit_preserved_io.tcl -log C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_capture\evidence\io_audit.log
+# Log file           : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_capture/evidence/io_audit.log
+# Journal file       : C:/Users/fpga.DESKTOP-CVDV1JP\vivado.jou
+# Running On         : DESKTOP-CVDV1JP
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : AMD Ryzen 5 5600U with Radeon Graphics         
+# CPU Frequency      : 2296 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 7330 MB
+# Swap memory        : 12348 MB
+# Total Virtual      : 19678 MB
+# Available Virtual  : 3521 MB
+#-----------------------------------------------------------
+source {C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_capture\audit_preserved_io.tcl}
+# set here [file dirname [file normalize [info script]]]
+# set properties {PACKAGE_PIN IOSTANDARD DIRECTION DRIVE SLEW DIFF_TERM PULLTYPE}
+# set baseline {C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_clockdiag/build/kc705_adc_clockdiag.dcp}
+# open_checkpoint $baseline
+Command: open_checkpoint C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_clockdiag/build/kc705_adc_clockdiag.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.056 . Memory (MB): peak = 355.305 ; gain = 4.758
+INFO: [Device 21-403] Loading part xc7k325tffg900-2
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 879.961 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 378 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1008.605 ; gain = 0.664
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1670.137 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1670.137 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1670.137 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.195 . Memory (MB): peak = 1682.422 ; gain = 12.285
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1682.422 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.106 . Memory (MB): peak = 1682.422 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.346 . Memory (MB): peak = 1682.422 ; gain = 12.285
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.423 . Memory (MB): peak = 1682.422 ; gain = 12.879
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1682.422 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 128 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 120 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 2 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 6 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:27 ; elapsed = 00:00:26 . Memory (MB): peak = 1682.422 ; gain = 1340.020
+# set expected [dict create]
+# foreach p [get_ports] {
+#     set port_name [get_property NAME $p]
+#     foreach property $properties { dict set expected $port_name $property [get_property $property $p] }
+# }
+# set design_props {BITSTREAM.CONFIG.UNUSEDPIN CFGBVS CONFIG_VOLTAGE}
+# set baseline_design [dict create]
+# foreach p $design_props { dict set baseline_design $p [get_property $p [current_design]] }
+# close_design
+# open_checkpoint [file join $here build kc705_adc_capture.dcp]
+Command: open_checkpoint C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_capture/build/kc705_adc_capture.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1682.422 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.045 . Memory (MB): peak = 1682.422 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 378 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1682.422 ; gain = 0.000
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1693.422 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1693.422 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1693.422 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.175 . Memory (MB): peak = 1703.828 ; gain = 10.406
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1703.828 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.097 . Memory (MB): peak = 1703.828 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.302 . Memory (MB): peak = 1703.828 ; gain = 10.406
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.303 . Memory (MB): peak = 1703.828 ; gain = 10.406
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1703.828 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 128 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 120 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 2 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 6 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1703.828 ; gain = 21.406
+# foreach port [dict keys $expected] {
+#     set object [get_ports -quiet $port]
+#     if {[llength $object] != 1} { error "Original port missing: $port" }
+#     foreach property $properties {
+#         set actual [get_property $property $object]
+#         set wanted [dict get $expected $port $property]
+#         if {$actual ne $wanted} { error "$port $property changed: $wanted -> $actual" }
+#     }
+# }
+# foreach p $design_props {
+#     if {[get_property $p [current_design]] ne [dict get $baseline_design $p]} { error "$p changed" }
+# }
+# foreach p [get_ports] {
+#     if {![dict exists $expected $p] && $p ni {iic_scl_main iic_sda_main}} { error "Unexpected added port $p" }
+# }
+# puts "ORIGINAL_PORT_PROPERTIES_IDENTICAL count=[dict size $expected]"
+ORIGINAL_PORT_PROPERTIES_IDENTICAL count=41
+# puts "DESIGN_ELECTRICAL_CONFIGURATION_IDENTICAL"
+DESIGN_ELECTRICAL_CONFIGURATION_IDENTICAL
+# report_bus_skew -file [file join $here build bus_skew.rpt]
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+# set sources [get_cells -hier -filter {NAME =~ word_snapshot/held_words_reg*}]
+# set destinations [get_cells -hier -filter {NAME =~ word_snapshot/destination_words_reg*}]
+# if {[llength $sources] != 60 || [llength $destinations] != 60} {
+#     error "Expected 60 source and destination packet registers"
+# }
+# set endpoints [get_pins -of_objects $destinations -filter {REF_PIN_NAME == D}]
+# set f [open [file join $here build snapshot_route_delays.tsv] w]
+# puts $f "PIN\tSLOW_MAX_PS\tFAST_MAX_PS"
+# set worst_ps 0
+# foreach pin $endpoints {
+#     set net [get_nets -of_objects $pin]
+#     set driver [get_pins -of_objects $net -filter {DIRECTION == OUT}]
+#     if {[llength $driver] != 1 || ![string match {word_snapshot/held_words_reg*} $driver]} {
+#         error "Packet bus is not a direct registered connection: $pin <- $driver"
+#     }
+#     set delays [get_net_delays -of_objects $net -to $pin]
+#     if {[llength $delays] != 1} { error "Missing routed delay for $pin" }
+#     set slow [get_property SLOW_MAX $delays]
+#     set fast [get_property FAST_MAX $delays]
+#     set worst_ps [expr {max($worst_ps, $slow, $fast)}]
+#     puts $f "$pin\t$slow\t$fast"
+# }
+# close $f
+# if {$worst_ps >= 10000} { error "Snapshot route delay exceeds 10 ns: $worst_ps ps" }
+# puts "SNAPSHOT_ROUTED_60_BIT_BUS_PASS worst_ps=$worst_ps"
+SNAPSHOT_ROUTED_60_BIT_BUS_PASS worst_ps=676
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 19 19:46:46 2026...

@@ -1,0 +1,69 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 14:39:22 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/control.tcl
+# set here [file dirname [file normalize [info script]]]
+# if {$argc!=10} { error "action row col setV setWL resetV resetWL hold cycles jobID" }
+# lassign $argv action row col setv setwl resetv resetwl hold cycles jobid
+# if {$action ni {check hold read set reset cycle column array wb_read wb_set wb_reset wb_cycle wb_column wb_array}} { error "Unknown operation" }
+# foreach v [list $row $col] { if {![string is integer -strict $v] || $v<0 || $v>31} { error "Cell outside 32x32" } }
+# foreach v [list $setv $setwl $resetv $resetwl] {
+#  if {![string is double -strict $v] || $v<0 || $v>3.0} { error "Analog setting outside 0..3.0 V" }
+# }
+# if {![string is integer -strict $hold] || $hold<20 || $hold>12000 ||
+#     ![string is integer -strict $cycles] || $cycles<1 || $cycles>10 ||
+#     ![regexp {^[a-f0-9]{32}$} $jobid]} { error "Invalid pulse, cycle count or job ID" }
+# set stopfile [file join $here runs "$jobid.stop"]
+# source [file join $here i2c_host.tcl]
+## set here [file dirname [file normalize [info script]]]
+## open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 614.266 ; gain = 271.414
+## connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:10 ; elapsed = 00:01:28 . Memory (MB): peak = 620.211 ; gain = 5.945
+## set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+## if {[llength $target] != 1} { error "Known KC705 JTAG cable not found" }
+## current_hw_target $target
+## open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801.
+Check cable connectivity and that the target board is powered up then
+use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
+ERROR: [Common 17-39] 'open_hw_target' failed due to earlier errors.
+
+    while executing
+"open_hw_target"
+    (file "C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/i2c_host.tcl" line 9)
+
+    while executing
+"source [file join $here i2c_host.tcl]"
+    (file "C:/Users/fpga.DESKTOP-CVDV1JP/kc705_cell_control/control.tcl" line 14)
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 14:41:03 2026...

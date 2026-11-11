@@ -1,0 +1,99 @@
+{
+  "format": "SenseEval final full-array mac_read export",
+  "read_voltage_v": 0.5,
+  "sense_channel": "ADC3 SET/R10",
+  "states": {
+    "LRS": {
+      "job_id": "d42d176742d74a90bd4fef034aec5178",
+      "state": "completed",
+      "started": "2026-10-22T02:51:03.406588+00:00",
+      "finished": "2026-10-22T03:56:34.210743+00:00",
+      "cells": 1024,
+      "source_json_sha256": "b8639b2c6aa322e4139a1217e170701b73ef6425bf568e199783fb84afff323b",
+      "min_uS": 67.23351440486778,
+      "median_uS": 93.26033232784076,
+      "max_uS": 273.42486730992056,
+      "mac": {
+        "rows": 32,
+        "cols": 32,
+        "program_matrix": true,
+        "active_cell_reads": 1024,
+        "complete": true
+      }
+    },
+    "HRS": {
+      "job_id": "30ab5bc5867444e39657ef724e0e33de",
+      "state": "completed",
+      "started": "2026-10-22T13:26:38.510693+00:00",
+      "finished": "2026-10-22T13:46:10.304642+00:00",
+      "cells": 1024,
+      "source_json_sha256": "3a7f76318d4a69cebf129e8abfc756604cbc8acc218d1c777829c412f8369d70",
+      "min_uS": 16.259565938184398,
+      "median_uS": 36.05574533462335,
+      "max_uS": 174.9587449857834,
+      "mac": {
+        "rows": 32,
+        "cols": 32,
+        "program_matrix": true,
+        "program_start": 761,
+        "program_attempts": 263,
+        "program_failure_count": 263,
+        "active_cell_reads": 1024,
+        "complete": true
+      }
+    }
+  },
+  "hrs_programming_segments": [
+    {
+      "job_id": "b90c22792b4742f596061e41f026654e",
+      "state": "cancelled",
+      "program_start": 0,
+      "program_attempts": 122,
+      "program_end_exclusive": 122,
+      "program_failure_count": 122,
+      "started": "2026-10-22T04:04:17.319815+00:00",
+      "finished": "2026-10-22T05:53:16.371101+00:00"
+    },
+    {
+      "job_id": "b28de2a6b5e0454d8579c8fd6749383b",
+      "state": "cancelled",
+      "program_start": 122,
+      "program_attempts": 22,
+      "program_end_exclusive": 144,
+      "program_failure_count": 22,
+      "started": "2026-10-22T06:16:37.332282+00:00",
+      "finished": "2026-10-22T06:35:06.103122+00:00"
+    },
+    {
+      "job_id": "cc9d179a310242f7bd5ae3da818803f6",
+      "state": "cancelled",
+      "program_start": 144,
+      "program_attempts": 352,
+      "program_end_exclusive": 496,
+      "program_failure_count": 352,
+      "started": "2026-10-22T06:35:08.294792+00:00",
+      "finished": "2026-10-22T09:13:15.553117+00:00"
+    },
+    {
+      "job_id": "f55a38746080490595739b026b4e1a83",
+      "state": "cancelled",
+      "program_start": 496,
+      "program_attempts": 265,
+      "program_end_exclusive": 761,
+      "program_failure_count": 265,
+      "started": "2026-10-22T09:27:05.490662+00:00",
+      "finished": "2026-10-22T10:57:53.152893+00:00"
+    },
+    {
+      "job_id": "30ab5bc5867444e39657ef724e0e33de",
+      "state": "completed",
+      "program_start": 761,
+      "program_attempts": 263,
+      "program_end_exclusive": 1024,
+      "program_failure_count": 263,
+      "started": "2026-10-22T13:26:38.510693+00:00",
+      "finished": "2026-10-22T13:46:10.304642+00:00"
+    }
+  ],
+  "hrs_programming_coverage": "contiguous indices 0..1023"
+}

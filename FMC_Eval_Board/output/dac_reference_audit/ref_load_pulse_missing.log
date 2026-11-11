@@ -1,0 +1,12 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: dac81416 ref load-pulse equivalent
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout ideal                                      2.5
+stdout ref                                        2.5
+stdout videal#branch                                0
+stdout No. of Data Rows : 51020

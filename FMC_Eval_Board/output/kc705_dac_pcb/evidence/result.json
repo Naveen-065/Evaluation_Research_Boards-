@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-19",
+  "profile": "Evaluation-project scan startup adapted to CaravelReRAM-SenseEval v1.2F",
+  "fpga_programmed": true,
+  "bitstream_sha256": "4A655A6A3208C88AAB3FB89E27A11D9BA9C3F565ACF8F20CFC8ED0363FA4EBF3",
+  "exact_port_properties_preserved": 41,
+  "vadj_setting_changed": false,
+  "hardware_supply_C3_pad2_user_report": "Approximately 12 V",
+  "dac_spi_sequence_completed": true,
+  "dac_ready": true,
+  "dac_frame_index": 20,
+  "dac_power_mask": "0x41D0",
+  "internal_reference_command": "0x040000",
+  "internal_reference_nominal_V": 2.5,
+  "dac_register_readback_possible": false,
+  "dac_outputs_measured": false,
+  "adc_enabled": false,
+  "si5351_10MHz_register_readback_pass": true,
+  "si5351_plla_locked": true,
+  "caravel_flash_modified": false,
+  "simulation_pass": true,
+  "setup_slack_ns": 1.061,
+  "hold_slack_ns": 0.045,
+  "route_errors": 0,
+  "targets": [
+    {
+      "DAC": "0",
+      "U1_pin": "1",
+      "PCB_route": "R9 pad1 to pad4 and NT1",
+      "Signal": "VCC_READ",
+      "Target_V": "0.5",
+      "Code_0_to_5V": "199A",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "1",
+      "U1_pin": "2",
+      "PCB_route": "NT14 then NT2",
+      "Signal": "VCC_WL_READ",
+      "Target_V": "2.5",
+      "Code_0_to_5V": "8000",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "2",
+      "U1_pin": "3",
+      "PCB_route": "R10 pad1 to pad4 and NT3",
+      "Signal": "VCC_SET",
+      "Target_V": "0.5",
+      "Code_0_to_5V": "199A",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "3",
+      "U1_pin": "4",
+      "PCB_route": "NT15 then NT4",
+      "Signal": "VCC_WL_SET",
+      "Target_V": "2.5",
+      "Code_0_to_5V": "8000",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "4",
+      "U1_pin": "5",
+      "PCB_route": "NT16 then NT5",
+      "Signal": "VCC_WL_RESET",
+      "Target_V": "",
+      "Code_0_to_5V": "0000",
+      "Enabled": "false"
+    },
+    {
+      "DAC": "5",
+      "U1_pin": "6",
+      "PCB_route": "R11 pad1 to pad4 and NT6",
+      "Signal": "VCC_RESET / vdda2",
+      "Target_V": "2.3",
+      "Code_0_to_5V": "75C3",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "6",
+      "U1_pin": "7",
+      "PCB_route": "No downstream pad",
+      "Signal": "Unused",
+      "Target_V": "",
+      "Code_0_to_5V": "0000",
+      "Enabled": "false"
+    },
+    {
+      "DAC": "7",
+      "U1_pin": "8",
+      "PCB_route": "No downstream pad",
+      "Signal": "Unused (VDDIO supplied by +3V3 via R61)",
+      "Target_V": "",
+      "Code_0_to_5V": "0000",
+      "Enabled": "false"
+    },
+    {
+      "DAC": "8",
+      "U1_pin": "23",
+      "PCB_route": "No downstream pad",
+      "Signal": "Unused",
+      "Target_V": "",
+      "Code_0_to_5V": "0000",
+      "Enabled": "false"
+    },
+    {
+      "DAC": "9",
+      "U1_pin": "24",
+      "PCB_route": "NT17 then NT7",
+      "Signal": "IREF",
+      "Target_V": "0.9",
+      "Code_0_to_5V": "2E14",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "10",
+      "U1_pin": "25",
+      "PCB_route": "NT18 then NT8",
+      "Signal": "VCOMP",
+      "Target_V": "0.9",
+      "Code_0_to_5V": "2E14",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "11",
+      "U1_pin": "26",
+      "PCB_route": "NT19 then NT9",
+      "Signal": "BIAS_COMP2",
+      "Target_V": "0.6",
+      "Code_0_to_5V": "1EB8",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "12",
+      "U1_pin": "27",
+      "PCB_route": "NT20 then NT10",
+      "Signal": "VBIAS",
+      "Target_V": "1.6",
+      "Code_0_to_5V": "51EB",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "13",
+      "U1_pin": "28",
+      "PCB_route": "NT21 then NT11",
+      "Signal": "DC_BIAS",
+      "Target_V": "1.0",
+      "Code_0_to_5V": "3333",
+      "Enabled": "true"
+    },
+    {
+      "DAC": "14",
+      "U1_pin": "29",
+      "PCB_route": "NT22 absent",
+      "Signal": "VDDA1 supplied by +3V3 via NT12",
+      "Target_V": "",
+      "Code_0_to_5V": "0000",
+      "Enabled": "false"
+    },
+    {
+      "DAC": "15",
+      "U1_pin": "30",
+      "PCB_route": "NT23 then NT13",
+      "Signal": "VCCD2 / vccd2",
+      "Target_V": "1.8",
+      "Code_0_to_5V": "5C29",
+      "Enabled": "true"
+    }
+  ],
+  "reference_datasheet": "https://www.ti.com/lit/ds/symlink/dac81416.pdf",
+  "evaluation_reference": "C:\\Users\\elesamj\\Desktop\\Evaluation_Research_Boards-\\api_v1\\prerequisites\\fpga_zynq7020\\dac81416_runtime_spi.v"
+}

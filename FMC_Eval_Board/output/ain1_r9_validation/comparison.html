@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>56 Ω shunt: measured 8 mV input</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;color:#193046;max-width:960px;margin:40px auto;padding:0 24px}h1{font-size:27px}h2{font-size:20px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-bottom:1px solid #cdd6df}.status{background:#e5f3e9;padding:15px}</style>
+<h1>56 Ω shunt: observed ADC1 response</h1>
+<p class="status">After addressing a loose connection, the user measured <b>8 mV across R9</b>.
+The reported U10 output is about <b>50 mV</b>; the FPGA change from the near-zero capture is
+<b>49.62 mV</b>.
+This supports the signal path. Exact gain and calibrated current remain unverified.</p>
+<table><tr><th>Quantity</th><th>Result</th></tr>
+<tr><td>R9 / direct voltage drop</td><td>56 Ω / 8 mV, user-reported</td></tr>
+<tr><td>Current from meter: 0.008 / 56</td><td>142.9 µA</td></tr>
+<tr><td>U10 measured output / approximate voltage ratio</td><td>50 mV / 6.25×</td></tr>
+<tr><td>ADC1 average / sample rate</td><td>2154.24 / 10 MSPS</td></tr>
+<tr><td>ADC equivalent differential before offset correction</td><td>51.88 mV</td></tr>
+<tr><td>ADC change from preceding near-zero capture</td><td>49.62 mV</td></tr></table>
+<p>The near-zero capture is not a calibrated zero-input reference. Its subtraction is a provisional
+comparison; it does not establish current accuracy. With an assumed gain of 7, the ADC voltage change
+would imply 126.6 µA, compared with about
+142.9 µA from the shunt reading.</p>
+<h2>ngspice includes U10's gain</h2><p>INA851 differential gain = (1 + 6000/R31) × 1 because
+the PCB leaves its G02 pins open. R31 = 1 kΩ gives 7× and predicts 56 mV for an 8 mV input.
+The vendor macro-model produces the following signal changes relative to its own zero-input output:</p>
+<table><tr><th>Assumed R31</th><th>Gain</th><th>Ideal signal</th><th>ngspice signal</th></tr><tr><td>1000 Ω</td><td>7.000</td><td>56.000 mV</td><td>55.955 mV</td></tr><tr><td>1200 Ω</td><td>6.000</td><td>48.000 mV</td><td>47.954 mV</td></tr></table>
+<p>The 1.2 kΩ case is a comparison only. These approximate readings cannot identify the fitted R31.
+Read its marking or measure it with power off (accounting for in-circuit paths), or perform a stable
+multi-point input/output gain measurement before selecting a replacement.</p>
+<h2>Validation and limits</h2><p>205 coherent packets were captured, one every 100 ns;
+status and cadence checks passed. The bitstream was restored unchanged, along with Si5351 10 MHz,
+the existing DAC scan profile and ADC 10 MSPS settings. All ten return-clock checks passed.
+FMC electrical settings were unchanged. ADC/DAC SPI register readback and full-pattern testing were not performed.</p>
+<p>Earlier 4 mV and 9 mV input estimates preceded discovery of a loose connection. The fresh 8 mV direct
+reading supersedes them for this comparison. Fitted R31 and meter precision remain unconfirmed.</p>
+<p><a href="r9_56ohm/direct8mV/comparison.json">Measured-input simulation and comparison</a> ·
+<a href="r9_56ohm/latest_measurement_state.json">Latest FPGA capture evidence</a></p></html>

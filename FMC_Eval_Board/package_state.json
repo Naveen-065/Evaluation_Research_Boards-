@@ -1,0 +1,133 @@
+{
+  "recorded_at": "2026-10-20T12:18:08.500930+00:00",
+  "active_controller": "output/kc705_cell_control",
+  "api_revision_in_package": "ssh-startup-retry-v1",
+  "live_api_revision_observed": null,
+  "live_api_busy_observed": false,
+  "last_live_job_observed": {
+    "id": "01bcf263918447aebc3f995c03fd0ed5",
+    "parameters": {
+      "mode": "cycle",
+      "row": 0,
+      "col": 0,
+      "set_v": 2.5,
+      "set_wl": 2.37,
+      "reset_v": 3,
+      "reset_wl": 2.88,
+      "hold": 2400,
+      "cycles": 1,
+      "dry_run": false
+    },
+    "state": "completed",
+    "started": "2026-10-20T10:07:42.338184+00:00",
+    "status": {
+      "adc_healthy": true,
+      "interface_enabled": true,
+      "clock_present": true,
+      "cpu_reset_released": false
+    },
+    "finished": "2026-10-20T10:08:59.683160+00:00",
+    "result_count": 341
+  },
+  "packaging_programmed_hardware": false,
+  "hardware_configuration_changed": false,
+  "primary_artifact_hashes": {
+    "build/kc705_adc_capture.bit": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c",
+    "build/kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96",
+    "firmware/gui_wb_mode.bin": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef"
+  },
+  "offline_tests": {
+    "model": 7,
+    "ssh_fault_injection_and_http_api": 11,
+    "reference_gui": "passed",
+    "firmware_rebuild_byte_identical": true,
+    "portable_fpga_rebuild": "not executed"
+  },
+  "dependency_provenance": {
+    "fpga_ip": "Four .xci configurations collected from the existing FPGA Windows PC build projects",
+    "firmware_sdk_repository": "efabless/caravel_board",
+    "firmware_sdk_commit": "2812cfd3896e2b1004b5f4559e0601c90cd18f55"
+  },
+  "bitstreams": [
+    {
+      "path": "output/external_dac_adc6/build/external_dac_adc6.bit",
+      "sha256": "ea0d8c5fd5273eb8acbf9c99ff9bf754c46281ff85f2550deba93f1c42466874"
+    },
+    {
+      "path": "output/kc705_adc_10m/build/kc705_adc_10m.bit",
+      "sha256": "8ba98d07e233863729f4783f8f044dc6a245ebce26396550b2ded5abcadea20f"
+    },
+    {
+      "path": "output/kc705_adc_10msps/build/kc705_adc_10msps.bit",
+      "sha256": "154e68bfde30098b5d8b4491ea0d9a157e95809f44625d3125b1f1085fe80bc3"
+    },
+    {
+      "path": "output/kc705_adc_capture/build/kc705_adc_capture.bit",
+      "sha256": "7bee1a0ed7c6c977c6d4ed08f32199e1e37a7b5eaca5f0b35b940fb9dc72f856"
+    },
+    {
+      "path": "output/kc705_adc_clockdiag/build/kc705_adc_clockdiag.bit",
+      "sha256": "1b1d164c6fb833221fdae574a96bc20514a81605d8cacd0dba30a7475ce5ea0d"
+    },
+    {
+      "path": "output/kc705_adc_test/build/kc705_adc_test.bit",
+      "sha256": "0d00ea610c3f38c74d28a8b33fa644115f35149bd2f3ceb63a9e4d1774492816"
+    },
+    {
+      "path": "output/kc705_adc_test/build_final/kc705_adc_test.bit",
+      "sha256": "297918efe0d0176aff138938f012f2fd3478b942ab73341ca3e15c1515bcdeea"
+    },
+    {
+      "path": "output/kc705_caravel_bringup/build/kc705_caravel_bringup.bit",
+      "sha256": "93c33f3260aceedf2c14272407b2a8ca76dc3622056e338e6c793cdb807ca7f1"
+    },
+    {
+      "path": "output/kc705_cell_control/build/kc705_adc_capture.bit",
+      "sha256": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c"
+    },
+    {
+      "path": "output/kc705_cell_control/build_before_tm_fix/kc705_adc_capture.bit",
+      "sha256": "31b989687d2f5cc5f3975b51f2e62242b39f92c36d4923434c028c21ba757e4a"
+    },
+    {
+      "path": "output/kc705_cell_control/build_before_wb_dac2_fix/kc705_adc_capture.bit",
+      "sha256": "08f2bffe9017ac1b28469b5ad500d5d3e4741a59d8b2cc958fbded004165515f"
+    },
+    {
+      "path": "output/kc705_cell_control/build_no_trace/kc705_adc_capture.bit",
+      "sha256": "647caba6b1c5b9e89234cf0c6f80b8e1974927d63e70fa3a28e8580044e57f43"
+    },
+    {
+      "path": "output/kc705_cell_control/build_wb_se_mask/kc705_adc_capture.bit",
+      "sha256": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c"
+    },
+    {
+      "path": "output/kc705_dac_pcb/build/kc705_dac_pcb.bit",
+      "sha256": "4a655a6a3208c88aab3fb89e27a11d9ba9c3f565acf8f20cfc8ed0363fa4ebf3"
+    },
+    {
+      "path": "output/kc705_j2_safe_io/build/kc705_j2_safe_io.bit",
+      "sha256": "c4caf37e4e6d4bb5953e513be9f559e43f2d35faa720e755fad5322aa223c2e2"
+    },
+    {
+      "path": "output/kc705_program/build/kc705_safe_blink.bit",
+      "sha256": "828394d58083d3faca3e58d95fdb6ac47bdf740f7b9fd91bb1816cd3a469f5be"
+    },
+    {
+      "path": "output/kc705_scan_read/build/kc705_adc_capture.bit",
+      "sha256": "29e2e252631becdc674c19376ea6e9072367f91e61e3eefe62d024827ebf79d7"
+    },
+    {
+      "path": "output/kc705_scan_read/build_3v3_backup/kc705_adc_capture.bit",
+      "sha256": "46439b3016806fe67c8f1579ab60c6fc798e1bc1f8fb146b2a440758b45d1f8c"
+    },
+    {
+      "path": "output/kc705_si5351/kc705_si5351_bridge.bit",
+      "sha256": "9ca24ea326fe08d3080122c286e8324021546e9d62086c6207d382708b0888ce"
+    },
+    {
+      "path": "output/kc705_vadj/kc705_vadj_bridge.bit",
+      "sha256": "b892bb19683e66366db11e1d22fcd20b3d8193cf8db2aaaac1f338dd84769aef"
+    }
+  ]
+}

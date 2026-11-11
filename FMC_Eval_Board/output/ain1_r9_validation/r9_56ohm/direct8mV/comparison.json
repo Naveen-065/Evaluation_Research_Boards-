@@ -1,0 +1,63 @@
+{
+  "recorded_at_utc": "2026-10-19T16:05:50.533329+00:00",
+  "R9_ohms": 56,
+  "R9_direct_drop_mV": 8.0,
+  "reported_U10_output_mV": 50.0,
+  "current_from_meter_shunt_uA": 142.85714285714286,
+  "approximate_meter_voltage_ratio": 6.25,
+  "ADC1_mean_code": 2154.243902439024,
+  "ADC1_ideal_equivalent_mV_before_offset_correction": 51.87690548780477,
+  "ADC1_change_from_near_zero_capture_mV": 49.615014403245894,
+  "apparent_current_from_ADC_change_if_gain7_uA": 126.56891429399462,
+  "gain7_current_is_calibrated": false,
+  "R31_fitted_value_confirmed": false,
+  "simulations": [
+    {
+      "R31_ohms": 1000,
+      "nominal_gain": 7.0,
+      "runs": {
+        "zero": {
+          "AMP1_P_V": 1.5028734950787075,
+          "AMP1_N_V": 1.5025029509852985,
+          "ADC_differential_V": 0.00037054409340897543
+        },
+        "measured": {
+          "AMP1_P_V": 1.5308504699657508,
+          "AMP1_N_V": 1.4745251961179278,
+          "ADC_differential_V": 0.05632527384782304
+        }
+      },
+      "ngspice_output_signal_mV": 55.95472975441407,
+      "ideal_output_signal_mV": 56.0,
+      "ngspice_ADC_signal_counts": 114.59528653704001
+    },
+    {
+      "R31_ohms": 1200,
+      "nominal_gain": 6.0,
+      "runs": {
+        "zero": {
+          "AMP1_P_V": 1.5028684881182683,
+          "AMP1_N_V": 1.5025079579504022,
+          "ADC_differential_V": 0.00036053016786619096
+        },
+        "measured": {
+          "AMP1_P_V": 1.5268452749540886,
+          "AMP1_N_V": 1.4785303911698038,
+          "ADC_differential_V": 0.048314883784284834
+        }
+      },
+      "ngspice_output_signal_mV": 47.95435361641864,
+      "ideal_output_signal_mV": 48.0,
+      "ngspice_ADC_signal_counts": 98.21051620642538
+    }
+  ],
+  "simulation_scope": "Forced 8 mV input to TI INA851 model at assumed 0.529 V source-side input; ideal static ADC transfer. Not a full physical-load reconstruction.",
+  "conclusion": "Shunt-to-amplifier-to-ADC/FPGA response is observed and amplifier output agrees approximately with ADC voltage change. Exact gain and calibrated current remain unverified.",
+  "limitations": [
+    "Meter accuracy and resolution were not supplied; input/output readings are approximate.",
+    "The near-zero reference capture was not a deliberate calibrated zero-input measurement.",
+    "R31 must be identified or gain measured at multiple stable input points before choosing a replacement.",
+    "The 1200-ohm case is a comparison only; it does not identify the fitted resistor.",
+    "Earlier 4 mV / 9 mV input readings predated discovery of a loose connection and are superseded by the fresh direct 8 mV report."
+  ]
+}

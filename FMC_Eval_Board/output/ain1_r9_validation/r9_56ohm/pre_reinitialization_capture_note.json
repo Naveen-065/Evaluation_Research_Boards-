@@ -1,0 +1,10 @@
+{
+  "capture": "ads5282_analog_20261019_211229.csv",
+  "valid_for_analog_validation": false,
+  "reason": "User reported PCB had been disconnected for shunt replacement. FPGA controller status remained complete, but daughtercard ADC/DAC registers were not reinitialized before this capture.",
+  "observed_raw_candidate_ch1_mean": 11.941176470588236,
+  "action": "Reload identical FPGA bitstream and restore Si5351, DAC, ADC before new capture.",
+  "fpga_bitstream_sha256": "7BEE1A0ED7C6C977C6D4ED08F32199E1E37A7B5EACA5F0B35B940FB9DC72F856",
+  "new_shunt_ohms": 56,
+  "no_fmc_electrical_configuration_changes": true
+}

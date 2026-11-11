@@ -1,0 +1,50 @@
+{
+  "job_id": "80047979cb4b4d0b9c400f1271ba7b55",
+  "state": "completed",
+  "started": "2026-10-20T09:43:26.157522+00:00",
+  "finished": "2026-10-20T09:44:37.521144+00:00",
+  "parameters": {
+    "mode": "cycle",
+    "row": 0,
+    "col": 0,
+    "set_v": 2.5,
+    "set_wl": 2.37,
+    "reset_v": 3,
+    "reset_wl": 2.88,
+    "hold": 2400,
+    "cycles": 1,
+    "dry_run": false
+  },
+  "captures": 300,
+  "initial_read_uA_nominal": 37.724581684849696,
+  "set_confirmation_range_uA_nominal": [
+    35.670075582594436,
+    37.87533794680616
+  ],
+  "outcomes": {
+    "set": {
+      "pulses": 0,
+      "target_met": true,
+      "last_read_uA_nominal": 35.752262
+    },
+    "reset": {
+      "pulses": 96,
+      "target_met": false,
+      "last_read_uA_nominal": 16.725285
+    }
+  },
+  "max_requested_vcc_v": 3.0,
+  "max_requested_wl_v": 2.88,
+  "dac_max_code": 39321,
+  "ideal_dac_max_v": 2.9999542236328125,
+  "read_profile_restored": true,
+  "cpu_held_on_completion": true,
+  "calibration": "56 ohm shunt, nominal gain 7, active-minus-idle ADC3 current; not calibrated",
+  "limitation": "Command limits are verified; actual analog voltages were not measured during the ramp.",
+  "source_hashes": {
+    "control.tcl": "3556e7d913e1f2b10c4e65624205189700318ca8102d2ffa81a0cd7dceb12804",
+    "scan_ramp.tcl": "30ec43e90994a68f142baa36ec327f175bc8cec564d56367175181df0ee30f47",
+    "gui/app.js": "89b1133cc92676f68a10c6afcd88b3ad1b7cf15cf7d27257fab14bfe2d1a1bfd",
+    "gui/index.html": "c2f64c14435f14cf3a20c8478860ad0471b4e9c6bd2b75c5a794ded861a91116"
+  }
+}

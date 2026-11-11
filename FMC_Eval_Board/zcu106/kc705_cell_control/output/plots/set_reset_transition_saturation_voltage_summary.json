@@ -1,0 +1,73 @@
+{
+  "method": {
+    "set": "First rail followed by ten reads >=35 uA; pre-existing LRS cells excluded.",
+    "reset": "Earliest 3-point-median ramp sample reaching 90% of the total observed current reduction; only reductions >=2 uA included.",
+    "warning": "RESET target <=5 uA was never met; RESET values are a response-saturation proxy, not transition voltages.",
+    "voltage_basis": "Commanded DAC values, not independently probed analog rails."
+  },
+  "set": {
+    "cells": 1024,
+    "already_lrs_before_pulse": 559,
+    "transitioned_after_pulse": 465,
+    "failed_at_limit": 0,
+    "transition_success_rate_among_attempted_pct": 100.0,
+    "transition_vcc_v": {
+      "n": 465,
+      "min": 2.3,
+      "q1": 2.3,
+      "median": 2.3,
+      "q3": 2.3,
+      "max": 2.3,
+      "p90": 2.3,
+      "p95": 2.3
+    },
+    "transition_wl_v": {
+      "n": 465,
+      "min": 0.44,
+      "q1": 1.12,
+      "median": 1.19,
+      "q3": 1.25,
+      "max": 1.75,
+      "p90": 1.31,
+      "p95": 1.4179999999999973
+    }
+  },
+  "reset": {
+    "cells": 1024,
+    "target_met": 0,
+    "detectable_response_cells": 491,
+    "no_detectable_response_cells": 533,
+    "response90_vcc_v": {
+      "n": 491,
+      "min": 2.3,
+      "q1": 2.7,
+      "median": 2.7,
+      "q3": 3.0,
+      "max": 3.0,
+      "p90": 3.0,
+      "p95": 3.0
+    },
+    "response90_wl_v": {
+      "n": 491,
+      "min": 0.94,
+      "q1": 1.225,
+      "median": 1.76,
+      "q3": 2.38,
+      "max": 2.88,
+      "p90": 2.88,
+      "p95": 2.88
+    },
+    "failed_limit_vcc_v": 3.0,
+    "failed_limit_wl_v": 2.88
+  },
+  "source_jobs": {
+    "set_lrs": "d42d176742d74a90bd4fef034aec5178",
+    "reset_hrs": [
+      "b90c22792b4742f596061e41f026654e",
+      "b28de2a6b5e0454d8579c8fd6749383b",
+      "cc9d179a310242f7bd5ae3da818803f6",
+      "f55a38746080490595739b026b4e1a83",
+      "30ab5bc5867444e39657ef724e0e33de"
+    ]
+  }
+}

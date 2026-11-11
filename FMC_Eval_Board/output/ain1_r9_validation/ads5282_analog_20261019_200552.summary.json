@@ -1,0 +1,73 @@
+{
+  "source_csv": "ads5282_analog_20261019_200552.csv",
+  "ila_clock_hz": 200000000,
+  "ila_samples": 4096,
+  "coherent_packets": 204,
+  "packet_interval_ila_cycles": {
+    "20": 203
+  },
+  "mean_packet_rate_hz": 10000000.0,
+  "all_capture_checks_pass": true,
+  "status_high_throughout_capture": {
+    "run_enable_1": true,
+    "pll_locked_1": true,
+    "adc_clock_running_1": true,
+    "adc_reset_n_1": true,
+    "config_done_1": true,
+    "dac_enable_1": true,
+    "dac_ready_1": true,
+    "ret_adclk_seen_1": true,
+    "ret_lclk_seen_1": true,
+    "ret_adclk_10m_1": true,
+    "ret_lclk_60m_1": true,
+    "ret_window_valid_1": true,
+    "frame_locked_sync[1:1]": true
+  },
+  "packet_changes_without_valid": 0,
+  "channels": {
+    "1": {
+      "raw_unique_words": 9,
+      "candidate_lsb_first_code_min": 2048,
+      "candidate_lsb_first_code_max": 2056,
+      "candidate_lsb_first_code_mean": 2052.024509803922,
+      "candidate_lsb_first_code_stdev": 1.4157334601880538
+    },
+    "2": {
+      "raw_unique_words": 8,
+      "candidate_lsb_first_code_min": 2045,
+      "candidate_lsb_first_code_max": 2052,
+      "candidate_lsb_first_code_mean": 2048.5049019607845,
+      "candidate_lsb_first_code_stdev": 1.4193948897799409
+    },
+    "3": {
+      "raw_unique_words": 8,
+      "candidate_lsb_first_code_min": 2044,
+      "candidate_lsb_first_code_max": 2051,
+      "candidate_lsb_first_code_mean": 2047.8088235294117,
+      "candidate_lsb_first_code_stdev": 1.4678651258483053
+    },
+    "4": {
+      "raw_unique_words": 2,
+      "candidate_lsb_first_code_min": 2043,
+      "candidate_lsb_first_code_max": 2044,
+      "candidate_lsb_first_code_mean": 2043.9754901960785,
+      "candidate_lsb_first_code_stdev": 0.15462559113321084
+    },
+    "5": {
+      "raw_unique_words": 4,
+      "candidate_lsb_first_code_min": 1988,
+      "candidate_lsb_first_code_max": 1991,
+      "candidate_lsb_first_code_mean": 1989.6519607843138,
+      "candidate_lsb_first_code_stdev": 0.7868066997527763
+    }
+  },
+  "serial_bit_order_validated_by_known_input_or_test_pattern": false,
+  "adc_register_readback": false,
+  "adc6_captured": false,
+  "limitations": [
+    "Only ADC outputs 1-5 are connected to FMC; OUT6 is on J8.",
+    "Bit-reversed candidate codes need a known input or test-pattern validation.",
+    "No voltage or R9/R10/R11 current calibration is claimed.",
+    "Clock counters establish activity/rate, not LVDS eye quality."
+  ]
+}

@@ -1,0 +1,25 @@
+ADS5282 50MHz remove_r165 steady: illustrative driver, not vendor IBIS
+* C60/C61=100n assumed from schematic; fitted values must be verified.
+* ADS clock-input bias is 5k per leg to 1.5V typical, DIFF_CLK=1.
+* Input capacitance 5e-12/5e-12 F, driver resistance and line are ASSUMPTIONS.
+* Steady-state capacitor precharge is analytic; idle cases start fully rebias-settled.
+Vp sp 0 PULSE(0 1.71 100n 1e-09 1e-09 9e-09 20n)
+Vn sn 0 0
+Rp sp dp 25
+Rn sn dn 60
+Rwirep dp p 0.001
+Rwiren dn n 0.001
+* R165 removed
+C61 p ap 100n
+C60 n an 100n
+Vbias bias 0 1.575
+Rbp ap bias 5k
+Rbn an bias 5k
+Cap ap 0 5e-12
+Can an 0 5e-12
+Cfpgafloat dn 0 3p
+.ic v(ap)=0.72 v(an)=1.575 v(p)=0 v(n)=0 v(dp)=0 v(dn)=0
+.options reltol=1e-5 abstol=1e-12
+.tran 0.05n 420n uic
+.save v(p) v(n) v(ap) v(an) i(Vp) i(Vn)
+.end

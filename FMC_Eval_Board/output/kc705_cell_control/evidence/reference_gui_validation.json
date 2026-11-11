@@ -1,0 +1,25 @@
+{
+  "reference": "C:/Users/elesamj/Desktop/Evaluation_Research_Boards-/api_v1/gui/static",
+  "reused": [
+    "styles.css layout",
+    "logo.png",
+    "Read Trace rendering and pulse grouping"
+  ],
+  "adaptations": [
+    "Existing SenseEval API and ten supported modes",
+    "ADC3 / R10 nominal current divided by 0.5 V for estimated conductance",
+    "No raw ADC panel",
+    "No WB TDC-to-conductance conversion",
+    "Exclude invalid/nonpositive log points",
+    "Pair pulse readbacks only within the same job and cell"
+  ],
+  "live_read_job": "1d459bef65974cf2a031d92658cbfe91",
+  "live_read_state": "completed",
+  "live_read_current_uA_nominal": 17.02614224364054,
+  "hardware_configuration_changed": false,
+  "browser_console_errors": [],
+  "failed_initial_attempt": {
+    "job": "05d9c2cc4f5a44209e6f157aa3ffdac0",
+    "reason": "SSH banner exchange timeout; no hardware result. Host reachability verified before successful retry."
+  }
+}

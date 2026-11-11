@@ -1,0 +1,175 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 19 15:38:50 2026
+# Process ID         : 6632
+# Current directory  : C:/Users/fpga.DESKTOP-CVDV1JP
+# Command line       : vivado.exe -mode batch -source C:\Users\fpga.DESKTOP-CVDV1JP\kc705_caravel_bringup\inspect_clock_and_idle.tcl -log C:\Users\fpga.DESKTOP-CVDV1JP\kc705_caravel_bringup\final_state.log -journal C:\Users\fpga.DESKTOP-CVDV1JP\kc705_caravel_bringup\final_state.jou
+# Log file           : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_caravel_bringup/final_state.log
+# Journal file       : C:\Users\fpga.DESKTOP-CVDV1JP\kc705_caravel_bringup\final_state.jou
+# Running On         : DESKTOP-CVDV1JP
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : AMD Ryzen 5 5600U with Radeon Graphics         
+# CPU Frequency      : 2296 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 7330 MB
+# Swap memory        : 12348 MB
+# Total Virtual      : 19678 MB
+# Available Virtual  : 7910 MB
+#-----------------------------------------------------------
+source {C:\Users\fpga.DESKTOP-CVDV1JP\kc705_caravel_bringup\inspect_clock_and_idle.tcl}
+# set here [file dirname [file normalize [info script]]]
+# source [file join $here i2c_host.tcl]
+## set here [file dirname [file normalize [info script]]]
+## open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:17 ; elapsed = 00:00:10 . Memory (MB): peak = 614.359 ; gain = 272.793
+## connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 620.309 ; gain = 5.949
+## set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+## if {[llength $target] != 1} { error "Known KC705 JTAG cable not found" }
+## current_hw_target $target
+## open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+## set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+## if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+## current_hw_device $dev
+## set_property PROBES.FILE [file join $here build kc705_caravel_bringup.ltx] $dev
+## refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 2 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+## set vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_i2c_vio"}]
+## if {[llength $vio] != 1} { error "Expected one VIO in the I2C bridge" }
+## set cmdprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_output}]
+## set statprobe [get_hw_probes -quiet -of_objects $vio -filter {TYPE == vio_input}]
+## if {[llength $cmdprobe] != 1 || [llength $statprobe] != 1} { error "Unexpected VIO probes" }
+## proc read_status {} {
+##     global vio statprobe
+##     refresh_hw_vio $vio
+##     set hex [get_property INPUT_VALUE $statprobe]
+##     return [expr 0x$hex]
+## }
+## proc to_hex128 {value} {
+##     set result ""
+##     for {set n 0} {$n < 32} {incr n} {
+##         set result "[string index 0123456789abcdef [expr {$value & 15}]]$result"
+##         set value [expr {$value >> 4}]
+##     }
+##     if {$value != 0} { error "Command overflow" }
+##     return $result
+## }
+## set token [expr {[read_status] & 255}]
+## proc i2c_transfer {addr bytes nr} {
+##     global token cmdprobe
+##     if {$addr < 0 || $addr > 0x7f} { error "Bad 7-bit I2C address" }
+##     if {[llength $bytes] > 8 || $nr < 0 || $nr > 8 || ([llength $bytes] == 0 && $nr == 0)} {
+##         error "Bad transaction length"
+##     }
+##     set s [read_status]
+##     if {$s & 256} { error "I2C bridge is already busy" }
+##     set token [expr {($token % 255) + 1}]
+##     set cmd [expr {$token | ($addr << 8) | ([llength $bytes] << 15) | ($nr << 19)}]
+##     set shift 23
+##     foreach b $bytes {
+##         if {$b < 0 || $b > 255} { error "Bad byte" }
+##         set cmd [expr {$cmd | ($b << $shift)}]
+##         incr shift 8
+##     }
+##     set_property OUTPUT_VALUE [to_hex128 $cmd] $cmdprobe
+##     commit_hw_vio $cmdprobe
+##     set deadline [expr {[clock milliseconds] + 10000}]
+##     while {1} {
+##         set s [read_status]
+##         if {($s & 255) == $token && !($s & 256)} { break }
+##         if {[clock milliseconds] > $deadline} { error "I2C bridge completion timeout" }
+##         after 10
+##     }
+##     if {$s & 512} {
+##         error "I2C transaction failed: address=0x[format %02X $addr], code=[expr {($s >> 10) & 63}], status=[to_hex128 $s]"
+##     }
+##     set acked [expr {($s >> 80) & 255}]
+##     if {$acked != [llength $bytes]} { error "Incomplete write ACK count $acked" }
+##     set result {}
+##     for {set i 0} {$i < $nr} {incr i} {
+##         lappend result [expr {($s >> (16+8*$i)) & 255}]
+##     }
+##     return $result
+## }
+## proc mux_select_fmc {} { i2c_transfer 0x74 [list 0x04] 0 }
+## proc mux_read {} { return [lindex [i2c_transfer 0x74 [list] 1] 0] }
+## proc si5351_read {reg} { return [lindex [i2c_transfer 0x60 [list $reg] 1] 0] }
+## proc si5351_write {reg value} { i2c_transfer 0x60 [list $reg $value] 0 }
+## proc close_i2c_bridge {} {
+##     close_hw_target
+##     disconnect_hw_server
+##     close_hw_manager
+## }
+# if {[mux_read] != 4} { error "FMC I2C channel is no longer selected" }
+# foreach {reg wanted} {
+#     3 0xFC 16 0x4F 17 0x4F 18 0x80
+#     26 0 27 1 28 0 29 0x10 30 0 31 0 32 0 33 0
+#     42 0 43 1 44 0 45 0x2B 46 0 47 0 48 0 49 0
+#     50 0 51 1 52 0 53 0x2B 54 0 55 0 56 0 57 0
+# } {
+#     set value [si5351_read $reg]
+#     if {$value != $wanted} { error "Clock configuration changed: reg $reg expected $wanted actual $value" }
+# }
+# set status0 [si5351_read 0]
+# if {$status0 & 0xA8} { error "Si5351 SYS_INIT, PLLA loss-of-lock, or crystal loss set" }
+# puts [format "SI5351_10MHZ_STILL_CONFIGURED_AND_PLLA_LOCKED status=0x%02X" $status0]
+SI5351_10MHZ_STILL_CONFIGURED_AND_PLLA_LOCKED status=0x11
+# set control_vio [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_run_vio"}]
+# if {[llength $control_vio] != 1} { error "ADC/DAC VIO missing" }
+# refresh_hw_vio $control_vio
+# foreach {name wanted} {
+#     run_enable_2 0 adc_clock_running 0 adc_reset_n 0 spi_ncs 1 spi_sclk 0
+#     dac_enable_2 0 dac_reset_n 0 dac_ready 0 dac_ncs 1 dac_sclk 0
+# } {
+#     set p [get_hw_probes -quiet $name -of_objects $control_vio]
+#     if {[llength $p] != 1} { error "Status probe $name missing" }
+#     set value [expr 0x[get_property INPUT_VALUE $p]]
+#     puts "IDLE_STATE $name=$value"
+#     if {$value != $wanted} { error "Unexpected controller state" }
+# }
+IDLE_STATE run_enable_2=0
+IDLE_STATE adc_clock_running=0
+IDLE_STATE adc_reset_n=0
+IDLE_STATE spi_ncs=1
+IDLE_STATE spi_sclk=0
+IDLE_STATE dac_enable_2=0
+IDLE_STATE dac_reset_n=0
+IDLE_STATE dac_ready=0
+IDLE_STATE dac_ncs=1
+IDLE_STATE dac_sclk=0
+# puts "ADC_DAC_REMAIN_DISABLED"
+ADC_DAC_REMAIN_DISABLED
+# close_i2c_bridge
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 19 15:39:11 2026...

@@ -1,0 +1,2 @@
+Texas Instruments
+SUBCKT INA851          IN+ IN- RG+ RG- VS+ VS- OUT+ OUT- VOCM FDA+ FDA- G02+ G02- VCLAMP+ VCLAMP-  Texas:INA851 [InstAmp]

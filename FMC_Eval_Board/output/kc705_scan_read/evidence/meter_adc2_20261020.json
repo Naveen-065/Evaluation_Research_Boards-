@@ -1,0 +1,21 @@
+{
+  "R46_pad2_to_ground_v": -0.13,
+  "R47_pad2_to_ground_v": 3.45,
+  "adc2_differential_v": -3.58,
+  "adc2_common_mode_v": 1.66,
+  "R10_reported_v": 0.534,
+  "R10_measurement_pads": "not yet specified",
+  "correction": "ADC2 monitors R11 RESET via U13, not R10 SET via U11",
+  "R11_pad2_to_ground_v": 2.329,
+  "R11_pad3_to_ground_v": 2.332,
+  "R11_sense_difference_v": -0.003,
+  "nominal_gain": 7,
+  "expected_adc2_differential_v": -0.021,
+  "diagnosis": "Large negative U13 input difference explains output saturation. Positive sense path differs between earlier R11.2=2.329 V and R42.2=1.056 V. Measure R42.1 to locate discrepancy; R42 voltage drop/current not established until both ends measured in same state.",
+  "R42_pad2_to_ground_v": 1.056,
+  "R43_reported_to_ground_v": 2.33,
+  "R43_pad_assumed": "2, as requested; user did not repeat pad number",
+  "R41_reported_ohms": 1000,
+  "U13_input_difference_v": -1.274,
+  "U13_unclipped_output_demand_v": -8.918
+}

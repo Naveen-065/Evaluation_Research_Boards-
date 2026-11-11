@@ -1,0 +1,19 @@
+KC705 on, daughtercard +1V8 unpowered; direct R53/R54 back-power path
+.options reltol=1e-8 abstol=1e-13 vntol=1e-10
+VKC kc3 0 3.3
+Rkc_scl kc3 scl 4.7k
+Rkc_sda kc3 sda 4.7k
+R54 rail18 scl 10k
+R53 rail18 sda 10k
+Rload18 rail18 0 10000000.0
+R58 card3 scl2 10k
+R57 card3 sda2 10k
+Rload33 card3 0 10000000.0
+R56 card3 bias 200k
+Mref bias bias rail18 0 PASS W=1u L=1u
+Mscl scl2 bias scl 0 PASS W=1u L=1u
+Msda sda2 bias sda 0 PASS W=1u L=1u
+.model PASS NMOS (LEVEL=1 VTO=0.6 KP=0.02 LAMBDA=0 GAMMA=0)
+.op
+.save v(scl) v(sda) v(rail18) v(card3)
+.end

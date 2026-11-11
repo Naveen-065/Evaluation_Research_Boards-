@@ -1,0 +1,20 @@
+{
+  "id": "a81b24a794bb410fa8fe5ddfe52b799c",
+  "parameters": {
+    "mode": "cycle",
+    "row": 0,
+    "col": 0,
+    "set_v": 2.5,
+    "set_wl": 2.37,
+    "reset_v": 3,
+    "reset_wl": 2.88,
+    "hold": 2400,
+    "cycles": 1,
+    "dry_run": false
+  },
+  "state": "failed",
+  "started": "2026-10-20T09:50:30.484607+00:00",
+  "results": [],
+  "error": "Hardware process exited 255",
+  "finished": "2026-10-20T09:50:40.681044+00:00"
+}

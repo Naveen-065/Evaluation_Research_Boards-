@@ -1,0 +1,17 @@
+Scan ramp cycle, r0/c0
+
+Implemented reference nested VCC/WL sweep with pre-read, post-pulse read, 10 confirmation reads, early stopping, invalid-feedback stop and cancellation.
+Both voltage commands are capped at 3.0 V. DAC rounding is capped at code 39321 (ideal 2.999954 V on the configured 0..5 V range).
+
+Hardware GUI cycle: 80047979cb4b4d0b9c400f1271ba7b55
+Initial current: 37.725 uA nominal.
+SET: already >=35 uA; 10 confirmations passed; 0 programming pulses.
+RESET: 96 pulses of 1.2 ms; final current 16.725 uA; <=5 uA target NOT met.
+Maximum requested VCC: 3.0 V; WL: 2.88 V.
+300 ADC captures; no clipping.
+Read profile restored; Caravel CPU held. FMC and FPGA image unchanged.
+
+Tests: seven model tests; Tcl ramp tests including cap, target skip, failed confirmations, exhausted sweep, invalid feedback and cancellation; GUI actual-voltage chart and outcome checks; real hardware cycle through GUI/API.
+SET voltage escalation was covered offline but not exercised by this hardware cycle because its target was already confirmed.
+
+Limits: actual analog voltage was not monitored during the run; current uses 56 ohms and nominal gain 7. Fresh jobs do not automatically resume interrupted ramps. Earlier saved SET/RESET tests used fixed pulses.

@@ -1,0 +1,36 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: adc lvds lclk connector100: finite-compliance behavioral model
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout cm                                         1.1
+stdout q                                           -1
+stdout sn                                     1.24111
+stdout sp                                    0.958894
+stdout spp                                   0.960294
+stdout dp                                    0.960294
+stdout snn                                    1.23971
+stdout dn                                     1.23971
+stdout xp                                    0.960294
+stdout jp                                    0.961414
+stdout yp                                    0.961414
+stdout zp                                    0.961414
+stdout rp                                    0.961414
+stdout xn                                     1.23971
+stdout jn                                     1.23859
+stdout yn                                     1.23859
+stdout zn                                     1.23859
+stdout rn                                     1.23859
+stdout lrxn#branch                        1.23859e-08
+stdout lrxp#branch                        9.61414e-09
+stdout lpkn#branch                         0.00279973
+stdout lpkp#branch                        -0.00279971
+stdout vq#branch                                    0
+stdout vcm#branch                            -2.2e-08
+ Reference value :  1.99563e-07
+ Reference value :  3.77857e-07
+ Reference value :  5.57530e-07
+stdout No. of Data Rows : 74188

@@ -1,0 +1,74 @@
+{
+  "LCLK_P": {
+    "start": "U14.25",
+    "all_pads_on_net": [
+      "J9.G6",
+      "U14.25"
+    ],
+    "physically_connected_pads_in_design": [
+      "J9.G6",
+      "U14.25"
+    ],
+    "visited_items": 19
+  },
+  "LCLK_N": {
+    "start": "U14.26",
+    "all_pads_on_net": [
+      "J9.G7",
+      "U14.26"
+    ],
+    "physically_connected_pads_in_design": [
+      "J9.G7",
+      "U14.26"
+    ],
+    "visited_items": 19
+  },
+  "ADCLK_P": {
+    "start": "U14.23",
+    "all_pads_on_net": [
+      "J9.H4",
+      "U14.23"
+    ],
+    "physically_connected_pads_in_design": [
+      "J9.H4",
+      "U14.23"
+    ],
+    "visited_items": 17
+  },
+  "ADCLK_N": {
+    "start": "U14.24",
+    "all_pads_on_net": [
+      "J9.H5",
+      "U14.24"
+    ],
+    "physically_connected_pads_in_design": [
+      "J9.H5",
+      "U14.24"
+    ],
+    "visited_items": 17
+  },
+  "FPGA_MCLKIN_C_P": {
+    "start": "U14.58",
+    "all_pads_on_net": [
+      "C61.1",
+      "U14.58"
+    ],
+    "physically_connected_pads_in_design": [
+      "C61.1",
+      "U14.58"
+    ],
+    "visited_items": 5
+  },
+  "FPGA_MCLKIN_C_N": {
+    "start": "U14.59",
+    "all_pads_on_net": [
+      "C60.1",
+      "U14.59"
+    ],
+    "physically_connected_pads_in_design": [
+      "C60.1",
+      "U14.59"
+    ],
+    "visited_items": 4
+  }
+}

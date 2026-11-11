@@ -1,0 +1,13 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: ads5282 lvds simplified differential source, load=1000 ohm
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Initial Transient Solution
+stdout --------------------------
+stdout Node                                   Voltage
+stdout ----                                   -------
+stdout cm                                         1.2
+stdout p                                      2.94913
+stdout n                                    -0.549125
+stdout vcm#branch                          -1.855e-19
+stdout No. of Data Rows : 2050

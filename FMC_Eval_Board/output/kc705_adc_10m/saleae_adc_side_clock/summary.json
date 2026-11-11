@@ -1,0 +1,13 @@
+{
+  "probe_location": "C61 pad 1, FPGA_MCLKIN_C_P, CH0",
+  "saleae_threshold_setting_V": 3.3,
+  "digital_sample_rate_hz": 250000000,
+  "exported_duration_s": 0.196529438,
+  "transitions": 3930602,
+  "rising_edges": 1965301,
+  "frequency_hz": 10000035.414565964,
+  "period_min_s": 9.599999997722541e-08,
+  "period_max_s": 1.0400000000077014e-07,
+  "limitation": "Digital threshold crossing measurement; does not verify analog amplitude or clock waveform quality at the ADC package.",
+  "nominal_10mhz_observed": true
+}

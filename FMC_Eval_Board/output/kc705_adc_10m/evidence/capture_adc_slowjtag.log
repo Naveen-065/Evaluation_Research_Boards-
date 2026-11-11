@@ -1,0 +1,114 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-oct-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 19 19:12:46 2026
+# Process ID         : 224
+# Current directory  : C:/Users/fpga.DESKTOP-CVDV1JP
+# Command line       : vivado.exe -mode batch -source C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_10m\capture_adc.tcl -log C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_10m\evidence\capture_adc_slowjtag.log -tclargs 1000000
+# Log file           : C:/Users/fpga.DESKTOP-CVDV1JP/kc705_adc_10m/evidence/capture_adc_slowjtag.log
+# Journal file       : C:/Users/fpga.DESKTOP-CVDV1JP\vivado.jou
+# Running On         : DESKTOP-CVDV1JP
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : AMD Ryzen 5 5600U with Radeon Graphics         
+# CPU Frequency      : 2296 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 7330 MB
+# Swap memory        : 12348 MB
+# Total Virtual      : 19678 MB
+# Available Virtual  : 6500 MB
+#-----------------------------------------------------------
+source {C:\Users\fpga.DESKTOP-CVDV1JP\kc705_adc_10m\capture_adc.tcl}
+# set here [file dirname [file normalize [info script]]]
+# set capture_dir [file join $here captures]
+# set ltx [file join $here build kc705_adc_10m.ltx]
+# if {![file exists $ltx]} { error "Missing build/kc705_adc_test.ltx" }
+# file mkdir $capture_dir
+# set stamp [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
+# set csv [file join $capture_dir "ads5282_analog_${stamp}.csv"]
+# open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 614.848 ; gain = 271.750
+# connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 14:55:19
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 620.832 ; gain = 5.984
+# set target [get_hw_targets -quiet localhost:3121/xilinx_tcf/Xilinx/00001f14c98801]
+# if {[llength $target] != 1} { error "Known KC705 JTAG cable 00001f14c98801 not found" }
+# current_hw_target $target
+# if {[llength $argv] == 1} {
+#     set requested_jtag_hz [lindex $argv 0]
+#     if {$requested_jtag_hz != 1000000} { error "Only the diagnostic 1 MHz JTAG rate is supported" }
+#     set allowed_jtag_rates [list_property_value PARAM.FREQUENCY $target]
+#     puts "ALLOWED_JTAG_RATES $allowed_jtag_rates"
+#     set chosen_rate 0
+#     foreach rate $allowed_jtag_rates {
+#         if {[string is integer -strict $rate] && $rate <= $requested_jtag_hz && $rate > $chosen_rate} {
+#             set chosen_rate $rate
+#         }
+#     }
+#     if {$chosen_rate == 0} { error "No advertised JTAG rate below the diagnostic ceiling" }
+#     set_property PARAM.FREQUENCY $chosen_rate $target
+# }
+ALLOWED_JTAG_RATES 750000 1500000 3000000 6000000 12000000
+# open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/00001f14c98801
+# set dev [get_hw_devices -quiet -filter {PART == "xc7k325t"}]
+# if {[llength $dev] != 1} { error "Expected exactly one Kintex-7 xc7k325t" }
+# current_hw_device $dev
+# set_property PROBES.FILE $ltx $dev
+# set_property FULL_PROBES.FILE $ltx $dev
+# refresh_hw_device $dev
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 2 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+# set vios [get_hw_vios -quiet -of_objects $dev -filter {CELL_NAME == "u_run_vio"}]
+# if {[llength $vios] != 1} { error "Expected exactly one run-control VIO" }
+# set run_probe [get_hw_probes -quiet -of_objects [lindex $vios 0] -filter {TYPE == vio_output && NAME == run_enable}]
+# if {[llength $run_probe] != 1} { error "Expected one VIO output named run_enable" }
+# refresh_hw_vio [lindex $vios 0]
+# if {[get_property OUTPUT_VALUE $run_probe] != 1} {
+#     error "ADC test is disabled; run enable_adc_test.tcl for the internal-94-ohm bench profile"
+# }
+# set dac_probe [get_hw_probes -quiet -of_objects [lindex $vios 0] -filter {TYPE == vio_output && NAME == dac_enable}]
+# if {[llength $dac_probe] != 1 || [get_property OUTPUT_VALUE $dac_probe] != 1} {
+#     error "DAC shunt rails are disabled; enable and measure them before capture"
+# }
+# set ilas [get_hw_ilas -quiet -of_objects $dev]
+# if {[llength $ilas] != 1} { error "Expected exactly one ADC capture ILA" }
+# set ila [lindex $ilas 0]
+# puts "JTAG_FREQUENCY_HZ [get_property PARAM.FREQUENCY $target]"
+JTAG_FREQUENCY_HZ 750000
+# foreach property [list_property $ila] {
+#     if {[string match *CLOCK* $property] || $property eq "STATUS"} {
+#         puts "ILA_PROPERTY $property=[get_property $property $ila]"
+#     }
+# }
+ILA_PROPERTY STATIC.ILA_CLOCK_FREQ=0
+# set_property CONTROL.DATA_DEPTH 4096 $ila
+# set_property CONTROL.TRIGGER_POSITION 512 $ila
+# run_hw_ila $ila
+ERROR: [Labtools 27-3428] Ila core [hw_ila_1] clock has stopped. Unable to arm ILA core.
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 19 19:13:06 2026...

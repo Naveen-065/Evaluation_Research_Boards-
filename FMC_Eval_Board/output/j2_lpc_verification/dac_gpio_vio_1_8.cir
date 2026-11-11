@@ -1,0 +1,12 @@
+DAC input overvoltage scenario, VIO=1.8 V
+* Generic diode approximation only. Never interpret clamp action as safe operation.
+Vdrive source 0 0
+Rdriver source pin 25
+Vio vio 0 1.8
+Rpull pin vio 10k
+Dupper pin vio Dgeneric
+Dlower 0 pin Dgeneric
+.model Dgeneric D(IS=1e-12 N=1 RS=5)
+.dc Vdrive 0 3.3 0.01
+.save v(source) v(pin) i(Vdrive)
+.end

@@ -1,0 +1,31 @@
+{
+  "source_jobs": {
+    "lrs_set": "3049643729fb4425a6a6433f69dabacb",
+    "hrs_final_reset": "80881d174711464388e6fb957ac02bc5"
+  },
+  "read_voltage_v": 0.5,
+  "bin_width_uS": 4.0,
+  "lrs_conductance_uS": {
+    "n": 1024,
+    "min": 76.530612,
+    "q1": 92.687074,
+    "median": 102.891156,
+    "mean": 110.02022880468749,
+    "q3": 118.197278,
+    "max": 258.503402
+  },
+  "hrs_conductance_uS": {
+    "n": 1024,
+    "min": 17.006802,
+    "q1": 31.462586,
+    "median": 35.714286,
+    "mean": 38.52688545117188,
+    "q3": 42.517006,
+    "max": 167.517006
+  },
+  "best_separator_uS": 75.680272,
+  "hrs_above_separator": 6,
+  "lrs_below_separator": 0,
+  "separation_accuracy_pct": 99.70703125,
+  "note": "Nominal, uncalibrated ADC3/R10 conductance from FPGA array-scheduler results."
+}

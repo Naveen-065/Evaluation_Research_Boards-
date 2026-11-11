@@ -1,0 +1,18 @@
+{
+  "ready": true,
+  "reason": "Trace-enabled controller loaded; DAC and ADC initialization passed. Hardware mode validation in progress.",
+  "vdda1_target_v": 3.0,
+  "vccd2_target_v": 1.8,
+  "fmc_vadj_v": 1.8,
+  "fmc_properties_unchanged": true,
+  "setup_slack_ns": 0.413,
+  "hold_slack_ns": 0.058,
+  "calibrated": false,
+  "hashes": {
+    "build/kc705_adc_capture.bit": "31b989687d2f5cc5f3975b51f2e62242b39f92c36d4923434c028c21ba757e4a",
+    "build/kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96",
+    "firmware/gui_wb_mode.bin": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef"
+  },
+  "hardware_tests": {},
+  "trace_enabled": true
+}

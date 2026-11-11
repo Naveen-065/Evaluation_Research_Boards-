@@ -1,0 +1,10 @@
+{
+  "firmware": "/home/ubuntu-24-04/kc705_fmc_blink_20261019/blink_fmc.bin",
+  "bytes": 3072,
+  "erased_bytes": 4096,
+  "sha256": "8cd4075a2c215eca157196410d47a30f445e86244afb55eeecf87bafe06f36ef",
+  "verified": true,
+  "external_clock_bypass": true,
+  "cpu_reset_released": true,
+  "backup": "/home/ubuntu-24-04/kc705_fmc_blink_20261019/evidence/flash_before_blink_20261019_154103.bin"
+}

@@ -1,0 +1,160 @@
+{
+  "engine": "stderr Warning: can't find the initialization file spinit.\nstdout ******\nstdout ** ngspice-46 shared library\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******\nstdout ******\nstdout ** ngspice-46 : Circuit level simulation program\nstdout ** Compiled with KLU Direct Linear Solver\nstdout ** The U. C. Berkeley CAD Group\nstdout ** Copyright 1985-1994, Regents of the University of California.\nstdout ** Copyright 2001-2025, The ngspice team.\nstdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\nstdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******",
+  "u18": [
+    {
+      "case": "original_standalone",
+      "held_rail_V": 1.8,
+      "bias_V": 3.3000000000000007,
+      "i2c_card_V": 2.5377048944987664,
+      "i2c_clock_V": 2.5622950543012397,
+      "rail_injection_A": 0.008247540977089771,
+      "ref_current_A": 0.00810000000331001
+    },
+    {
+      "case": "original_standalone",
+      "held_rail_V": 2.1,
+      "bias_V": 3.3000000000000007,
+      "i2c_card_V": 2.627379124775289,
+      "i2c_clock_V": 2.772620821024704,
+      "rail_injection_A": 0.0037054758228450687,
+      "ref_current_A": 0.0036000000033100067
+    },
+    {
+      "case": "original_carrier_pullups",
+      "held_rail_V": 1.8,
+      "bias_V": 3.3000000000000007,
+      "i2c_card_V": 2.820408154215702,
+      "i2c_clock_V": 3.299999966900001,
+      "rail_injection_A": 0.008304081629033153,
+      "ref_current_A": 0.00810000000331001
+    },
+    {
+      "case": "original_carrier_pullups",
+      "held_rail_V": 2.1,
+      "bias_V": 3.3000000000000007,
+      "i2c_card_V": 2.916326521255963,
+      "i2c_clock_V": 3.299999966900001,
+      "rail_injection_A": 0.0037632653021412023,
+      "ref_current_A": 0.0036000000033100067
+    },
+    {
+      "case": "corrected_standalone",
+      "held_rail_V": 1.8,
+      "bias_V": 2.4209646707966055,
+      "i2c_card_V": 1.8106464825860444,
+      "i2c_clock_V": 3.2893534662139565,
+      "rail_injection_A": 6.524468922261205e-06,
+      "ref_current_A": 4.395176647064953e-06
+    },
+    {
+      "case": "corrected_standalone",
+      "held_rail_V": 2.1,
+      "bias_V": 2.7170723043398524,
+      "i2c_card_V": 2.1080821915704973,
+      "i2c_clock_V": 3.2919177542295035,
+      "rail_injection_A": 4.53107195532797e-06,
+      "ref_current_A": 2.9146384817976528e-06
+    },
+    {
+      "case": "corrected_carrier_pullups",
+      "held_rail_V": 1.8,
+      "bias_V": 2.4209646707966055,
+      "i2c_card_V": 2.820408154215702,
+      "i2c_clock_V": 3.299999966900001,
+      "rail_injection_A": 0.0002084768032481928,
+      "ref_current_A": 4.395176647064953e-06
+    },
+    {
+      "case": "corrected_carrier_pullups",
+      "held_rail_V": 2.1,
+      "bias_V": 2.7170723043398524,
+      "i2c_card_V": 2.916326521255963,
+      "i2c_clock_V": 3.299999966900001,
+      "rail_injection_A": 0.00016617993789242127,
+      "ref_current_A": 2.9146384817976528e-06
+    }
+  ],
+  "generic_clamp_at_source_2p1": [
+    {
+      "VCCO_V": 0,
+      "source_V": 2.1,
+      "pin_V": 0.5140563531204665,
+      "bank_injection_A": 0.0003964345060845743,
+      "source_current_A": -0.0003964859117198833
+    },
+    {
+      "VCCO_V": 1.8,
+      "source_V": 2.1,
+      "pin_V": 2.098745316350667,
+      "bank_injection_A": 1.0379638062214591e-07,
+      "source_current_A": -3.136709123332366e-07
+    },
+    {
+      "VCCO_V": 2.5,
+      "source_V": 2.1,
+      "pin_V": 2.0991603414650846,
+      "bank_injection_A": -1.400479738548383e-12,
+      "source_current_A": -2.0991463372881905e-07
+    }
+  ],
+  "mos_sensitivity": [
+    {
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.002,
+      "rail_injection_at_2p1_A": 0.0007466666607574084
+    },
+    {
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.02,
+      "rail_injection_at_2p1_A": 0.006518518511186975
+    },
+    {
+      "assumed_vth_V": 0.4,
+      "assumed_kp_A_V2": 0.2,
+      "rail_injection_at_2p1_A": 0.06411985017975635
+    },
+    {
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.002,
+      "rail_injection_at_2p1_A": 0.00043999999686120225
+    },
+    {
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.02,
+      "rail_injection_at_2p1_A": 0.0037054758228450687
+    },
+    {
+      "assumed_vth_V": 0.6,
+      "assumed_kp_A_V2": 0.2,
+      "rail_injection_at_2p1_A": 0.03611519999777752
+    },
+    {
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.002,
+      "rail_injection_at_2p1_A": 0.00020876894039780852
+    },
+    {
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.02,
+      "rail_injection_at_2p1_A": 0.0016683114199271781
+    },
+    {
+      "assumed_vth_V": 0.8,
+      "assumed_kp_A_V2": 0.2,
+      "rail_injection_at_2p1_A": 0.01607609874794921
+    }
+  ],
+  "limits": {
+    "Kintex_HR_recommended": "VIN <= VCCO+0.2 V",
+    "Kintex_HR_absolute": "VIN <= VCCO+0.55 V",
+    "source": "https://docs.amd.com/api/khub/documents/BhulK6GRrzUpQYw0lzrnMA/content"
+  },
+  "limitations": [
+    "No IC destruction or lifetime model",
+    "No vendor PCA9306 or Kintex simulation model executed",
+    "Held rail is boundary condition, not a regulator model",
+    "Generic clamp current is illustrative",
+    "KC705 I2C mux transfer, startup, powered-off mux and PCB ringing not modeled",
+    "External M.2 module unknown; +1V8A distinct rail not modeled"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-19",
+  "board": "KC705 J2 + CaravelReRAM-SenseEval v1.2F",
+  "fpga_programmed": true,
+  "fpga_bitstream_sha256": "93C33F3260ACEEDF2C14272407B2A8CA76DC3622056E338E6C793CDB807CA7F1",
+  "original_port_properties_verified_identical": 39,
+  "vadj_setting_changed": false,
+  "adc_enabled": false,
+  "dac_enabled": false,
+  "setup_slack_ns": 1.145,
+  "hold_slack_ns": 0.057,
+  "si5351": {
+    "plla_locked": true,
+    "status_register": "0x11",
+    "register_readback_pass": true,
+    "clk2_enabled": false,
+    "physical_frequency_measured": false,
+    "clk0_nominal_hz": 10000000,
+    "clk1_nominal_hz": 10000000
+  },
+  "caravel": {
+    "full_programmed_sector_readback_pass": true,
+    "external_clock_bypass": true,
+    "flash_jedec": "ef4016",
+    "user_confirmed_D5_blinking": true,
+    "firmware_bytes": 3072,
+    "sector_backup_bytes": 4096,
+    "programmer": "FT232H via Ubuntu VM 100.98.132.51",
+    "manufacturer": "0456",
+    "product": "11",
+    "project_raw": "2511d444",
+    "cpu_reset_released": true
+  }
+}

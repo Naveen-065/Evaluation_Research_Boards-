@@ -1,0 +1,38 @@
+PCA9306 original equivalent model, dc, C58=100n
+* Not a vendor PCA9306 or AMS1117 transistor model.
+* Reference MOS KP=0.002, VTO=0.4; bus MOS uses same parameters.
+* LDO sources only: 20 A/V feedback gain, 0.8 A ceiling; no sink capability.
+* Does not model AMS1117 loop stability, heating, minimum load or reverse failure.
+* Fixed load controlled by Vload, plus 10 Megohm leakage and 10k I2C pullups.
+.options reltol=1e-5 abstol=1e-11 vntol=1e-7 itl1=500
+Vhigh high 0 3.3
+Vtarget target 0 1.8
+Bldo 0 rail I=max(0,min(0.8,20*(v(target)-v(rail))))
+Vload loadctl 0 0.001
+Bload rail 0 I=v(loadctl)
+Rleak rail 0 10Meg
+* No additional rail bleed resistor
+Crail rail 0 10u
+R56 high bias 10k
+Vlink high ref2 0
+C58 ref2 0 100n
+Mref ref2 bias rail 0 PASS W=1u L=1u
+Mscl sclh bias scll 0 PASS W=1u L=1u
+Msda sdah bias sdal 0 PASS W=1u L=1u
+.model PASS NMOS (LEVEL=1 VTO=0.4 KP=0.002 LAMBDA=0 GAMMA=0)
+R54 rail scll 10k
+R57 high sclh 10k
+R53 rail sdal 10k
+R58 high sdah 10k
+Csl scll 0 50p
+Csh sclh 0 50p
+Cdl sdal 0 50p
+Cdh sdah 0 50p
+VdriveL ctlL 0 0
+VdriveH ctlH 0 0
+SdrvL scll 0 ctlL 0 OD
+SdrvH sclh 0 ctlH 0 OD
+.model OD SW(RON=10 ROFF=1e12 VT=0.5 VH=0.1)
+.dc Vload 0 0.02 0.0001
+.save v(loadctl) v(rail) v(bias) v(ref2) v(scll) v(sclh) i(Vlink)
+.end

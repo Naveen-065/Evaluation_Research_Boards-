@@ -26,20 +26,102 @@ ROOT = Path(__file__).resolve().parents[2]
 RUNS_DIR = ROOT / "api_v1" / "runs"
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 READ_CONDUCTANCE_VOLTAGE_V = 0.5
+HARDWARE_QUEUE_HOST = os.environ.get("SCAN_DEBUG_HARDWARE_QUEUE_HOST", "ubuntu-24-04@100.98.132.51")
+HARDWARE_QUEUE_DIR = os.environ.get("SCAN_DEBUG_HARDWARE_QUEUE_DIR", "/tmp/scan_debug_hardware_queue.lock")
 
 
 def _conductance_uS(current_uA: Any) -> float | None:
     value = _float_or_none(current_uA)
     return value / READ_CONDUCTANCE_VOLTAGE_V if value is not None else None
+
+
+def _remote_queue_command(remote_script: str, *, timeout_s: int = 8) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [
+            "ssh",
+            "-o", "BatchMode=yes",
+            "-o", "ConnectTimeout=5",
+            HARDWARE_QUEUE_HOST,
+            remote_script,
+        ],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        timeout=timeout_s,
+    )
+
+
+def _hardware_queue_status() -> dict[str, Any]:
+    queue_dir = shlex.quote(HARDWARE_QUEUE_DIR)
+    script = (
+        f"lock_dir={queue_dir}; "
+        'if [ -d "$lock_dir" ]; then '
+        'owner=$(cat "$lock_dir/owner" 2>/dev/null || true); '
+        'token=$(cat "$lock_dir/token" 2>/dev/null || true); '
+        'started=$(cat "$lock_dir/started" 2>/dev/null || true); '
+        'printf "%s\\n%s\\n%s\\n" "$owner" "$token" "$started"; '
+        "else exit 2; fi"
+    )
+    try:
+        proc = _remote_queue_command(script)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {"available": False, "locked": None, "state": "unknown", "error": str(exc)}
+    if proc.returncode == 2:
+        return {"available": True, "locked": False, "state": "clear", "host": HARDWARE_QUEUE_HOST}
+    if proc.returncode != 0:
+        error = (proc.stderr or proc.stdout or "").strip()
+        return {"available": False, "locked": None, "state": "unknown", "error": error}
+    lines = proc.stdout.splitlines()
+    return {
+        "available": True,
+        "locked": True,
+        "state": "locked",
+        "host": HARDWARE_QUEUE_HOST,
+        "owner": " ".join((lines[0] if len(lines) > 0 else "").split())[:240],
+        "token": (lines[1] if len(lines) > 1 else "").strip()[:64],
+        "started": (lines[2] if len(lines) > 2 else "").strip()[:32],
+    }
+
+
+def _clear_hardware_queue_lock() -> dict[str, Any]:
+    # This intentionally targets only the known bench queue lock.  It is the
+    # same path used by ScanDebugCellAPI.hardware_queue; no user-provided path
+    # is accepted here.
+    if HARDWARE_QUEUE_DIR != "/tmp/scan_debug_hardware_queue.lock":
+        return {"ok": False, "error": f"Refusing to clear unexpected queue path {HARDWARE_QUEUE_DIR!r}"}
+    queue_dir = shlex.quote(HARDWARE_QUEUE_DIR)
+    script = (
+        f"lock_dir={queue_dir}; "
+        'if [ "$lock_dir" != "/tmp/scan_debug_hardware_queue.lock" ]; then exit 64; fi; '
+        'if [ -d "$lock_dir" ]; then rm -rf -- "$lock_dir"; echo cleared; '
+        "else echo already-clear; fi"
+    )
+    try:
+        proc = _remote_queue_command(script, timeout_s=12)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {"ok": False, "error": str(exc)}
+    if proc.returncode != 0:
+        return {"ok": False, "error": (proc.stderr or proc.stdout or f"exit {proc.returncode}").strip()}
+    return {"ok": True, "message": (proc.stdout or "cleared").strip(), "status": _hardware_queue_status()}
 GRID_SIZE = 32
 STATE_CACHE_SECONDS = 2.0
+SCAN_DEBUG_OPERATIONS = frozenset({"read", "set", "reset", "cycle", "read-array", "burst-read"})
+WISHBONE_OPERATIONS = frozenset({
+    "wb-read", "wb-write",
+    "memory-controller-set-test", "memory-controller-reset-test",
+    "memory-controller-set", "memory-controller-reset",
+})
+API_CAPABILITIES = {
+    "scan-debug": tuple(sorted(SCAN_DEBUG_OPERATIONS)),
+    "wishbone": tuple(sorted(WISHBONE_OPERATIONS)),
+}
 
 _manifest_cache_lock = threading.RLock()
 _manifest_cache: dict[Path, tuple[tuple[int, int], list[dict[str, Any]]]] = {}
-_heatmap_cache: dict[Path, tuple[tuple[int, int], dict[str, dict[str, Any]]]] = {}
+_heatmap_cache: dict[tuple[Path, bool], tuple[tuple[int, int], dict[str, dict[str, Any]]]] = {}
 
 try:
-    from api_v1.cell_api import DEFAULT_WB_READ_VALUE, DEFAULT_WB_WRITE_VALUE, ScanDebugConfig, parse_u32
+    from api_v1.cell_api import DEFAULT_WB_READ_VALUE, DEFAULT_WB_WRITE_VALUE, WB_BIAS_SKEWS, ScanDebugConfig, parse_u32
 
     _DEFAULT_SCAN_CONFIG = ScanDebugConfig()
     DEFAULT_THRESHOLDS_UA = {
@@ -65,14 +147,59 @@ except Exception:
         if not 0 <= parsed <= 0xFFFFFFFF:
             raise ValueError(f"{label} must be between 0x00000000 and 0xFFFFFFFF")
         return parsed
-    DEFAULT_THRESHOLDS_UA = {"set": 70.0, "reset": 5.0}
+    DEFAULT_THRESHOLDS_UA = {"set": 35.0, "reset": 5.0}
     DEFAULT_SWEEP_PULSE_COUNTS = {"set": 112, "reset": 40}
+    WB_BIAS_SKEWS = {
+        "iref": {}, "vcomp": {}, "bias_comp2": {}, "vbias": {}, "dc_bias": {},
+    }
 
 
 @dataclass(frozen=True)
 class ViewerConfig:
     runs_dir: Path
     allow_commands: bool
+
+
+def _normalize_api_operation(interface_mode: Any, operation: Any) -> tuple[str, str]:
+    """Resolve the optional namespaced API mode without breaking legacy clients."""
+
+    requested_operation = str(operation or "read").strip().lower()
+    requested_mode = str(interface_mode or "").strip().lower().replace("_", "-")
+
+    if not requested_mode:
+        if requested_operation in WISHBONE_OPERATIONS:
+            return "wishbone", requested_operation
+        if requested_operation in SCAN_DEBUG_OPERATIONS:
+            return "scan-debug", requested_operation
+        raise ValueError(f"Unsupported operation {requested_operation!r}")
+
+    if requested_mode in {"scan", "scan-debug"}:
+        if requested_operation not in SCAN_DEBUG_OPERATIONS:
+            raise ValueError(
+                f"Operation {requested_operation!r} is not available in scan-debug mode"
+            )
+        return "scan-debug", requested_operation
+
+    if requested_mode in {"wb", "wishbone"}:
+        wishbone_operation = {
+            "read": "wb-read",
+            "write": "wb-write",
+            "wb-read": "wb-read",
+            "wb-write": "wb-write",
+            "memory-controller-set-test": "memory-controller-set-test",
+            "memory-controller-reset-test": "memory-controller-reset-test",
+            "memory-controller-set": "memory-controller-set",
+            "memory-controller-reset": "memory-controller-reset",
+        }.get(requested_operation)
+        if wishbone_operation is None:
+            raise ValueError(
+                f"Operation {requested_operation!r} is not available in wishbone mode"
+            )
+        return "wishbone", wishbone_operation
+
+    raise ValueError(
+        f"Unsupported interface mode {requested_mode!r}; use 'scan-debug' or 'wishbone'"
+    )
 
 
 def _float_or_none(value: str | None) -> float | None:
@@ -563,21 +690,24 @@ def _measurement_time(row: dict[str, Any], manifest: Path, fallback: float,
     return fallback, "manifest-fallback"
 
 
-def _heatmap_manifest_cells(manifest: Path) -> dict[str, dict[str, Any]]:
+def _heatmap_manifest_cells(manifest: Path, *, include_invalid: bool = False) -> dict[str, dict[str, Any]]:
     try:
         stat = manifest.stat()
     except OSError:
         return {}
     signature = (stat.st_mtime_ns, stat.st_size)
+    cache_key = (manifest, include_invalid)
     with _manifest_cache_lock:
-        cached = _heatmap_cache.get(manifest)
+        cached = _heatmap_cache.get(cache_key)
         if cached and cached[0] == signature:
             return cached[1]
     latest: dict[str, dict[str, Any]] = {}
-    # Select the last valid read per cell within this append-only manifest.
+    # The rolling/default heatmap uses only valid reads.  An explicitly selected
+    # run includes every finite decoded result so failed feedback is visible and
+    # cannot be silently replaced by an older run's value.
     for row in _read_manifest(manifest):
         value = row.get("current_uA")
-        if (row.get("cellAddress") and _is_read_row(row) and row.get("ok")
+        if (row.get("cellAddress") and _is_read_row(row) and (include_invalid or row.get("ok"))
                 and value is not None and math.isfinite(value)
                 and row.get("local_output_dir") != "DRY_RUN"):
             latest[_cell_key(row["cellAddress"])] = row
@@ -589,7 +719,7 @@ def _heatmap_manifest_cells(manifest: Path) -> dict[str, dict[str, Any]]:
                     "sourceRun": manifest.parent.parent.name if manifest.parent.name == 'captures' else manifest.parent.name,
                     "measurementMode": "burst" if "burst" in str(row.get("stage", "")) else "single"}
     with _manifest_cache_lock:
-        _heatmap_cache[manifest] = (signature, out)
+        _heatmap_cache[cache_key] = (signature, out)
     return out
 
 
@@ -633,7 +763,7 @@ def _combined_cell_history(run_dir: Path, rows: list[dict[str, Any]], last_cell:
     return out
 
 
-def _summarize(run_dir: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _summarize(run_dir: Path, rows: list[dict[str, Any]], *, selected_run: bool = False) -> dict[str, Any]:
     log_events = _recent_log_events(run_dir)
     progress_events = _read_progress_events(run_dir)
     active_error = _active_error(run_dir, rows, log_events)
@@ -679,7 +809,10 @@ def _summarize(run_dir: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
     values = [row["current_uA"] for row in latest_read_by_cell.values() if row.get("current_uA") is not None]
     min_current = min(values) if values else None
     max_current = max(values) if values else None
-    heatmap_cells = _latest_heatmap_cells(run_dir)
+    heatmap_cells = (
+        _heatmap_manifest_cells(_manifest_for_run(run_dir), include_invalid=True)
+        if selected_run else _latest_heatmap_cells(run_dir)
+    )
     history = _combined_cell_history(run_dir, rows, last_cell)
     read_history = [row for row in history if _is_read_row(row)]
 
@@ -716,6 +849,7 @@ def _summarize(run_dir: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
         "thresholds_uA": thresholds,
         "thresholds_uS": {key: _conductance_uS(value) for key, value in thresholds.items()},
         "cells": list(heatmap_cells.values()),
+        "heatmapScope": "selected-run" if selected_run else "latest-valid",
         "history": history,
         "readHistory": read_history[-160:],
         "logEvents": log_events,
@@ -731,7 +865,7 @@ class GuiHandler(SimpleHTTPRequestHandler):
     config: ViewerConfig
     running_commands: dict[str, dict[str, Any]] = {}
     state_build_lock = threading.Lock()
-    state_cache: dict[Path, tuple[float, dict[str, Any]]] = {}
+    state_cache: dict[tuple[Path, bool], tuple[float, dict[str, Any]]] = {}
     run_choices_cache: tuple[float, list[dict[str, Any]]] | None = None
 
     def __init__(self, *args: Any, **kwargs: Any):
@@ -748,8 +882,17 @@ class GuiHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
+        if parsed.path == "/api/capabilities":
+            self._send_json({
+                "interfaces": API_CAPABILITIES,
+                "legacyOperations": sorted(SCAN_DEBUG_OPERATIONS | WISHBONE_OPERATIONS),
+            })
+            return
         if parsed.path == "/api/runs":
             self._send_json({"runs": _run_choices(self.config.runs_dir)})
+            return
+        if parsed.path == "/api/hardware-queue":
+            self._send_json(_hardware_queue_status())
             return
         if parsed.path == "/api/state":
             query = parse_qs(parsed.query)
@@ -760,13 +903,15 @@ class GuiHandler(SimpleHTTPRequestHandler):
                 return
             with self.state_build_lock:
                 now = time.monotonic()
-                cached = self.state_cache.get(run_dir)
+                selected_run = bool(run_name)
+                cache_key = (run_dir, selected_run)
+                cached = self.state_cache.get(cache_key)
                 if cached and now - cached[0] < STATE_CACHE_SECONDS:
                     summary = cached[1]
                 else:
                     rows = _read_manifest(_manifest_for_run(run_dir))
-                    summary = _summarize(run_dir, rows)
-                    self.state_cache[run_dir] = (now, summary)
+                    summary = _summarize(run_dir, rows, selected_run=selected_run)
+                    self.state_cache[cache_key] = (now, summary)
 
                 choices_cached = self.run_choices_cache
                 if choices_cached and now - choices_cached[0] < STATE_CACHE_SECONDS:
@@ -790,6 +935,9 @@ class GuiHandler(SimpleHTTPRequestHandler):
         if parsed_path == "/api/command/kill":
             self._kill_command()
             return
+        if parsed_path == "/api/hardware-queue/clear":
+            self._clear_hardware_queue()
+            return
         if parsed_path != "/api/command":
             self.send_error(HTTPStatus.NOT_FOUND)
             return
@@ -802,7 +950,17 @@ class GuiHandler(SimpleHTTPRequestHandler):
             return
         length = int(self.headers.get("Content-Length", "0"))
         payload = json.loads(self.rfile.read(length) or b"{}")
-        operation = str(payload.get("operation", "read"))
+        try:
+            interface_mode, operation = _normalize_api_operation(
+                payload.get("interfaceMode", payload.get("mode", "")),
+                payload.get("operation", "read"),
+            )
+        except ValueError as exc:
+            self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
+            return
+        # The dedicated burst operation intentionally captures the whole array
+        # at reduced Saleae resolution. Its FPGA reset/scan/hold timing and
+        # measurement-window boundaries still match a single-cell read.
         array_mode = "burst" if operation == "burst-read" else "burst-columns"
         cli_operation = "read-array" if operation == "burst-read" else operation
         row = int(payload.get("row", 0))
@@ -813,6 +971,8 @@ class GuiHandler(SimpleHTTPRequestHandler):
         dry_run = bool(payload.get("dryRun", False))
         confirmed = bool(payload.get("confirmHardware", False))
         wb_value = DEFAULT_WB_READ_VALUE if operation == "wb-read" else DEFAULT_WB_WRITE_VALUE
+        bias_skew = str(payload.get("biasSkew", "")).strip().lower()
+        bias_voltage = _float_or_none(payload.get("biasVoltage"))
         if operation in {"wb-read", "wb-write"}:
             try:
                 raw_wb_value = payload.get("wbValue", "")
@@ -823,8 +983,14 @@ class GuiHandler(SimpleHTTPRequestHandler):
             except ValueError as exc:
                 self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
                 return
+            if bool(bias_skew) != (bias_voltage is not None):
+                self._send_json({"error": "WB bias skew requires both biasSkew and biasVoltage."}, HTTPStatus.BAD_REQUEST)
+                return
+            if bias_skew and bias_skew not in WB_BIAS_SKEWS:
+                self._send_json({"error": f"Unknown WB bias skew {bias_skew!r}."}, HTTPStatus.BAD_REQUEST)
+                return
         if (
-            operation not in {"read", "set", "reset", "cycle", "read-array", "burst-read", "wb-read", "wb-write"}
+            operation not in SCAN_DEBUG_OPERATIONS | WISHBONE_OPERATIONS
             or not (0 <= row < GRID_SIZE and 0 <= col < GRID_SIZE)
         ):
             self._send_json({"error": "Invalid operation or cell."}, HTTPStatus.BAD_REQUEST)
@@ -878,6 +1044,8 @@ class GuiHandler(SimpleHTTPRequestHandler):
         command_env = os.environ.copy()
         if operation in {"wb-read", "wb-write"}:
             cmd.extend(["--wb-value", f"0x{wb_value:08X}"])
+            if bias_skew:
+                cmd.extend(["--bias-skew", bias_skew, "--bias-voltage", str(bias_voltage)])
             if operation == "wb-read":
                 cmd.extend(["--wishbone-wait-nonzero", "--wishbone-uart-timeout-seconds", "120"])
         elif operation not in {"read-array", "burst-read"}:
@@ -914,12 +1082,15 @@ class GuiHandler(SimpleHTTPRequestHandler):
         key = f"{int(time.time() * 1000)}"
         self.running_commands[key] = {
             "proc": proc,
+            "interfaceMode": interface_mode,
             "operation": operation,
             "arrayMode": array_mode if operation in {"read-array", "burst-read"} else "",
             "resume": is_resume,
             "row": row,
             "col": col,
             "wbValue": f"0x{wb_value:08X}" if operation in {"wb-read", "wb-write"} else "",
+            "biasSkew": bias_skew,
+            "biasVoltage": bias_voltage,
             "runDir": str(run_dir.relative_to(ROOT)),
             "logPath": str(log_path.relative_to(ROOT)),
             "started": time.time(),
@@ -930,6 +1101,7 @@ class GuiHandler(SimpleHTTPRequestHandler):
                 "id": key,
                 "runDir": str(run_dir.relative_to(ROOT)),
                 "command": safe_cmd,
+                "interfaceMode": interface_mode,
                 "resume": resume_info or sweep_resume_info,
             }
         )
@@ -949,11 +1121,14 @@ class GuiHandler(SimpleHTTPRequestHandler):
                     "canKill": return_code is None,
                     "external": False,
                     "returnCode": return_code,
+                    "interfaceMode": item.get("interfaceMode", "scan-debug"),
                     "operation": item.get("operation"),
                     "arrayMode": item.get("arrayMode", ""),
                     "row": item.get("row"),
                     "col": item.get("col"),
                     "wbValue": item.get("wbValue", ""),
+                    "biasSkew": item.get("biasSkew", ""),
+                    "biasVoltage": item.get("biasVoltage"),
                     "runDir": item.get("runDir"),
                     "started": item.get("started"),
                     **_active_capture_rails(proc.pid),
@@ -989,6 +1164,9 @@ class GuiHandler(SimpleHTTPRequestHandler):
             if pid is None or pid in tracked_pids or pid == os.getpid():
                 continue
             parsed = _parse_scan_debug_process(command)
+            parsed["interfaceMode"] = (
+                "wishbone" if parsed.get("operation") in WISHBONE_OPERATIONS else "scan-debug"
+            )
             states.append(
                 {
                     "id": f"pid-{pid}",
@@ -1040,6 +1218,47 @@ class GuiHandler(SimpleHTTPRequestHandler):
                 self._send_json({"ok": True, "id": command_id, "message": f"Command process tree {pid} terminated."})
                 return
         self._send_json({"error": "No matching GUI/API command is running."}, HTTPStatus.NOT_FOUND)
+
+    def _clear_hardware_queue(self) -> None:
+        if not self.config.allow_commands:
+            self._send_json({"error": "Commands are disabled. Start with --allow-commands to release hardware."}, HTTPStatus.FORBIDDEN)
+            return
+        length = int(self.headers.get("Content-Length", "0"))
+        payload = json.loads(self.rfile.read(length) or b"{}")
+        command_id = str(payload.get("id", "")).strip()
+        killed_message = ""
+        if command_id in self.running_commands:
+            item = self.running_commands[command_id]
+            proc = item["proc"]
+            if proc.poll() is None:
+                try:
+                    if platform.system().lower().startswith("win"):
+                        _terminate_windows_process_tree(proc.pid)
+                    else:
+                        os.killpg(proc.pid, signal.SIGTERM)
+                    item["killed"] = time.time()
+                    killed_message = f"Stopped GUI command PID {proc.pid}. "
+                except OSError as exc:
+                    self._send_json({"error": f"Could not stop GUI command before queue release: {exc}"}, HTTPStatus.CONFLICT)
+                    return
+        elif command_id.startswith("pid-"):
+            pid = _int_or_none(command_id.removeprefix("pid-"))
+            if pid is not None and self._is_external_scan_debug_pid(pid):
+                try:
+                    if platform.system().lower().startswith("win"):
+                        _terminate_windows_process_tree(pid)
+                    else:
+                        os.kill(pid, signal.SIGTERM)
+                    killed_message = f"Stopped external API PID {pid}. "
+                except OSError as exc:
+                    self._send_json({"error": f"Could not stop external command before queue release: {exc}"}, HTTPStatus.CONFLICT)
+                    return
+        result = _clear_hardware_queue_lock()
+        if result.get("ok"):
+            result["message"] = killed_message + (result.get("message") or "Queue released")
+            self._send_json(result)
+        else:
+            self._send_json(result, HTTPStatus.CONFLICT)
 
     def _is_external_scan_debug_pid(self, pid: int) -> bool:
         try:

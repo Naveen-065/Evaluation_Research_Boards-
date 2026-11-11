@@ -1,0 +1,17 @@
+stdout Note: No compatibility mode selected!
+stdout Circuit: ads5282 sample-clock 10mhz rdriver=25 edge=1ns r165=true
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stdout Operating point simulation skipped by 'uic',
+stdout now using transient initial conditions.
+ Reference value :  1.05615e-07
+ Reference value :  2.25393e-07
+ Reference value :  3.41618e-07
+ Reference value :  4.56044e-07
+ Reference value :  5.69067e-07
+ Reference value :  6.83913e-07
+ Reference value :  7.97329e-07
+ Reference value :  9.16052e-07
+ Reference value :  1.03478e-06
+ Reference value :  1.14386e-06
+stdout No. of Data Rows : 120164

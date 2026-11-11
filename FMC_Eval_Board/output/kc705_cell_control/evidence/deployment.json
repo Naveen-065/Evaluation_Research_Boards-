@@ -1,0 +1,469 @@
+{
+  "ready": true,
+  "reason": "Ramp cycle finished; read rails restored and CPU held. RESET target not reached within the 3.0 V cap.",
+  "vdda1_target_v": 3.0,
+  "vccd2_target_v": 1.8,
+  "fmc_vadj_v": 1.8,
+  "fmc_properties_unchanged": true,
+  "setup_slack_ns": 0.36,
+  "hold_slack_ns": 0.059,
+  "calibrated": false,
+  "hashes": {
+    "build/kc705_adc_capture.bit": "fe31f0249b7081b4f6a00a721002317d618b0294cad9c5306f62853f5e34427c",
+    "build/kc705_adc_capture.ltx": "6f800d28394e1f524304c3b59190f6ef819020bd2ff781928890fca4f9248e96",
+    "firmware/gui_wb_mode.bin": "e7ad11e318b346edaae2fd0ff30736433fb27ef3bc5c39118ab4f1fc0a4107ef"
+  },
+  "hardware_tests": {
+    "read": {
+      "executed": true,
+      "job_id": "8543a9799a37406180ed5c0757517ea7",
+      "parameters": {
+        "mode": "read",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:32:13.041251+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "read",
+          "set_path": 37.17795530688623
+        }
+      ],
+      "tdc": []
+    },
+    "set": {
+      "executed": true,
+      "job_id": "dd4c6d52f00e4e09b1c38cfbf616ad46",
+      "parameters": {
+        "mode": "set",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T07:24:14.547407+00:00",
+      "tested_on_current_image": false,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 3,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "before_set",
+          "set_path": 14.30274173576158
+        },
+        {
+          "operation": "set_pulse",
+          "set_path": 57.016414981094705
+        },
+        {
+          "operation": "after_set",
+          "set_path": 49.28001593779237
+        }
+      ],
+      "tdc": []
+    },
+    "reset": {
+      "executed": true,
+      "job_id": "d66f25357c54475ab3585b99f90408eb",
+      "parameters": {
+        "mode": "reset",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 3,
+        "reset_wl": 2.88,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T07:39:12.374535+00:00",
+      "tested_on_current_image": false,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 3,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [
+        {
+          "operation": "before_reset",
+          "set_path": 48.68024548638823
+        },
+        {
+          "operation": "reset_pulse",
+          "set_path": 16.846384781712228
+        },
+        {
+          "operation": "after_reset",
+          "set_path": 17.085510511440678
+        }
+      ],
+      "tdc": []
+    },
+    "cycle": {
+      "executed": true,
+      "job_id": "80047979cb4b4d0b9c400f1271ba7b55",
+      "parameters": {
+        "mode": "cycle",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.5,
+        "set_wl": 2.37,
+        "reset_v": 3,
+        "reset_wl": 2.88,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:43:26.157522+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 300,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [],
+      "tdc": []
+    },
+    "column": {
+      "executed": true,
+      "job_id": "0854d63ae8204503b1923e2373ec3475",
+      "parameters": {
+        "mode": "column",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T07:25:45.802367+00:00",
+      "tested_on_current_image": false,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 32,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [],
+      "tdc": []
+    },
+    "array": {
+      "executed": true,
+      "job_id": "3c48d19f06b3446bbc8a58b409cd6e7c",
+      "parameters": {
+        "mode": "array",
+        "row": 0,
+        "col": 0,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T07:26:21.275604+00:00",
+      "tested_on_current_image": false,
+      "tested_on_current_wb_sequence": null,
+      "capture_count": 1024,
+      "clipped": false,
+      "uart_transport_verified": null,
+      "valid_column_tdc": null,
+      "trace_points": 134,
+      "read_currents_uA": [],
+      "tdc": []
+    },
+    "wb_read": {
+      "executed": true,
+      "job_id": "fc9f9cca612245b9b1a314e18a055020",
+      "parameters": {
+        "mode": "wb_read",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:27:17.212822+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": true,
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": true,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "read",
+          "selected": "0x0007D816",
+          "coarse": 24,
+          "fine": 22,
+          "extra": 0,
+          "matching_column": true
+        }
+      ]
+    },
+    "wb_set": {
+      "executed": true,
+      "job_id": "1498c092807b446ea0fc11a8953eea09",
+      "parameters": {
+        "mode": "wb_set",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:28:01.656706+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": true,
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": true,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "set",
+          "selected": "0x0007D738",
+          "coarse": 23,
+          "fine": 56,
+          "extra": 0,
+          "matching_column": true
+        }
+      ]
+    },
+    "wb_reset": {
+      "executed": true,
+      "job_id": "cb7a2cb9a4f04ecbbe39491e6e6d0525",
+      "parameters": {
+        "mode": "wb_reset",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:29:22.834457+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": true,
+      "capture_count": 1,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": true,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "reset",
+          "selected": "0x0007D712",
+          "coarse": 23,
+          "fine": 18,
+          "extra": 0,
+          "matching_column": true
+        }
+      ]
+    },
+    "wb_cycle": {
+      "executed": true,
+      "job_id": "b10a8ce2fc334141952e77755f9b6798",
+      "parameters": {
+        "mode": "wb_cycle",
+        "row": 0,
+        "col": 31,
+        "set_v": 2.3,
+        "set_wl": 1.3,
+        "reset_v": 2.7,
+        "reset_wl": 1.5,
+        "hold": 2400,
+        "cycles": 1,
+        "dry_run": false
+      },
+      "started": "2026-10-20T09:30:47.080525+00:00",
+      "tested_on_current_image": true,
+      "tested_on_current_wb_sequence": true,
+      "capture_count": 5,
+      "clipped": false,
+      "uart_transport_verified": true,
+      "valid_column_tdc": true,
+      "trace_points": 0,
+      "read_currents_uA": [],
+      "tdc": [
+        {
+          "operation": "read",
+          "selected": "0x0007D60E",
+          "coarse": 22,
+          "fine": 14,
+          "extra": 0,
+          "matching_column": true
+        },
+        {
+          "operation": "set",
+          "selected": "0x0007D743",
+          "coarse": 23,
+          "fine": 67,
+          "extra": 0,
+          "matching_column": true
+        },
+        {
+          "operation": "read",
+          "selected": "0x0007D72C",
+          "coarse": 23,
+          "fine": 44,
+          "extra": 0,
+          "matching_column": true
+        },
+        {
+          "operation": "reset",
+          "selected": "0x0007D82D",
+          "coarse": 24,
+          "fine": 45,
+          "extra": 0,
+          "matching_column": true
+        },
+        {
+          "operation": "read",
+          "selected": "0x0007D81B",
+          "coarse": 24,
+          "fine": 27,
+          "extra": 0,
+          "matching_column": true
+        }
+      ]
+    }
+  },
+  "trace_enabled": true,
+  "validation_note": "Scan ramp r0/c0 tested: SET confirmed by 10 reads with 0 pulses; RESET exhausted 96 steps at maximum VCC 3.0 V / WL 2.88 V, ending at 16.725 uA (target <=5 uA not met). Hard 3.0 V command cap on both rails. FMC unchanged.",
+  "wb_tm_held_low": true,
+  "final_read_job": "80047979cb4b4d0b9c400f1271ba7b55",
+  "final_read_uA_nominal": 16.725285,
+  "gui_browser_errors": [],
+  "pending_hardware_measurements": {},
+  "source_hashes": {
+    "kc705_adc_test.v": "623daa18db5a12b628dd6a905900e7745b8653a94cac4ff0a6b3fc66d62f8a23",
+    "cell_control_engine.v": "e554e5320704551734053cadc9730e659a830af007afc310e9b687a76a335ddf",
+    "control.tcl": "3556e7d913e1f2b10c4e65624205189700318ca8102d2ffa81a0cd7dceb12804",
+    "initialize.tcl": "11d86bddd047323232a26e1496f4b5c78323167401a4575687fcd4050654a3a7",
+    "gui/index.html": "c2f64c14435f14cf3a20c8478860ad0471b4e9c6bd2b75c5a794ded861a91116",
+    "gui/app.js": "89b1133cc92676f68a10c6afcd88b3ad1b7cf15cf7d27257fab14bfe2d1a1bfd",
+    "gui/server.py": "31a1d97bfa496f89cc9cd91e5e67091e7c528bc30d16d9e72086430e5f0da1b6",
+    "model.py": "429a8c2b66b898a34d12a0c811b5b06a71a22cd38a80dc4231de32e0672ea93a",
+    "gui/styles.css": "382ddf70d4e3c2de5ba345fe15a33c9fa5f531e2a818008eaa988502faf923ef",
+    "scan_ramp.tcl": "30ec43e90994a68f142baa36ec327f175bc8cec564d56367175181df0ee30f47"
+  },
+  "manual_measurements": {
+    "profile": "scan idle",
+    "source": "User DMM readings",
+    "reported_at": "2026-10-20T08:28:01.285899+00:00",
+    "NT7_pad2_IREF_V": 0.933,
+    "NT11_pad2_DC_BIAS_V": 0.998,
+    "targets_V": {
+      "NT7_pad2_IREF": 0.9,
+      "NT11_pad2_DC_BIAS": 1.0,
+      "NT8_pad2_VCOMP": 0.9,
+      "NT9_pad2_BIAS_COMP2": 0.6,
+      "NT10_pad2_VBIAS": 1.6
+    },
+    "NT8_pad2_VCOMP_V": 0.937,
+    "NT9_pad2_BIAS_COMP2_V": 0.637,
+    "NT10_pad2_VBIAS_V": 1.63
+  },
+  "frontend": "Evaluation reference layout, single logarithmic Read Trace and pulse-voltage subplot",
+  "programmed_at": "2026-10-20T09:03:58.883058+00:00",
+  "wb_se_held_low": true,
+  "wb_power_mask": "0x01CC",
+  "wb_sequence": "One runtime transaction: read uses read setup; SET/RESET dispatch to issue_program_setup, which sends two program packets without reset; collect 15 tagged words.",
+  "control_updated_at": "2026-10-20T09:27:16.745293+00:00",
+  "last_connection_check": "7c6d91c7eec04170a573e6a703354e7c",
+  "ramp_logic_implemented": true,
+  "scan_ramp_updated_at": "2026-10-20T09:42:41.589329+00:00",
+  "scan_ramp": {
+    "set_vcc_v": [
+      2.3,
+      2.4,
+      2.5
+    ],
+    "reset_vcc_v": [
+      2.3,
+      2.7,
+      3.0
+    ],
+    "set_wl_range_v": [
+      0.44,
+      2.37
+    ],
+    "reset_wl_range_v": [
+      0.94,
+      2.88
+    ],
+    "reference_wl_steps_per_vcc": 32,
+    "set_target_uA": 35,
+    "reset_target_uA": 5,
+    "confirmation_reads": 10,
+    "hard_voltage_limit_v": 3,
+    "dac_max_code": 39321,
+    "read_vcc_v": 0.5,
+    "read_wl_v": 2.5,
+    "gain_nominal": 7,
+    "shunt_ohms": 56,
+    "tested_on_hardware": true,
+    "cycle_job": "80047979cb4b4d0b9c400f1271ba7b55",
+    "set_confirmation_tested": true,
+    "set_escalation_exercised_on_hardware": false,
+    "reset_escalation_exercised_on_hardware": true,
+    "outcomes": {
+      "set": {
+        "pulses": 0,
+        "target_met": true,
+        "last_read_uA_nominal": 35.752262
+      },
+      "reset": {
+        "pulses": 96,
+        "target_met": false,
+        "last_read_uA_nominal": 16.725285
+      }
+    }
+  }
+}

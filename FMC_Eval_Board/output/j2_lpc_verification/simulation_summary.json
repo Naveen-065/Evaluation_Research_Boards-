@@ -1,0 +1,188 @@
+{
+  "engine": "ngspice-46 shared library bundled with KiCad 10.0",
+  "run_utc": "2026-10-17T17:02:25.673328+00:00",
+  "python": "3.12.10",
+  "scope": "Equivalent-circuit DC/transient fault scenarios, not board sign-off",
+  "limits_source": {
+    "DAC81416": "https://www.ti.com/lit/ds/symlink/dac81416.pdf",
+    "Kintex7": "https://docs.amd.com/v/u/en-US/ds182_Kintex_7_Data_Sheet"
+  },
+  "assumptions": [
+    "Generic diode: IS=1e-12 A, N=1, RS=5 ohm; NOT a vendor input clamp model.",
+    "FPGA source resistance 25 ohm; actual pin resistance and current limits unknown.",
+    "Regulator conflict uses ideal sources and assumed series resistance; real regulator reverse behavior is not represented.",
+    "LVDS simplified 3.5 mA differential source and 1.2 V common mode; no package or extracted PCB transmission-line model.",
+    "No solder defects, FPGA configuration, firmware, ESD, thermal model, latchup, or full power-sequencing model."
+  ],
+  "cases": {
+    "dac_ti_ibis_typ": {
+      "1.8": {
+        "pin_V": 1.8000000000000964,
+        "source_mA": -3.858157994745138e-12,
+        "absolute_max_V": 2.1
+      },
+      "2.5": {
+        "pin_V": 2.498090300650795,
+        "source_mA": 0.07638797396821102,
+        "absolute_max_V": 2.1
+      },
+      "3.3": {
+        "pin_V": 3.276296997626118,
+        "source_mA": 0.9481200949542357,
+        "absolute_max_V": 2.1
+      }
+    },
+    "dac_ti_ibis_min": {
+      "1.8": {
+        "pin_V": 1.7996259351621913,
+        "source_mA": 0.014962593512343615,
+        "absolute_max_V": 1.95
+      },
+      "2.5": {
+        "pin_V": 2.492704430014214,
+        "source_mA": 0.29182279943144385,
+        "absolute_max_V": 1.95
+      },
+      "3.3": {
+        "pin_V": 3.2722468444488264,
+        "source_mA": 1.1101262220458985,
+        "absolute_max_V": 1.95
+      }
+    },
+    "dac_ti_ibis_max": {
+      "1.8": {
+        "pin_V": 1.8003740648380016,
+        "source_mA": -0.014962593520073807,
+        "absolute_max_V": 2.25
+      },
+      "2.5": {
+        "pin_V": 2.4986255252988254,
+        "source_mA": 0.05497898804698961,
+        "absolute_max_V": 2.25
+      },
+      "3.3": {
+        "pin_V": 3.280875422865732,
+        "source_mA": 0.7649830853696526,
+        "absolute_max_V": 2.25
+      }
+    },
+    "dac_input2_1p8_series_0": {
+      "drive_2p5_pin_V": 2.498090300650795,
+      "drive_2p5_source_mA": 0.07638797396821102,
+      "absolute_max_V": 2.1,
+      "model": "INPUT2_1p8"
+    },
+    "dac_input1_1p8_series_33": {
+      "drive_2p5_pin_V": 2.4956034283997046,
+      "drive_2p5_source_mA": 0.0758029586257849,
+      "absolute_max_V": 2.1,
+      "model": "INPUT1_1p8"
+    },
+    "dac_input1_1p8_series_1000": {
+      "drive_2p5_pin_V": 2.4339305298629266,
+      "drive_2p5_source_mA": 0.06445801964592522,
+      "absolute_max_V": 2.1,
+      "model": "INPUT1_1p8"
+    },
+    "dac_input1_1p8_series_0_bare": {
+      "drive_2p5_pin_V": 2.4998296456153755,
+      "drive_2p5_source_mA": 0.006814175384979547,
+      "absolute_max_V": 2.1,
+      "model": "INPUT1_1p8"
+    },
+    "nt25_open": {
+      "carrier_V": 3.3000000000000003,
+      "local_V": 3.4000000000000004,
+      "carrier_current_A": -0.0033000000000000004,
+      "local_current_A": -0.0034000000000000002,
+      "direct_path_current_A": 0.0
+    },
+    "i2c_opposed_pullups": {
+      "bus_V": 2.820408163265306,
+      "into_1V8_uA_per_line": 102.04081632653062
+    },
+    "dac_gpio_vio_1_8": {
+      "1.8": {
+        "pin_V": 1.7999999999316139,
+        "source_mA": 2.735436744026327e-09,
+        "absolute_max_V": 2.1
+      },
+      "2.5": {
+        "pin_V": 2.393975052298108,
+        "source_mA": 4.240997908075676,
+        "absolute_max_V": 2.1
+      },
+      "3.3": {
+        "pin_V": 2.5690505928968177,
+        "source_mA": 29.237976284126237,
+        "absolute_max_V": 2.1
+      }
+    },
+    "dac_gpio_vio_0_0": {
+      "1.8": {
+        "pin_V": 0.8252419473132908,
+        "source_mA": 38.990322107468366,
+        "absolute_max_V": 0.3
+      },
+      "2.5": {
+        "pin_V": 0.9518395699659649,
+        "source_mA": 61.9264172013614,
+        "absolute_max_V": 0.3
+      },
+      "3.3": {
+        "pin_V": 1.0927651506233307,
+        "source_mA": 88.28939397506572,
+        "absolute_max_V": 0.3
+      }
+    },
+    "nt25_sources_R_0_05": {
+      "current_at_100mV_mismatch_A": 1.9999999999995595
+    },
+    "nt25_sources_R_0_25": {
+      "current_at_100mV_mismatch_A": 0.39999999999991154
+    },
+    "nt25_sources_R_1_0": {
+      "current_at_100mV_mismatch_A": 0.09999999999997788
+    },
+    "unpowered_fpga_pullup_load_1000": {
+      "bank_V_at_500ms": 0.8428021220546202,
+      "peak_total_injection_mA": 2.4568999493357104
+    },
+    "unpowered_fpga_pullup_load_100000": {
+      "bank_V_at_500ms": 1.3543567394059857,
+      "peak_total_injection_mA": 2.456899949284411
+    },
+    "lvds_termination_100": {
+      "differential_peak_mV": 349.98250087495995,
+      "pin_min_V": 1.0250087495630988,
+      "pin_max_V": 1.37499125043854
+    },
+    "lvds_termination_50": {
+      "differential_peak_mV": 174.9956251093725,
+      "pin_min_V": 1.1125021874435383,
+      "pin_max_V": 1.2874978125530283
+    },
+    "lvds_termination_1000": {
+      "differential_peak_mV": 3498.250874562744,
+      "pin_min_V": -0.5491254372814561,
+      "pin_max_V": 2.9491254372812876
+    },
+    "gpio_line_series_0": {
+      "rx_min_V": -0.7117064331870989,
+      "rx_max_V": 2.514467325404346
+    },
+    "gpio_line_series_33": {
+      "rx_min_V": 0.0,
+      "rx_max_V": 1.799870506921098
+    }
+  },
+  "vendor_model": {
+    "url": "https://www.ti.com/lit/zip/SLAM334",
+    "sha256": "a9da375b777dc36af7a69e08ae08119c869edb203180790f9a9d0353028a85a8",
+    "model": "INPUT1_1p8; nominal and stated min/max voltage/process/temperature corners",
+    "limitation": "Powered DC clamp conversion only. No extrapolation to VIO=0."
+  },
+  "pcb_zip_member_sha256": "fdca0330dc568658c43d27be3abe488d13d14b2eec15ef8ff8d3f24107006200",
+  "pcb_local_sha256": "fdca0330dc568658c43d27be3abe488d13d14b2eec15ef8ff8d3f24107006200",
+  "pcb_local_matches_archive": true
+}

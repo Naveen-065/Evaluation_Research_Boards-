@@ -1,0 +1,36 @@
+PASS sourcing host script generates no bus transactions
+PASS 128-bit serialization of 0
+PASS 128-bit serialization of 1
+PASS 128-bit serialization of 10000000000000000
+PASS 128-bit serialization of 80000000000000000000000000001234
+PASS 128-bit serialization of ffffffffffffffffffffffffffffffff
+PASS to_hex128 340282366920938463463374607431768211456: rejects with overflow
+PASS to_hex128 -1: rejects with overflow
+PASS all eight status bytes decoded in order
+PASS 128-bit command layout and upper payload bits
+PASS token wraps 255 to 1 without zero
+PASS word decoding little endian
+PASS CRC-8 known 123456789 vector
+PASS read PEC includes address W, command, address R and word
+PASS rw_pec 0x21: rejects with PEC mismatch
+PASS write_vadj_word 0x01 7373: rejects with not permitted
+PASS forbidden register causes zero bus traffic
+PASS hex register 0x21 normalized and permitted 1.8 V value verified
+PASS write word payload little endian
+PASS write PEC covers address and all payload bytes
+PASS write_vadj_word 0x21 10240: rejects with Only 1.8 V
+PASS write_vadj_word 0x24 13109: rejects with outside guarded range
+PASS write_vadj_word 0x24 -1: rejects with outside guarded range
+PASS write_vadj_word 0x21 7373: rejects with page/mode guard
+PASS write_vadj_word 0x21 7373: rejects with page/mode guard
+PASS PAGE write and readback
+PASS page 4: rejects with Invalid U55 page
+PASS transfer {} 0: rejects with Bad transaction length
+PASS transfer {0 1 2 3 4 5 6 7 8} 0: rejects with Bad transaction length
+PASS transfer {0} 9: rejects with Bad transaction length
+PASS transfer {256} 0: rejects with Bad byte
+PASS transfer {0x21} 2: rejects with already busy
+PASS busy bridge rejected before commit
+PASS transfer {0x21} 2: rejects with code=5
+PASS transfer {0x21} 2: rejects with Incomplete write ACK count
+ALL 35 HOST TESTS PASSED; offline mocks only

@@ -1,0 +1,46 @@
+[
+  {
+    "mode": "read",
+    "preview": "passed"
+  },
+  {
+    "mode": "set",
+    "preview": "passed"
+  },
+  {
+    "mode": "reset",
+    "preview": "passed"
+  },
+  {
+    "mode": "cycle",
+    "preview": "passed"
+  },
+  {
+    "mode": "column",
+    "preview": "passed"
+  },
+  {
+    "mode": "array",
+    "preview": "passed"
+  },
+  {
+    "mode": "wb_read",
+    "preview": "passed"
+  },
+  {
+    "mode": "wb_set",
+    "preview": "passed"
+  },
+  {
+    "mode": "wb_reset",
+    "preview": "passed"
+  },
+  {
+    "mode": "wb_cycle",
+    "preview": "passed"
+  },
+  {
+    "mode": "check",
+    "preview": "passed"
+  }
+]

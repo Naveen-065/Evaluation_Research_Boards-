@@ -1,0 +1,52 @@
+{
+  "recorded_at_utc": "2026-10-19T15:55:59.664997+00:00",
+  "R9_user_confirmed_ohms": 56,
+  "Caravel_removed_user_confirmed": true,
+  "load_ohms_assumed_retained": 3300,
+  "R31_ohms_assumed": 1000,
+  "measured_R9_drop_V": null,
+  "measured_loaded_DAC_V": 0.529,
+  "meter_measurements": {
+    "R9_pad2_to_ground_V": 0.529,
+    "R9_pad3_to_ground_V": 0.52,
+    "R9_direct_differential_mV": null,
+    "difference_of_ground_referenced_readings_mV": 9.0,
+    "R31_fitted_ohms": null,
+    "U10_direct_output_differential_mV": null,
+    "note": "Ground-referenced readings reported to 0.001 V; direct mV measurements pending."
+  },
+  "old_capture": "ads5282_analog_20261019_202359.csv",
+  "new_capture": "ads5282_analog_20261019_211713.csv",
+  "old_mean": 2053.5463414634146,
+  "new_mean": 2153.639024390244,
+  "observed_increment_counts": 100.09268292682918,
+  "expected_increment_counts_between_shunts": 125.44601357628724,
+  "expected_new_signal_from_zero_counts": 126.54638379022649,
+  "ngspice_new_signal_from_zero_counts": 126.4542577862685,
+  "source_voltage_measured_V": 0.529,
+  "predicted_shunt_drop_mV": 8.827175208581647,
+  "predicted_ADC_signal_mV": 61.79022646007152,
+  "capture_checks_pass": true,
+  "coherent_packets": 205,
+  "sample_rate_hz": 10000000.0,
+  "gain_validation": "Pending fresh shunt voltage measurement and fitted R31 confirmation",
+  "conditional_effective_gain": 5.585261424522829,
+  "conditional_equivalent_R31_ohms": 1308.5404395725152,
+  "inference_conditions": [
+    "Assumes nominal 56 ohm and 3.3 kohm, stable ADC/amplifier offsets across reinitialization, correct ADC transfer/decoding, and prior 0.47-ohm source of 0.539 V.",
+    "This is not a measurement or identification of fitted R31. Direct amplifier input/output mV measurements are required."
+  ],
+  "serial_alignment_known_pattern_validated": false,
+  "hardware_restored": {
+    "same_bitstream_sha256": "7BEE1A0ED7C6C977C6D4ED08F32199E1E37A7B5EACA5F0B35B940FB9DC72F856",
+    "program_done_and_startup_pass": true,
+    "si5351_10MHz_readback_and_PLLA_lock_pass": true,
+    "DAC_scan_sequence_completed": true,
+    "ADC_10MSPS_sequence_completed": true,
+    "ADC_return_clock_windows_passed": 10,
+    "FMC_electrical_settings_changed": false,
+    "DAC_ADC_register_readback": false
+  },
+  "excluded_capture": "ads5282_analog_20261019_211229.csv: acquired before reinitialization following PCB disconnection",
+  "interpretation": "ADC1 changes in the expected direction while other channels remain near their earlier values; signal-path response is observed, but the magnitude does not yet validate gain 7. No calibrated current is claimed."
+}

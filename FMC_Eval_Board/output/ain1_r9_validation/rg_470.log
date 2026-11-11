@@ -1,0 +1,12 @@
+stdout Note: gnd in a subcircuit is not set to 0 automatically
+stdout Note: Compatibility modes selected: ps
+stdout Circuit: pcb dac0 -> r9 kelvin shunt -> u10 ina851 -> ads5282 channel 1
+stdout Reducing trtol to 1 for xspice 'A' devices
+stdout Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+stdout Using SPARSE 1.3 as Direct Linear Solver
+stderr Note: Starting dynamic gmin stepping
+stderr Note: Dynamic gmin stepping completed
+ Reference value :  0.00000e+00
+ Reference value :  9.69088e-05
+ Reference value :  1.65935e-04
+stdout No. of Data Rows : 1001

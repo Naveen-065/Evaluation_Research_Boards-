@@ -1,0 +1,10 @@
+FMC I2C opposed pullups only
+* Actual nominal resistor/rail values. U18 and carrier mux pass gates omitted.
+* This calculates the resistor-network consequence, not complete bus operation.
+Vcarrier carrier 0 3.3
+Vlocal local 0 1.8
+Rcarrier carrier bus 4.7k
+Rlocal bus local 10k
+.op
+.save v(bus) i(Vlocal)
+.end

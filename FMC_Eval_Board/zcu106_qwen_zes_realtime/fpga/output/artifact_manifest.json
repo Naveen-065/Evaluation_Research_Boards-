@@ -1,0 +1,59 @@
+{
+  "protocol": "ZCU106_BITMAP_V1",
+  "generated_utc": "2026-10-23T10:37:05Z",
+  "artifact_build_utc": "2026-10-23T10:19:24Z",
+  "vivado": "C:\\Xilinx\\Vivado\\2022.2",
+  "part": "xczu7ev-ffvc1156-2-e",
+  "top": "kc705_adc_test",
+  "bitstream_deployed": false,
+  "manifest_mode": "existing_artifacts_rehashed",
+  "artifacts": {
+    "zcu106_adc_capture.bit": "b69c7ac2eebb9b1f2afea506ea099246f906dc68c03248fb9a204d5e9791368c",
+    "zcu106_adc_capture.ltx": "d49d9992d961bab1d451e8594ee4f4a9d253aa847a6015373a647e7dbeb24e70",
+    "zcu106_adc_capture.dcp": "cad82cecff6d6046c4b079f8d38db9b78fdb69f0ebc9d9515d00a6b6ffc118f4",
+    "timing_summary.rpt": "fe51f9698c00b4700c1335fe82c053b624d0cca626b643ffe832eae40b31e3ac",
+    "drc.rpt": "a962e0283e7e50478a691bb5cec949ece53372e4d51529df6118b71c549969c8",
+    "route_status.rpt": "bffce092582b2a2f4024978beae8bef5d1d19f6df18b80c5115e94ec0def133c",
+    "io.rpt": "038e56c085cc2ca6b0355282769c8797fa355a86a0f8ad926d604041d5e62134",
+    "port_properties.tsv": "fd3bfb3440c3ec3d17ad6a961fb553a1ce3fd5b658d4bdec341b0e0b231db453"
+  },
+  "active_source_sha256": {
+    "kc705_cell_control/adc_return_clock_monitor.v": "1b385158f1124020f9cb2d6c2bbde4b86d33a11759f8ddba2d13ba537cd05039",
+    "kc705_cell_control/adc_word_snapshot.v": "b3146efc7787342066cf9e71273021968f190d5852d1f208617d62d4b38e3059",
+    "kc705_cell_control/assert_clock.tcl": "ae21b5e2aa5a944b26c008ad8ebda973fa9f4110069cc2ce420c80aea9529908",
+    "kc705_cell_control/cell_control_engine.v": "a86a3ac2f5a96da66437a59f0bf924855ef5f60baa35810f88cda16e65545377",
+    "kc705_cell_control/cell_control_ramp_wrapper.v": "8aa3494c2afa57bc7e798313a4b4e54b42051b6eab6bed77c90a3b14babec91e",
+    "kc705_cell_control/control.tcl": "d9cf6838db2f373d5734e6e9374b689216cda691ea7e88d000d68af3201c42c8",
+    "kc705_cell_control/i2c_host.tcl": "5c91829abfc4ea5ee14d0713584b21cc802c31a47fa1983513d8dfbc7fa9c2af",
+    "kc705_cell_control/i2c_transaction_bridge.v": "5d34e886676b0881750db58ef51d3652ef07bd04fc21c0ac8f7a62a6eaf6e049",
+    "kc705_cell_control/initialize.tcl": "5e7eb47a51ca9635d0a75e852c6d7c9bea150bcf0b57d3d418f6836c7e19541d",
+    "kc705_cell_control/kc705_adc_test.v": "0b3b32214b1dd467fc03231c78d6818a625168c530fab6401b91c5d3fc64abff",
+    "kc705_cell_control/runtime_dac_spi.v": "0c30e01a84d67d090bb5920fe6401f628021d79d835abe38790fddbac94218f2",
+    "kc705_cell_control/scan_ramp.tcl": "3551d5dc90806c968fb7301cc942f31984816bfe62a4674271b5cc56b315e9a9",
+    "kc705_cell_control/snapshot_timing.xdc": "26f4b89bdb9d21c6add3b8fa0d75cf51427c1b934d9c24164c6465560d3a5a77",
+    "kc705_cell_control/uart_rx_8n1.v": "36f1ecc38dc82d25c6f3691a865ebaa3deea23875fdecfdea95b84931ccaed37",
+    "zcu106_cell_control/build_zcu106.tcl": "abc3489ce941e58b011582e55dc66645166365ee0891ba2c65560cc2922dfec0",
+    "zcu106_cell_control/control.tcl": "d20a31b0282374034ba391c08517cc150b61088ce8ff780041d66fb92caf366b",
+    "zcu106_cell_control/detect_hardware.tcl": "bd10d1c730f8ef26b5e25d67bf29ea9d68ea1234c9a67476ac1b3c7bb11d651d",
+    "zcu106_cell_control/initialize.tcl": "f0ddb9da6723b004902cff9eaa50944e9d389c96174065a5cb974f923bb4f54a",
+    "zcu106_cell_control/program_safe_and_check_i2c.tcl": "1d9b7f31d7bc8dd95b67179b06a459e3adb412bc754e29ae05caa3c2daf084fc",
+    "zcu106_cell_control/verify_safe_state.tcl": "665c1795bb2a44d1238b3250a42929f4130c590de24b648f8918d8e2295fd01f",
+    "zcu106_cell_control/zcu106_adc_test.xdc": "adb9cc7a4a3f54b96ab76a28b2cc464125fbccf92c65200ab68b7561acb7cfda",
+    "zcu106_cell_control/zcu106_management_i2c.xdc": "19b7503f275ea38696dab0247a727999139d68efa7583728aca7051cb4ebbab6"
+  },
+  "host_tool_sha256": {
+    "tools/bitmap_program.tcl": "809ca328e132814c13c79a2fb4b8dc40e31665b1c9c7222cc1c952451a3c2a6f",
+    "tools/bitmap_read.tcl": "eb219ba612363cfd29c7f7dce15f5c3e9c2be7f6a4d6f20a1eec2a68970477e5",
+    "tools/build_bitstream.ps1": "5e99a6e174b7cd924cd4f5d8beb37b8e9ab506fa1a2b17ff6ae9fdd911a87a05",
+    "tools/pack_zs_parity.py": "0c8cfea417b7f2efd7be739e5ebc975b047e7a358764422293dfe4cac436d0f4",
+    "tools/program_bitstream.ps1": "9b77ce50830c9f8df17f71182c53353de0fc70e020f2580d80f84804ea4d9341",
+    "tools/program_bitstream.tcl": "a5f4928a90bf7aaf1b6fee7a4e7d255f7ed9f4fe91475d104d5b14699e2c80cd",
+    "tools/row_order_common.tcl": "9a35396d2a5c167cf1edd0c842d91619b444fc47ee67f0c649f8fa6bef96fcd6",
+    "tools/row_order_read.tcl": "02f096f18237fccbed391cbe7a1f38af35249fb7c4d925db2a632a6cd843abde"
+  },
+  "test_sha256": {
+    "tests/run_row_order_tests.ps1": "942e661f984d6789150fd70f9eb87d09c31a59a48f72c451000d0e00269fd9ad",
+    "tests/run_sim.ps1": "2703ce1d8273bb5d60dd0516644becedcef0e345a1c47a67c2dfd70a52b22644",
+    "tests/tb_bitmap_scheduler.v": "de5f1a4e48c96861e4195f6a96306be9ef185fe74b19b103a7c5b7b8b3fb3b9d"
+  }
+}

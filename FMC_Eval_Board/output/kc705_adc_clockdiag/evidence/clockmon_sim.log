@@ -1,0 +1,2 @@
+RETURN_CLOCK_MONITOR_NOMINAL_STOPPED_WRONG_FREQUENCY_PASS
+tb_return_clock_monitor.v:34: $finish called at 8400150000 (1ps)

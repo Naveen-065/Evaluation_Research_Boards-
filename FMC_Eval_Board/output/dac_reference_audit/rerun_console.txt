@@ -1,0 +1,23 @@
+{
+  "engine": "stderr Warning: can't find the initialization file spinit.\nstdout ******\nstdout ** ngspice-46 shared library\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******\nstdout ******\nstdout ** ngspice-46 : Circuit level simulation program\nstdout ** Compiled with KLU Direct Linear Solver\nstdout ** The U. C. Berkeley CAD Group\nstdout ** Copyright 1985-1994, Regents of the University of California.\nstdout ** Copyright 2001-2025, The ngspice team.\nstdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\nstdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html\nstdout ** Creation Date: Apr 14 2026   05:15:29\nstdout ******",
+  "source_facts": {
+    "ref_nominal_V": 2.5,
+    "ref_output_impedance_ohm": 0.1,
+    "datasheet_REF_minimum_F": 1.5e-07,
+    "datasheet_REFCMP_typical_F": 3.3e-10,
+    "bom_C6_F": 1e-07
+  },
+  "ref_pulse_sensitivity": {
+    "stimulus_A": 0.005,
+    "pulse_width_s": 5e-09,
+    "missing_cap_min_REF_V": 2.4995,
+    "specified_cap_min_REF_V": 2.499838815871204,
+    "missing_cap_max_droop_V": 0.000500000000000167,
+    "specified_cap_max_droop_V": 0.0001611841287960658
+  },
+  "refcmp_sensitivity": {
+    "capacitance_ratio_100n_over_330p": 303.030303030303,
+    "pole_frequency_ratio_current_over_specified": 0.0033,
+    "note": "Absolute response and stability cannot be predicted without TI's analog internal-reference model; RC times scale by the reported capacitance ratio for every assumed Rint."
+  }
+}
